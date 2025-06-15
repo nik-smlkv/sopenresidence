@@ -1,0 +1,15 @@
+@font-face {
+	font-family: 'Celine Sans', sans-serif;
+	font-style: normal;
+	font-weight: normal;
+	src: url('./fonts/CelineSans.woff2') format('woff2'),
+		url('./fonts/CelineSans.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Haoura', sans-serif;
+	font-style: normal;
+	font-weight: normal;
+	src: url('./fonts/Haoura.woff2') format('woff2'),
+		url('./fonts/Haoura.woff') format('woff');
+}
