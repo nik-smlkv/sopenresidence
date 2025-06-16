@@ -23,14 +23,14 @@ const MaintenancePage = () => {
             In the meantime, please fill out the form below, and we’ll get back
             to you shortly.
           </p>
-          <div className="">
-            <div className="">
-              <p>phone</p>
-              <p>0800/012-025</p>
+          <div className={styles.contactBlock}>
+            <div >
+              <p className={styles.contactName}>Phone</p>
+              <p className={styles.contact}>0800/012-025</p>
             </div>
-            <div className="">
-              <p>Sales department</p>
-              <p>prodaja@sopenpark.rs</p>
+            <div >
+              <p className={styles.contactName}>Sales department</p>
+              <p className={styles.contact}>prodaja@sopenpark.rs</p>
             </div>
           </div>
         </div>

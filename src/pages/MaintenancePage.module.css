@@ -10,6 +10,7 @@
 	display: flex;
 	flex-direction: row;
 	height: 100vh;
+	overflow: hidden;
 }
 
 .formMaintance {
@@ -21,7 +22,7 @@
 	padding: 0 6.25em 3.125em;
 	background-color: var(--bg-beige);
 	display: flex;
-	flex: 1 1 666px;
+	flex: 0 0 719px;
 }
 
 .logo {
@@ -80,6 +81,25 @@
 
 .subtitle {
 	font-size: 1.375em;
+	font-weight: 400;
+	color: var(--acc-main-green);
 	line-height: 110%;
 	margin-bottom: 56px;
+}
+.contactBlock{
+	display: flex;
+	align-items: end;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+}
+.contactName{
+	text-transform: uppercase;
+	color: var(--tx-bl-50);
+	margin-bottom: 10px;
+}
+.contact{
+	font-size: 1.375em;
+	line-height: 110%;
+	font-weight: 400;
 }
