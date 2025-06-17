@@ -1,5 +1,5 @@
-import type { JSX } from "react";
-import '../style.scss'
+import { type JSX } from "react";
+import "../style.scss";
 export type InputProps = {
   errorMessage?: string;
   error?: boolean;

@@ -209,3 +209,9 @@ template {
 	display: flex;
 	flex-direction: column;
 }
+
+@media(max-width: 540px) {
+	.wrapper {
+		height: 100vh;
+	}
+}

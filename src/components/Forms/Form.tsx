@@ -1,16 +1,20 @@
 import "./style.scss";
 
 import Input from "./Input/Input.tsx";
-import type { config, FormDataI, initialState } from "./Input/config.ts";
-import type { ChangeEvent, FormEvent, useState } from "react";
+import { config, type FormDataI, initialState } from "./Input/config.ts";
+import { type ChangeEvent, type FormEvent, useState } from "react";
+import { Link } from "react-router-dom";
+import FormButton from "../Buttons/FormButton.tsx";
 
-enum  View {
-  void = "void",
-  done = "done",
-}
+const View = {
+  void: "void",
+  done: "done",
+} as const;
+type View = (typeof View)[keyof typeof View];
+
 type TypeInputEnabled = {
   username?: string;
-  textarea?: string;
+  phone?: string;
   email?: string;
 };
 const wait = () =>
@@ -40,7 +44,7 @@ function Form({ ...enabled }: TypeInputEnabled) {
       setErrors({
         email: " ",
         username: " ",
-        textarea: "",
+        phone: "",
       });
       return;
     }
@@ -50,34 +54,49 @@ function Form({ ...enabled }: TypeInputEnabled) {
   return (
     <>
       {view === View.void && (
-        <form className="form_container" onSubmit={onSubmit}>
-          <p className="form_title">Оставьте заявку</p>
-          <p className="input_error" data-error={!!errors.username}>
-            Wrong email or name
-          </p>
-          {config.map((item) => {
-            const { validate, name, ...rest } = item;
-            const errorMessage = validate?.(errors);
-            return Object.keys(enabled).map((enableItem) => {
-              if (enableItem === name) {
-                return (
-                  <Input
-                    key={name}
-                    autoFocus={!!errorMessage && name === "email"}
-                    onChange={onChange}
-                    name={name}
-                    value={formValue[name]}
-                    error={!!errorMessage}
-                    errorMessage={errorMessage}
-                    {...rest}
-                  />
-                );
-              }
-            });
-          })}
-          <button className="form_button">
+        <form className="form" onSubmit={onSubmit}>
+          <div className="form_container">
+            <p className="input_error" data-error={!!errors.username}>
+              Wrong email or name
+            </p>
+            {config.map((item) => {
+              const { validate, name, ...rest } = item;
+              const errorMessage = validate?.(errors);
+              return Object.keys(enabled).map((enableItem) => {
+                if (enableItem === name) {
+                  return (
+                    <Input
+                      key={name}
+                      autoFocus={!!errorMessage && name === "email"}
+                      onChange={onChange}
+                      name={name}
+                      value={formValue[name]}
+                      error={!!errorMessage}
+                      errorMessage={errorMessage}
+                      {...rest}
+                    />
+                  );
+                }
+              });
+            })}
+            <div className="content__personal">
+              <p className="text__personal">
+                By clicking the button, you agree to terms of processing
+                <Link
+                  to={{
+                    pathname: "/",
+                  }}
+                  className="link__personal"
+                >
+                  personal data
+                </Link>
+              </p>
+            </div>
+            {/* <button className="form_button">
             {isLoading ? "Loading" : "Great"}
-          </button>
+          </button> */}
+          </div>
+          <FormButton />
         </form>
       )}
     </>

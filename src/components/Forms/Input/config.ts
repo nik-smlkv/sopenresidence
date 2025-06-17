@@ -1,4 +1,4 @@
-import { InputProps } from "./Input";
+import { type InputProps } from "./Input";
 
 type Config = (InputProps & {
   validate?: (error: FormDataI) => string;
@@ -8,7 +8,7 @@ type Config = (InputProps & {
 export const config: Config = [
   {
     name: "username",
-    placeholder: "Имя",
+    placeholder: "Name",
     required: false,
     type: "text",
     validate: (error: FormDataI) => (error.username ? error.username : ""),
@@ -21,22 +21,22 @@ export const config: Config = [
     validate: (error: FormDataI) => (error.email ? error.email : ""),
   },
   {
-    name: "textarea",
-    placeholder: "Комментарии",
-    type: "textarea",
+    name: "phone",
+    placeholder: "Phone",
+    type: "phone",
     required: false,
-    validate: (error: FormDataI) => (error.textarea ? error.textarea : ""),
+    validate: (error: FormDataI) => (error.phone ? error.phone : ""),
   },
 ];
 
 export const initialState: FormDataI = {
   username: "",
   email: "",
-  textarea: "",
+  phone: "",
 };
 
 export type FormDataI = {
   username: string;
   email: string;
-  textarea: string;
+  phone: string;
 };

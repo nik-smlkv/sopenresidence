@@ -1,10 +1,12 @@
+import { Link } from "react-router-dom";
+import Form from "../components/Forms/Form";
 import styles from "./MaintenancePage.module.css";
 
 const MaintenancePage = () => {
   return (
-    <>
+    <main>
       <div className={styles.maintanceHeader}>
-        <img className={styles.logo} src="../public/logo.svg" alt="logo" />
+        <img className={styles.logo} src="/logo.svg" alt="logo" />
         <div className={styles.langSwitcher}>
           <span>en</span>/<span>srb</span>
         </div>
@@ -23,14 +25,25 @@ const MaintenancePage = () => {
             In the meantime, please fill out the form below, and we’ll get back
             to you shortly.
           </p>
+          <Form username={"name"} phone={"phone"} email={"email"} />
           <div className={styles.contactBlock}>
-            <div >
+            <div>
               <p className={styles.contactName}>Phone</p>
-              <p className={styles.contact}>0800/012-025</p>
+              <Link
+                to="tel:0800/012-025"
+                className={styles.contact}
+              >
+                0800/012-025
+              </Link>
             </div>
-            <div >
+            <div>
               <p className={styles.contactName}>Sales department</p>
-              <p className={styles.contact}>prodaja@sopenpark.rs</p>
+              <Link
+                to="mailto:prodaja@sopenpark.rs"
+                className={styles.contact}
+              >
+                prodaja@sopenpark.rs
+              </Link>
             </div>
           </div>
         </div>
@@ -40,7 +53,7 @@ const MaintenancePage = () => {
           alt="Techwork Image"
         />
       </div>
-    </>
+    </main>
   );
 };
 

@@ -3,7 +3,7 @@
 	flex: 1 1 60%;
 	width: 100%;
 	height: 100%;
-	object-fit: cover;
+	object-position: 100% 0%;
 }
 
 .maintanceContent {
@@ -17,8 +17,7 @@
 	display: flex;
 	gap: 24px;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+	justify-content: end;
 	padding: 0 6.25em 3.125em;
 	background-color: var(--bg-beige);
 	display: flex;
@@ -35,6 +34,7 @@
 	top: 0;
 	left: 0;
 	width: 100%;
+	z-index: 3;
 	height: 4.375em;
 	padding: 1.25em 6.25em 0;
 	display: flex;
@@ -68,15 +68,15 @@
 }
 
 .title {
-	font-size: 64px;
+	font-size: 4em;
 	line-height: 100%;
-	font-weight: 400;
+	font-weight: 500;
 }
 
 .description {
 	font-size: 1.375em;
 	line-height: 110%;
-	font-weight: 600;
+	font-weight: 500;
 }
 
 .subtitle {
@@ -84,22 +84,132 @@
 	font-weight: 400;
 	color: var(--acc-main-green);
 	line-height: 110%;
-	margin-bottom: 56px;
+	margin-bottom: 32px;
 }
-.contactBlock{
+
+.contactBlock {
+	margin-top: 37px;
 	display: flex;
 	align-items: end;
 	flex-direction: row;
 	justify-content: space-between;
 	width: 100%;
 }
-.contactName{
+
+.contactName {
 	text-transform: uppercase;
 	color: var(--tx-bl-50);
 	margin-bottom: 10px;
 }
-.contact{
+
+.contact {
+	text-decoration: none;
 	font-size: 1.375em;
+	color: var(--tx-bl);
 	line-height: 110%;
-	font-weight: 400;
+	font-weight: 500;
+}
+
+@media(max-width: 1400px) {
+
+	.title {
+		max-width: 720px;
+		font-size: clamp(2em, 3vw, 4em);
+
+	}
+
+	.description {
+		max-width: 520px;
+	}
+
+	.formMaintance {
+		flex: 0 0 600px;
+		padding: 0 clamp(1.25em, 1.5vw, 6.25em) clamp(0.625em, 1.5vw, 3.125em);
+	}
+
+	.maintanceHeader {
+		padding: 1.25em clamp(1.25em, 2vw, 6.25em) 0;
+	}
+
+	.subtitle {
+		margin-bottom: 16px;
+		font-size: clamp(1em, 3vw, 1.125em);
+	}
+
+	.contactBlock {
+		margin-top: 18px;
+	}
+
+
+	.image {
+		object-position: center;
+	}
+
+	.maintanceContent {
+		height: 100%;
+
+
+	}
+
+	.titleContent {
+		gap: 16px;
+	}
+
+	.maintanceHeader {
+		padding: 1.5em 1.25em 0;
+		height: 4em;
+	}
+
+	.formMaintance {
+		padding: 0 1.25em 0.625em;
+		gap: 10px;
+		align-items: start;
+		justify-content: center;
+		margin-top: 116px;
+	}
+
+	.logo {
+		width: 88px;
+	}
+
+	.description {
+		font-size: clamp(1.125em, 1vw, 1.125em);
+	}
+
+	.contactName {
+		line-height: 100%;
+		font-size: clamp(0.75em, 0vw, 1em);
+		margin-bottom: 4px;
+	}
+
+	.contact {
+		font-size: clamp(1em, 1vw, 1.375em);
+	}
+
+	.input {
+		min-height: 57px;
+	}
+
+	.image {
+		flex: 1 1 100%;
+
+	}
+}
+
+@media(max-width: 767.99px) {
+
+	.formMaintance {
+		margin-top: 0;
+	}
+}
+
+@media(max-width: 540px) {
+	.title {
+		max-width: 540px;
+	}
+
+	.maintanceContent {
+		flex-direction: column;
+		padding-top: 112px;
+	}
 }
