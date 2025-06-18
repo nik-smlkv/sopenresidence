@@ -36,6 +36,12 @@
 	font-weight: 500;
 }
 
+.titleSr {
+	font-size: clamp(1.5em, 2vw, 3em);
+	line-height: 100%;
+	font-weight: 500;
+}
+
 .description {
 	font-size: 1.375em;
 	line-height: 110%;
@@ -82,6 +88,12 @@
 	font-weight: 500;
 }
 
+@media(max-width: 2200px) {
+	.formBody {
+		justify-content: end;
+	}
+}
+
 @media(max-width: 1920px) {
 
 	.formMaintance {
@@ -105,6 +117,10 @@
 	.title {
 		max-width: 720px;
 		font-size: clamp(2em, 3vw, 4em);
+	}
+
+	.formBody {
+		justify-content: center;
 	}
 
 	.description {
@@ -204,7 +220,7 @@
 	.title {
 		max-width: 340px;
 	}
-	
+
 	.maintanceContent {
 		flex-direction: column;
 	}

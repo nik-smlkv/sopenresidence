@@ -1,8 +1,7 @@
-import React from "react";
 import { useLang } from "../../hooks/useLang";
 import styles from "./Header.module.css";
 const Header = () => {
-  const { t, setLang, lang } = useLang();
+  const {  setLang, lang } = useLang();
 
   const languages = [
     { code: "en", label: "EN" },

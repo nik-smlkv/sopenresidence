@@ -5,7 +5,7 @@ import Header from "../components/Header/Header";
 import { useLang } from "../hooks/useLang";
 
 const MaintenancePage = () => {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   return (
     <>
       <Header />
@@ -14,7 +14,7 @@ const MaintenancePage = () => {
           <div className={styles.formMaintance}>
             <div className={styles.formBody}>
               <div className={styles.titleContent}>
-                <h1 className={styles.title}>{t.t_improve}</h1>
+                <h1 className={lang == "en" ? styles.title : styles.titleSr}>{t.t_improve}</h1>
                 <p className={styles.subtitle}>{t.t_restore}</p>
               </div>
               <p className={styles.description}>{t.t_meantime}</p>

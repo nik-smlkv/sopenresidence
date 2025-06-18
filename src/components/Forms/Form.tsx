@@ -18,10 +18,6 @@ type TypeInputEnabled = {
   phone?: string;
   email?: string;
 };
-const wait = () =>
-  new Promise((res) => {
-    setTimeout(res, 1000);
-  });
 
 function Form({ ...enabled }: TypeInputEnabled) {
   const [formValue, setFormValue] = useState<FormDataI>(initialState);
