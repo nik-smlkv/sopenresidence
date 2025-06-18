@@ -58,10 +58,11 @@
 	}
 }
 
-@media(max-width: 1400px) {
+@media(max-width: 1500px) {
 	.button__circle {
 		width: 68px;
 		height: 68px;
+		flex: 0 0 68px;
 	}
 
 	.button__arrow {

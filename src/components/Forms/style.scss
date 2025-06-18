@@ -1,3 +1,7 @@
+.dnone {
+	display: none;
+}
+
 .form {
 	display: flex;
 	flex-direction: column;
@@ -118,12 +122,13 @@
 }
 
 .content__personal {
-
+	display: flex;
 	width: 100%;
-	max-width: 315px;
+	justify-content: space-between;
 
 
 	.text__personal {
+		max-width: 315px;
 		display: inline-block;
 		line-height: 110%;
 		color: var(--tx-bl-50);
@@ -143,7 +148,7 @@
 	}
 
 	.content__personal {
-		max-width: 270px;
+
 		margin-top: 2px;
 	}
 
@@ -161,11 +166,38 @@
 }
 
 
-@media(max-width: 767.99px) {}
+@media(max-width: 767.99px) {
+	.input {
+		&:not([value=""]):not(:focus)~.input_placeholder {
+			bottom: 45px;
+			left: 0px;
+			font-size: 12px;
+		}
+
+		&_container {
+			position: relative;
+			display: flex;
+			flex-direction: column-reverse;
+
+
+
+			&:focus-within .input_placeholder {
+				bottom: 45px;
+				left: 0px;
+				font-size: 12px;
+			}
+		}
+	}
+}
 
 @media(max-width: 540px) {
 	.content__personal {
-		max-width: 240px;
+		max-width: 100%;
+
+	}
+
+	.text__personal {
+		max-width: 250px;
 	}
 }
 

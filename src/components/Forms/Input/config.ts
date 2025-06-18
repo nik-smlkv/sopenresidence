@@ -8,21 +8,21 @@ type Config = (InputProps & {
 export const config: Config = [
   {
     name: "username",
-    placeholder: "Name",
+    placeholder: "t_name",
     required: false,
     type: "text",
     validate: (error: FormDataI) => (error.username ? error.username : ""),
   },
   {
     name: "email",
-    placeholder: "E-mail",
+    placeholder: "t_email",
     type: "email",
     required: false,
     validate: (error: FormDataI) => (error.email ? error.email : ""),
   },
   {
     name: "phone",
-    placeholder: "Phone",
+    placeholder: "t_phone",
     type: "phone",
     required: false,
     validate: (error: FormDataI) => (error.phone ? error.phone : ""),

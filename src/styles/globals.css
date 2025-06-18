@@ -105,12 +105,22 @@ textarea {
 
 }
 
+input {
+	border-radius: 0;
+	outline: none;
+}
+
 button,
 input {
 	overflow: visible;
 }
 
-
+button{
+	margin: 0;
+	outline: none;
+	background: transparent;
+	border: none;
+}
 button,
 select {
 	text-transform: none;
@@ -208,10 +218,4 @@ template {
 .wrapper {
 	display: flex;
 	flex-direction: column;
-}
-
-@media(max-width: 540px) {
-	.wrapper {
-		height: 100vh;
-	}
 }

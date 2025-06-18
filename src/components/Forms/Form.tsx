@@ -2,9 +2,10 @@ import "./style.scss";
 
 import Input from "./Input/Input.tsx";
 import { config, type FormDataI, initialState } from "./Input/config.ts";
-import { type ChangeEvent, type FormEvent, useState } from "react";
+import { type ChangeEvent, type FormEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FormButton from "../Buttons/FormButton.tsx";
+import { useLang } from "../../hooks/useLang.ts";
 
 const View = {
   void: "void",
@@ -27,28 +28,69 @@ function Form({ ...enabled }: TypeInputEnabled) {
   const [errors, setErrors] = useState<FormDataI>(initialState);
   const [isLoading, setIsLoading] = useState(false);
   const [view, setView] = useState<View>(View.void);
-
+  const { t } = useLang();
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name as keyof FormDataI;
     const value = e.target.value;
     setFormValue((prev) => ({ ...prev, [name]: value }));
   };
 
+  useEffect(() => {
+    if (view === View.done) {
+      const timer = setTimeout(() => {
+        setView(View.void);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [view]);
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const isWrong = true;
     setIsLoading(true);
-    await wait();
-    setIsLoading(false);
-    if (isWrong) {
+
+    const formData = {
+      fields: {
+        TITLE:
+          "Complete CRM form 'Prijava za konsultacije sa sajta (sopenpark.rs)'",
+        NAME: formValue.username?.trim() || "",
+        PHONE: [{ VALUE: formValue.phone?.trim() || "", VALUE_TYPE: "WORK" }],
+        EMAIL: [{ VALUE: formValue.email?.trim() || "", VALUE_TYPE: "WORK" }],
+      },
+      params: { REGISTER_SONET_EVENT: "Y" },
+    };
+
+    try {
+      const response = await fetch(
+        "https://crm.bktesla.rs/rest/1/gt107jhf1wp8901m/crm.lead.add.json",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
+
+      const result = await response.json();
+      console.log("Успешно отправлено:", result);
+
+      setView(View.done);
+      setFormValue(initialState);
+      setErrors(initialState);
+    } catch (error) {
+      console.error("Ошибка при отправке:", error);
       setErrors({
         email: " ",
         username: " ",
         phone: "",
       });
-      return;
+    } finally {
+      setIsLoading(false);
     }
-    setView(View.done);
   };
 
   return (
@@ -79,24 +121,23 @@ function Form({ ...enabled }: TypeInputEnabled) {
                 }
               });
             })}
-            <div className="content__personal">
+            <div
+              className={`content__personal ${isLoading ? "Loading" : "Great"}`}
+            >
               <p className="text__personal">
-                By clicking the button, you agree to terms of processing
+                {t.t_personal}
                 <Link
                   to={{
                     pathname: "/",
                   }}
                   className="link__personal"
                 >
-                  personal data
+                  {t.t_personal_data}
                 </Link>
               </p>
+              <FormButton />
             </div>
-            {/* <button className="form_button">
-            {isLoading ? "Loading" : "Great"}
-          </button> */}
           </div>
-          <FormButton />
         </form>
       )}
     </>
