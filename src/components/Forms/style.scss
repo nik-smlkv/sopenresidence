@@ -55,15 +55,40 @@
 	}
 }
 
+.input_container::after {
+	content: '';
+	display: flex;
+	left: 0;
+	bottom: 0;
+	position: absolute;
+	width: 0%;
+	height: 1.5px;
+	background-color: var(--acc-main-green);
+	transition: all .5s ease;
+}
+.input_container{
+	gap: 5px;
+}
+.input_container:has(.input:focus)::after {
+	content: '';
+	display: flex;
+	left: 0;
+	bottom: 0;
+	position: absolute;
+	width: 100%;
+	transition: all .5s ease;
+	height: 1.5px;
+	background-color: var(--acc-main-green);
+}
+
 .input {
 	width: 100%;
 	min-height: 52px;
 	font-weight: 300;
-
-
 	padding: 13px 0px 19px 10px;
 	background-color: transparent;
 	border: none;
+	position: relative;
 	border-bottom: 1px solid var(--inpt-br);
 
 	&:not([value=""]):not(:focus)~.input_placeholder {
@@ -71,6 +96,8 @@
 		left: 0px;
 		font-size: 15px;
 	}
+
+
 
 	&:focus {
 		outline: none;

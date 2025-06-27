@@ -1,7 +1,8 @@
 import styles from "./Button.module.css";
-const FormButton = () => {
+const FormButton = ({ disabled }: { disabled: boolean }) => {
+
   return (
-    <button className={styles.button__circle}>
+    <button className={styles.button__circle} disabled={disabled}>
       <svg
         className={styles.button__arrow}
         width="34"

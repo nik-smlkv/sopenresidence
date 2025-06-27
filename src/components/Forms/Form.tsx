@@ -2,7 +2,13 @@ import "./style.scss";
 
 import Input from "./Input/Input.tsx";
 import { config, type FormDataI, initialState } from "./Input/config.ts";
-import { type ChangeEvent, type FormEvent, useEffect, useState } from "react";
+import {
+  type ChangeEvent,
+  type FocusEvent,
+  type FormEvent,
+  useEffect,
+  useState,
+} from "react";
 import { Link } from "react-router-dom";
 import FormButton from "../Buttons/FormButton.tsx";
 import { useLang } from "../../hooks/useLang.ts";
@@ -24,18 +30,29 @@ function Form({ ...enabled }: TypeInputEnabled) {
   const [errors, setErrors] = useState<FormDataI>(initialState);
   const [isLoading, setIsLoading] = useState(false);
   const [view, setView] = useState<View>(View.void);
+  const [touchedFields, setTouchedFields] = useState<
+    Partial<Record<keyof FormDataI, boolean>>
+  >({});
+
   const { t } = useLang();
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name as keyof FormDataI;
     const value = e.target.value;
-    setFormValue((prev) => ({ ...prev, [name]: value }));
+    const fieldConfig = config.find((item) => item.name === name);
+    const sanitizedValue = fieldConfig?.filtered
+      ? fieldConfig.filtered(value)
+      : value;
+    setFormValue((prev) => ({
+      ...prev,
+      [name]: sanitizedValue,
+    }));
   };
 
   useEffect(() => {
     if (view === View.done) {
       const timer = setTimeout(() => {
         setView(View.void);
-      }, 2000);
+      }, 1000);
 
       return () => clearTimeout(timer);
     }
@@ -44,7 +61,6 @@ function Form({ ...enabled }: TypeInputEnabled) {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-
     const formData = {
       fields: {
         TITLE:
@@ -55,7 +71,6 @@ function Form({ ...enabled }: TypeInputEnabled) {
       },
       params: { REGISTER_SONET_EVENT: "Y" },
     };
-
     try {
       const response = await fetch(
         "https://crm.bktesla.rs/rest/1/gt107jhf1wp8901m/crm.lead.add.json",
@@ -88,6 +103,18 @@ function Form({ ...enabled }: TypeInputEnabled) {
       setIsLoading(false);
     }
   };
+  const onBlur = (e: FocusEvent<HTMLInputElement>) => {
+    const name = e.target.name as keyof FormDataI;
+    setTouchedFields((prev) => ({ ...prev, [name]: true }));
+  };
+
+  const isFormValid = Object.keys(enabled).every((key) => {
+    const name = key as keyof FormDataI;
+    const field = config.find((item) => item.name === name);
+    const value = formValue[name];
+    const errorMessage = field?.validate?.(value);
+    return value.trim() !== "" && !errorMessage;
+  });
 
   return (
     <>
@@ -99,18 +126,21 @@ function Form({ ...enabled }: TypeInputEnabled) {
             </p>
             {config.map((item) => {
               const { validate, name, ...rest } = item;
-              const errorMessage = validate?.(errors);
+              const errorMessage = validate?.(formValue[name]);
               return Object.keys(enabled).map((enableItem) => {
                 if (enableItem === name) {
+                  const isTouched = touchedFields[name];
+                  const shouldShowError = !!errorMessage && isTouched;
                   return (
                     <Input
                       key={name}
                       autoFocus={!!errorMessage && name === "email"}
                       onChange={onChange}
+                      onBlur={onBlur}
                       name={name}
                       value={formValue[name]}
-                      error={!!errorMessage}
-                      errorMessage={errorMessage}
+                      error={shouldShowError}
+                      errorMessage={shouldShowError ? errorMessage : ""}
                       {...rest}
                     />
                   );
@@ -131,7 +161,7 @@ function Form({ ...enabled }: TypeInputEnabled) {
                   {t.t_personal_data}
                 </Link>
               </p>
-              <FormButton />
+              <FormButton disabled={!isFormValid || isLoading} />
             </div>
           </div>
         </form>
