@@ -1,7 +1,7 @@
 import React, { createContext, useState, type ReactNode } from "react";
 import { langArr } from "./langArr.ts";
 
-export type LangType = "en" | "srb";
+export type LangType = "en" | "srb" | "ru";
 
 interface LangContextProps {
   lang: LangType;

@@ -2,7 +2,7 @@
     	font-family: 'Celine Sans';
     	font-style: normal;
     	font-weight: normal;
-    	src: local('Celine Sans'), url('./font/celinesans.woff') format('woff');
+    	src: local('Celine Sans'), url('./font/CelineSans.woff2') format('woff2');
     }
 
     @font-face {

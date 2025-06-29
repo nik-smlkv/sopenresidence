@@ -1,7 +1,14 @@
-
+import Header from "../components/Header/Header"
+import SectionMain from "../components/Main/SectionMain.tsx/SectionMain"
+import styles from "./HomePage.module.css"
 const HomePage = () => {
   return (
-	 <div>HomePage</div>
+  <>
+    <Header/>
+    <main className={styles.main}>
+      <SectionMain/>
+    </main>
+  </>
   )
 }
 

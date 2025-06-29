@@ -4,7 +4,7 @@ import ApartmentsPage from "../pages/ApartmentsPage";
 import MaintenancePage from "../pages/MaintenancePage";
 
 const AppRoutes = () => {
-  const isTechWork = true;
+  const isTechWork = false;
   return (
     <div className="wrapper">
       <Routes>

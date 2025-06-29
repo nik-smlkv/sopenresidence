@@ -1,0 +1,16 @@
+.langSwitcher{
+	color: var(--tx-wh);
+    margin-right: 20px;
+}
+.selected{
+    color: currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 6px;
+}
+
+.selected span{
+    display: flex;
+    align-items: center;
+}

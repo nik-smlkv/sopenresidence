@@ -1,72 +1,116 @@
 .button__circle {
-	cursor: pointer;
-	height: 120px;
-	width: 120px;
-	border-radius: 100%;
-	background-color: var(--acc-main-green);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border: 1px solid var(--acc-main-green);
-	align-self: flex-end;
-	transition: background-color 0.5s ease;
-	position: relative;
-	overflow: hidden;
+  cursor: pointer;
+  height: 120px;
+  width: 120px;
+  border-radius: 100%;
+  background-color: var(--acc-main-green);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--acc-main-green);
+  align-self: flex-end;
+  transition: background-color 0.5s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .button__circle::after {
-	content: "";
-	display: block;
-	position: absolute;
-	z-index: 1;
-	width: 0;
-	height: 0;
-	top: 50%;
-	left: 50%;
-	background-color: var(--bg-beige);
-	border-radius: 50%;
-	transform: translate(-50%, -50%) scale(0);
-	transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease;
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 1;
+  width: 0;
+  height: 0;
+  top: 50%;
+  left: 50%;
+  background-color: var(--bg-beige);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease;
 }
 
 .button__arrow {
-	position: relative;
-	z-index: 2;
-	width: 32px;
-	height: 26px;
-	transition: stroke 0.5s ease;
+  position: relative;
+  z-index: 2;
+  width: 32px;
+  height: 26px;
+  transition: stroke 0.5s ease;
 }
 
 .button__arrow path {
-	transition: stroke 0.5s ease;
+  transition: stroke 0.5s ease;
 }
 
-@media(hover:hover) {
+@media (max-width: 1500px) {
+  .button__circle {
+    width: 68px;
+    height: 68px;
+    flex: 0 0 68px;
+  }
 
-	.button__circle:hover::after {
-		width: 100%;
-		height: 100%;
-		transform: translate(-50%, -50%) scale(1);
-	}
-
-	.button__circle:hover {
-		background-color: transparent;
-	}
-
-	.button__circle:hover .button__arrow path {
-		stroke: var(--acc-main-green);
-	}
+  .button__arrow {
+    width: 22px;
+    height: 18px;
+  }
 }
 
-@media(max-width: 1500px) {
-	.button__circle {
-		width: 68px;
-		height: 68px;
-		flex: 0 0 68px;
-	}
+.apartment__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  mix-blend-mode: difference;
+  color: var(--acc-light-apr);
+  border: 1px solid var(--acc-light-apr);
+  border-radius: 30px;
+  width: 100%;
+  height: 100%;
+  min-width: 234px;
+  min-height: 46px;
+  position: relative;
+  transition: background-color 2.5s ease, border 0.5s ease;
+  overflow: hidden;
+  cursor: pointer;
+}
 
-	.button__arrow {
-		width: 22px;
-		height: 18px;
-	}
+.apartment__btn span {
+  text-transform: uppercase;
+  color: currentColor;
+  mix-blend-mode: difference;
+  font-weight: 500;
+  line-height: 110%;
+  position: relative;
+  z-index: 2;
+}
+
+.apartment__btn::after {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 1;
+  width: 0;
+  height: 0;
+  top: 50%;
+  left: 50%;
+  border-radius: 100%;
+  background-color: var(--bg-beige);
+  transform: translate(-50%, -50%);
+  transition: width .4s ease, height .6s ease;
+}
+
+@media (hover: hover) {
+  .button__circle:hover::after,
+  .apartment__btn:hover::after {
+    width: 200%;
+    height: 250%;
+    transition: width 1s ease, height .5s ease;
+  }
+  .apartment__btn:hover {
+    border: 1px solid var(--bg-beige);
+  }
+  .button__circle:hover {
+    background-color: transparent;
+  }
+  .button__circle:hover .button__arrow path {
+    stroke: var(--acc-main-green);
+  }
 }
