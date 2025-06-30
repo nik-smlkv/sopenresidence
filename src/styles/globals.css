@@ -16,6 +16,7 @@ body {
 	margin: 0;
 	font-family: 'Hauora', sans-serif;
 	font-size: 16px;
+	color: var(--tx-bl);
 	background-color: var(--bg-beige);
 	-ms-touch-action: pan-y;
 	touch-action: pan-y;
@@ -115,12 +116,13 @@ input {
 	overflow: visible;
 }
 
-button{
+button {
 	margin: 0;
 	outline: none;
 	background: transparent;
 	border: none;
 }
+
 button,
 select {
 	text-transform: none;
