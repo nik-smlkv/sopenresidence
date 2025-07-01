@@ -1,0 +1,146 @@
+.swiper__infra {
+	padding-left: 100px;
+	max-inline-size: 1920px;
+	width: 100%;
+	margin: 0 auto;
+	display: flex;
+	align-items: start;
+	padding-bottom: 6.25em;
+}
+
+.swiper__infra {
+	.swiper {
+		max-height: 862px;
+		width: 100%;
+	}
+
+	img {
+		max-width: 1024px;
+	}
+
+	.buttons__content {
+		display: flex;
+		position: relative;
+		z-index: 3;
+		column-gap: 10px;
+
+	}
+
+	.infra__prev,
+	.infra__next {
+		width: 60px;
+		height: 60px;
+		display: flex;
+		mix-blend-mode: difference;
+		position: relative;
+		align-items: center;
+		justify-content: center;
+		border-radius: 100%;
+		cursor: pointer;
+		overflow: hidden;
+		border: 1px solid var(--acc-light-apr);
+	}
+
+	.infra__prev svg,
+	.infra__next svg {
+		position: relative;
+		z-index: 3;
+	}
+
+	.infra__prev {
+		background-color: transparent;
+
+		&:hover {
+			border: 1px solid var(--bg-beige);
+
+			svg path {
+				stroke: var(--acc-main-green);
+			}
+		}
+	}
+
+	.infra__next {
+		background-color: var(--acc-light-apr);
+
+		&:hover {
+			border: none;
+
+
+		}
+
+	}
+
+}
+
+.controls__wrapper {
+	display: flex;
+	flex-direction: row;
+	align-items: end;
+	column-gap: 24px;
+}
+
+.info_walk {
+	font-size: 40px;
+	line-height: 100%;
+	font-weight: 400;
+	color: var(--acc-light-apr);
+	margin-bottom: 8px;
+}
+
+.info_meter {
+	font-size: 16px;
+	line-height: 126%;
+	font-weight: 400;
+	color: #FFFFFF50;
+}
+
+.infra__prev::after,
+.infra__next::after {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: 1;
+	width: 0;
+	height: 0;
+	top: 50%;
+	left: 50%;
+	border-radius: 100%;
+	background-color: var(--bg-beige);
+	transform: translate(-50%, -50%);
+	transition: width .2s ease, height .2s ease;
+}
+
+.swiper__slide_info_block {
+	padding-top: 80px;
+	display: flex;
+	flex-direction: column;
+	row-gap: 30px;
+	justify-content: start;
+	width: 100%;
+	max-width: 502px;
+}
+
+.text__content {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+	min-height: 600px;
+}
+
+.linie {
+	display: block;
+	width: 100%;
+	height: 1px;
+	background-color: #FFFFFF20;
+}
+
+@media (hover: hover) {
+
+	.infra__prev:hover::after,
+	.infra__next:hover::after {
+		width: 100%;
+		height: 100%;
+		transition: width .2s ease, height .2s ease;
+	}
+}

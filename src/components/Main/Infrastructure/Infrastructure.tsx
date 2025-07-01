@@ -1,3 +1,4 @@
+import MainSlider from "../../Sliders/MainSlider";
 import styles from "./Infrastructure.module.css";
 
 const Infrastructura = () => {
@@ -23,6 +24,7 @@ const Infrastructura = () => {
           </div>
         </div>
       </div>
+      <MainSlider />
     </section>
   );
 };
