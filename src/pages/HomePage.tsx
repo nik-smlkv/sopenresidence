@@ -16,6 +16,10 @@ const HomePage = () => {
         />
         <AboutMain />
         <Infrastructura />
+        <section className={styles.parallax_block}>
+          <img src="./images/comfortable.jpg" alt="Comfortable" />
+			 <div className={styles.parallax_block_text}><p>A comfortable lifestyle within walking distance</p></div>
+        </section>
       </main>
     </>
   );

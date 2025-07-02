@@ -61,7 +61,17 @@ const SliderListImgs: {
     img: "pretty-female-with-drink-paperbags.jpg",
   },
 ];
+export function getSlideIndex(swiper: SwiperType): number {
+  const slide = swiper.slides[swiper.activeIndex];
+  const rawIndex = slide?.dataset?.swiperSlideIndex;
 
+  if (typeof rawIndex === "string") {
+    const parsed = parseInt(rawIndex, 10);
+    if (!isNaN(parsed)) return parsed;
+  }
+
+  return swiper.realIndex ?? 0;
+}
 const SwiperControls = ({
   active,
   total,
@@ -112,7 +122,7 @@ const SwiperControls = ({
         </button>
       </div>
       <div className="fraction">
-        {active} / {total}
+        {active + 1} / {total}
       </div>
     </div>
   );
@@ -156,7 +166,7 @@ const SliderText = ({
   );
 };
 const MainSlider = () => {
-  const [activeSlide, setActiveSlide] = useState(1);
+  const [activeSlide, setActiveSlide] = useState(0);
   const swiperRef = useRef<SwiperType | null>(null);
   return (
     <div className="swiper__infra">
@@ -166,11 +176,11 @@ const MainSlider = () => {
         swiperRef={swiperRef}
       />
       <Swiper
-        loop={false}
+        effect="creative"
+        loop={true}
         speed={600}
-        modules={[Navigation, Pagination, FreeMode, EffectCreative]}
+        modules={[Navigation, Pagination, EffectCreative]}
         grabCursor={true}
-        effect={"creative"}
         creativeEffect={{
           prev: {
             shadow: true,
@@ -184,12 +194,12 @@ const MainSlider = () => {
         slidesPerView={1}
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
-          console.log(swiper.activeIndex);
         }}
-        onSlideChange={(swiper) => {
-          setActiveSlide(swiper.activeIndex);
-          console.log(activeSlide);
+        onTransitionEnd={(swiper) => {
+          const index = getSlideIndex(swiper);
+          setActiveSlide(index);
         }}
+
         /*         breakpoints={{
           768: { slidesPerView: 2 },
           1024: { slidesPerView: 1 },
