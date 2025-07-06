@@ -115,10 +115,10 @@ function Form({ ...enabled }: TypeInputEnabled) {
     const errorMessage = field?.validate?.(value);
     return value.trim() !== "" && !errorMessage;
   });
-
+  const isTechWork = false;
   return (
     <>
-      {view === View.void && (
+      {view === View.void && isTechWork ? (
         <form className="form" onSubmit={onSubmit}>
           <div className="form_container">
             <p className="input_error" data-error={!!errors.username}>
@@ -151,6 +151,53 @@ function Form({ ...enabled }: TypeInputEnabled) {
               className={`content__personal ${isLoading ? "Loading" : "Great"}`}
             >
               <p className="text__personal">
+                {t.t_personal}
+                <Link
+                  to={{
+                    pathname: "/",
+                  }}
+                  className="link__personal"
+                >
+                  {t.t_personal_data}
+                </Link>
+              </p>
+              <FormButton disabled={!isFormValid || isLoading} />
+            </div>
+          </div>
+        </form>
+      ) : (
+        <form className="form" onSubmit={onSubmit}>
+          <div className="form_container">
+            <p className="input_error" data-error={!!errors.username}>
+              Wrong email or name
+            </p>
+            {config.map((item) => {
+              const { validate, name, ...rest } = item;
+              const errorMessage = validate?.(formValue[name]);
+              return Object.keys(enabled).map((enableItem) => {
+                if (enableItem === name) {
+                  const isTouched = touchedFields[name];
+                  const shouldShowError = !!errorMessage && isTouched;
+                  return (
+                    <Input
+                      key={name}
+                      autoFocus={!!errorMessage && name === "email"}
+                      onChange={onChange}
+                      onBlur={onBlur}
+                      name={name}
+                      value={formValue[name]}
+                      error={shouldShowError}
+                      errorMessage={shouldShowError ? errorMessage : ""}
+                      {...rest}
+                    />
+                  );
+                }
+              });
+            })}
+            <div
+              className={`personal__block ${isLoading ? "Loading" : "Great"}`}
+            >
+              <p className="form__text">
                 {t.t_personal}
                 <Link
                   to={{

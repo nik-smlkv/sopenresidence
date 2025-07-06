@@ -45,9 +45,10 @@ pre {
 }
 
 a {
+	text-decoration: none;
+	color: currentColor;
 	background-color: transparent;
 }
-
 abbr[title] {
 	border-bottom: none;
 	text-decoration: underline;

@@ -1,0 +1,138 @@
+.footer {
+	background-color: var(--acc-main-green);
+	color: var(--tx-wh);
+}
+
+.footer__body {
+	display: flex;
+	justify-content: space-between;
+	align-items: start;
+	padding: 80px 134px 100px;
+	width: 100%;
+	max-inline-size: 1920px;
+	margin: 0 auto;
+
+}
+
+.footer__info {
+	flex: 0 1 324px;
+	display: flex;
+	flex-direction: column;
+	row-gap: 60px;
+}
+
+.footer__content {
+	flex: 0 1 1190px;
+	display: flex;
+	flex-direction: column;
+	row-gap: 110.5px;
+	position: relative;
+}
+
+.number {
+	font-size: 28px;
+	line-height: 100%;
+	font-weight: 500;
+}
+
+.footer__address {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+}
+
+.footer__name {
+	text-transform: uppercase;
+	font-weight: 400;
+	line-height: 100%;
+	color: #D9D9D980;
+}
+
+.address {
+	font-size: 24px;
+	font-weight: 500;
+	line-height: 110%;
+	margin-bottom: 20px;
+}
+
+.footer__text {
+	display: flex;
+	align-items: start;
+	justify-content: space-between;
+	column-gap: 13px;
+}
+
+.footer__text span {
+	font-weight: 400;
+	text-transform: uppercase;
+	display: flex;
+	align-self: start;
+}
+
+.footer__roots {
+	text-transform: uppercase;
+	font-size: 14px;
+	line-height: 120%;
+	vertical-align: middle;
+	max-width: 154px;
+	color: #D9D9D980;
+}
+
+.arrow__up {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.get__directions {
+	width: 100%;
+	max-width: 190px;
+	border-radius: 30px;
+	border: 1px solid var(--tx-wh);
+	padding: 16px 36px;
+	text-transform: uppercase;
+	color: currentColor;
+	font-size: 15px;
+	line-height: 120%;
+	transition: background-color 2.5s ease, border 0.5s ease;
+	overflow: hidden;
+	cursor: pointer;
+	position: relative;
+}
+
+.get__directions span {
+	position: relative;
+	z-index: 3;
+	mix-blend-mode: difference;
+	color: var(--tx-wh);
+}
+
+.get__directions::after {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: 1;
+	width: 0;
+	height: 0;
+	top: 50%;
+	left: 50%;
+	border-radius: 100%;
+	background-color: black;
+	transform: translate(-50%, -50%);
+	transition: width .4s ease, height .6s ease;
+	filter: invert(1);
+}
+
+@media (hover: hover) {
+
+	.get__directions:hover::after {
+		width: 200%;
+		height: 250%;
+		transition: width 1s ease, height .5s ease;
+	}
+
+	.get__directions:hover {
+		border: 1px solid var(--acc-main-green);
+	}
+
+}

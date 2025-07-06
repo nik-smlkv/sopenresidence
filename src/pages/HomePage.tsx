@@ -7,6 +7,12 @@ import SectionMain from "../components/Main/SectionMain/SectionMain";
 import styles from "./HomePage.module.css";
 import { useEffect, useRef } from "react";
 import HorizontParallax from "../components/Parallax/HorizontParallax";
+import Equipment from "../components/Main/Equipment/Equipment";
+import Form from "../components/Forms/Form";
+import Footer from "../components/Footer/Footer";
+import Steps from "../components/Main/Steps/Steps";
+import ApartmentView from "../components/Main/ApartmentChoise/ApartmentView";
+import Request from "../components/Main/Request/Request";
 
 const HomePage = () => {
   gsap.registerPlugin(ScrollTrigger);
@@ -49,8 +55,14 @@ const HomePage = () => {
           <div className={styles.parallax_block_text}>
             <p>A comfortable lifestyle within walking distance</p>
           </div>
-        <HorizontParallax />
+          <HorizontParallax />
         </section>
+        <Equipment />
+        <Steps />
+        <ApartmentView />
+		  <Request/>
+
+        <Footer />
       </main>
     </>
   );

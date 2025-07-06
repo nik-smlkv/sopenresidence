@@ -66,9 +66,11 @@
 	background-color: var(--acc-main-green);
 	transition: all .5s ease;
 }
-.input_container{
+
+.input_container {
 	gap: 5px;
 }
+
 .input_container:has(.input:focus)::after {
 	content: '';
 	display: flex;
@@ -148,11 +150,23 @@
 	}
 }
 
+.form__text {
+	width: 100%;
+	text-align: center;
+
+}
+
+.personal__block {
+	display: flex;
+	flex-direction: column-reverse;
+	row-gap: 24px;
+	margin-top: 40px;
+}
+
 .content__personal {
 	display: flex;
 	width: 100%;
 	justify-content: space-between;
-
 
 	.text__personal {
 		max-width: 315px;

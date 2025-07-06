@@ -1,8 +1,8 @@
 import styles from "./Button.module.css";
 const FormButton = ({ disabled }: { disabled: boolean }) => {
-
   return (
-    <button className={styles.button__circle} disabled={disabled}>
+    <>
+      {/* <button className={styles.button__circle} disabled={disabled}>
       <svg
         className={styles.button__arrow}
         width="34"
@@ -17,7 +17,11 @@ const FormButton = ({ disabled }: { disabled: boolean }) => {
           stroke-width="1.5"
         />
       </svg>
-    </button>
+    </button> */}
+      <button className={styles.button__form} disabled={disabled}>
+        <span>leave a request</span>
+      </button>
+    </>
   );
 };
 
