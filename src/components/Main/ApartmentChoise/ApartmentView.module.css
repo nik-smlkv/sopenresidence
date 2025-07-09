@@ -32,6 +32,13 @@
 	align-items: center;
 }
 
+.apartment__render {
+	width: 77.54%;
+	position: relative;
+	top: 60px;
+	right: 60px;
+}
+
 .apartments__cards {
 	display: flex;
 	align-items: stretch;
@@ -60,6 +67,7 @@
 .apartment__icon {
 	width: 80px;
 	height: 80px;
+	align-self: end;
 }
 
 .apartment__filter {
@@ -98,3 +106,4 @@
 	line-height: 120%;
 	font-weight: 500;
 }
+

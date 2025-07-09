@@ -1,0 +1,8 @@
+.location {
+	background-color: var(--acc-main-green);
+}
+.location__body{
+	max-inline-size: 1920px;
+	padding: 0px 100px;
+	padding-bottom: 160px;
+}

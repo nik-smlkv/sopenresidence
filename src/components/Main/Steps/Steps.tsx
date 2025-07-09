@@ -1,7 +1,107 @@
-import React from "react";
+import React, { type JSX } from "react";
 import styles from "./Steps.module.css";
 const Steps = () => {
-  return <div>Steps</div>;
+  const stepsCardArray: { name: string; text: string[] }[] = [
+    {
+      name: "Housing credit API Bank",
+      text: [
+        "No Serbian residency required. You can purchase an apartment in Sava Residence through API Bank, even if you are not a resident of Serbia.",
+        "Flexible income assessment. To determine your creditworthiness, API Bank accepts all types of income, not just salaries.",
+        "Path to residency. The property you purchase can be a basis for obtaining a residence permit in Serbia.",
+        "Loan consultation. Leave your details, and an API Bank housing loan advisor will contact you.",
+      ],
+    },
+    {
+      name: "Housing credit Banca Intesa",
+      text: [
+        "Special Loan Conditions. Banca Intesa offers favorable terms for housing loans to purchase property in our complex, including a fixed interest rate of 5.03%.",
+        "Fast and Easy Processing. Financing real estate in Sava Residence is a simple and efficient procedure, taking only 7 days from the date of application submission.",
+        "Path to residency. The property you purchase can be a basis for obtaining a residence permit in Serbia.",
+        "Loan Consultation. If you need additional details, leave your contact information, and a Banca Intesa housing loan advisor will get in touch with you.",
+      ],
+    },
+    {
+      name: "Housing credit UniCredit Bank",
+      text: [
+        "Attractive Rates. Fixed or variable interest rates from ~3.19% (EUR loans).",
+        "Fast Processing. Simple procedure with quick approval times.",
+        "Path to residency. Property purchase may help obtain a Serbian residence permit.",
+        "Loan Consultation. Leave your details for a UniCredit Bank advisor to contact you.",
+      ],
+    },
+  ];
+  return (
+    <section className={styles.steps}>
+      <div className={styles.steps__title_block}>
+        <h2 className={styles.steps__title}>
+          Savings and comfort: invest in your future
+        </h2>
+      </div>
+      <div className={styles.steps__body}>
+        <div className={styles.steps__cards}>
+          {stepsCardArray.map((card, index) => (
+            <div className={styles.steps__card}>
+              <div className={styles.steps__card_front}>
+                <p className={styles.card__name}>
+                  {card.name.split(" ").reduce((acc, word, i) => {
+                    if (i % 2 === 0 && i !== 0) acc.push(<br key={i} />);
+                    acc.push(word + " ");
+                    return acc;
+                  }, [] as (string | JSX.Element)[])}
+                </p>
+                <div className={styles.card__btn}>
+                  <svg
+                    width="60"
+                    height="60"
+                    viewBox="0 0 60 60"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="0.576923"
+                      y="0.576923"
+                      width="58.8462"
+                      height="58.8462"
+                      rx="29.4231"
+                      stroke="#5A6C54"
+                      stroke-width="1.15385"
+                    />
+                    <path
+                      d="M30.7036 19.0186V29.2969H40.9819V30.7041H30.7036V40.9824H29.2964V30.7041H19.0181V29.2969H29.2964V19.0186H30.7036Z"
+                      fill="#5A6C54"
+                      stroke="#5A6C54"
+                      stroke-width="0.535714"
+                    />
+                  </svg>
+                </div>
+                <div className={styles.card__num}>
+                  <span className={styles.card__index}>0{index + 1}</span>
+                  <span className={styles.card__count}>
+                    / 0{stepsCardArray.length}
+                  </span>
+                </div>
+              </div>
+              <div className={styles.steps__card__content}>
+                <p className={styles.card__content_title}>Main conditions</p>
+                <ul className={styles.card__text_list}>
+                  {card.text.map((text) => (
+                    <li className={styles.card__text_item}>{text}</li>
+                  ))}
+                </ul>
+                <div className={styles.card__content_block}>
+                  <p className={styles.card__content_block_name}>{card.name}</p>{" "}
+                  <div className={styles.card__content_num}>
+                    <span>0{index + 1}</span>{" "}
+                    <span>/ 0{stepsCardArray.length}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Steps;

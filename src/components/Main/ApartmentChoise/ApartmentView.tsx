@@ -17,7 +17,7 @@ const ApartmentView = () => {
                 <img
                   src="/images/filter.svg"
                   className={styles.apartment__icon}
-                  alt="Visual"
+                  alt="Filter"
                 />
               </div>
             </div>
@@ -28,11 +28,11 @@ const ApartmentView = () => {
                 visual selectional of apartments
               </p>
               <div className={styles.apartment__info}>
-                {/*               <img src="" alt="" /> */}
+                <img  className={styles.apartment__render} src="/images/render.png" alt="Render" />
                 <img
                   src="/images/visual.svg"
                   className={styles.apartment__icon}
-                  alt=""
+                  alt="Visual"
                 />
               </div>
             </div>

@@ -2,7 +2,7 @@
 	max-inline-size: 1920px;
 	width: 100%;
 	margin: 0 auto;
-	padding: 160px 170px 100px;
+	padding: 160px 100px 170px;
 	display: flex;
 	flex-direction: column;
 	row-gap: 40px;
@@ -32,6 +32,7 @@
 	font-size: 22px;
 	line-height: 120%;
 	flex: 1 1 521px;
+	transition: color 0.5s ease;
 }
 
 .equip_text_block_title {
@@ -57,7 +58,8 @@
 	flex-direction: column;
 	border-bottom: 1px solid #D9D9D9;
 	overflow: hidden;
-
+	cursor: pointer;
+	user-select: none;
 }
 
 .equip__item:first-child {
@@ -96,8 +98,17 @@
 	transition: color 0.5s ease;
 }
 
+.equip__btn img {
+	cursor: pointer;
+	transition: transform 0.5s ease;
+}
+
+.equip__item.open .equip__btn img {
+	transform: rotate(180deg);
+}
+
 .equip__item.open .equip__block__content {
-	height: auto;
+	height: 72px;
 }
 
 .equip__num {
@@ -121,4 +132,11 @@
 .equip__btn {
 	flex: 0 0 auto;
 	width: 32px;
+}
+
+@media(hover:hover) {
+	.equip__item:hover .equip__name {
+		color: var(--tx-bl);
+		transition: color 0.5s ease;
+	}
 }

@@ -13,6 +13,8 @@ import Footer from "../components/Footer/Footer";
 import Steps from "../components/Main/Steps/Steps";
 import ApartmentView from "../components/Main/ApartmentChoise/ApartmentView";
 import Request from "../components/Main/Request/Request";
+import SpaceStructure from "../components/Main/Structure/SpaceStructure";
+import Locations from "../components/Main/Locations/Locations";
 
 const HomePage = () => {
   gsap.registerPlugin(ScrollTrigger);
@@ -42,6 +44,7 @@ const HomePage = () => {
         />
         <AboutMain />
         <Infrastructura />
+		  <Locations/>
         <section className={styles.parallax}>
           <div className={styles.parallax_block}>
             <div ref={parallaxRef} className={styles.parallax__container}>
@@ -59,9 +62,9 @@ const HomePage = () => {
         </section>
         <Equipment />
         <Steps />
+        <SpaceStructure />
         <ApartmentView />
-		  <Request/>
-
+        <Request />
         <Footer />
       </main>
     </>

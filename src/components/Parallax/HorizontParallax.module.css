@@ -4,9 +4,11 @@
 	min-height: 600px;
 	overflow-x: scroll;
 }
-.parallax__cards::-webkit-scrollbar{
+
+.parallax__cards::-webkit-scrollbar {
 	display: none;
 }
+
 .parallax__card,
 .parallax__card_preview {
 	flex: 0 0 428px;
@@ -25,6 +27,8 @@
 
 .parallax__card_preview p {
 	max-width: 268px;
+	color: var(--acc-main-green);
+	font-weight: 500;
 }
 
 .parallax__card {
