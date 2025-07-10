@@ -49,6 +49,7 @@ a {
 	color: currentColor;
 	background-color: transparent;
 }
+
 abbr[title] {
 	border-bottom: none;
 	text-decoration: underline;
@@ -220,5 +221,6 @@ template {
 
 .wrapper {
 	display: flex;
+	overflow: hidden;
 	flex-direction: column;
 }
