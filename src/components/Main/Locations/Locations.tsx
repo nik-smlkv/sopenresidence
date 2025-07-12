@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./Locations.module.css";
 import {
   GoogleMap,
@@ -27,58 +27,90 @@ const mapOptions: google.maps.MapOptions = {
 type LocationType = {
   id: string;
   name: string;
+  icon: string;
   position: {
     lat: number;
     lng: number;
   };
+};
+const center = {
+  lat: 43.311492,
+  lng: 21.905292,
 };
 
 const locations: LocationType[] = [
   {
     id: "1",
     name: "Chair Park",
+    icon: "",
     position: { lat: 43.31508, lng: 21.905176 },
   },
   {
     id: "2",
     name: "Clinical Center",
+    icon: "",
     position: { lat: 43.314634, lng: 21.938521 },
   },
   {
     id: "3",
     name: "Shoping Center",
+    icon: "",
     position: { lat: 43.32476305519067, lng: 21.910750503501117 },
   },
   {
     id: "4",
-    name: "ST. SAVA'S PARK",
+    name: "St. Sava's Park",
+    icon: "",
     position: { lat: 43.32053743745635, lng: 21.918968273027748 },
   },
   {
     id: "5",
-    name: "KING MILAN SQ.",
+    name: "King Milan sq.",
+    icon: "",
     position: { lat: 43.321495, lng: 21.895797 },
   },
   {
     id: "6",
-    name: "KING ALEXANDER SQ.",
+    name: "King Alexander sq.",
+    icon: "",
     position: { lat: 43.3181201662413, lng: 21.891076593257026 },
   },
   {
     id: "7",
-    name: "FORTRESS",
+    name: "Fortress",
+    icon: "",
     position: { lat: 43.325683213803224, lng: 21.895901169471315 },
   },
   {
     id: "8",
-    name: "FACULTY OF SPORTS",
+    name: "Faculty of sports",
+    icon: "",
     position: { lat: 43.311951020434314, lng: 21.87235818616822 },
   },
+  {
+    id: "9",
+    name: "",
+    icon: "",
+    position: { lat: 43.311492, lng: 21.905292 },
+  },
 ];
+
 const Locations = () => {
   const [selectedLocation, setSelectedLocation] = useState<LocationType | null>(
-    null
+    locations[0]
   );
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [arrowOffset, setArrowOffset] = useState(0);
+  const ulRef = useRef<HTMLUListElement>(null);
+
+  const handleClickLocation = (index: number) => {
+    setOpenIndex(index);
+    setSelectedLocation(locations[index]);
+    const activeEl = ulRef.current?.querySelectorAll("li")[index];
+    if (activeEl) {
+      setArrowOffset(activeEl.offsetTop);
+    }
+  };
   return (
     <section className={styles.location}>
       <div className={styles.location__body}>
@@ -87,8 +119,15 @@ const Locations = () => {
         </div>
         <div className={styles.location__map__content}>
           <ul className={styles.map__navigation}>
+            <div className={styles.arrow} style={{ top: arrowOffset }} />
             {locations.map((item, index) => (
-              <li key={index} className={styles.location__item}>
+              <li
+                key={index}
+                className={`${styles.location__item} ${
+                  openIndex === index ? styles.active : ""
+                }`}
+                onClick={() => handleClickLocation(index)}
+              >
                 {item.name}
               </li>
             ))}
@@ -101,7 +140,7 @@ const Locations = () => {
               <GoogleMap
                 mapContainerStyle={containerStyle}
                 zoom={15}
-                center={location}
+                center={center}
                 options={mapOptions}
               >
                 {locations.map((loc) => (
@@ -112,12 +151,16 @@ const Locations = () => {
                   />
                 ))}
                 {selectedLocation && (
-                  <InfoWindow
-                    position={selectedLocation.position}
-                    onCloseClick={() => setSelectedLocation(null)}
-                  >
-                    <div>{selectedLocation.name}</div>
-                  </InfoWindow>
+                  <div className={styles.location__window}>
+                    <InfoWindow
+                      position={selectedLocation.position}
+                      onCloseClick={() => setSelectedLocation(null)}
+                    >
+                      <div className={styles.infoWindow}>
+                        <div>{selectedLocation.name}</div>
+                      </div>
+                    </InfoWindow>
+                  </div>
                 )}
               </GoogleMap>
             </LoadScript>

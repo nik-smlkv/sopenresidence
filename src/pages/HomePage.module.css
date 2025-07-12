@@ -12,6 +12,7 @@
 
 .parallax {
 	position: relative;
+	background-color: var(--bg-beige);
 }
 
 .parallax_block {

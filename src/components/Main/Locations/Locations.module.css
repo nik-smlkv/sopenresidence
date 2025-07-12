@@ -48,8 +48,10 @@
 	line-height: 100%;
 	color: var(--tx-wh);
 	display: inline-flex;
+	column-gap: 12px;
 	cursor: pointer;
-	transition: color .5s ease, font-weight .5s ease;
+	position: relative;
+	transition: color .5s ease, font-weight .5s ease, left .5s ease;
 }
 
 @media(hover:hover) {
@@ -57,4 +59,27 @@
 		color: var(--acc-light-apr);
 		transition: color .5s ease, font-weight .5s ease;
 	}
+}
+
+.location__item.active::before {
+	content: '';
+	width: 40px;
+	height: auto;
+	background-image: url('/images/location-arrow.svg');
+	background-repeat: no-repeat;
+}
+
+.location__item.active {
+	color: var(--acc-light-apr);
+	position: relative;
+	transition: left .5s ease;
+}
+.arrow {
+	position: absolute;
+	left: -50px;
+	width: 40px;
+	height: 40px;
+	background-image: url('/images/location-arrow.svg');
+	background-size: contain;
+	transition: .5s all ease;
 }

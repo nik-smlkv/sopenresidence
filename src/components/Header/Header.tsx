@@ -3,8 +3,32 @@ import SelectApartmentBtn from "../Buttons/SelectApartmentBtn";
 import styles from "./Header.module.css";
 import HeaderBurger from "./HeaderBurger";
 import { LanguageSelect } from "../LanguageSelect/LanguageSelect";
+import { useEffect, useState } from "react";
 const Header = () => {
   const { setLang, lang } = useLang();
+  useEffect(() => {
+    const sections = document.querySelectorAll("section");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.find((entry) => entry.isIntersecting);
+        if (visible?.target) {
+          const computedStyle = window.getComputedStyle(visible.target);
+          const bgColor = computedStyle.backgroundColor;
+
+          if (bgColor) {
+            document
+              .querySelector("header")
+              ?.setAttribute("style", `background-color: ${bgColor}`);
+          }
+        }
+      },
+      { threshold: 0.6 } 
+    );
+
+    sections.forEach((sec) => observer.observe(sec));
+    return () => observer.disconnect();
+  }, []);
 
   const languages = [
     { code: "en", label: "EN" },

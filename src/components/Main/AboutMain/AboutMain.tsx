@@ -1,5 +1,6 @@
 import SelectApartmentBtn from "../../Buttons/SelectApartmentBtn";
 import styles from "./AboutMain.module.css";
+
 const AboutMain = () => {
   interface ImgsListType {
     [key: string]: string;
@@ -21,7 +22,7 @@ const AboutMain = () => {
     { key: "urban-oasis", src: "urban-oasis.jpg" },
   ];
   return (
-    <section>
+    <section className={styles.about}>
       <div className={styles.about__body}>
         <div className={styles.about__block}>
           <div className={styles.about__name}>About the project</div>

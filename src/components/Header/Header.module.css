@@ -44,6 +44,7 @@
 	justify-content: space-between;
 	align-items: center;
 	margin: 0 auto;
+	background-color: var(--header-bg-color);
 }
 
 .langSwitcher_maintance {

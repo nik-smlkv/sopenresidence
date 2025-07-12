@@ -157,3 +157,7 @@ img.img__item {
 	line-height: 126%;
 	color: var(--acc-main-green);
 }
+
+.about {
+	--header-bg-color: #00000033;
+}
