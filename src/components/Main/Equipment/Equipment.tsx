@@ -44,10 +44,10 @@ const Equipment = () => {
   };
 
   return (
-    <section>
+    <section className={styles.equipment}>
       <div className={styles.equip__body}>
         <div className={styles.equip__block}>
-          <div className={styles.equip__name}>Equipment</div>
+          <div className={styles.equip__name} data-split="block-name">Equipment</div>
           <div className={styles.equip_text_block}>
             <h2 className={styles.equip_text_block_title}>
               Quality in every detail: comfort and security

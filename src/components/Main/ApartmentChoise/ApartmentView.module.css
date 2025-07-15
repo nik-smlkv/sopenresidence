@@ -48,6 +48,7 @@
 
 .apartment__card {
 	flex: 1 1 50%;
+	position: relative;
 	width: 100%;
 	padding: 60px;
 	height: 100%;
@@ -55,6 +56,7 @@
 	display: flex;
 	flex-direction: column;
 	cursor: pointer;
+	overflow: hidden;
 }
 
 .apartment_card_body {
@@ -62,12 +64,34 @@
 	flex-direction: column;
 	justify-content: space-between;
 	flex: 1 1 480px;
+	position: relative;
+	z-index: 3;
 }
 
 .apartment__icon {
 	width: 80px;
 	height: 80px;
 	align-self: end;
+	padding: 20px;
+	position: relative;
+	border-radius: 100%;
+	background-color: transparent;
+	border: 1px solid var(--bg-beige);
+	transition: background-color .3s ease;
+}
+
+.apartment__icon::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	display: block;
+	left: 0;
+	border-radius: 100%;
+	width: 80px;
+	height: 80px;
+	background-color: transparent;
+	z-index: 1;
+	border: 1px solid var(--bg-beige);
 }
 
 .apartment__filter {
@@ -84,12 +108,17 @@
 	text-transform: uppercase;
 	line-height: 110%;
 	color: var(--acc-light-apr-tx);
+	transition: color .5s ease;
 }
 
 .apart__info_text {
 	display: flex;
 	flex-direction: column;
 	row-gap: 4px;
+}
+
+.apart__info_text p {
+	transition: color .5s ease;
 }
 
 .apart__count {
@@ -107,3 +136,40 @@
 	font-weight: 500;
 }
 
+.apartment__card::after {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: 1;
+	width: 0;
+	height: 0;
+	top: 50%;
+	left: 50%;
+	border-radius: 100%;
+	background-color: var(--bg-beige);
+	transform: translate(-50%, -50%);
+	transition: width .8s ease, height .8s ease;
+}
+
+
+@media (hover: hover) {
+	.apartment__card:hover::after {
+		width: 200%;
+		height: 250%;
+		transition: width .8s ease, height .8s ease;
+	}
+
+	.apartment__card:hover .apartment_card_body .apartment__filter,
+	.apartment__card:hover .apartment_card_body .apartment__visual {
+		color: var(--acc-main-green);
+	}
+
+	.apartment__card:hover .apart__info_text p {
+		color: var(--tx-bl);
+	}
+
+	.apartment__card:hover .apartment__icon {
+		background-color: var(--acc-main-green);
+		border: none;
+	}
+}

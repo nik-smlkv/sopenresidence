@@ -42,55 +42,55 @@ const locations: LocationType[] = [
   {
     id: "1",
     name: "Chair Park",
-    icon: "",
+    icon: "./images/park.svg",
     position: { lat: 43.31508, lng: 21.905176 },
   },
   {
     id: "2",
     name: "Clinical Center",
-    icon: "",
+    icon: "./images/hospital.svg",
     position: { lat: 43.314634, lng: 21.938521 },
   },
   {
     id: "3",
     name: "Shoping Center",
-    icon: "",
+    icon: "./images/shop.svg",
     position: { lat: 43.32476305519067, lng: 21.910750503501117 },
   },
   {
     id: "4",
     name: "St. Sava's Park",
-    icon: "",
+    icon: "./images/sava's-park.svg",
     position: { lat: 43.32053743745635, lng: 21.918968273027748 },
   },
   {
     id: "5",
     name: "King Milan sq.",
-    icon: "",
+    icon: "./images/milan-sq.svg",
     position: { lat: 43.321495, lng: 21.895797 },
   },
   {
     id: "6",
     name: "King Alexander sq.",
-    icon: "",
+    icon: "./images/alexander-sq.svg",
     position: { lat: 43.3181201662413, lng: 21.891076593257026 },
   },
   {
     id: "7",
     name: "Fortress",
-    icon: "",
+    icon: "./images/alexander-sq.svg",
     position: { lat: 43.325683213803224, lng: 21.895901169471315 },
   },
   {
     id: "8",
     name: "Faculty of sports",
-    icon: "",
+    icon: "./images/alexander-sq.svg",
     position: { lat: 43.311951020434314, lng: 21.87235818616822 },
   },
   {
     id: "9",
     name: "",
-    icon: "",
+    icon: "./images/sopen.svg",
     position: { lat: 43.311492, lng: 21.905292 },
   },
 ];
@@ -115,7 +115,7 @@ const Locations = () => {
     <section className={styles.location}>
       <div className={styles.location__body}>
         <div className={styles.location_name_block}>
-          <p className={styles.location__name}>Locations</p>
+          <p className={styles.location__name} data-split="block-name">Locations</p>
         </div>
         <div className={styles.location__map__content}>
           <ul className={styles.map__navigation}>
@@ -148,6 +148,9 @@ const Locations = () => {
                     key={loc.id}
                     position={loc.position}
                     title={loc.name}
+                    icon={{
+                      url: loc.icon,
+                    }}
                   />
                 ))}
                 {selectedLocation && (

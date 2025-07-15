@@ -1,6 +1,18 @@
 .steps {
-	height: 100%;
+	height: 200vh;
+	background-color: var(--bg-beige);
 	padding-bottom: 158px;
+	width: 100%;
+	position: relative;
+}
+
+.pin_wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	height: 100vh;
+	width: 100%;
 }
 
 .steps__title_block {
@@ -11,13 +23,11 @@
 	margin: 0 auto;
 	max-inline-size: 1052px;
 	width: 100%;
+	position: relative;
+	z-index: 1;
 }
 
 .steps__body {
-	display: flex;
-	max-inline-size: 1920px;
-	margin: 0 auto;
-	flex-direction: column;
 }
 
 .steps__title {
@@ -38,13 +48,25 @@
 	transition: font-size 1s ease;
 }
 
+.steps__cards_wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	z-index: 2;
+}
+
 .steps__cards {
+	position: relative;
+	z-index: 2;
 	display: flex;
 	flex-direction: column;
 	row-gap: 75px;
 	justify-content: center;
 	align-items: center;
 }
+
 
 .steps__card {
 	overflow: hidden;
@@ -53,7 +75,7 @@
 	max-width: 600px;
 	display: flex;
 	flex-direction: column;
-	background-color: #27231E0D;
+	background: rgba(39, 35, 30, 0.08);
 	backdrop-filter: blur(30px);
 	position: relative;
 	cursor: pointer;
@@ -103,6 +125,7 @@
 	row-gap: 22px;
 	position: absolute;
 	top: 0%;
+	z-index: 3;
 	left: 0;
 	width: 100%;
 	height: 100%;

@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./SpaceStructure.module.css";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 const SpaceStructure = () => {
+  const imgRef = useRef<HTMLImageElement>(null);
   const structureCards: {
     name: string;
     description: { text: string; img: string }[];
@@ -45,13 +49,64 @@ const SpaceStructure = () => {
       ],
     },
   ];
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const overlays = gsap.utils.toArray<HTMLElement>(
+      '[data-animate="image-fade"]'
+    );
+    const texts = gsap.utils.toArray<HTMLElement>(
+      '[data-animate="fade-up-text"]'
+    );
+
+    texts.forEach((text) => {
+      gsap.fromTo(
+        text,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: text,
+            start: "top 90%",
+            toggleActions: "play none none none",
+            once: true,
+          },
+        }
+      );
+    });
+    overlays.forEach((overlay) => {
+      gsap.fromTo(
+        overlay,
+        { top: "0%" },
+        {
+          top: "100%",
+          duration: 1.5,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: overlay,
+            start: "top 90%",
+            toggleActions: "play none none none",
+            once: true,
+          },
+        }
+      );
+    });
+  }, []);
   return (
-    <section>
+    <section className={styles.structure}>
       <div className={styles.structure__body}>
         <div className={styles.structure__block}>
-          <div className={styles.structure__name}>Space structure</div>
+          <div className={styles.structure__name} data-split="block-name">
+            Space structure
+          </div>
           <div className={styles.structure_text_block}>
-            <h2 className={styles.structure_text_block_title}>
+            <h2
+              className={styles.structure_text_block_title}
+              data-animate="fade-up"
+            >
               Thoughtful layout for modern living
             </h2>
           </div>
@@ -59,12 +114,20 @@ const SpaceStructure = () => {
         <div className={styles.structure__cards}>
           {structureCards.map((card) => (
             <div className={styles.structure__card}>
-              <div className={styles.card__name}>{card.name}</div>
+              <div className={styles.card__name} data-animate="fade-up-text">
+                {card.name}
+              </div>
               <div className={styles.structure__card_block}>
                 {card.description.map((description) => (
                   <div className={styles.structure__card_content}>
-                    <p>{description.text}</p>
-                    <img src={`/images/${description.img}`} alt="" />
+                    <p data-animate="fade-up-text">{description.text}</p>
+                    <div className={styles.img_wrapper} ref={imgRef}>
+                      <img src={`/images/${description.img}`} alt="" />
+                      <div
+                        className={styles.img_overlay}
+                        data-animate="image-fade"
+                      ></div>
+                    </div>
                   </div>
                 ))}
               </div>

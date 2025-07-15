@@ -2,6 +2,7 @@
 	width: auto;
 	height: auto;
 	color: white;
+
 	mix-blend-mode: difference;
 }
 
@@ -33,19 +34,7 @@
 	margin: 0 auto;
 }
 
-.mainHeader {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	z-index: 3;
-	height: 5.375rem;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin: 0 auto;
-	background-color: var(--header-bg-color);
-}
+
 
 .langSwitcher_maintance {
 	display: flex;
@@ -115,10 +104,10 @@ button.active {
 .nav__link {
 	cursor: pointer;
 	color: var(--tx-wh);
+	mix-blend-mode: difference;
 	transition: color 0.5s ease;
-	font-weight: 400;
+	font-weight: 300;
 	line-height: 100%;
-	vertical-align: center;
 }
 
 .header_block {
@@ -132,6 +121,7 @@ button.active {
 	display: flex;
 	flex-direction: column;
 	row-gap: 5.66px;
+	cursor: pointer;
 }
 
 .burger_line {
@@ -139,6 +129,7 @@ button.active {
 	height: 1.55px;
 	width: 40px;
 	background: #fff;
+	mix-blend-mode: difference;
 	transition: transform .3s;
 }
 

@@ -1,3 +1,6 @@
+.equipment{
+	background-color: var(--bg-beige);
+}
 .equip__body {
 	max-inline-size: 1920px;
 	width: 100%;

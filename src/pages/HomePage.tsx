@@ -15,36 +15,51 @@ import ApartmentView from "../components/Main/ApartmentChoise/ApartmentView";
 import Request from "../components/Main/Request/Request";
 import SpaceStructure from "../components/Main/Structure/SpaceStructure";
 import Locations from "../components/Main/Locations/Locations";
+import { ReactLenis } from "@studio-freight/react-lenis";
+import type Lenis from "@studio-freight/lenis";
+import { frame, cancelFrame } from "motion/react";
+type LenisRef = { lenis: Lenis | undefined };
 
 const HomePage = () => {
+  const lenisRef = useRef<LenisRef>(null);
   gsap.registerPlugin(ScrollTrigger);
   const parallaxRef = useRef(null);
   useEffect(() => {
     gsap.to(parallaxRef.current, {
-      yPercent: 10,
+      yPercent: 15,
       ease: "none",
       scrollTrigger: {
         trigger: parallaxRef.current,
-        start: "-50% 0%",
+        start: "-30% 0%",
         end: "bottom center",
         scrub: true,
       },
     });
+
+  }, []);
+
+  useEffect(() => {
+    function raf(time: number) {
+      lenisRef.current?.lenis?.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
   }, []);
 
   return (
-    <>
+    <ReactLenis
+      ref={lenisRef}
+      root
+      options={{
+      }}
+    >
       <Header />
       <main className={styles.main}>
         <SectionMain />
-        <img
-          className={styles.video_stab}
-          src="./images/video-stab.jpg"
-          alt=""
-        />
         <AboutMain />
         <Infrastructura />
-		  <Locations/>
+        <Locations />
         <section className={styles.parallax}>
           <div className={styles.parallax_block}>
             <div ref={parallaxRef} className={styles.parallax__container}>
@@ -58,8 +73,8 @@ const HomePage = () => {
           <div className={styles.parallax_block_text}>
             <p>A comfortable lifestyle within walking distance</p>
           </div>
-          <HorizontParallax />
         </section>
+        <HorizontParallax />
         <Equipment />
         <Steps />
         <SpaceStructure />
@@ -67,7 +82,7 @@ const HomePage = () => {
         {/* <Request /> */}
         <Footer />
       </main>
-    </>
+    </ReactLenis>
   );
 };
 

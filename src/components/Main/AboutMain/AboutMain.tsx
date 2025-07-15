@@ -1,6 +1,9 @@
+import { useEffect, useRef } from "react";
 import SelectApartmentBtn from "../../Buttons/SelectApartmentBtn";
 import styles from "./AboutMain.module.css";
-
+import SplitText from "gsap/SplitText";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 const AboutMain = () => {
   interface ImgsListType {
     [key: string]: string;
@@ -21,23 +24,103 @@ const AboutMain = () => {
     { key: "street-hythm", src: "street-hythm.jpg" },
     { key: "urban-oasis", src: "urban-oasis.jpg" },
   ];
+  const imgRef = useRef<HTMLImageElement>(null);
+  useEffect(() => {
+    const titlesArray = document.querySelectorAll('[data-split="title"]'); // или ".animate-text"
+    var tl = gsap.timeline();
+    gsap.registerPlugin(ScrollTrigger);
+    titlesArray.forEach((heading) => {
+      const split = new SplitText(heading, { type: "chars" });
+      gsap.from(split.chars, {
+        opacity: 0,
+        y: 50,
+        duration: 0.5,
+        ease: "back.out(1.7)",
+        stagger: 0.05,
+        scrollTrigger: {
+          trigger: heading,
+          start: "top 80%",
+          toggleActions: "play none none none",
+          once: true,
+        },
+      });
+    });
+    const blockNamesArray = document.querySelectorAll(
+      '[data-split="block-name"]'
+    );
+
+    blockNamesArray.forEach((name) => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: name,
+          start: "top 80%", // когда блок входит в зону
+          toggleActions: "play none none none",
+          once: true,
+        },
+      });
+
+      tl.from(name, {
+        opacity: 0,
+        x: -50,
+        ease: "back.out(1.7)",
+        duration: 2,
+      });
+    });
+    const paragraphs = document.querySelectorAll('[data-animate="fade-up"]');
+
+    paragraphs.forEach((el) => {
+      gsap.from(el, {
+        opacity: 0,
+        y: 70,
+        duration: 2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 90%",
+          toggleActions: "play none none none",
+          once: true,
+        },
+      });
+    });
+    const imagesArray = document.querySelectorAll(
+      '[data-animate="image-fade"]'
+    );
+    imagesArray.forEach((img) => {
+      gsap.to(img, {
+        top: "100%",
+        duration: 1.5,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: img,
+          start: "top 90%",
+          toggleActions: "play none none none",
+          once: true,
+        },
+      });
+    });
+  }, []);
   return (
     <section className={styles.about}>
       <div className={styles.about__body}>
         <div className={styles.about__block}>
-          <div className={styles.about__name}>About the project</div>
+          <div className={styles.about__name} data-split="block-name">
+            About the project
+          </div>
           <div className={styles.about_text_block}>
-            <h2 className={styles.about_text_block_title}>
-              Creating a space inspired by classics
+            <h2
+              className={styles.about_text_block_title}
+              data-animate="fade-up"
+            >
+              Creating a space <br /> inspired by classics
             </h2>
             <div className={styles.about_block_text}>
-              <p>
+              <p data-animate="fade-up">
                 After the distinctive Beethoven's Park, which provided a home
                 for families and individuals in a complex of 75 apartments, we
                 continue to build in the same spirit — combining opulence,
                 elegance, comfort and luxury.
               </p>
-              <p>
+              <p data-animate="fade-up">
                 Just as the world's greatest composers Beethoven and Chopin
                 created music that inspires, our new commercial and residential
                 complex, Chopin Park, exudes that artistic vision.
@@ -48,14 +131,20 @@ const AboutMain = () => {
             <SelectApartmentBtn />
           </div>
         </div>
-        <div className={styles.img__list}>
+        <div className={styles.img__list} ref={imgRef}>
           {ImgsListArray.map((img) => (
-            <img
-              key={img.key}
-              src={`./images/${img.src}`}
-              alt={img.key}
-              className={styles.img__item}
-            />
+            <div className={styles.img_wrapper}>
+              <img
+                key={img.key}
+                src={`./images/${img.src}`}
+                alt={img.key}
+                className={styles.img__item}
+              />
+              <div
+                className={styles.img_overlay}
+                data-animate="image-fade"
+              ></div>
+            </div>
           ))}
         </div>
         <div className={styles.about__content}>

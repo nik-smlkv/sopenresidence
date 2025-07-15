@@ -6,7 +6,7 @@ const Infrastructura = () => {
     <section className={styles.infrastructura}>
       <div className={styles.infrastructura__body}>
         <div className={styles.infrastructura__block}>
-          <div className={styles.infrastructura__name}>Infrastructure</div>
+          <div className={styles.infrastructura__name} data-split="block-name">Infrastructure</div>
           <div className={styles.infrastructura_text_block}>
             <h2 className={styles.infrastructura_text_block_title}>
               Everything here is designed for a modern lifestyle
