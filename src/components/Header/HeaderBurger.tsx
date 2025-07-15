@@ -13,17 +13,22 @@ const HeaderBurger = () => {
   return (
     <>
       <div
-        className={`${styles.header__burger} ${burgerModal.isOpen ? styles.active : ""}`}
+        className={`${styles.header__burger} ${
+          burgerModal.isOpen ? styles.active : ""
+        }`}
         onClick={handleToggle}
       >
         <span className={styles.burger_line}></span>
         <span className={styles.burger_line}></span>
         <span className={styles.burger_line}></span>
       </div>
-
-      <Modal isOpen={burgerModal.isOpen} onClose={burgerModal.close}>
-        <BurgerModal />
-      </Modal>
+      {burgerModal.isOpen && (
+        <div className={styles.modal__wrapper}>
+          <Modal isOpen={burgerModal.isOpen} onClose={burgerModal.close}>
+            <BurgerModal />
+          </Modal>
+        </div>
+      )}
     </>
   );
 };

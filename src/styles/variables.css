@@ -1,7 +1,9 @@
 :root {
 	/* Accent color */
 	--acc-main-green: #1C2F24;
+	--acc-main-green-btn: #07412E;
 	--acc-main-green-diff: #E3D0DB;
+	--acc-main-green-diff-btn: #F8BED1;
 	--acc-light-apr: #F4B8A1;
 	--acc-light-apr-tx: #FFD9C3;
 	/* Background color */

@@ -3,11 +3,11 @@
 	height: 120px;
 	width: 120px;
 	border-radius: 100%;
-	background-color: var(--acc-main-green);
+	background-color: var(--acc-main-green-btn);
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border: 1px solid var(--acc-main-green);
+	border: 1px solid var(--acc-main-green-btn);
 	align-self: flex-end;
 	transition: background-color 0.5s ease;
 	position: relative;
@@ -103,13 +103,13 @@
 	justify-content: center;
 
 	color: var(--tx-wh);
-	border: 1px solid var(--acc-main-green);
+	border: 1px solid var(--acc-main-green-btn);
 	border-radius: 30px;
 	width: 100%;
 	height: 100%;
 	height: 64px;
 	position: relative;
-	background-color: var(--acc-main-green);
+	background-color: var(--acc-main-green-btn);
 	transition: background-color 2.5s ease, border 0.5s ease;
 	overflow: hidden;
 	cursor: pointer;
@@ -162,6 +162,6 @@
 	}
 
 	.button__circle:hover .button__arrow path {
-		stroke: var(--acc-main-green);
+		stroke: var(--acc-main-green-btn);
 	}
 }

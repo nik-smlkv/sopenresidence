@@ -19,7 +19,7 @@ const View = {
 } as const;
 type View = (typeof View)[keyof typeof View];
 
-type TypeInputEnabled = {
+export type TypeInputEnabled = {
   username?: string;
   phone?: string;
   email?: string;

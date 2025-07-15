@@ -2,8 +2,9 @@
 	width: auto;
 	height: auto;
 	color: white;
-
 	mix-blend-mode: difference;
+	position: relative;
+	z-index: 5;
 }
 
 .logo svg {
@@ -95,20 +96,6 @@ button.active {
 	}
 }
 
-.navigation {
-	display: flex;
-	align-items: center;
-	column-gap: 41px;
-}
-
-.nav__link {
-	cursor: pointer;
-	color: var(--tx-wh);
-	mix-blend-mode: difference;
-	transition: color 0.5s ease;
-	font-weight: 300;
-	line-height: 100%;
-}
 
 .header_block {
 	display: flex;
@@ -133,18 +120,34 @@ button.active {
 	transition: transform .3s;
 }
 
-.header__menu.active~.header-block .header__burger .burger_line:first-child {
+.header__burger.active .burger_line:first-child {
 	transform: translateY(3px) rotate(45deg);
 	margin: 5.5px 0;
 }
 
-.header__menu.active~.header-block .header__burger .burger_line:nth-child(2) {
-	transform: translateY(-7px) rotate(-45deg)
+.header__burger.active .burger_line:nth-child(2) {
+	opacity: 0;
+}
+
+.header__burger.active .burger_line:last-child {
+	transform: translateY(-16px) rotate(-45deg)
 }
 
 
-@media (hover: hover) {
-	.nav__link:hover {
-		color: var(--acc-light-apr);
-	}
+.modal__wrapper {
+	position: fixed;
+	top: 0px;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	z-index: 3;
+	background-color: var(--bg-beige);
+}
+.header_block{
+	position: relative;
+	z-index: 4;
+}
+.header_block button, .header_block div:not(div.modal__wrapper){
+	position: relative;
+	z-index: 4;
 }

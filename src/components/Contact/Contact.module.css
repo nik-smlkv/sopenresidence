@@ -1,0 +1,43 @@
+.block__address {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+}
+
+.contact__content {
+	flex: 0 1 1190px;
+	display: flex;
+	flex-direction: column;
+	row-gap: 110.5px;
+	position: relative;
+}
+
+.contact__info {
+	flex: 0 1 324px;
+	width: 100%;
+	max-width: 324px;
+	display: flex;
+	flex-direction: column;
+	row-gap: 60px;
+}
+
+.number {
+	font-size: 28px;
+	line-height: 100%;
+	font-weight: 500;
+}
+
+
+.contact__name {
+	text-transform: uppercase;
+	font-weight: 400;
+	line-height: 100%;
+	color: #D9D9D980;
+}
+
+.address {
+	font-size: 24px;
+	font-weight: 500;
+	line-height: 110%;
+	margin-bottom: 20px;
+}

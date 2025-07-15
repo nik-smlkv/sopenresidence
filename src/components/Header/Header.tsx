@@ -6,7 +6,7 @@ import { LanguageSelect } from "../LanguageSelect/LanguageSelect";
 import { useEffect, useRef, useState } from "react";
 
 import "./style.css";
-
+import Navigation from "../Navigation/Navigation";
 
 const Header = () => {
   const { setLang, lang } = useLang();
@@ -58,7 +58,6 @@ const Header = () => {
     return () => observer.disconnect();
   }, []);
 
-  
   const languages = [
     { code: "en", label: "EN" },
     { code: "srb", label: "SRB" },
@@ -110,13 +109,16 @@ const Header = () => {
                 />
               </svg>
             </div>
-            <nav className={styles.navigation}>
-              <p className={styles.nav__link}>About project</p>
-              <p className={styles.nav__link}>Infrastructure</p>
-              <p className={styles.nav__link}>Advantages</p>
-              <p className={styles.nav__link}>Equipment</p>
-              <p className={styles.nav__link}>Contact</p>
-            </nav>
+            <Navigation
+              items={[
+                { label: "About project", targetId: "about-project" },
+                { label: "Infrastructure", targetId: "infrastructure" },
+                { label: "Advantages", targetId: "advantages" },
+                { label: "Equipment", targetId: "equipment" },
+                { label: "Contact", targetId: "contact" },
+              ]}
+            />
+
             <div className={styles.header_block}>
               <LanguageSelect />
               <SelectApartmentBtn />

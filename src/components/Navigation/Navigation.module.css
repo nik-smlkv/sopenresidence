@@ -1,0 +1,23 @@
+.navigation {
+	display: flex;
+	align-items: center;
+	column-gap: 41px;
+	position: relative;
+	z-index: 5;
+}
+
+.nav__link {
+	cursor: pointer;
+	color: var(--tx-wh);
+	mix-blend-mode: difference;
+	transition: color 0.5s ease;
+	font-weight: 300;
+	line-height: 100%;
+}
+
+
+@media (hover: hover) {
+	.nav__link:hover {
+		color: var(--acc-light-apr);
+	}
+}

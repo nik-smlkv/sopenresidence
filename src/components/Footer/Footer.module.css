@@ -35,6 +35,21 @@
 	font-weight: 500;
 }
 
+.footer__content_body {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 400px;
+	justify-content: space-between;
+}
+
+.footer__info_block {
+	display: flex;
+	flex-direction: column;
+	row-gap: 24px;
+}
+
+
+
 .footer__address {
 	display: flex;
 	flex-direction: column;
