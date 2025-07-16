@@ -67,6 +67,7 @@
 	border: 1px solid var(--inpt-br);
 	background-color: var(--bg-beige);
 	transition: .5s ease;
+	overflow: hidden;
 }
 
 .burger_modal_social:hover {
@@ -94,8 +95,14 @@
 
 .burger_modal_nav button:hover {
 	border: 1px solid var(--acc-main-green-btn);
-	background-color: var(--bg-beige);
 
+
+}
+.burger_modal_nav button::after{
+	background-color: white;
+}
+.burger_modal_nav button:hover::after {
+	background-color: var(--bg-beige);
 }
 
 .burger_modal_nav button:hover span {
@@ -110,8 +117,6 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: var(--acc-main-green-diff-btn);
-	border: 1px solid var(--acc-main-green-diff-btn);
 	border-radius: 30px;
 	width: 100%;
 	mix-blend-mode: difference;
@@ -122,17 +127,18 @@
 	transition: background-color 2.5s ease, border 0.5s ease;
 	overflow: hidden;
 	cursor: pointer;
-
+	color: var(--acc-main-green-btn);
+	border: 1px solid #07412E;
 }
 
 .request__btn span {
 	text-transform: uppercase;
-	color: var(--acc-main-green-diff-btn);
-	font-weight: 500;
-	mix-blend-mode: difference;
+	color: var(--acc-main-green-btn);
+	font-weight: 400;
 	line-height: 110%;
 	position: relative;
 	z-index: 2;
+	mix-blend-mode: difference;
 }
 
 .request__btn::after {
@@ -145,10 +151,9 @@
 	top: 50%;
 	left: 50%;
 	border-radius: 100%;
-	background-color: var(--acc-main-green-diff-btn);
+	background-color: var(--acc-main-green-btn);
 	transform: translate(-50%, -50%);
-	transition: width .4s ease, height .6s ease;
-
+	transition: width .4s ease, height .6s ease, background-color .4s ease;
 }
 
 @media (hover: hover) {
@@ -157,8 +162,21 @@
 		width: 200%;
 		height: 250%;
 		transition: width 1s ease, height .5s ease;
+		border: 1px solid #07412E;
+	}
+
+	.request__btn:hover span {
+		color: var(--bg-beige);
+
+		mix-blend-mode: normal;
 	}
 }
+
+.burger_modal_btns {
+	max-width: 540px;
+}
+
+
 
 .burger_modal_block {
 	display: flex;
@@ -172,4 +190,9 @@
 
 .burger_modal_social svg {
 	cursor: pointer;
+
+}
+
+.burger_modal_social svg path {
+	fill: var(--acc-main-green-btn);
 }

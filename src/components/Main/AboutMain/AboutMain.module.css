@@ -32,6 +32,8 @@
 	display: flex;
 	flex: 0 0 auto;
 	mix-blend-mode: difference;
+	position: relative;
+	z-index: 2;
 }
 
 .about__apart_btn button {

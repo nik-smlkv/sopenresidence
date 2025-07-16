@@ -100,7 +100,7 @@ const AboutMain = () => {
     });
   }, []);
   return (
-    <section className={styles.about}>
+    <section className={styles.about} id="about-project">
       <div className={styles.about__body}>
         <div className={styles.about__block}>
           <div className={styles.about__name} data-split="block-name">

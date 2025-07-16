@@ -1,9 +1,15 @@
 import React from "react";
 import styles from "./Footer.module.css";
 import Contact from "../Contact/Contact";
+const handleClick = (id: string) => {
+  const targetEl = document.getElementById(id);
+  if (targetEl) {
+    targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+};
 const Footer = () => {
   return (
-    <footer className={styles.footer}>
+    <footer className={styles.footer} id="contact">
       <div className={styles.footer__body}>
         <div className={styles.footer__info_block}>
           <Contact />
@@ -139,6 +145,9 @@ const Footer = () => {
             </p>
             <svg
               className={styles.arrow__up}
+              onClick={() => {
+                handleClick("main");
+              }}
               width="50"
               height="50"
               viewBox="0 0 50 50"

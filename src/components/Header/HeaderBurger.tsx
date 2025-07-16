@@ -22,13 +22,11 @@ const HeaderBurger = () => {
         <span className={styles.burger_line}></span>
         <span className={styles.burger_line}></span>
       </div>
-      {burgerModal.isOpen && (
-        <div className={styles.modal__wrapper}>
-          <Modal isOpen={burgerModal.isOpen} onClose={burgerModal.close}>
-            <BurgerModal />
-          </Modal>
-        </div>
-      )}
+      <div className={styles.modal__wrapper}>
+        <Modal isOpen={burgerModal.isOpen} onClose={burgerModal.close}>
+          <BurgerModal />
+        </Modal>
+      </div>
     </>
   );
 };

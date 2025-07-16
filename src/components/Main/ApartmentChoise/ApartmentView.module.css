@@ -65,7 +65,7 @@
 	justify-content: space-between;
 	flex: 1 1 480px;
 	position: relative;
-	z-index: 3;
+	z-index: 2;
 }
 
 .apartment__icon {

@@ -11,22 +11,29 @@ const SectionMain = () => {
 
     const img = imageRef.current;
 
-    gsap.to(img, {
-      width: "100vw",
-      height: "100vh",
-      ease: "none",
-      scrollTrigger: {
-        trigger: img,
-        start: "25% 25%",
-        end: "+=100",
-        scrub: 1.2,
-        pin: mainBody.current,
-        anticipatePin: 1,
+    gsap.fromTo(
+      img,
+      {
+        maxWidth: "830px",
+        maxHeight: "496px",
       },
-    });
+      {
+        maxWidth: "100vw",
+        maxHeight: "100vh",
+        ease: "none",
+        scrollTrigger: {
+          trigger: img,
+          start: "25% 25%",
+          end: "+=100",
+          scrub: 1.2,
+          pin: mainBody.current,
+          
+        },
+      }
+    );
   }, []);
   return (
-    <section className={styles.main}>
+    <section className={styles.main} id="main">
       <div className={styles.title_block}>
         <p className={styles.text_welcome}>Welcome to</p>
         <h1 className={styles.title} data-split="title">

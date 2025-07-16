@@ -60,7 +60,7 @@ const HomePage = () => {
         <AboutMain />
         <Infrastructura />
         <Locations />
-        <section className={styles.parallax}>
+        <section className={styles.parallax} id="advantages">
           <div className={styles.parallax_block}>
             <div ref={parallaxRef} className={styles.parallax__container}>
               <img

@@ -5,6 +5,7 @@
 	mix-blend-mode: difference;
 	position: relative;
 	z-index: 5;
+	cursor: pointer;
 }
 
 .logo svg {
@@ -109,6 +110,7 @@ button.active {
 	flex-direction: column;
 	row-gap: 5.66px;
 	cursor: pointer;
+	mix-blend-mode: difference;
 }
 
 .burger_line {
@@ -133,21 +135,31 @@ button.active {
 	transform: translateY(-16px) rotate(-45deg)
 }
 
-
 .modal__wrapper {
 	position: fixed;
 	top: 0px;
 	left: 0;
 	width: 100%;
-	height: 100vh;
+	height: 0vh;
 	z-index: 3;
 	background-color: var(--bg-beige);
+	transition: .5s ease;
+	overflow: hidden;
 }
-.header_block{
+
+.header__burger.active~.modal__wrapper {
+	height: 100vh;
+	transition: .5s ease;
+}
+
+
+.header_block button,
+.header_block div:not(:last-child) {
 	position: relative;
 	z-index: 4;
+
 }
-.header_block button, .header_block div:not(div.modal__wrapper){
-	position: relative;
-	z-index: 4;
+
+div.burger_modal_content {
+	mix-blend-mode: normal;
 }

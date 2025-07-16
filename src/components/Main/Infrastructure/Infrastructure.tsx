@@ -3,7 +3,7 @@ import styles from "./Infrastructure.module.css";
 
 const Infrastructura = () => {
   return (
-    <section className={styles.infrastructura}>
+    <section className={styles.infrastructura} id="infrastructure">
       <div className={styles.infrastructura__body}>
         <div className={styles.infrastructura__block}>
           <div className={styles.infrastructura__name} data-split="block-name">Infrastructure</div>

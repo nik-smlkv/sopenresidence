@@ -4,7 +4,9 @@
 	column-gap: 41px;
 	position: relative;
 	z-index: 5;
+	mix-blend-mode: difference;
 }
+
 
 .nav__link {
 	cursor: pointer;
@@ -14,7 +16,6 @@
 	font-weight: 300;
 	line-height: 100%;
 }
-
 
 @media (hover: hover) {
 	.nav__link:hover {

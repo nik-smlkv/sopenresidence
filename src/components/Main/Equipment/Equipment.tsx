@@ -44,7 +44,7 @@ const Equipment = () => {
   };
 
   return (
-    <section className={styles.equipment}>
+    <section className={styles.equipment} id="equipment">
       <div className={styles.equip__body}>
         <div className={styles.equip__block}>
           <div className={styles.equip__name} data-split="block-name">Equipment</div>
