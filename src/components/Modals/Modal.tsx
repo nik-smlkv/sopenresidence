@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Modal.module.css";
+import ModalContext from "../../context/ModalContext";
 
-interface ModalProps {
+export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
@@ -16,22 +17,32 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
     } else {
       const timeout = setTimeout(() => {
         setIsMounted(false);
-      }, 500); 
+      }, 500);
       return () => clearTimeout(timeout);
     }
-  }, [isOpen]);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
 
   if (!isMounted) return null;
 
   return (
-    <div
-      className={`${styles.overlay} ${isOpen ? styles.open : styles.close}`}
-      onClick={onClose}
-    >
-      <div className={styles.content} onClick={(e) => e.stopPropagation()}>
-        {children}
+    <ModalContext.Provider value={{ close: onClose }}>
+      <div
+        className={`${styles.overlay} ${isOpen ? styles.open : styles.close}`}
+        onClick={onClose}
+      >
+        <div className={styles.content} onClick={(e) => e.stopPropagation()}>
+          {children}
+        </div>
       </div>
-    </div>
+    </ModalContext.Provider>
   );
 };
 

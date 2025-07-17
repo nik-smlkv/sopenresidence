@@ -23,6 +23,7 @@ const Navigation: React.FC<NavigationProps> = ({ items }) => {
           key={targetId}
           className={styles.nav__link}
           onClick={() => handleClick(targetId)}
+			 data-close
         >
           {label}
         </p>

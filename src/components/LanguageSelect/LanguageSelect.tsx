@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./LanguageSelect.module.css";
 import { useLang } from "../../hooks/useLang";
 import type { LangType } from "../../context/LangContext/LangContext";
@@ -6,12 +6,13 @@ import type { LangType } from "../../context/LangContext/LangContext";
 const languages = [
   { code: "en", label: "EN" },
   { code: "srb", label: "SRB" },
-  { code: "ru", label: "RU" },
+  { code: "ru", label: "RUS" },
 ] as const;
 
 export const LanguageSelect = () => {
   const { lang, setLang } = useLang();
   const [isOpen, setIsOpen] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
   const handleSelect = (code: LangType) => {
@@ -19,11 +20,36 @@ export const LanguageSelect = () => {
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        isOpen &&
+        wrapperRef.current &&
+        !wrapperRef.current.contains(e.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [isOpen]);
+
   const currentLabel =
     languages.find((l) => l.code === lang)?.label || "Select";
 
   return (
-    <div className={styles.langSwitcher}>
+    <div className={styles.langSwitcher} ref={wrapperRef}>
       <div className={styles.selectWrapper}>
         <div className={styles.selected} onClick={toggleDropdown}>
           {currentLabel}
@@ -41,17 +67,19 @@ export const LanguageSelect = () => {
         </div>
         {isOpen && (
           <ul className={styles.options}>
-            {languages.map(({ code, label }) => (
-              <li
-                key={code}
-                className={`${styles.option} ${
-                  lang === code ? styles.active : ""
-                }`}
-                onClick={() => handleSelect(code)}
-              >
-                {label}
-              </li>
-            ))}
+            {languages
+              .filter(({ code }) => code !== lang)
+              .map(({ code, label }) => (
+                <li
+                  key={code}
+                  className={`${styles.option} ${
+                    lang === code ? styles.active : ""
+                  }`}
+                  onClick={() => handleSelect(code)}
+                >
+                  {label}
+                </li>
+              ))}
           </ul>
         )}
       </div>

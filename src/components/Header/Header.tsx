@@ -4,16 +4,25 @@ import styles from "./Header.module.css";
 import HeaderBurger from "./HeaderBurger";
 import { LanguageSelect } from "../LanguageSelect/LanguageSelect";
 import { useEffect, useRef, useState } from "react";
-
 import "./style.css";
 import Navigation from "../Navigation/Navigation";
+import { useModalControl } from "../../context/ModalContext";
+import { useModal } from "../../hooks/useModal";
+
 const handleClick = (id: string) => {
   const targetEl = document.getElementById(id);
   if (targetEl) {
     targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 };
+
 const Header = () => {
+  const burgerModal = useModal();
+
+  const handleBurgerRemove = () => {
+    burgerModal.close();
+  };
+
   const { setLang, lang } = useLang();
   useEffect(() => {
     const sections = document.querySelectorAll("section");
@@ -36,7 +45,6 @@ const Header = () => {
 
             const computedStyle = window.getComputedStyle(target);
             const bgColor = computedStyle.backgroundColor;
-            console.log("Visible section background:", bgColor);
             if (bgColor.includes("28, 47, 36")) {
               headerEl?.style.setProperty("background-color", "#1C2F24");
             } else if (bgColor.includes("250, 247, 242")) {
@@ -86,9 +94,15 @@ const Header = () => {
           </div>
         </header>
       ) : (
-        <header className="mainHeader">
+        <header className="mainHeader" onClick={() => {}}>
           <div className={styles.header__body}>
-            <div className={styles.logo} onClick={() => handleClick("main")}>
+            <div
+              className={styles.logo}
+              onClick={() => {
+                handleClick("main");
+                handleBurgerRemove();
+              }}
+            >
               <svg
                 width="138"
                 height="62"
@@ -111,20 +125,32 @@ const Header = () => {
                 />
               </svg>
             </div>
-            <Navigation
-              items={[
-                { label: "About project", targetId: "about-project" },
-                { label: "Infrastructure", targetId: "infrastructure" },
-                { label: "Advantages", targetId: "advantages" },
-                { label: "Equipment", targetId: "equipment" },
-                { label: "Contact", targetId: "contact" },
-              ]}
-            />
-
+            <div
+              onClick={handleBurgerRemove}
+              className={styles.navigation__body}
+            >
+              <Navigation
+                items={[
+                  { label: "About project", targetId: "about-project" },
+                  { label: "Infrastructure", targetId: "infrastructure" },
+                  { label: "Advantages", targetId: "advantages" },
+                  { label: "Equipment", targetId: "equipment" },
+                  { label: "Contact", targetId: "contact" },
+                ]}
+              />
+            </div>
             <div className={styles.header_block}>
               <LanguageSelect />
-              <SelectApartmentBtn />
-              <HeaderBurger />
+              <div onClick={handleBurgerRemove} className={styles.btn__body}>
+                <SelectApartmentBtn />
+              </div>
+              <HeaderBurger
+                isOpen={burgerModal.isOpen}
+                onToggle={() =>
+                  burgerModal.isOpen ? burgerModal.close() : burgerModal.open()
+                }
+                onClose={burgerModal.close}
+              />
             </div>
           </div>
         </header>

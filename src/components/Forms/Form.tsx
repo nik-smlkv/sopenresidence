@@ -118,7 +118,7 @@ function Form({ ...enabled }: TypeInputEnabled) {
   const isTechWork = false;
   return (
     <>
-      {view === View.void && isTechWork ? (
+      {isTechWork ? (
         <form className="form" onSubmit={onSubmit}>
           <div className="form_container">
             <p className="input_error" data-error={!!errors.username}>
@@ -181,7 +181,10 @@ function Form({ ...enabled }: TypeInputEnabled) {
                   return (
                     <Input
                       key={name}
-                      autoFocus={!!errorMessage && name === "email"}
+                      /* autoFocus={
+                        Boolean(errorMessage && errorMessage.trim()) &&
+                        name === "email"
+                      } */
                       onChange={onChange}
                       onBlur={onBlur}
                       name={name}

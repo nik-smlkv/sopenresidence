@@ -60,6 +60,7 @@ button.active {
 
 .langSwitcher_maintance button {
 	position: relative;
+
 }
 
 .langSwitcher_maintance button:not(:last-child)::after {
@@ -69,7 +70,8 @@ button.active {
 	height: 100%;
 	top: 0;
 	left: 16px;
-	color: var(--tx-bl-50);
+	mix-blend-mode: difference;
+	color: var(--tx-wh);
 }
 
 @media (hover: hover) {
@@ -162,4 +164,34 @@ button.active {
 
 div.burger_modal_content {
 	mix-blend-mode: normal;
+}
+
+.langSwitcher_maintance {
+	mix-blend-mode: difference;
+}
+
+.langSwitcher_maintance button {
+	color: white;
+	mix-blend-mode: difference;
+	font-weight: 400;
+}
+
+.langSwitcher_maintance button::after {
+	color: white;
+}
+
+.navigation__body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.btn__body {
+	mix-blend-mode: difference;
+}
+
+@media((min-width: 1440px) and (max-width: 1920px)) {
+	.header__body {
+		padding: 0em clamp(5em, 6vw, 6.25em) 0;
+	}
 }

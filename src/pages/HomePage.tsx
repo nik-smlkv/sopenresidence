@@ -79,7 +79,7 @@ const HomePage = () => {
         <Steps />
         <SpaceStructure />
         <ApartmentView />
-        {/* <Request /> */}
+        <Request />
         <Footer />
       </main>
     </ReactLenis>

@@ -155,3 +155,24 @@
 		transition: width .2s ease, height .2s ease;
 	}
 }
+
+
+
+
+@media (min-width: 1440px) and (max-width: 1920px) {
+	.swiper__infra {
+		padding-bottom: clamp(5em, calc(9vw - 7em), 6.25em);
+	}
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+	.swiper__infra {
+		padding-bottom: clamp(2.5em, calc(9.6vw - 7em), 5em);
+	}
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+	.swiper__infra {
+		padding-bottom: clamp(1.25em, 5vw, 2.5em);
+	}
+}

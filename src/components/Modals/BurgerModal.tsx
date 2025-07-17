@@ -3,9 +3,20 @@ import styles from "./Modal.module.css";
 import Contact from "../Contact/Contact";
 import Navigation from "../Navigation/Navigation";
 import SelectApartmentBtn from "../Buttons/SelectApartmentBtn";
+import { useModalControl } from "../../context/ModalContext";
+
 const BurgerModal = () => {
+  const { close } = useModalControl();
   return (
-    <div className={styles.burger_modal}>
+    <div
+      className={styles.burger_modal}
+      onClick={(e) => {
+        const target = e.target as HTMLElement;
+        if (target.closest("[data-close]")) {
+          close();
+        }
+      }}
+    >
       <div className={styles.burger_modal_body}>
         <div className={styles.burger_modal_content}>
           <div className={styles.burger_modal_contact}>
@@ -23,7 +34,7 @@ const BurgerModal = () => {
                 { label: "Space Structure", targetId: "space-structure" },
               ]}
             />
-            <SelectApartmentBtn />
+            <SelectApartmentBtn data-close />
           </div>
           <div className={styles.burger_modal_picture}>
             <img src="./images/modal-image.jpg" alt="Modal Image" />
@@ -31,7 +42,7 @@ const BurgerModal = () => {
         </div>
         <div className={styles.burger_modal_block}>
           <div className={styles.burger_modal_btns}>
-            <div className={styles.request__btn}>
+            <div className={styles.request__btn} data-close>
               <span>Leave a request</span>
             </div>
             {/* <div className="current_language"></div> */}

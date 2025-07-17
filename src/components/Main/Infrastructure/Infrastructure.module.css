@@ -58,3 +58,22 @@
 	font-size: 80px;
 	line-height: 100%;
 }
+
+
+@media (min-width: 1440px) and (max-width: 1920px) {
+	.infrastructura__body {
+		padding: clamp(8.75em, calc(12vw - 10em), 10em) clamp(5em, calc(9vw - 7em), 6.25em) 0;
+	}
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+	.infrastructura__body {
+		padding: clamp(6.25em, calc(11vw - 5em), 8.75em) clamp(2.5em, calc(9.6vw - 7em), 5em) 0;
+	}
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+	.infrastructura__body {
+		padding: 6.25em clamp(1.25em, 5vw, 2.5em) 0;
+	}
+}
