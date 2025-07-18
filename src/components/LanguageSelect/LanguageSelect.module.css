@@ -1,7 +1,6 @@
 .langSwitcher {
 	color: var(--tx-wh);
 	mix-blend-mode: difference;
-	margin-right: 20px;
 	list-style: none;
 	position: relative;
 }
@@ -17,7 +16,7 @@
 	column-gap: 6px;
 	cursor: pointer;
 	user-select: none;
-	padding: 0px 12px;
+	padding: 0px 9px;
 }
 
 .langSwitcher li {

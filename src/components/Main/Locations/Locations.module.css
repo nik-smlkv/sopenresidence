@@ -74,6 +74,7 @@
 	position: relative;
 	transition: left .5s ease;
 }
+
 .arrow {
 	position: absolute;
 	left: -50px;
@@ -82,4 +83,26 @@
 	background-image: url('/images/location-arrow.svg');
 	background-size: contain;
 	transition: .5s all ease;
+}
+
+
+@media (min-width: 1440px) and (max-width: 1920px) {
+	.location__body {
+		padding: 0px clamp(5em, calc(9vw - 7em), 6.25em) clamp(8.75em, calc(12vw - 10em), 10em) clamp(5em, calc(9vw - 7em), 6.25em);
+	}
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+	.location__body {
+		padding: 0px clamp(2.5em, calc(9.6vw - 7em), 5em) clamp(6.25em, calc(11vw - 5em), 8.75em) clamp(2.5em, calc(9.6vw - 7em), 5em);
+	}
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+	.location__body {
+		padding: 6.25em clamp(1.25em, 5vw, 2.5em) 0;
+	}
+	.location__body {
+		padding: 0px clamp(1.25em, 5vw, 2.5em) 6.25em clamp(1.25em, 5vw, 2.5em);
+	}
 }

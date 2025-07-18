@@ -22,3 +22,13 @@
 		color: var(--acc-light-apr);
 	}
 }
+
+@media (min-width: 1440px) and (max-width: 1920px) {
+	.navigation {
+		column-gap: clamp(1.25em, calc(3em - 2vw), 2.5em);
+	}
+	.navigation__body{
+		flex: 1;
+		justify-content: end;
+	}
+}

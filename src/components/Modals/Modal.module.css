@@ -12,12 +12,14 @@
 
 .burger_modal_body {
 	max-inline-size: 1920px;
-	padding: 134px 100px 100px;
+	padding: 160px 100px 80px 100px;
 	margin: 0 auto;
 	width: 100%;
+	height: 100vh;
 	display: flex;
 	flex-direction: column;
-	row-gap: 104px;
+	transition: height .5s ease;
+	justify-content: space-between;
 }
 
 .nav__name {
@@ -98,9 +100,11 @@
 
 
 }
-.burger_modal_nav button::after{
+
+.burger_modal_nav button::after {
 	background-color: white;
 }
+
 .burger_modal_nav button:hover::after {
 	background-color: var(--bg-beige);
 }
@@ -195,4 +199,25 @@
 
 .burger_modal_social svg path {
 	fill: var(--acc-main-green-btn);
+}
+
+
+
+
+@media (min-width: 1440px) and (max-width: 1920px) {
+	.burger_modal_body {
+		padding: 10em clamp(5em, calc(9vw - 7em), 6.25em) clamp(5em, calc(12vw - 10em), 10em) clamp(5em, calc(9vw - 7em), 6.25em);
+	}
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+	.burger_modal_body {
+		padding: clamp(7.5em, 5vw, 10em) clamp(2.5em, calc(12vw - 10em), 5em) clamp(2.5em, calc(9vw - 7em), 5em) clamp(2.5em, calc(9vw - 7em), 5em);
+	}
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+	.burger_modal_body {
+		padding: 10em clamp(1.25em, calc(12vw - 10em), 2.5em) clamp(2.5em, calc(9vw - 7em), 5em) clamp(1.25em, calc(9vw - 7em), 2.5em);
+	}
 }
