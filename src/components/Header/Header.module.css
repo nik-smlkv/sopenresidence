@@ -210,6 +210,26 @@ div.burger_modal_content {
 	}
 }
 
+@media((min-width: 769px) and (max-width: 1023px)) {
+	.header__body {
+		padding: 0em clamp(1.25em, 3vw, 2.5em) 0;
+	}
+}
+
+@media(max-width: 768px) {
+	.header__body {
+		padding: 0em clamp(1.25em, 3vw, 2.5em) 0;
+	}
+}
+
+@media(max-width: 600px) {
+
+	.btn__body {
+		display: none;
+	}
+}
+
+
 @media(max-width: 1439px) {
 	.navigation__body {
 		display: none;

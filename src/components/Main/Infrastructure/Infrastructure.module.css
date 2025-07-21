@@ -1,6 +1,9 @@
 .infrastructura {
 	background-color: var(--acc-main-green);
 	color: var(--tx-wh);
+	display: flex;
+	flex-direction: column;
+	row-gap: 30px;
 }
 
 .infrastructura__body {
@@ -64,16 +67,38 @@
 	.infrastructura__body {
 		padding: clamp(8.75em, calc(12vw - 10em), 10em) clamp(5em, calc(9vw - 7em), 6.25em) 0;
 	}
+
+	.infrastructura_text_block_title {
+		font-size: clamp(3.75rem, 0rem + 4.167vi, 5rem);
+		max-width: 794px;
+	}
 }
 
 @media (min-width: 1024px) and (max-width: 1439px) {
 	.infrastructura__body {
 		padding: clamp(6.25em, calc(11vw - 5em), 8.75em) clamp(2.5em, calc(9.6vw - 7em), 5em) 0;
 	}
+
+	.infrastructura_text_block_title {
+		font-size: clamp(2.25rem, 0.096rem + 3.365vi, 3.75rem);
+				max-width: 620px;
+	}
+
+
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
 	.infrastructura__body {
 		padding: 6.25em clamp(1.25em, 5vw, 2.5em) 0;
+	}
+
+	.infrastructura_text_block_title {
+		font-size: clamp(1.75rem, 0.25rem + 3.125vi, 2.25rem);
+	}
+}
+
+@media(max-width: 768px) {
+	.infrastructura_text_block_title {
+		font-size: 1.75rem;
 	}
 }

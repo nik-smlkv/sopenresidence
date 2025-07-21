@@ -260,3 +260,34 @@ template {
 	background-color: var(--acc-light-apr-tx) !important;
 }
 
+@media (min-width: 1440px) and (max-width: 1920px) {
+	.section_name {
+		font-size: clamp(1.13rem, 0.38rem + 0.83vw, 1.38rem);
+	}
+}
+
+
+
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+	.section_name {
+		font-size: clamp(1rem, 0.69rem + 0.48vw, 1.13rem);
+	}
+
+}
+
+
+
+@media (min-width: 768px) and (max-width: 1023px) {
+	.section_name {
+		font-size: clamp(0.88rem, 0.5rem + 0.78vw, 1rem);
+	}
+}
+
+@media(max-width: 768px) {
+	.section_name {
+		font-size: 16px;
+	}
+
+
+}

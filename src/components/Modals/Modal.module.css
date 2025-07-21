@@ -35,6 +35,7 @@
 	row-gap: 20px;
 }
 
+
 .burger_modal_notation {
 	font-weight: 400;
 	text-transform: uppercase;
@@ -51,7 +52,7 @@
 }
 
 .burger_modal_nav nav p {
-	font-size: 32px;
+	font-size: 30px;
 	line-height: 110%;
 	font-weight: 500;
 	color: var(--tx-bl);
@@ -117,6 +118,11 @@
 	color: var(--tx-bl-50);
 }
 
+.burger_modal_contact :global(.contact__name) {
+	text-transform: capitalize;
+	font-size: 18px;
+}
+
 .request__btn {
 	display: flex;
 	align-items: center;
@@ -138,7 +144,7 @@
 .request__btn span {
 	text-transform: uppercase;
 	color: var(--acc-main-green-btn);
-	font-weight: 400;
+	font-weight: 500;
 	line-height: 110%;
 	position: relative;
 	z-index: 2;
@@ -160,27 +166,15 @@
 	transition: width .4s ease, height .6s ease, background-color .4s ease;
 }
 
-@media (hover: hover) {
-
-	.request__btn:hover::after {
-		width: 200%;
-		height: 250%;
-		transition: width 1s ease, height .5s ease;
-		border: 1px solid #07412E;
-	}
-
-	.request__btn:hover span {
-		color: var(--bg-beige);
-
-		mix-blend-mode: normal;
-	}
+.burger_modal_contact :global(.number) {
+	font-size: 32px;
 }
 
-.burger_modal_btns {
-	max-width: 540px;
+.burger_modal_contact :global(.address) {
+	font-size: 22px;
 }
 
-
+@media((min-width: 1440px) and (max-width: 1919px)) {}
 
 .burger_modal_block {
 	display: flex;
@@ -201,12 +195,42 @@
 	fill: var(--acc-main-green-btn);
 }
 
+.burger_modal_picture {
+	width: 34.507vw;
+}
 
+.burger_modal_btns {
+	max-width: 540px;
+	display: flex;
+}
 
+.burger_modal_nav_block {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+@media(max-width: 1920px) {
+	.nav__name {
+		font-size: clamp(1rem, 0.63rem + 0.42vw, 1.13rem);
+	}
+
+	.burger_modal_contact :global(.contact__name) {
+		font-size: clamp(1rem, 0.63rem + 0.42vw, 1.13rem);
+	}
+}
 
 @media (min-width: 1440px) and (max-width: 1920px) {
 	.burger_modal_body {
 		padding: 10em clamp(5em, calc(9vw - 7em), 6.25em) clamp(5em, calc(12vw - 10em), 10em) clamp(5em, calc(9vw - 7em), 6.25em);
+	}
+
+	.burger_modal_contact :global(.number) {
+		font-size: clamp(26px, calc(16.68px + 1.2526vw), 32px);
+	}
+
+	.burger_modal_contact :global(.address) {
+		font-size: clamp(1.13rem, calc(0.38rem + 0.83vw), 1.38rem);
 	}
 }
 
@@ -214,10 +238,180 @@
 	.burger_modal_body {
 		padding: clamp(7.5em, 5vw, 10em) clamp(2.5em, calc(12vw - 10em), 5em) clamp(2.5em, calc(9vw - 7em), 5em) clamp(2.5em, calc(9vw - 7em), 5em);
 	}
+
+	.burger_modal_contact :global(.contact__name_depart) {
+		text-transform: math-auto;
+	}
+
+	.burger_modal_contact :global(.number) {
+		font-size: 30px;
+	}
+
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1439px) {
+	.burger_modal_nav button {
+		max-width: 250px;
+		position: absolute;
+		right: 80px;
+		bottom: -16px;
+	}
+}
+
+@media(max-width: 1439px) {
+	.burger_modal_contact :global(.address) {
+		font-size: clamp(1.13rem, 0.51rem + 0.96vw, 1.38rem);
+	}
+}
+
+@media(max-width: 1230px) {
+	.burger_modal_content {
+		flex-direction: column-reverse;
+		row-gap: 60px;
+	}
+
+	.burger_modal_nav nav {
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex: 1 1 auto;
+		max-width: 688px;
+		row-gap: 16px;
+		margin-bottom: 0;
+	}
+
+	.burger_modal_nav nav p {
+		flex: 0 1 318px;
+	}
+
+	.contact__info {
+		flex-direction: row;
+	}
+
+	.burger_modal_picture {
+		display: none;
+	}
+
+	.burger_modal_contact :global(.contact_info_block) {
+		flex-direction: row;
+		flex: 1 1 100%;
+		max-width: 100%;
+		column-gap: 100px;
+	}
+
+	.burger_modal_contact :global(.address) {
+		max-width: 260px;
+	}
+}
+
+@media (max-width: 1023px) {
 	.burger_modal_body {
-		padding: 10em clamp(1.25em, calc(12vw - 10em), 2.5em) clamp(2.5em, calc(9vw - 7em), 5em) clamp(1.25em, calc(9vw - 7em), 2.5em);
+		padding: clamp(6.25em, calc(6.25em + 1.47vw), 10em) clamp(1.25em, calc(12vw - 10em), 2.5em) clamp(2.5em, calc(9vw - 7em), 5em) clamp(1.25em, calc(9vw - 7em), 2.5em);
+	}
+
+	.burger_modal_nav nav p {
+		font-size: clamp(1.25rem, 0.48rem + 2.92vw, 1.88rem);
+	}
+}
+
+
+
+@media(max-width:768px) {
+	.burger_modal_content {
+		row-gap: 40px;
+	}
+
+	.burger_modal_contact :global(.contact__name_depart),
+	.request__btn {
+		font-size: clamp(0.75rem, 0.44rem + 1.17vw, 1rem);
+	}
+
+	.burger_modal_contact :global(.contact_info_block) div:last-child {
+		row-gap: 6px;
+	}
+
+	.burger_modal_notation {
+		font-size: clamp(0.75rem, 0.6rem + 0.58vw, 0.88rem);
+	}
+
+	.nav__name {
+		display: none;
+	}
+
+	.burger_modal_block {
+		align-items: start;
+	}
+
+	.burger_modal_block div {
+		flex: 1 1 100%;
+	}
+
+	.burger_modal_block {
+		row-gap: 20px;
+	}
+
+	.burger_modal_btns {
+		max-width: 100%;
+		flex: 1 1 100%;
+		width: 100%;
+		flex-direction: row-reverse;
+	}
+
+	.burger_modal_contact :global(.number) {
+		font-size: clamp(1.25rem, 0.8rem + 2.23vw, 1.88rem);
+	}
+
+	.burger_modal_nav {
+		width: 100%;
+	}
+
+	.burger_modal_block {
+		flex-direction: column;
+	}
+
+	.burger_modal_nav_block {
+		flex-direction: column;
+		row-gap: 16px;
+
+	}
+
+	.burger_modal_contact :global(.contact_info_block) {
+		flex-direction: column;
+		row-gap: 26px;
+	}
+
+	.burger_modal_nav nav {
+		flex-direction: column;
+		margin-bottom: 14px;
+		row-gap: 14px;
+	}
+
+	.burger_modal_nav nav p {
+		flex: 1 1 auto;
+	}
+
+	.burger_modal_nav button {
+		position: static;
+	}
+}
+
+@media(max-width: 560px) {
+	.burger_modal_nav button {
+		max-width: 100%
+	}
+}
+
+@media (hover: hover) {
+
+	.request__btn:hover::after {
+		width: 200%;
+		height: 250%;
+		transition: width 1s ease, height .5s ease;
+		border: 1px solid #07412E;
+	}
+
+	.request__btn:hover span {
+		color: var(--bg-beige);
+
+		mix-blend-mode: normal;
 	}
 }

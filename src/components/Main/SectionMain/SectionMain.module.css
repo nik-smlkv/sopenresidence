@@ -55,7 +55,7 @@
 .title {
 	font-family: "Celine Sans", sans-serif;
 	text-transform: uppercase;
-	font-size: clamp(7.5rem, 6.25rem + 8.46875vw, 15rem);
+	font-size: 18.75rem;
 	font-weight: 400;
 	color: var(--tx-wh);
 	line-height: 85%;
@@ -63,6 +63,7 @@
 	position: relative;
 	z-index: 2;
 }
+
 
 
 .text_welcome {
@@ -91,10 +92,19 @@
 	font-weight: 200;
 }
 
+@media(max-width: 1920px) {
+	.title_block {
+		row-gap: 30px;
+	}
+}
 
 @media (min-width: 1440px) and (max-width: 1920px) {
 	.main__body {
 		padding: 0 clamp(5em, calc(9vw - 7em), 6.25em) 0;
+	}
+
+	.title {
+		font-size: clamp(15rem, calc(15rem + 0.13vw), 18.75rem);
 	}
 }
 
@@ -102,10 +112,43 @@
 	.main__body {
 		padding: 0 clamp(2.5em, calc(9.6vw - 7em), 5em) 0;
 	}
+
+	.title {
+		font-size: clamp(10rem, calc(10rem + 1.0416vw), 15rem);
+	}
+}
+
+@media(max-width: 1023px) {
+	.text_welcome {
+		font-size: clamp(1rem, 0.25rem + 1.57vw, 1.25rem);
+	}
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
 	.main__body {
 		padding: 0 clamp(1.25em, 5vw, 2.5em) 0;
+	}
+
+	.title {
+		font-size: clamp(7.5rem, 0rem + 15.63vw, 10rem);
+	}
+
+}
+
+@media(max-width: 767px) {
+	.title {
+		font-size: clamp(5.63rem, 4.29rem + 6.7vw, 7.5rem);
+	}
+}
+
+@media(max-width: 560px) {
+	.title_block {
+		row-gap: 20px;
+	}
+	.subtitle{
+		max-width: 340px;
+	}
+	.title {
+		max-width: 290px;
 	}
 }

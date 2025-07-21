@@ -4,6 +4,15 @@ import styles from "./AboutMain.module.css";
 import SplitText from "gsap/SplitText";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Swiper, SwiperSlide } from "swiper/react";
+import type { Swiper as SwiperType } from "swiper";
+import {
+  EffectCreative,
+  FreeMode,
+  Navigation,
+  Pagination,
+} from "swiper/modules";
+import { useSwiper } from "swiper/react";
 const AboutMain = () => {
   interface ImgsListType {
     [key: string]: string;
@@ -103,7 +112,7 @@ const AboutMain = () => {
     <section className={styles.about} id="about-project">
       <div className={styles.about__body}>
         <div className={styles.about__block}>
-          <div className={styles.about__name} data-split="block-name">
+          <div className={`section_name ${styles.about__name}`} data-split="block-name">
             About the project
           </div>
           <div className={styles.about_text_block}>
@@ -131,22 +140,42 @@ const AboutMain = () => {
             <SelectApartmentBtn />
           </div>
         </div>
-        <div className={styles.img__list} ref={imgRef}>
+        <Swiper
+          loop={true}
+          speed={600}
+          modules={[Navigation, Pagination, EffectCreative]}
+          className={`swiper-img__list ${styles.img__list}`}
+			 spaceBetween={0}
+			 navigation
+          breakpoints={{
+            768: {
+              slidesPerView: 2,
+            },
+            1024: {
+              slidesPerView: 3,
+            },
+            1440: {
+              slidesPerView: 4,
+            },
+          }}
+        >
           {ImgsListArray.map((img) => (
-            <div className={styles.img_wrapper}>
-              <img
-                key={img.key}
-                src={`./images/${img.src}`}
-                alt={img.key}
-                className={styles.img__item}
-              />
-              <div
-                className={styles.img_overlay}
-                data-animate="image-fade"
-              ></div>
-            </div>
+            <SwiperSlide key={img.key}>
+              <div className={styles.img_wrapper}>
+                <img
+                  src={`./images/${img.src}`}
+                  alt={img.key}
+                  className={styles.img__item}
+                />
+                <div
+                  className={styles.img_overlay}
+                  data-animate="image-fade"
+                ></div>
+              </div>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
+
         <div className={styles.about__content}>
           <p className={styles.about_content_title}>About</p>
           <div className={styles.about_content_block}>
