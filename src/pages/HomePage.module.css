@@ -49,14 +49,46 @@
 	max-width: 776px;
 	width: 100%;
 	text-transform: uppercase;
-
+	font-size: 5rem;
 	line-height: 100%;
 	font-weight: 400;
 	color: var(--tx-wh);
 }
 
-@media(max-width: 1920px) {
+@media(max-width: 1440px) {
 	.parallax_block_text p {
 		font-size: clamp(1.75rem, 0.84rem + 3.467vi, 5rem);
+	}
+
+	.parallax_block_text {
+		max-width: 52vw;
+		padding-top: clamp(1.25rem, -7.857rem + 14.286vi, 5rem);
+		padding-right: clamp(1.25rem, -22.125rem + 36.667vi, 10.875rem);
+	}
+}
+
+@media(max-width: 768px) {
+	.parallax_block_text {
+		position: static;
+		padding: 0px 20px;
+		max-width: 480px;
+	}
+
+	.parallax_block_text p {
+		color: var(--tx-bl);
+	}
+
+	.parallax_block {
+		height: 100%;
+		max-height: 100%;
+	}
+
+	.parallax {
+		height: 100%;
+		padding-top: 100px;
+		display: flex;
+		flex-direction: column-reverse;
+		background-color: transparent;
+		row-gap: 20px;
 	}
 }

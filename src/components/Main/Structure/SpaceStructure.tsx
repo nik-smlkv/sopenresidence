@@ -99,7 +99,7 @@ const SpaceStructure = () => {
     <section className={styles.structure}>
       <div className={styles.structure__body}>
         <div className={styles.structure__block}>
-          <div className={styles.structure__name} data-split="block-name">
+          <div className={`section_name ${styles.structure__name}`} data-split="block-name">
             Space structure
           </div>
           <div className={styles.structure_text_block}>

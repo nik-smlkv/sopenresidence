@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, type JSX } from "react";
+import React, { useEffect, useRef, useState, type JSX } from "react";
 import styles from "./Steps.module.css";
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -34,36 +34,66 @@ const Steps = () => {
   ];
   const cardsWrapperRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
-
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   useEffect(() => {
-    const wrapper = cardsWrapperRef.current;
-    const title = titleRef.current;
+    let wrapperTrigger: ScrollTrigger | undefined;
+    let titleTrigger: ScrollTrigger | undefined;
 
-    if (!wrapper || !title) return;
-    ScrollTrigger.create({
-      trigger: title,
-      start: "35% 35%",
-      end: "+=100%",
-      pin: true,
-      scrub: 1.2,
-    });
-    gsap.fromTo(
-      wrapper,
-      { yPercent: 110 },
-      {
-        yPercent: -110,
-        ease: "none",
-        scrollTrigger: {
-          trigger: wrapper.parentElement,
-          start: "25% 25%",
-          end: () => {
-            return "+=100%";
+    const createScroll = () => {
+      const wrapper = cardsWrapperRef.current;
+      const title = titleRef.current;
+      const width = window.innerWidth;
+
+      if (!wrapper || !title || width <= 768) return;
+
+      titleTrigger = ScrollTrigger.create({
+        trigger: title,
+        start: "35% 35%",
+        end: "+=100%",
+        pin: true,
+        scrub: 1.2,
+      });
+
+      const tween = gsap.fromTo(
+        wrapper,
+        { yPercent: 110 },
+        {
+          yPercent: -110,
+          ease: "none",
+          scrollTrigger: {
+            trigger: wrapper.parentElement,
+            start: "25% 25%",
+            end: "+=100%",
+            scrub: 1.2,
           },
-          scrub: 1.2,
-        },
-      }
-    );
+        }
+      );
+
+      wrapperTrigger = tween.scrollTrigger;
+    };
+
+    const killScroll = () => {
+      titleTrigger?.kill();
+      wrapperTrigger?.kill();
+      titleTrigger = undefined;
+      wrapperTrigger = undefined;
+    };
+
+    const handleResize = () => {
+      killScroll();
+      createScroll();
+    };
+
+    createScroll();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      killScroll();
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
+  const handleToggle = (index: number) => {
+    setActiveIndex((prev) => (prev === index ? null : index));
+  };
 
   return (
     <section className={styles.steps}>
@@ -72,7 +102,12 @@ const Steps = () => {
           <div className={styles.steps__cards_wrapper}>
             <div className={styles.steps__cards} ref={cardsWrapperRef}>
               {stepsCardArray.map((card, index) => (
-                <div className={styles.steps__card}>
+                <div
+                  key={index}
+                  className={`${styles.steps__card} ${
+                    activeIndex === index ? styles.active : ""
+                  }`}
+                >
                   <div className={styles.steps__card_front}>
                     <p className={styles.card__name}>
                       {card.name.split(" ").reduce((acc, word, i) => {
@@ -81,7 +116,10 @@ const Steps = () => {
                         return acc;
                       }, [] as (string | JSX.Element)[])}
                     </p>
-                    <div className={styles.card__btn}>
+                    <div
+                      className={styles.card__btn}
+                      onClick={() => handleToggle(index)}
+                    >
                       <svg
                         width="60"
                         height="60"
@@ -139,7 +177,8 @@ const Steps = () => {
         </div>
         <div className={styles.steps__title_block}>
           <h2 className={styles.steps__title}>
-            Savings and comfort: invest in your future
+            Savings and comfort:
+            <br /> invest in your future
           </h2>
         </div>
       </div>

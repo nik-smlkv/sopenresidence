@@ -41,3 +41,43 @@
 	line-height: 110%;
 	margin-bottom: 20px;
 }
+
+@media(max-width:1920px) {
+
+	.address,
+	.number {
+		font-size: clamp(1.375rem, 1rem + 0.417vi, 1.5rem);
+	}
+}
+
+@media(max-width:1440px) {
+
+	.address,
+	.number {
+		font-size: clamp(1.375rem, 1rem + 0.417vi, 1.5rem);
+	}
+}
+
+@media(max-width: 1024px) {
+
+	.address,
+	.number {
+		font-size: clamp(1.125rem, 0.375rem + 0.833vi, 1.375rem);
+	}
+}
+
+@media(max-width: 768px) {
+	.address {
+		font-size: clamp(0.938rem, 0.711rem + 0.862vi, 1.125rem);
+		margin-bottom: 0;
+		max-width: 220px;
+	}
+
+	.number {
+		font-size: 22px;
+	}
+
+	.contact__info {
+		flex: 1 1 auto;
+	}
+}

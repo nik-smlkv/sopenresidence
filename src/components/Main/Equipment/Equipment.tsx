@@ -47,12 +47,19 @@ const Equipment = () => {
     <section className={styles.equipment} id="equipment">
       <div className={styles.equip__body}>
         <div className={styles.equip__block}>
-          <div className={styles.equip__name} data-split="block-name">Equipment</div>
+          <div
+            className={`section_name ${styles.equip__name}`}
+            data-split="block-name"
+          >
+            Equipment
+          </div>
           <div className={styles.equip_text_block}>
             <h2 className={styles.equip_text_block_title}>
               Quality in every detail: comfort and security
             </h2>
-            <SelectApartmentBtn />
+            <div className={styles.btn__block}>
+              <SelectApartmentBtn />
+            </div>
           </div>
         </div>
         <div className={styles.equip__list}>

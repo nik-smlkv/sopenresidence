@@ -115,7 +115,7 @@ const Locations = () => {
     <section className={styles.location} id="location">
       <div className={styles.location__body}>
         <div className={styles.location_name_block}>
-          <p className={styles.location__name} data-split="block-name">Locations</p>
+          <p className={`section_name ${styles.location__name}`} data-split="block-name">Locations</p>
         </div>
         <div className={styles.location__map__content}>
           <ul className={styles.map__navigation}>

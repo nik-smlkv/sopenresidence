@@ -39,6 +39,12 @@
 
 }
 
+@media(max-width: 1920px) {
+	.card__name {
+		font-size: clamp(1.375rem, 1.06rem + 1.2vi, 2.5rem);
+	}
+}
+
 .structure__card_block {
 	display: flex;
 	column-gap: 24px;
@@ -102,6 +108,12 @@
 	transition: top 1.2s ease;
 }
 
+@media(max-width: 1920px) {
+	.structure_text_block_title {
+		font-size: clamp(1.75rem, 0.833rem + 1.91vi, 3.125rem);
+		max-width: 485px;
+	}
+}
 
 @media (min-width: 1440px) and (max-width: 1920px) {
 	.structure__body {
@@ -116,11 +128,43 @@
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-	.structure__body {
-		padding: 6.25em clamp(1.25em, 5vw, 2.5em) 0;
-	}
 
 	.structure__body {
 		padding: 0px clamp(1.25em, 5vw, 2.5em) 6.25em clamp(1.25em, 5vw, 2.5em);
+	}
+}
+
+@media(max-width: 768px) {
+	.structure__body {
+		padding: 0px 1.25em 6.25em 1.25em;
+		row-gap: 30px;
+	}
+
+	.card__name {
+		flex: 1 1 auto;
+	}
+
+	.structure__name {
+		flex: 1 1 auto;
+	}
+
+	.structure__card {
+		flex-direction: column;
+		row-gap: 12px;
+	}
+
+	.structure__card_content {
+		flex: 0;
+		row-gap: 20px;
+	}
+
+	.structure__card_block {
+		flex-direction: column;
+		row-gap: 20px;
+	}
+
+	.structure__block {
+		flex-direction: column;
+		row-gap: 20px;
 	}
 }

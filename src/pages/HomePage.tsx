@@ -25,17 +25,42 @@ const HomePage = () => {
   gsap.registerPlugin(ScrollTrigger);
   const parallaxRef = useRef(null);
   useEffect(() => {
-    gsap.to(parallaxRef.current, {
-      yPercent: 15,
-      ease: "none",
-      scrollTrigger: {
-        trigger: parallaxRef.current,
-        start: "-30% 0%",
-        end: "bottom center",
-        scrub: true,
-      },
-    });
+    let triggerInstance: ScrollTrigger | undefined;
 
+    const createScroll = () => {
+      if (window.innerWidth <= 768 && parallaxRef.current) {
+        triggerInstance = gsap.to(parallaxRef.current, {
+          yPercent: 15,
+          ease: "none",
+          scrollTrigger: {
+            trigger: parallaxRef.current,
+            start: "-30% 0%",
+            end: "bottom center",
+            scrub: true,
+          },
+        }).scrollTrigger;
+      }
+    };
+
+    const killScroll = () => {
+      if (triggerInstance) {
+        triggerInstance.kill();
+        triggerInstance = undefined;
+      }
+    };
+
+    const handleResize = () => {
+      killScroll();
+      createScroll();
+    };
+
+    createScroll();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      killScroll();
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   useEffect(() => {
@@ -48,12 +73,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <ReactLenis
-      ref={lenisRef}
-      root
-      options={{
-      }}
-    >
+    <ReactLenis ref={lenisRef} root options={{}}>
       <Header />
       <main className={styles.main}>
         <SectionMain />

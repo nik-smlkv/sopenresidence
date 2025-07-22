@@ -38,6 +38,12 @@
 	color: var(--acc-main-green);
 }
 
+@media(max-width: 1920px) {
+	.steps__title {
+		font-size: clamp(1.75rem, 0.665rem + 4.133vi, 5.625rem);
+	}
+}
+
 .card__name {
 	font-size: 46px;
 	line-height: 105%;
@@ -101,6 +107,8 @@
 	width: 100%;
 	display: flex;
 	justify-content: center;
+	position: relative;
+	z-index: 4;
 	align-items: center;
 }
 
@@ -138,6 +146,7 @@
 	font-weight: 600;
 	color: #27231E;
 	transition: font-size 1s ease;
+	text-align: left;
 }
 
 .card__text_list {
@@ -150,6 +159,7 @@
 .card__text_item {
 	font-weight: 500;
 	line-height: 126%;
+	text-align: left;
 }
 
 .card__content_block {
@@ -164,10 +174,79 @@
 	line-height: 100%;
 }
 
+
+
 .card__content_num {
 	font-size: 20px;
 	font-weight: 400;
 	color: #1C2F2480;
+}
+
+@media(max-width: 1920px) {
+	.card__name {
+		font-size: clamp(1.625rem, 1.38rem + 0.933vi, 2.5rem);
+	}
+
+	.card__content_title {
+		font-size: clamp(1.625rem, 1.275rem + 1.333vi, 2.875rem);
+	}
+}
+
+@media((min-width: 768px) and (max-width: 1920px)) {
+	.card__text_item {
+		font-size: clamp(2.375rem, 0.208rem + 4.514vi, 5.625rem);
+	}
+}
+
+@media(max-width: 1440px) {
+	.card__text_item {
+		font-size: clamp(0.875rem, 0.732rem + 0.298vi, 1rem);
+	}
+}
+
+@media(max-width: 768px) {
+	.steps {
+		height: 100%;
+	}
+
+	.steps__card_front {
+		row-gap: 70px;
+	}
+
+	.card__name {
+		margin-bottom: 20px;
+	}
+
+	.steps__body {
+		width: 100%;
+	}
+
+	.steps__card__content {
+		padding: 30px;
+	}
+
+	.steps__card {
+		flex: 1 1 100%;
+		max-width: 100%;
+	}
+
+	.steps__title_block {
+		padding: 0px 20px;
+	}
+
+	.pin_wrapper {
+		display: flex;
+		flex-direction: column-reverse;
+		height: 100%;
+		row-gap: 40px;
+	}
+
+	.steps__cards_wrapper {
+		height: 100%;
+		position: static;
+		padding: 0px 20px;
+		margin: 0 auto;
+	}
 }
 
 @media(hover:hover) {
@@ -187,6 +266,24 @@
 	}
 
 	.steps__card:hover .card__name {
+		font-size: 24px;
+		transition: font-size 1s ease;
+	}
+}
+
+@media(max-width: 768px) {
+	.steps__card.active .steps__card_front {
+		opacity: 0;
+		transition: opacity 0.7s ease;
+	}
+
+	.steps__card.active .steps__card__content {
+		opacity: 1;
+		transition: opacity 0.7s ease;
+	}
+
+	.steps__card.active .card__content_title,
+	.steps__card.active .card__name {
 		font-size: 24px;
 		transition: font-size 1s ease;
 	}

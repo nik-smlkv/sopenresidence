@@ -28,6 +28,11 @@
 	color: var(--acc-main-green);
 }
 
+@media(max-width: 1920px) {
+	.form__title {
+		font-size: clamp(3.25rem, 2.54rem + 4.133vi, 7.5rem);
+	}
+}
 
 
 @media (min-width: 1440px) and (max-width: 1920px) {
@@ -37,13 +42,30 @@
 }
 
 @media (min-width: 1024px) and (max-width: 1439px) {
-	.about__body {
+	.form__body {
 		padding: clamp(6.25em, calc(11vw - 5em), 8.75em) clamp(2.5em, calc(9.6vw - 7em), 5em);
 	}
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-	.about__body {
+	.form__body {
 		padding: 6.25em clamp(1.25em, 5vw, 2.5em);
+	}
+}
+
+@media(max-width: 768px) {
+	.form__body {
+		padding: 6.25em 1.25em;
+	}
+
+	.form__title {
+		text-align: center;
+
+	}
+}
+
+@media(max-width: 560px) {
+	.form__title {
+		max-width: 220px;
 	}
 }
