@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Locations.module.css";
 import {
   GoogleMap,
@@ -94,44 +94,103 @@ const locations: LocationType[] = [
     position: { lat: 43.311492, lng: 21.905292 },
   },
 ];
+export const useIsMobile = (breakpoint: number = 1000): boolean => {
+  const [isMobile, setIsMobile] = useState<boolean>(
+    window.innerWidth <= breakpoint
+  );
 
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= breakpoint);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [breakpoint]);
+
+  return isMobile;
+};
 const Locations = () => {
+  const isMobile = useIsMobile(1000);
+
+  const [openIndex, setOpenIndex] = useState<number>(0);
   const [selectedLocation, setSelectedLocation] = useState<LocationType | null>(
     locations[0]
   );
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-  const [arrowOffset, setArrowOffset] = useState(0);
+  const [arrowOffset, setArrowOffset] = useState<number>(0);
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+
   const ulRef = useRef<HTMLUListElement>(null);
 
   const handleClickLocation = (index: number) => {
     setOpenIndex(index);
     setSelectedLocation(locations[index]);
-    const activeEl = ulRef.current?.querySelectorAll("li")[index];
-    if (activeEl) {
-      setArrowOffset(activeEl.offsetTop);
-    }
+    setIsDropdownOpen(false);
+
+    const li = ulRef.current?.querySelectorAll("li")[index];
+    if (li) setArrowOffset(li.offsetTop);
   };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+
   return (
     <section className={styles.location} id="location">
       <div className={styles.location__body}>
         <div className={styles.location_name_block}>
-          <p className={`section_name ${styles.location__name}`} data-split="block-name">Locations</p>
+          <p
+            className={`section_name ${styles.location__name}`}
+            data-split="block-name"
+          >
+            Locations
+          </p>
         </div>
+
         <div className={styles.location__map__content}>
-          <ul className={styles.map__navigation}>
-            <div className={styles.arrow} style={{ top: arrowOffset }} />
-            {locations.map((item, index) => (
-              <li
-                key={index}
-                className={`${styles.location__item} ${
-                  openIndex === index ? styles.active : ""
-                }`}
-                onClick={() => handleClickLocation(index)}
+          {isMobile ? (
+            <div className={styles.select_wrapper}>
+              <div className={styles.selected_item} onClick={toggleDropdown}>
+                {locations[openIndex]?.name || "Select location"}
+              </div>
+              <div
+                className={styles.map__navigation__content}
+                style={{
+                  maxHeight: isDropdownOpen ? "100%" : "0px",
+                }}
               >
-                {item.name}
-              </li>
-            ))}
-          </ul>
+                <ul className={styles.map__navigation}>
+                  {locations.map((item, index) => (
+                    <li
+                      key={item.id}
+                      className={`${styles.location__item} ${
+                        openIndex === index ? styles.none : ""
+                      }`}
+                      onClick={() => handleClickLocation(index)}
+                    >
+                      <span>
+                        <img src={`${item.icon}`} alt="" />
+                      </span>
+                      {item.name}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ) : (
+            <ul className={styles.map__navigation} ref={ulRef}>
+              <div className={styles.arrow} style={{ top: arrowOffset }} />
+              {locations.map((item, index) => (
+                <li
+                  key={item.id}
+                  className={`${styles.location__item} ${
+                    openIndex === index ? styles.active : ""
+                  }`}
+                  onClick={() => handleClickLocation(index)}
+                >
+                  {item.name}
+                </li>
+              ))}
+            </ul>
+          )}
+
           <div className={styles.map}>
             <LoadScript
               googleMapsApiKey="AIzaSyBzEJ8MpD8Ssv_bu9h3aEg5m0iJq2MO1ZY"
@@ -140,7 +199,7 @@ const Locations = () => {
               <GoogleMap
                 mapContainerStyle={containerStyle}
                 zoom={15}
-                center={center}
+                center={selectedLocation?.position || center}
                 options={mapOptions}
               >
                 {locations.map((loc) => (
@@ -148,22 +207,18 @@ const Locations = () => {
                     key={loc.id}
                     position={loc.position}
                     title={loc.name}
-                    icon={{
-                      url: loc.icon,
-                    }}
+                    icon={{ url: loc.icon }}
                   />
                 ))}
                 {selectedLocation && (
-                  <div className={styles.location__window}>
-                    <InfoWindow
-                      position={selectedLocation.position}
-                      onCloseClick={() => setSelectedLocation(null)}
-                    >
-                      <div className={styles.infoWindow}>
-                        <div>{selectedLocation.name}</div>
-                      </div>
-                    </InfoWindow>
-                  </div>
+                  <InfoWindow
+                    position={selectedLocation.position}
+                    onCloseClick={() => setSelectedLocation(null)}
+                  >
+                    <div className={styles.infoWindow}>
+                      {selectedLocation.name}
+                    </div>
+                  </InfoWindow>
                 )}
               </GoogleMap>
             </LoadScript>

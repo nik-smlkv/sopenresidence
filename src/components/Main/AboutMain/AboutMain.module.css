@@ -104,7 +104,7 @@
 	margin: 0 auto;
 	margin-bottom: 27px;
 	position: relative;
-	
+
 }
 
 .img__item {
@@ -204,6 +204,9 @@ img.img__item {
 	color: var(--acc-main-green);
 }
 
+:global(.swiper-img__list) {
+	width: 100%;
+}
 
 @media (min-width: 1440px) and (max-width: 1920px) {
 	.about__body {
@@ -288,6 +291,11 @@ img.img__item {
 		font-size: 16px;
 	}
 
+	:global(.swiper-img__list) :global(.swiper-slide) {
+		max-width: 390px;
+		width: 390px !important;
+	}
+
 	.about__block {
 		flex-direction: column;
 		row-gap: 20px;
@@ -316,6 +324,11 @@ img.img__item {
 		margin-left: 0;
 		margin-right: 0;
 		max-width: 500px;
+		left: 0;
+	}
+
+	.about__apart_btn button {
+		margin: 0 20px;
 	}
 
 	.about_content_block {

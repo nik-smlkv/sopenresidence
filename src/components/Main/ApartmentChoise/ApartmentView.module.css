@@ -267,7 +267,10 @@
 		padding: 40px 1.25em 52.5em 1.25em;
 		row-gap: 40px;
 	}
-
+	.apartment__render{
+		top: 22px;
+		right: 20px;
+	}
 	.apartment__icon {
 		padding: 7px;
 	}

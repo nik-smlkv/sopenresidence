@@ -112,7 +112,10 @@ const AboutMain = () => {
     <section className={styles.about} id="about-project">
       <div className={styles.about__body}>
         <div className={styles.about__block}>
-          <div className={`section_name ${styles.about__name}`} data-split="block-name">
+          <div
+            className={`section_name ${styles.about__name}`}
+            data-split="block-name"
+          >
             About the project
           </div>
           <div className={styles.about_text_block}>
@@ -145,11 +148,10 @@ const AboutMain = () => {
           speed={600}
           modules={[Navigation, Pagination, EffectCreative]}
           className={`swiper-img__list ${styles.img__list}`}
-			 spaceBetween={0}
-			 navigation
+          spaceBetween={0}
           breakpoints={{
             768: {
-              slidesPerView: 2,
+              slidesPerView: "auto",
             },
             1024: {
               slidesPerView: 3,
