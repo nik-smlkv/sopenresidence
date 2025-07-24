@@ -51,6 +51,9 @@
 }
 
 @media(max-width:1440px) {
+	.contact__info {
+		row-gap: 50px;
+	}
 
 	.address,
 	.number {
@@ -67,14 +70,19 @@
 }
 
 @media(max-width: 768px) {
+	.contact__info {
+		row-gap: clamp(1.375rem, 0.156rem + 4.643vi, 3.125rem)
+	}
+
 	.address {
 		font-size: clamp(0.938rem, 0.711rem + 0.862vi, 1.125rem);
 		margin-bottom: 0;
 		max-width: 220px;
+		line-height: 126%;
 	}
 
 	.number {
-		font-size: 22px;
+		font-size: 20px;
 	}
 
 	.contact__info {

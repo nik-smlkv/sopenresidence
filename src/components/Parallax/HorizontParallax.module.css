@@ -84,3 +84,86 @@
 .card__name {
 	align-self: end;
 }
+
+@media(max-width: 1000px) {
+	.parallax__cards {
+		flex-direction: column;
+		width: 100%;
+	}
+
+	.parallax__card {
+		flex: 1 1 auto;
+		display: flex;
+		flex-direction: row;
+		justify-content: start;
+	}
+
+	.parallax__card:not(:last-child) {
+		border-bottom: none;
+	}
+
+	.card__name {
+		align-self: center;
+	}
+
+	.parallax__card {
+		padding: 20px;
+	}
+
+	.parallax_text {
+		max-width: 300px;
+		padding: 30px 20px;
+	}
+
+	.card__index {
+		flex: 1 1 29.2%;
+	}
+
+	.horizontal_parallax {
+		height: 100%;
+	}
+}
+
+.plus__icon_block {
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 100%;
+	border: 1px solid #5A6C54;
+	padding: 12px;
+}
+
+.plus_icon {
+	position: relative;
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	background: transparent;
+	cursor: pointer;
+	flex: 0 0 14px;
+}
+
+.plus_icon::before,
+.plus_icon::after {
+	content: "";
+	position: absolute;
+	background-color: #5A6C54;
+	transition: all 0.3s ease;
+}
+
+.plus_icon::before {
+	top: 50%;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	transform: translateY(-50%);
+}
+
+.plus_icon::after {
+	left: 50%;
+	top: 0;
+	width: 2px;
+	height: 100%;
+	transform: translateX(-50%);
+}

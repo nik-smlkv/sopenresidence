@@ -61,6 +61,7 @@
 }
 
 .burger_modal_social {
+	flex: 0 1;
 	width: 46px;
 	height: 46px;
 	display: flex;
@@ -71,6 +72,12 @@
 	background-color: var(--bg-beige);
 	transition: .5s ease;
 	overflow: hidden;
+}
+
+.burger_modal_socials {
+	display: flex;
+	justify-content: end;
+	align-items: center;
 }
 
 .burger_modal_social:hover {
@@ -320,6 +327,8 @@
 		row-gap: 40px;
 	}
 
+
+
 	.burger_modal_contact :global(.contact__name_depart),
 	.request__btn {
 		font-size: clamp(0.75rem, 0.44rem + 1.17vw, 1rem);
@@ -341,8 +350,17 @@
 		align-items: start;
 	}
 
+	.burger_modal_btns {
+		justify-content: space-between;
+	}
+
 	.burger_modal_block div {
-		flex: 1 1 100%;
+		flex: 1;
+	}
+
+	.burger_modal_socials {
+		justify-content: start;
+		max-width: 48px;
 	}
 
 	.burger_modal_block {

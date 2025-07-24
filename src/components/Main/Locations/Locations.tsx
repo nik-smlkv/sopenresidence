@@ -60,7 +60,7 @@ const locations: LocationType[] = [
   {
     id: "4",
     name: "St. Sava's Park",
-    icon: "./images/sava's-park.svg",
+    icon: "./images/savapark.svg",
     position: { lat: 43.32053743745635, lng: 21.918968273027748 },
   },
   {
@@ -72,19 +72,19 @@ const locations: LocationType[] = [
   {
     id: "6",
     name: "King Alexander sq.",
-    icon: "./images/alexander-sq.svg",
+    icon: "./images/alexander.svg",
     position: { lat: 43.3181201662413, lng: 21.891076593257026 },
   },
   {
     id: "7",
     name: "Fortress",
-    icon: "./images/alexander-sq.svg",
+    icon: "./images/fortress.svg",
     position: { lat: 43.325683213803224, lng: 21.895901169471315 },
   },
   {
     id: "8",
     name: "Faculty of sports",
-    icon: "./images/alexander-sq.svg",
+    icon: "./images/sport.svg",
     position: { lat: 43.311951020434314, lng: 21.87235818616822 },
   },
   {
@@ -149,6 +149,13 @@ const Locations = () => {
             <div className={styles.select_wrapper}>
               <div className={styles.selected_item} onClick={toggleDropdown}>
                 {locations[openIndex]?.name || "Select location"}
+                <span
+                  className={`${styles.list__arrow} ${
+                    isDropdownOpen ? "active" : ""
+                  }`}
+                >
+                  <img src="/images/equip-arrow.svg" alt="" />
+                </span>
               </div>
               <div
                 className={styles.map__navigation__content}

@@ -5,50 +5,49 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const SpaceStructure = () => {
   const imgRef = useRef<HTMLImageElement>(null);
-  const structureCards: {
+  type DescriptionBlock = {
+    text: string[];
+    img: string[];
+  };
+
+  type LamelaItem = {
     name: string;
-    description: { text: string; img: string }[];
-  }[] = [
+    description: DescriptionBlock;
+  };
+
+  const structureCards: LamelaItem[] = [
     {
       name: "Lamela A",
-      description: [
-        {
-          text: "A majestic 15-story tower featuring 182 residential units. ",
-          img: "structure-1.jpg",
-        },
-        {
-          text: "Thanks to modern engineering solutions and elegant design, it shapes the distinctive architectural character of the complex.",
-          img: "structure-2.jpg",
-        },
-      ],
+      description: {
+        text: [
+          "A majestic 15-story tower featuring 182 residential units.",
+          "Thanks to modern engineering solutions and elegant design, it shapes the distinctive architectural character of the complex.",
+        ],
+        img: ["structure-1.jpg", "structure-2.jpg"],
+      },
     },
     {
       name: "Lamela B and C",
-      description: [
-        {
-          text: "Harmonious residential spaces with a height of 10 stories, each containing 72 apartments. ",
-          img: "structure-3.jpg",
-        },
-        {
-          text: "Thanks to modern engineering solutions and elegant design, it shapes the distinctive architectural character of the complex.",
-          img: "structure-4.jpg",
-        },
-      ],
+      description: {
+        text: [
+          "Harmonious residential spaces with a height of 10 stories, each containing 72 apartments.",
+          "Thanks to modern engineering solutions and elegant design, it shapes the distinctive architectural character of the complex.",
+        ],
+        img: ["structure-3.jpg", "structure-4.jpg"],
+      },
     },
     {
       name: "Parking",
-      description: [
-        {
-          text: "Parking spaces are located on three underground levels.",
-          img: "structure-5.jpg",
-        },
-        {
-          text: "Elevators provide direct access between the parking area and residential floors, ensuring convenience and maximum comfort for residents.",
-          img: "structure-6.jpg",
-        },
-      ],
+      description: {
+        text: [
+          "Parking spaces are located on three underground levels.",
+          "Elevators provide direct access between the parking area and residential floors, ensuring convenience and maximum comfort for residents.",
+        ],
+        img: ["structure-5.jpg", "structure-6.jpg"],
+      },
     },
   ];
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -99,7 +98,10 @@ const SpaceStructure = () => {
     <section className={styles.structure}>
       <div className={styles.structure__body}>
         <div className={styles.structure__block}>
-          <div className={`section_name ${styles.structure__name}`} data-split="block-name">
+          <div
+            className={`section_name ${styles.structure__name}`}
+            data-split="block-name"
+          >
             Space structure
           </div>
           <div className={styles.structure_text_block}>
@@ -118,18 +120,28 @@ const SpaceStructure = () => {
                 {card.name}
               </div>
               <div className={styles.structure__card_block}>
-                {card.description.map((description) => (
-                  <div className={styles.structure__card_content}>
-                    <p data-animate="fade-up-text">{description.text}</p>
-                    <div className={styles.img_wrapper} ref={imgRef}>
-                      <img src={`/images/${description.img}`} alt="" />
+                <div className={styles.structure__card_block_text}>
+                  {card.description.text.map((paragraph, index) => (
+                    <p key={`text-${index}`} data-animate="fade-up-text">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+                <div className={styles.structure__card_block_img}>
+                  {card.description.img.map((image, index) => (
+                    <div
+                      className={styles.img_wrapper}
+                      ref={imgRef}
+                      key={`img-${index}`}
+                    >
+                      <img src={`/images/${image}`} alt="" />
                       <div
                         className={styles.img_overlay}
                         data-animate="image-fade"
                       ></div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           ))}

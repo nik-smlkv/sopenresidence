@@ -1,10 +1,65 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./HorizontParallax.module.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 const HorizontParallax = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const parallaxCard = useRef<HTMLDivElement>(null);
+  const parallaxCardRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<ScrollTrigger | undefined>(undefined);
+  const [isDesktop, setIsDesktop] = useState<boolean>(window.innerWidth > 1000);
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      const newIsDesktop = width > 1000;
+
+      if (newIsDesktop && !isDesktop) {
+        initScrollTrigger();
+      }
+
+      if (!newIsDesktop && isDesktop) {
+        scrollRef.current?.kill();
+        scrollRef.current = undefined;
+      }
+
+      setIsDesktop(newIsDesktop);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // initial check
+
+    return () => {
+      scrollRef.current?.kill();
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isDesktop]);
+  useEffect(() => {
+    if (!isDesktop) return;
+    initScrollTrigger();
+  }, []);
+  const initScrollTrigger = () => {
+    const cards = gsap.utils.toArray<HTMLElement>('[data-type="parallax"]');
+    const totalWidth = cards.reduce(
+      (sum, card) => sum + card.getBoundingClientRect().width,
+      0
+    );
+
+    const trigger = gsap.to(cards, {
+      xPercent: -100,
+      ease: "none",
+      scrollTrigger: {
+        trigger: parallaxCardRef.current,
+        start: "center center",
+        end: `+=${totalWidth - 150}`,
+        scrub: 1.2,
+        pin: containerRef.current,
+        pinSpacing: true,
+        onEnter: () => gsap.set(containerRef.current, { y: 120 }),
+        onLeaveBack: () => gsap.set(containerRef.current, { y: -120 }),
+      },
+    });
+
+    scrollRef.current = trigger.scrollTrigger;
+  };
   const ParallaxCards: {
     img: string;
     name: string;
@@ -40,7 +95,7 @@ const HorizontParallax = () => {
       xPercent: -100,
       ease: "none",
       scrollTrigger: {
-        trigger: parallaxCard.current,
+        trigger: parallaxCardRef.current,
         start: "center center",
         end: `+=${totalWidth - 150}`,
         scrub: 1.2,
@@ -71,45 +126,66 @@ const HorizontParallax = () => {
 
   return (
     <section className={styles.horizontal_parallax}>
-      <div id="cursorPreview" className={styles.cursorPreview}></div>
-      <div style={{ height: "120px" }} />
-      <div className={styles.pinWrapper} ref={containerRef}>
-        <div className={styles.parallax__cards}>
-          <div
-            className={styles.parallax__card_preview}
-            data-type="parallax"
-            ref={parallaxCard}
-          >
-            <p>
-              Residents don’t have to travel far to enjoy themselves —
-              entertainment is delivered right to their doorstep.
-            </p>
-          </div>
-          {ParallaxCards.map((card, index) => (
+      {isDesktop && (
+        <div id="cursorPreview" className={styles.cursorPreview}></div>
+      )}
+      {isDesktop ? (
+        <div className={styles.pinWrapper} ref={containerRef}>
+          <div className={styles.parallax__cards}>
             <div
-              key={index}
-              className={styles.parallax__card}
+              className={styles.parallax__card_preview}
               data-type="parallax"
-              onMouseEnter={() => {
-                const preview = document.getElementById("cursorPreview");
-                if (preview) {
-                  preview.style.backgroundImage = `url(/images/${card.img})`;
-                  preview.style.opacity = "1";
-                }
-              }}
-              onMouseLeave={() => {
-                const preview = document.getElementById("cursorPreview");
-                if (preview) {
-                  preview.style.opacity = "0";
-                }
-              }}
+              ref={parallaxCardRef}
             >
-              <p className={styles.card__index}>0{index + 1}</p>
-              <p className={styles.card__name}>{card.name}</p>
+              <p>
+                Residents don’t have to travel far to enjoy themselves —
+                entertainment is delivered right to their doorstep.
+              </p>
             </div>
-          ))}
+            {ParallaxCards.map((card, index) => (
+              <div
+                key={index}
+                className={styles.parallax__card}
+                data-type="parallax"
+                onMouseEnter={() => {
+                  const preview = document.getElementById("cursorPreview");
+                  if (preview) {
+                    preview.style.backgroundImage = `url(/images/${card.img})`;
+                    preview.style.opacity = "1";
+                  }
+                }}
+                onMouseLeave={() => {
+                  const preview = document.getElementById("cursorPreview");
+                  if (preview) {
+                    preview.style.opacity = "0";
+                  }
+                }}
+              >
+                <p className={styles.card__index}>0{index + 1}</p>
+                <p className={styles.card__name}>{card.name}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      ) : (
+        <>
+          <p className={styles.parallax_text}>
+            Residents don’t have to travel far to enjoy themselves —
+            entertainment is delivered right to their doorstep.
+          </p>
+          <div className={styles.parallax__cards}>
+            {ParallaxCards.map((card, index) => (
+              <div key={index} className={styles.parallax__card}>
+                <p className={styles.card__index}>0{index + 1}</p>
+                <p className={styles.card__name}>{card.name}</p>
+                <div className={styles.plus__icon_block}>
+                  <span className={styles.plus_icon}></span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </section>
   );
 };
