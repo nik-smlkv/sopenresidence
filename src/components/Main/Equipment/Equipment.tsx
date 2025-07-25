@@ -74,7 +74,13 @@ const Equipment = () => {
               <div className={styles.equip__item__content}>
                 <div className={styles.equip__num}>(0{index + 1})</div>
                 <div className={styles.equip__block__content}>
-                  <div className={styles.equip__name}>{equip.name}</div>
+                  <div
+                    className={`${styles.equip__name} ${
+                      openIndex === index ? styles.open : ""
+                    }`}
+                  >
+                    {equip.name}
+                  </div>
                   <div className={styles.equip__item__text}>
                     {equip.description}
                   </div>

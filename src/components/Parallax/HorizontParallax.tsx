@@ -123,7 +123,11 @@ const HorizontParallax = () => {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
+  const handleToggle = (index: number) => {
+    setOpenIndex((prev) => (prev === index ? null : index));
+  };
   return (
     <section className={styles.horizontal_parallax}>
       {isDesktop && (
@@ -175,11 +179,29 @@ const HorizontParallax = () => {
           </p>
           <div className={styles.parallax__cards}>
             {ParallaxCards.map((card, index) => (
-              <div key={index} className={styles.parallax__card}>
-                <p className={styles.card__index}>0{index + 1}</p>
-                <p className={styles.card__name}>{card.name}</p>
-                <div className={styles.plus__icon_block}>
-                  <span className={styles.plus_icon}></span>
+              <div
+                key={index}
+                className={styles.parallax__card}
+                onClick={() => handleToggle(index)}
+              >
+                <div className={styles.parallax__card_content}>
+                  <p className={styles.card__index}>0{index + 1}</p>
+                  <p className={styles.card__name}>{card.name}</p>
+                  <div className={styles.plus__icon_block}>
+                    <span
+                      className={`${styles.plus_icon} ${
+                        openIndex === index ? styles.open : ""
+                      }`}
+                    ></span>
+                  </div>
+                </div>
+
+                <div
+                  className={`${styles.parallax__card_img} ${
+                    openIndex === index ? styles.open : ""
+                  }`}
+                >
+                  <img src={`./images/${card.img}`} alt={card.name} />
                 </div>
               </div>
             ))}

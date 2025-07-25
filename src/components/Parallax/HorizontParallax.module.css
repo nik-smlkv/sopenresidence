@@ -74,7 +74,8 @@
 	height: 260px;
 }
 
-.parallax__card p {
+.card__index,
+.card__name {
 	width: 100%;
 	font-size: 28px;
 	font-weight: 500;
@@ -94,8 +95,9 @@
 	.parallax__card {
 		flex: 1 1 auto;
 		display: flex;
-		flex-direction: row;
-		justify-content: start;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.parallax__card:not(:last-child) {
@@ -108,7 +110,46 @@
 
 	.parallax__card {
 		padding: 20px;
+		row-gap: 20px;
 	}
+
+	.parallax__card_img img {
+		margin-right: 0;
+	}
+
+	.parallax__card_img {
+		max-height: 0;
+		overflow: hidden;
+		width: 53%;
+		display: flex;
+		align-items: center;
+		justify-content: start;
+		margin-right: 0;
+		transition: max-height 0.5s ease, opacity 0.3s ease;
+	}
+
+	.card__index {
+		display: flex;
+		align-items: center;
+		justify-content: start;
+	}
+
+	.plus_icon.open::after {
+		transform: rotate(90deg);
+	}
+
+	.parallax__card_img.open {
+		max-height: 300px;
+	}
+
+
+	.parallax__card_content {
+		flex: 1 1 100%;
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+	}
+
 
 	.parallax_text {
 		max-width: 300px;
@@ -116,7 +157,7 @@
 	}
 
 	.card__index {
-		flex: 1 1 29.2%;
+		flex: 1 1 32.2%;
 	}
 
 	.horizontal_parallax {
@@ -125,7 +166,7 @@
 }
 
 .plus__icon_block {
-
+	height: 40px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -166,4 +207,44 @@
 	width: 2px;
 	height: 100%;
 	transform: translateX(-50%);
+}
+
+@media((min-width: 1440px) and (max-width:1920px)) {
+	.card__name {
+		font-size: clamp(1.625rem, 1.25rem + 0.417vi, 1.75rem);
+	}
+}
+
+@media((min-width: 1024px) and (max-width:1440px)) {
+	.card__index {
+		font-size: clamp(1.375rem, 0.455rem + 1.439vi, 1.75rem);
+	}
+
+	.card__name {
+		font-size: clamp(1.375rem, 0.608rem + 1.199vi, 1.688rem)
+	}
+}
+
+@media(max-width: 1024px) {
+	.card__name {
+		font-size: 22px;
+	}
+
+}
+
+@media((min-width: 768px) and (max-width:1024px)) {
+	.card__index {
+		font-size: clamp(1.125rem, 0.372rem + 1.569vi, 1.375rem);
+	}
+}
+
+@media(max-width: 768px) {
+	.card__index {
+		font-size: 22px;
+	}
+
+	.parallax__card_img {
+		width: 100%;
+		justify-content: center;
+	}
 }
