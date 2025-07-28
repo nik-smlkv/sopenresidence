@@ -193,6 +193,10 @@
 	flex: 1 1 33.333%;
 }
 
+.burger_modal_social {
+	max-width: 46px;
+}
+
 .burger_modal_social svg {
 	cursor: pointer;
 
@@ -204,16 +208,17 @@
 
 .burger_modal_picture {
 	width: 34.507vw;
+	max-width: 500px;
 }
 
 .burger_modal_btns {
-	max-width: 540px;
+	max-width: 39.5%;
 	display: flex;
 }
 
 .burger_modal_nav_block {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	flex-wrap: wrap;
 }
 

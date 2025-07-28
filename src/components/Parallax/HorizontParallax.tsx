@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styles from "./HorizontParallax.module.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -7,59 +7,6 @@ const HorizontParallax = () => {
   const parallaxCardRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<ScrollTrigger | undefined>(undefined);
   const [isDesktop, setIsDesktop] = useState<boolean>(window.innerWidth > 1000);
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      const newIsDesktop = width > 1000;
-
-      if (newIsDesktop && !isDesktop) {
-        initScrollTrigger();
-      }
-
-      if (!newIsDesktop && isDesktop) {
-        scrollRef.current?.kill();
-        scrollRef.current = undefined;
-      }
-
-      setIsDesktop(newIsDesktop);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize(); // initial check
-
-    return () => {
-      scrollRef.current?.kill();
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [isDesktop]);
-  useEffect(() => {
-    if (!isDesktop) return;
-    initScrollTrigger();
-  }, []);
-  const initScrollTrigger = () => {
-    const cards = gsap.utils.toArray<HTMLElement>('[data-type="parallax"]');
-    const totalWidth = cards.reduce(
-      (sum, card) => sum + card.getBoundingClientRect().width,
-      0
-    );
-
-    const trigger = gsap.to(cards, {
-      xPercent: -100,
-      ease: "none",
-      scrollTrigger: {
-        trigger: parallaxCardRef.current,
-        start: "center center",
-        end: `+=${totalWidth - 150}`,
-        scrub: 1.2,
-        pin: containerRef.current,
-        pinSpacing: true,
-        onEnter: () => gsap.set(containerRef.current, { y: 120 }),
-        onLeaveBack: () => gsap.set(containerRef.current, { y: -120 }),
-      },
-    });
-
-    scrollRef.current = trigger.scrollTrigger;
-  };
   const ParallaxCards: {
     img: string;
     name: string;
@@ -86,30 +33,52 @@ const HorizontParallax = () => {
       name: "Other commercial spaces",
     },
   ];
-  useEffect(() => {
-    let cards = gsap.utils.toArray<HTMLElement>('[data-type="parallax"]');
-    const totalWidth = cards.reduce((sum, card) => {
-      return sum + card.getBoundingClientRect().width;
-    }, 0);
-    gsap.to(cards, {
-      xPercent: -100,
+  const initScrollTrigger = () => {
+    const cards = gsap.utils.toArray<HTMLElement>('[data-type="parallax"]');
+    const totalWidth = cards.reduce(
+      (sum, card) => sum + card.getBoundingClientRect().width,
+      0
+    );
+    const trigger = gsap.to(parallaxCardRef.current, {
+      xPercent: -20,
       ease: "none",
       scrollTrigger: {
-        trigger: parallaxCardRef.current,
-        start: "center center",
+        trigger: containerRef.current,
+        start: `top-=86 top`,
         end: `+=${totalWidth - 150}`,
         scrub: 1.2,
-        pin: containerRef.current,
-        pinSpacing: true,
-        onEnter: () => {
-          gsap.set(containerRef.current, { y: 120 });
-        },
-        onLeaveBack: () => {
-          gsap.set(containerRef.current, { y: -120 });
-        },
+        pin: parallaxCardRef.current,
+        pinSpacing: false,
       },
     });
-  }, []);
+
+    scrollRef.current = trigger.scrollTrigger;
+  };
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      const newIsDesktop = width > 1000;
+      if (newIsDesktop && !isDesktop) {
+        initScrollTrigger();
+      }
+
+      if (!newIsDesktop && isDesktop) {
+        scrollRef.current?.kill();
+        scrollRef.current = undefined;
+      }
+
+      setIsDesktop(newIsDesktop);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      scrollRef.current?.kill();
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isDesktop]);
+
   useEffect(() => {
     const cursorPreview = document.getElementById("cursorPreview");
 
@@ -123,24 +92,33 @@ const HorizontParallax = () => {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
+
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const handleToggle = (index: number) => {
     setOpenIndex((prev) => (prev === index ? null : index));
   };
+  useLayoutEffect(() => {
+    if (isDesktop) {
+      setTimeout(() => {
+        initScrollTrigger();
+      }, 500);
+    }
+  }, [isDesktop]);
+
   return (
-    <section className={styles.horizontal_parallax}>
+    <section className={styles.horizontal_parallax} ref={containerRef}>
       {isDesktop && (
         <div id="cursorPreview" className={styles.cursorPreview}></div>
       )}
       {isDesktop ? (
-        <div className={styles.pinWrapper} ref={containerRef}>
-          <div className={styles.parallax__cards}>
-            <div
-              className={styles.parallax__card_preview}
-              data-type="parallax"
-              ref={parallaxCardRef}
-            >
+        <div className={styles.pinWrapper}>
+          <div
+            className={styles.parallax__cards}
+            data-type="parallax"
+            ref={parallaxCardRef}
+          >
+            <div className={styles.parallax__card_preview}>
               <p>
                 Residents don’t have to travel far to enjoy themselves —
                 entertainment is delivered right to their doorstep.
@@ -150,7 +128,6 @@ const HorizontParallax = () => {
               <div
                 key={index}
                 className={styles.parallax__card}
-                data-type="parallax"
                 onMouseEnter={() => {
                   const preview = document.getElementById("cursorPreview");
                   if (preview) {

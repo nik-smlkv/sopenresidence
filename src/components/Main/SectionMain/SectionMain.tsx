@@ -10,27 +10,41 @@ const SectionMain = () => {
     if (!imageRef.current || !mainBody.current) return;
 
     const img = imageRef.current;
+    let animation: GSAPTween | undefined;
 
-    gsap.fromTo(
-      img,
-      {
-        maxWidth: "830px",
-        maxHeight: "496px",
-      },
-      {
-        maxWidth: "100vw",
-        maxHeight: "100vh",
-        ease: "none",
-        scrollTrigger: {
-          trigger: img,
-          start: "25% 25%",
-          end: "+=100",
-          scrub: 1.2,
-          pin: mainBody.current,
-          
+    const createAnimation = () => {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+
+      animation?.kill(); 
+      animation = gsap.fromTo(
+        img,
+        {
+          maxWidth: vw > 768 ? "830px" : "90vw",
+          maxHeight: vh > 600 ? "496px" : "50vh",
         },
-      }
-    );
+        {
+          maxWidth: "100vw",
+          maxHeight: "100vh",
+          ease: "none",
+          scrollTrigger: {
+            trigger: img,
+            start: "25% 25%",
+            end: "+=35",
+            scrub: 1.2,
+            pin: mainBody.current,
+          },
+        }
+      );
+    };
+
+    createAnimation();
+
+    window.addEventListener("resize", createAnimation);
+    return () => {
+      animation?.kill();
+      window.removeEventListener("resize", createAnimation);
+    };
   }, []);
   return (
     <section className={styles.main} id="main">

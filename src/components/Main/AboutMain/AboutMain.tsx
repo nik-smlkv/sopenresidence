@@ -13,6 +13,56 @@ import {
   Pagination,
 } from "swiper/modules";
 import { useSwiper } from "swiper/react";
+
+const SwiperControls = ({
+  swiperRef,
+}: {
+  swiperRef: React.MutableRefObject<SwiperType | null>;
+}) => {
+  return (
+    <div className={styles.controls__wrapper}>
+      <div className={styles.buttons__content}>
+        <button
+          className={styles.infra__prev}
+          onClick={() => swiperRef.current?.slidePrev()}
+        >
+          <svg
+            width="21"
+            height="22"
+            viewBox="0 0 21 22"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M21 11.0001H1.75472M1.75472 11.0001L11.669 1.37744M1.75472 11.0001L11.669 20.6227"
+              stroke="var(--acc-light-apr)"
+              strokeWidth="1.5"
+            />
+          </svg>
+        </button>
+        <button
+          className={styles.infra__next}
+          onClick={() => swiperRef.current?.slideNext()}
+        >
+          <svg
+            width="21"
+            height="22"
+            viewBox="0 0 21 22"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0 11.0001H19.2453M19.2453 11.0001L9.33105 1.37744M19.2453 11.0001L9.33105 20.6227"
+              stroke="white"
+              strokeWidth="1.5"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const AboutMain = () => {
   interface ImgsListType {
     [key: string]: string;
@@ -20,6 +70,7 @@ const AboutMain = () => {
   interface InfoListType {
     [key: string]: string;
   }
+  const swiperRef = useRef<SwiperType | null>(null);
   const InfoListArray: { key: string; name: string; info: string }[] = [
     { key: "Location", name: "Location", info: "Niš, Serbia" },
     { key: "Complex area", name: "Complex area", info: "42,683 m²" },
@@ -143,40 +194,38 @@ const AboutMain = () => {
             <SelectApartmentBtn />
           </div>
         </div>
-        <Swiper
-          loop={true}
-          speed={600}
-          modules={[Navigation, Pagination, EffectCreative]}
-          className={`swiper-img__list ${styles.img__list}`}
-          spaceBetween={0}
-          breakpoints={{
-            768: {
-              slidesPerView: "auto",
-            },
-            1024: {
-              slidesPerView: 3,
-            },
-            1440: {
-              slidesPerView: 4,
-            },
-          }}
-        >
-          {ImgsListArray.map((img) => (
-            <SwiperSlide key={img.key}>
-              <div className={styles.img_wrapper}>
-                <img
-                  src={`./images/${img.src}`}
-                  alt={img.key}
-                  className={styles.img__item}
-                />
-                <div
-                  className={styles.img_overlay}
-                  data-animate="image-fade"
-                ></div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        <div className={styles.swiper__img_block}>
+          <Swiper
+            loop={true}
+            speed={600}
+            modules={[Navigation, Pagination, EffectCreative]}
+            className={`swiper-img__list ${styles.img__list}`}
+            spaceBetween={0}
+            onSwiper={(swiper) => (swiperRef.current = swiper)}
+            breakpoints={{
+              340: { slidesPerView: 'auto' },
+              1024: { slidesPerView: 3 },
+              1440: { slidesPerView: 4 },
+            }}
+          >
+            {ImgsListArray.map((img) => (
+              <SwiperSlide key={img.key}>
+                <div className={styles.img_wrapper}>
+                  <img
+                    src={`./images/${img.src}`}
+                    alt={img.key}
+                    className={styles.img__item}
+                  />
+                  <div
+                    className={styles.img_overlay}
+                    data-animate="image-fade"
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <SwiperControls swiperRef={swiperRef} />
+        </div>
 
         <div className={styles.about__content}>
           <p className={styles.about_content_title}>About</p>

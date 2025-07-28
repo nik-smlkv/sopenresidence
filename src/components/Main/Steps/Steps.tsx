@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, type JSX } from "react";
 import styles from "./Steps.module.css";
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { useResponsiveRef } from "../../../hooks/useResponsiveRef";
 const Steps = () => {
   const stepsCardArray: { name: string; text: string[] }[] = [
     {
@@ -32,7 +33,7 @@ const Steps = () => {
       ],
     },
   ];
-  const cardsWrapperRef = useRef<HTMLDivElement>(null);
+  const cardsWrapperRef = useResponsiveRef<HTMLDivElement>(1000);
   const titleRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   useEffect(() => {
@@ -40,7 +41,7 @@ const Steps = () => {
     let titleTrigger: ScrollTrigger | undefined;
 
     const createScroll = () => {
-      const wrapper = cardsWrapperRef.current;
+      const wrapper = cardsWrapperRef?.current;
       const title = titleRef.current;
       const width = window.innerWidth;
 

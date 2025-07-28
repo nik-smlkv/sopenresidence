@@ -18,22 +18,25 @@ import Locations from "../components/Main/Locations/Locations";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import type Lenis from "@studio-freight/lenis";
 import { frame, cancelFrame } from "motion/react";
+import { useResponsiveRef } from "../hooks/useResponsiveRef";
+
 type LenisRef = { lenis: Lenis | undefined };
 
 const HomePage = () => {
   const lenisRef = useRef<LenisRef>(null);
   gsap.registerPlugin(ScrollTrigger);
-  const parallaxRef = useRef(null);
+  const parallaxRef = useResponsiveRef<HTMLDivElement>(1000);
   useEffect(() => {
     let triggerInstance: ScrollTrigger | undefined;
 
+    const targetEl = parallaxRef?.current;
     const createScroll = () => {
-      if (window.innerWidth <= 768 && parallaxRef.current) {
-        triggerInstance = gsap.to(parallaxRef.current, {
+      if (targetEl) {
+        triggerInstance = gsap.to(targetEl, {
           yPercent: 15,
           ease: "none",
           scrollTrigger: {
-            trigger: parallaxRef.current,
+            trigger: targetEl,
             start: "-30% 0%",
             end: "bottom center",
             scrub: true,
@@ -82,7 +85,10 @@ const HomePage = () => {
         <Locations />
         <section className={styles.parallax} id="advantages">
           <div className={styles.parallax_block}>
-            <div ref={parallaxRef} className={styles.parallax__container}>
+            <div
+              ref={parallaxRef || undefined}
+              className={styles.parallax__container}
+            >
               <img
                 className={styles.parallax_image}
                 src="./images/comfortable.jpg"
