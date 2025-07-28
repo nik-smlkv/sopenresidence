@@ -39,10 +39,17 @@
 }
 
 .apartment__render {
-	width: 46.5vw;
+	width: 17vw;
 	position: relative;
 	top: 60px;
 	right: 60px;
+}
+
+@media(max-width: 1920px) {
+	.apartment__render {
+		width: 46.5vw;
+
+	}
 }
 
 .apartments__cards {

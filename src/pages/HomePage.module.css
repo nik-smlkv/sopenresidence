@@ -45,6 +45,11 @@
 	object-position: center;
 }
 
+.parallax_image {
+	position: relative;
+	top: -12vh;
+}
+
 .parallax_block_text p {
 	max-width: 776px;
 	width: 100%;

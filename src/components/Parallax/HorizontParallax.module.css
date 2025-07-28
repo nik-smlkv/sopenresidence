@@ -1,7 +1,7 @@
 .horizontal_parallax {
 	background-color: var(--bg-beige);
 	position: relative;
-	height: 280vh;
+	height: 265vh;
 	overflow: hidden;
 }
 

@@ -20,7 +20,7 @@ const Footer = () => {
         <div className={styles.footer__content}>
           <div className={styles.footer__content_body}>
             <div className={styles.footer__text}>
-              <span>Niš, Serbia</span>
+              <span>(Niš, Serbia)</span>
               <svg
                 width="1089"
                 height="154"

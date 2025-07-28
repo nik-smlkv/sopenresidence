@@ -40,7 +40,7 @@ const HorizontParallax = () => {
       0
     );
     const trigger = gsap.to(parallaxCardRef.current, {
-      xPercent: -20,
+      xPercent: -15,
       ease: "none",
       scrollTrigger: {
         trigger: containerRef.current,
