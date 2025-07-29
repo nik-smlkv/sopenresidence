@@ -1,6 +1,5 @@
 .langSwitcher {
 	color: var(--tx-wh);
-	mix-blend-mode: difference;
 	list-style: none;
 	position: relative;
 }

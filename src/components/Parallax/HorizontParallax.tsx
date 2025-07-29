@@ -57,7 +57,8 @@ const HorizontParallax = () => {
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
-      const newIsDesktop = width > 1000;
+      const newIsDesktop = width >= 1000;
+
       if (newIsDesktop && !isDesktop) {
         initScrollTrigger();
       }
@@ -102,7 +103,7 @@ const HorizontParallax = () => {
     if (isDesktop) {
       setTimeout(() => {
         initScrollTrigger();
-      }, 500);
+      }, 800);
     }
   }, [isDesktop]);
 

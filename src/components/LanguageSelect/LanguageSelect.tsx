@@ -49,7 +49,7 @@ export const LanguageSelect = () => {
     languages.find((l) => l.code === lang)?.label || "Select";
 
   return (
-    <div className={styles.langSwitcher} ref={wrapperRef}>
+    <div className={`${styles.langSwitcher} lang_switcher`} ref={wrapperRef}>
       <div className={styles.selectWrapper}>
         <div className={styles.selected} onClick={toggleDropdown}>
           {currentLabel}

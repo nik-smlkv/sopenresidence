@@ -132,6 +132,8 @@
 	z-index: 3;
 	/* 	mix-blend-mode: difference; */
 	color: var(--tx-wh);
+	font-weight: 400;
+	transition: color .5s ease;
 }
 
 .get__directions::after {
@@ -159,7 +161,12 @@
 	}
 
 	.get__directions:hover {
-		border: 1px solid var(--acc-main-green);
+		border: 1px solid var(--acc-main-green-btn);
+	}
+
+	.get__directions:hover span {
+		color: var(--acc-main-green-btn);
+
 	}
 
 }

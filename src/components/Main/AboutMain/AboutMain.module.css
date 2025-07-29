@@ -32,7 +32,6 @@
 .about__apart_btn {
 	display: flex;
 	flex: 0 0 auto;
-	mix-blend-mode: difference;
 	position: relative;
 	z-index: 2;
 }
@@ -55,16 +54,21 @@
 
 .about__apart_btn button {
 	height: 56px;
-	border: 1px solid var(--acc-main-green-diff);
+	border: 1px solid var(--acc-main-green-btn);
 }
 
 .about__apart_btn button::after {
-	background-color: var(--acc-main-green-diff);
+	mix-blend-mode: normal;
+	background-color: var(--acc-main-green-btn);
 }
 
 .about__apart_btn span {
 	font-weight: 400;
-	color: var(--acc-main-green-diff);
+	color: var(--acc-main-green);
+}
+
+.about__apart_btn button:hover {
+	border: 1px solid var(--acc-main-green-btn);
 }
 
 .about__name {

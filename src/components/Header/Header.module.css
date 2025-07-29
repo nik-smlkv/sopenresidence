@@ -2,7 +2,6 @@
 	width: auto;
 	height: auto;
 	color: white;
-	mix-blend-mode: difference;
 	position: relative;
 	z-index: 5;
 	cursor: pointer;
@@ -20,6 +19,60 @@
 	margin: 0 auto;
 	width: 100%;
 	padding: 0em 6.25em 0;
+}
+
+.logo svg path {
+	transition: all .8s ease;
+	fill: var(--tx-wh);
+}
+
+.header__body .navigation__body p {
+	font-weight: 400;
+}
+
+.header__body:global(.active) .logo svg path {
+	transition: all .8s ease;
+	fill: var(--acc-main-green);
+}
+
+.header__body :global(.lang_switcher),
+.header__body :global(.lang_switcher) svg path {
+	transition: all .8s ease;
+}
+
+.header__body:global(.active) .navigation__body p,
+.header__body:global(.active) :global(.lang_switcher) {
+	transition: all .8s ease;
+	color: var(--acc-main-green);
+}
+
+.header__body:global(.active) :global(.lang_switcher) svg path {
+	stroke: var(--acc-main-green);
+	transition: all .8s ease;
+}
+
+.btn__body :global(.apart__btn) {
+	transition: border 1.2s ease, color .5s ease;
+}
+
+.header__body .btn__body :global(.apart__btn)::after {
+	mix-blend-mode: normal;
+	background-color: var(--acc-light-apr);
+}
+
+.header__body .btn__body :global(.apart__btn),
+.header__body .btn__body {
+	mix-blend-mode: normal;
+}
+
+.header__body:global(.active) .btn__body :global(.apart__btn) {
+	border: 1px solid var(--acc-main-green-btn);
+	color: var(--acc-main-green-btn);
+	transition: color .5s ease;
+}
+
+.header__body:global(.active) .btn__body :global(.apart__btn)::after {
+	background-color: var(--acc-main-green-btn);
 }
 
 .maintanceHeader {
@@ -86,7 +139,6 @@ button.active {
 	flex-direction: column;
 	row-gap: 5.66px;
 	cursor: pointer;
-	mix-blend-mode: difference;
 }
 
 .burger_line {
@@ -94,8 +146,11 @@ button.active {
 	height: 1.55px;
 	width: 40px;
 	background: #fff;
-	mix-blend-mode: difference;
-	transition: transform .3s;
+	transition: transform .3s, background-color .8s;
+}
+
+.header__body:global(.active) .burger_line {
+	background-color: var(--acc-main-green);
 }
 
 .header__burger.active .burger_line:first-child {

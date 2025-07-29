@@ -25,50 +25,46 @@ const Header = () => {
 
   const { setLang, lang } = useLang();
   useEffect(() => {
-    const sections = document.querySelectorAll("section");
+    const sections = document.querySelectorAll("section[data-section-id]");
     const headerEl = document.querySelector("header");
 
-    let currentVisibleSection: Element | null = null;
+    let currentSectionId: string | null = null;
+
+    const sectionBgColors: Record<string, string> = {
+      "dark-green": "#1C2F24",
+      "light-beige": "#FAF7F2",
+      "transparent-black": "#00000033",
+    };
 
     const observer = new IntersectionObserver(
       (entries) => {
-        // Находим первую пересекающуюся секцию
         const visibleEntry = entries.find((entry) => entry.isIntersecting);
-        const firstSection = sections[0];
 
         if (visibleEntry) {
-          const { target } = visibleEntry;
+          const target = visibleEntry.target as HTMLElement;
+          const sectionId = target.dataset.sectionId;
 
-          // Логируем только если видимая секция изменилась
-          if (target !== currentVisibleSection) {
-            currentVisibleSection = target;
+          if (sectionId && sectionId !== currentSectionId) {
+            currentSectionId = sectionId;
 
-            const computedStyle = window.getComputedStyle(target);
-            const bgColor = computedStyle.backgroundColor;
-            if (bgColor.includes("28, 47, 36")) {
-              headerEl?.style.setProperty("background-color", "#1C2F24");
-            } else if (bgColor.includes("250, 247, 242")) {
-              headerEl?.style.setProperty("background-color", "#FAF7F2");
-            } else if (bgColor.includes("0, 0, 0") && bgColor.includes("0.2")) {
-              headerEl?.style.setProperty("background-color", "#00000033");
+            const bgColor = sectionBgColors[sectionId];
+
+            if (bgColor) {
+              headerEl?.style.setProperty("background-color", bgColor);
+            } else {
+              headerEl?.style.removeProperty("background-color");
             }
           }
         }
-        entries.forEach(({ target, isIntersecting }) => {
-          if (target === firstSection) {
-            if (!isIntersecting) {
-              headerEl?.classList.remove("scrolled");
-            } else {
-              headerEl?.classList.remove("scrolled");
-            }
-          }
-        });
       },
       { threshold: 0.9 }
     );
 
-    sections.forEach((sec) => observer.observe(sec));
-    return () => observer.disconnect();
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   const languages = [
@@ -95,7 +91,11 @@ const Header = () => {
         </header>
       ) : (
         <header className="mainHeader" onClick={() => {}}>
-          <div className={styles.header__body}>
+          <div
+            className={`${styles.header__body} ${
+              burgerModal.isOpen ? "active" : ""
+            }`}
+          >
             <div
               className={styles.logo}
               onClick={() => {

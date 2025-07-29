@@ -75,11 +75,11 @@
 .apartment__btn span {
 	text-transform: uppercase;
 	color: currentColor;
-	mix-blend-mode: difference;
 	font-weight: 400;
 	line-height: 110%;
 	position: relative;
 	z-index: 2;
+	transition: color .5s ease;
 }
 
 .apartment__btn::after {
@@ -92,7 +92,7 @@
 	top: 50%;
 	left: 50%;
 	border-radius: 100%;
-	background-color: var(--acc-light-apr-tx);
+	background-color: var(--acc-main-green-btn);
 	transform: translate(-50%, -50%);
 	transition: width .4s ease, height .6s ease;
 }
@@ -153,6 +153,11 @@
 		width: 200%;
 		height: 250%;
 		transition: width 1s ease, height .5s ease;
+	}
+
+	.apartment__btn:hover span {
+		color: var(--tx-wh);
+		transition: color .5s ease;
 	}
 
 	.apartment__btn:hover {
