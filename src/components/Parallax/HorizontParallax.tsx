@@ -108,7 +108,11 @@ const HorizontParallax = () => {
   }, [isDesktop]);
 
   return (
-    <section className={styles.horizontal_parallax} ref={containerRef}>
+    <section
+      className={styles.horizontal_parallax}
+      ref={containerRef}
+      data-section-id="light"
+    >
       {isDesktop && (
         <div id="cursorPreview" className={styles.cursorPreview}></div>
       )}

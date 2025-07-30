@@ -62,7 +62,8 @@
 .btn__block :global(.apart__btn):hover {
 	border: 1px solid var(--acc-main-green-btn);
 }
-.btn__block :global(.apart__btn):hover span{
+
+.btn__block :global(.apart__btn):hover span {
 	color: var(--tx-wh);
 }
 
@@ -161,6 +162,8 @@
 
 .equip__item.open .equip__block__content {
 	height: 72px;
+	width: 100%;
+	max-width: 100%;
 }
 
 .equip__num {
@@ -182,7 +185,7 @@
 }
 
 .equip__btn {
-	flex: 1 1 100%;
+	flex: 0;
 	display: flex;
 	justify-content: end;
 }

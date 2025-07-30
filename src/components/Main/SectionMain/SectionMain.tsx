@@ -16,7 +16,7 @@ const SectionMain = () => {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
 
-      animation?.kill(); 
+      animation?.kill();
       animation = gsap.fromTo(
         img,
         {
@@ -47,7 +47,7 @@ const SectionMain = () => {
     };
   }, []);
   return (
-    <section className={styles.main} id="main">
+    <section className={styles.main} id="main" data-section-id="dark-green">
       <div className={styles.title_block}>
         <p className={styles.text_welcome}>Welcome to</p>
         <h1 className={styles.title} data-split="title">

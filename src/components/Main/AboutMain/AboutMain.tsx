@@ -160,7 +160,11 @@ const AboutMain = () => {
     });
   }, []);
   return (
-    <section className={styles.about} id="about-project">
+    <section
+      className={styles.about}
+      id="about-project"
+      data-section-id="light"
+    >
       <div className={styles.about__body}>
         <div className={styles.about__block}>
           <div
@@ -203,7 +207,7 @@ const AboutMain = () => {
             spaceBetween={0}
             onSwiper={(swiper) => (swiperRef.current = swiper)}
             breakpoints={{
-              340: { slidesPerView: 'auto' },
+              340: { slidesPerView: "auto" },
               1024: { slidesPerView: 3 },
               1440: { slidesPerView: 4 },
             }}

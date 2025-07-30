@@ -35,6 +35,9 @@ const Steps = () => {
   ];
   const cardsWrapperRef = useResponsiveRef<HTMLDivElement>(1000);
   const titleRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const imgWrapperRef = useRef<HTMLDivElement>(null);
+
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   useEffect(() => {
     let wrapperTrigger: ScrollTrigger | undefined;
@@ -43,9 +46,11 @@ const Steps = () => {
     const createScroll = () => {
       const wrapper = cardsWrapperRef?.current;
       const title = titleRef.current;
+      const image = imgRef.current;
+      const imgWrapper = imgWrapperRef.current;
       const width = window.innerWidth;
 
-      if (!wrapper || !title || width <= 768) return;
+      if (!wrapper || !title || !image || !imgWrapper || width <= 768) return;
 
       titleTrigger = ScrollTrigger.create({
         trigger: title,
@@ -65,17 +70,33 @@ const Steps = () => {
             trigger: wrapper.parentElement,
             start: "25% 25%",
             end: "+=100%",
-            scrub: 1.2,
+            scrub: 1.5,
           },
         }
       );
 
       wrapperTrigger = tween.scrollTrigger;
+
+      const imgGrowTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: imgWrapper,
+          start: "center center",
+          end: "+=100%",
+          scrub: true,
+        },
+      });
+
+      imgGrowTl.to(image, {
+        maxWidth: "100vw",
+        maxHeight: "100vh",
+        ease: "none",
+      });
     };
 
     const killScroll = () => {
       titleTrigger?.kill();
       wrapperTrigger?.kill();
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       titleTrigger = undefined;
       wrapperTrigger = undefined;
     };
@@ -97,7 +118,7 @@ const Steps = () => {
   };
 
   return (
-    <section className={styles.steps}>
+    <section className={styles.steps} data-section-id="light">
       <div className={styles.pin_wrapper} ref={titleRef}>
         <div className={styles.steps__body}>
           <div className={styles.steps__cards_wrapper}>
@@ -173,6 +194,14 @@ const Steps = () => {
                   </div>
                 </div>
               ))}
+              <div className={styles.steps__img_wrapper} ref={imgWrapperRef}>
+                <img
+                  src="./images/steps-img.jpg"
+                  alt="steps"
+                  ref={imgRef}
+                  className={styles.steps__img}
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -2,7 +2,10 @@ import React from "react";
 import styles from "./ApartmentView.module.css";
 const ApartmentView = () => {
   return (
-    <section className={styles.apartment__view}>
+    <section
+      className={styles.apartment__view}
+      data-section-id="transparent-black"
+    >
       <div className={styles.apartment__body}>
         <h2 className={styles.apartment__title}>Step Towards Your New Home</h2>
         <div className={styles.apartments__cards}>

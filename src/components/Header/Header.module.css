@@ -55,14 +55,26 @@
 	transition: border 1.2s ease, color .5s ease;
 }
 
-.header__body .btn__body :global(.apart__btn)::after {
-	mix-blend-mode: normal;
-	background-color: var(--acc-light-apr);
-}
 
 .header__body .btn__body :global(.apart__btn),
 .header__body .btn__body {
 	mix-blend-mode: normal;
+}
+
+.header__body .btn__body :global(.apart__btn)::after {
+	mix-blend-mode: normal;
+	background-color: var(--bg-beige);
+}
+
+@media(hover:hover) {
+	.btn__body :global(.apart__btn):hover span {
+		color: var(--acc-main-green);
+
+	}
+
+	.header__body:global(.active) .btn__body :global(.apart__btn):hover span {
+		color: var(--tx-wh)
+	}
 }
 
 .header__body:global(.active) .btn__body :global(.apart__btn) {
@@ -72,6 +84,51 @@
 }
 
 .header__body:global(.active) .btn__body :global(.apart__btn)::after {
+	background-color: var(--acc-main-green-btn);
+}
+
+header:global(.changed) .header__body .logo svg path {
+	transition: all .8s ease;
+	fill: var(--acc-main-green);
+}
+
+header:global(.changed) .header__body :global(.lang_switcher),
+header:global(.changed) .header__body :global(.lang_switcher) svg path {
+	transition: all .8s ease;
+}
+
+header:global(.changed) .header__body .navigation__body p,
+header:global(.changed) .header__body :global(.lang_switcher) {
+	transition: all .8s ease;
+	color: var(--acc-main-green);
+}
+
+header:global(.changed) .header__body :global(.lang_switcher) svg path {
+	stroke: var(--acc-main-green);
+	transition: all .8s ease;
+}
+
+header:global(.changed) .btn__body :global(.apart__btn) {
+	transition: border 1.2s ease, color .5s ease;
+}
+
+header:global(.changed) .header__body .btn__body :global(.apart__btn)::after {
+	mix-blend-mode: normal;
+	background-color: var(--acc-light-apr);
+}
+
+header:global(.changed) .header__body .btn__body :global(.apart__btn),
+header:global(.changed) .header__body .btn__body {
+	mix-blend-mode: normal;
+}
+
+header:global(.changed) .header__body .btn__body :global(.apart__btn) {
+	border: 1px solid var(--acc-main-green-btn);
+	color: var(--acc-main-green-btn);
+	transition: color .5s ease;
+}
+
+header:global(.changed) .header__body .btn__body :global(.apart__btn)::after {
 	background-color: var(--acc-main-green-btn);
 }
 
@@ -150,6 +207,10 @@ button.active {
 }
 
 .header__body:global(.active) .burger_line {
+	background-color: var(--acc-main-green);
+}
+
+header:global(.changed) .header__body .burger_line {
 	background-color: var(--acc-main-green);
 }
 
@@ -251,7 +312,7 @@ div.burger_modal_content {
 	}
 }
 
-@media (min-width: 1440px) and (max-width: 1920px) {
+@media (min-width: 1440px) and (max-width: 1890px) {
 	.navigation__body {
 		flex: 1;
 		justify-content: end;

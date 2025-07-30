@@ -133,7 +133,7 @@ const Locations = () => {
   };
 
   return (
-    <section className={styles.location} id="location">
+    <section className={styles.location} id="location" data-section-id="dark-green">
       <div className={styles.location__body}>
         <div className={styles.location_name_block}>
           <p

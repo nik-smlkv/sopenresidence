@@ -32,32 +32,32 @@ const Header = () => {
 
     const sectionBgColors: Record<string, string> = {
       "dark-green": "#1C2F24",
-      "light-beige": "#FAF7F2",
+      light: "#FAF7F2",
       "transparent-black": "#00000033",
     };
 
     const observer = new IntersectionObserver(
       (entries) => {
         const visibleEntry = entries.find((entry) => entry.isIntersecting);
-
         if (visibleEntry) {
           const target = visibleEntry.target as HTMLElement;
           const sectionId = target.dataset.sectionId;
-
+          console.log(sectionId);
           if (sectionId && sectionId !== currentSectionId) {
             currentSectionId = sectionId;
-
             const bgColor = sectionBgColors[sectionId];
-
             if (bgColor) {
               headerEl?.style.setProperty("background-color", bgColor);
+            }
+            if (sectionId === "light") {
+              headerEl?.classList.add("changed");
             } else {
-              headerEl?.style.removeProperty("background-color");
+              headerEl?.classList.remove("changed");
             }
           }
         }
       },
-      { threshold: 0.9 }
+      { threshold: 0.1 }
     );
 
     sections.forEach((section) => observer.observe(section));

@@ -44,7 +44,8 @@ const Equipment = () => {
   };
 
   return (
-    <section className={styles.equipment} id="equipment">
+    <section className={styles.equipment} id="equipment"
+	 data-section-id="light">
       <div className={styles.equip__body}>
         <div className={styles.equip__block}>
           <div

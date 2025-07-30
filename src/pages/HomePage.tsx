@@ -83,7 +83,11 @@ const HomePage = () => {
         <AboutMain />
         <Infrastructura />
         <Locations />
-        <section className={styles.parallax} id="advantages">
+        <section
+          className={styles.parallax}
+          id="advantages"
+          data-section-id="transparent-black"
+        >
           <div className={styles.parallax_block}>
             <div
               ref={parallaxRef || undefined}

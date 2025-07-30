@@ -117,7 +117,7 @@ function Form({ ...enabled }: TypeInputEnabled) {
   });
   const isTechWork = false;
   return (
-    <>
+    <section data-section-id="light">
       {isTechWork ? (
         <form className="form" onSubmit={onSubmit}>
           <div className="form_container">
@@ -216,7 +216,7 @@ function Form({ ...enabled }: TypeInputEnabled) {
           </div>
         </form>
       )}
-    </>
+    </section>
   );
 }
 

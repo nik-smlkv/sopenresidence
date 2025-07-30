@@ -95,7 +95,7 @@ const SpaceStructure = () => {
     });
   }, []);
   return (
-    <section className={styles.structure}>
+    <section className={styles.structure} data-section-id="light">
       <div className={styles.structure__body}>
         <div className={styles.structure__block}>
           <div
