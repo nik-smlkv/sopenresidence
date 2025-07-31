@@ -79,7 +79,7 @@ const HomePage = () => {
     <ReactLenis ref={lenisRef} root options={{}}>
       <Header />
       <main className={styles.main}>
-        <SectionMain />
+{/*         <SectionMain />
         <AboutMain />
         <Infrastructura />
         <Locations />
@@ -104,7 +104,7 @@ const HomePage = () => {
             <p>A comfortable lifestyle within walking distance</p>
           </div>
         </section>
-        <HorizontParallax />
+        <HorizontParallax /> */}
         <Equipment />
         <Steps />
         <SpaceStructure />

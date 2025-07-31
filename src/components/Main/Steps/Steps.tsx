@@ -58,6 +58,7 @@ const Steps = () => {
         end: "+=100%",
         pin: true,
         scrub: 1.2,
+        pinSpacing: false,
       });
 
       const tween = gsap.fromTo(
@@ -71,46 +72,40 @@ const Steps = () => {
             start: "25% 25%",
             end: "+=100%",
             scrub: 1.5,
+            pinSpacing: false,
           },
         }
       );
-
       wrapperTrigger = tween.scrollTrigger;
-
-      const imgGrowTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: imgWrapper,
-          start: "center center",
-          end: "+=100%",
-          scrub: true,
-        },
-      });
-
-      imgGrowTl.to(image, {
-        maxWidth: "100vw",
-        maxHeight: "100vh",
-        ease: "none",
-      });
+      const imageHeight = image.offsetHeight;
+      gsap.fromTo(
+        image,
+        { maxWidth: "40vw", maxHeight: "40vh", yPercent: 110 },
+        {
+          yPercent: -110,
+          maxWidth: "100vw",
+          maxHeight: "100vh",
+          ease: "none",
+          scrollTrigger: {
+            trigger: imgWrapper,
+            start: "center center",
+            end: `+=${imageHeight}`,
+            scrub: 1.2,
+            pin: true,
+            pinSpacing: false,
+          },
+        }
+      );
     };
-
-    const killScroll = () => {
-      titleTrigger?.kill();
-      wrapperTrigger?.kill();
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      titleTrigger = undefined;
-      wrapperTrigger = undefined;
-    };
-
     const handleResize = () => {
-      killScroll();
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       createScroll();
     };
-
     createScroll();
     window.addEventListener("resize", handleResize);
     return () => {
-      killScroll();
       window.removeEventListener("resize", handleResize);
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
   const handleToggle = (index: number) => {
@@ -194,23 +189,23 @@ const Steps = () => {
                   </div>
                 </div>
               ))}
-              <div className={styles.steps__img_wrapper} ref={imgWrapperRef}>
-                <img
-                  src="./images/steps-img.jpg"
-                  alt="steps"
-                  ref={imgRef}
-                  className={styles.steps__img}
-                />
-              </div>
+            </div>
+            <div className={styles.img__wrapper} ref={imgWrapperRef}>
+              <img
+                src="./images/steps-img.jpg"
+                alt="steps"
+                ref={imgRef}
+                className={styles.steps__img}
+              />
             </div>
           </div>
         </div>
-        <div className={styles.steps__title_block}>
+        {/*         <div className={styles.steps__title_block}>
           <h2 className={styles.steps__title}>
             Savings and comfort:
             <br /> invest in your future
           </h2>
-        </div>
+        </div> */}
       </div>
     </section>
   );
