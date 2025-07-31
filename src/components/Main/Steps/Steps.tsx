@@ -80,19 +80,24 @@ const Steps = () => {
       const imageHeight = image.offsetHeight;
       gsap.fromTo(
         image,
-        { maxWidth: "40vw", maxHeight: "40vh", yPercent: 110 },
         {
-          yPercent: -110,
+          yPercent: -50,
+          maxWidth: "40vw",
+          maxHeight: "40vh",
+        },
+        {
+          yPercent: -50,
           maxWidth: "100vw",
           maxHeight: "100vh",
           ease: "none",
           scrollTrigger: {
-            trigger: imgWrapper,
+            trigger: imgWrapper, // родитель картинки
             start: "center center",
-            end: `+=${imageHeight}`,
-            scrub: 1.2,
+            end: "+=100%",
+            scrub: true,
             pin: true,
             pinSpacing: false,
+            markers: false, // включи для отладки
           },
         }
       );
