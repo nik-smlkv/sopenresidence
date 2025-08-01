@@ -1,5 +1,5 @@
 .steps {
-	height: 200vh;
+	height: 300vh;
 	background-color: var(--bg-beige);
 	padding-bottom: 158px;
 	width: 100%;
@@ -24,7 +24,7 @@
 	margin: 0 auto;
 	max-inline-size: 1052px;
 	width: 100%;
-	position: relative;
+	position: sticky;
 	z-index: 1;
 }
 

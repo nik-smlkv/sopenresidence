@@ -52,52 +52,49 @@ const Steps = () => {
 
       if (!wrapper || !title || !image || !imgWrapper || width <= 768) return;
 
-      titleTrigger = ScrollTrigger.create({
+      /*       titleTrigger = ScrollTrigger.create({
         trigger: title,
         start: "35% 35%",
         end: "+=100%",
         pin: true,
         scrub: 1.2,
         pinSpacing: false,
-      });
+      }); */
 
-      const tween = gsap.fromTo(
-        wrapper,
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapper.parentElement,
+          start: "0% 0%",
+          end: "+=100%", // До центра экрана
+          scrub: true,
+          pinSpacing: false,
+          markers: true,
+        },
+      });
+      tl.fromTo(
+        [wrapper, imgWrapper],
         { yPercent: 110 },
-        {
-          yPercent: -110,
-          ease: "none",
-          scrollTrigger: {
-            trigger: wrapper.parentElement,
-            start: "25% 25%",
-            end: "+=100%",
-            scrub: 1.5,
-            pinSpacing: false,
-          },
-        }
+        { yPercent: -110, ease: "none" }
       );
-      wrapperTrigger = tween.scrollTrigger;
-      const imageHeight = image.offsetHeight;
+      tl.fromTo([image], { yPercent: 110 }, { yPercent: -50, ease: "none" });
       gsap.fromTo(
         image,
         {
-          yPercent: -50,
           maxWidth: "40vw",
           maxHeight: "40vh",
         },
         {
-          yPercent: -50,
           maxWidth: "100vw",
           maxHeight: "100vh",
           ease: "none",
           scrollTrigger: {
-            trigger: imgWrapper, // родитель картинки
+            trigger: imgWrapper,
             start: "center center",
             end: "+=100%",
             scrub: true,
             pin: true,
             pinSpacing: false,
-            markers: false, // включи для отладки
+            markers: true,
           },
         }
       );
@@ -205,12 +202,12 @@ const Steps = () => {
             </div>
           </div>
         </div>
-        {/*         <div className={styles.steps__title_block}>
+        <div className={styles.steps__title_block}>
           <h2 className={styles.steps__title}>
             Savings and comfort:
             <br /> invest in your future
           </h2>
-        </div> */}
+        </div>
       </div>
     </section>
   );
