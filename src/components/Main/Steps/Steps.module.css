@@ -1,5 +1,5 @@
 .steps {
-	height: 300vh;
+	height: 400vh;
 	background-color: var(--bg-beige);
 	padding-bottom: 158px;
 	width: 100%;
@@ -11,7 +11,7 @@
 	align-items: center;
 	justify-content: center;
 	text-align: center;
-	height: 100vh;
+	height: auto;
 	flex-direction: column-reverse;
 	width: 100%;
 }
@@ -24,7 +24,6 @@
 	margin: 0 auto;
 	max-inline-size: 1052px;
 	width: 100%;
-	position: sticky;
 	z-index: 1;
 }
 
@@ -60,6 +59,9 @@
 	top: 0;
 	left: 0;
 	width: 100%;
+	display: flex;
+	flex-direction: column;
+	row-gap: 75px;
 	z-index: 2;
 }
 
@@ -88,20 +90,20 @@
 }
 
 .steps__img {
-	position: absolute;
-	width: 100vw;
-	height: 100vh;
+	object-fit: cover;
+	transform-origin: center center;
+	max-width: 40vw;
+	max-height: 40vh;
 }
 
 .img__wrapper {
+	height: 100vh;
+	width: 100vw;
+
 	position: relative;
-	height: 100%;
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	overflow: visible;
+
 }
+
 
 .steps__card_front {
 	display: flex;

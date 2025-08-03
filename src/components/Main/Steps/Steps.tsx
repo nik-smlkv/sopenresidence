@@ -52,52 +52,65 @@ const Steps = () => {
 
       if (!wrapper || !title || !image || !imgWrapper || width <= 768) return;
 
-      /*       titleTrigger = ScrollTrigger.create({
-        trigger: title,
-        start: "35% 35%",
-        end: "+=100%",
-        pin: true,
-        scrub: 1.2,
-        pinSpacing: false,
-      }); */
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: wrapper.parentElement,
-          start: "0% 0%",
-          end: "+=100%", // До центра экрана
-          scrub: true,
-          pinSpacing: false,
-          markers: true,
-        },
-      });
-      tl.fromTo(
-        [wrapper, imgWrapper],
+      const triggerEl = wrapper.parentElement; // общий родитель для карточек и картинки
+      gsap.fromTo(
+        wrapper,
         { yPercent: 110 },
-        { yPercent: -110, ease: "none" }
+        {
+          yPercent: 20,
+          ease: "none",
+          scrollTrigger: {
+            trigger: triggerEl,
+            start: "top bottom",
+            end: "+=200%",
+            scrub: true,
+          },
+        }
       );
-      tl.fromTo([image], { yPercent: 110 }, { yPercent: -50, ease: "none" });
+
+      gsap.fromTo(
+        imgWrapper,
+        { yPercent: 110 },
+        {
+          yPercent: 10,
+          ease: "none",
+          scrollTrigger: {
+            trigger: triggerEl,
+            start: "top bottom",
+            end: "+=100%", // 👈 закончится здесь
+            scrub: true,
+          },
+        }
+      );
+
+      // Второй блок: pin + масштаб imgRef
       gsap.fromTo(
         image,
-        {
-          maxWidth: "40vw",
-          maxHeight: "40vh",
-        },
+        { maxWidth: "40vw", maxHeight: "40vh" },
         {
           maxWidth: "100vw",
           maxHeight: "100vh",
           ease: "none",
           scrollTrigger: {
             trigger: imgWrapper,
-            start: "center center",
-            end: "+=100%",
-            scrub: true,
+            start: "top+=20% top+=20%", // 👈 старт после движения
+            end: "+=100%", // можно подкорректировать по желаемой длине
             pin: true,
             pinSpacing: false,
+            scrub: true,
             markers: true,
           },
         }
       );
+
+      titleTrigger = ScrollTrigger.create({
+        trigger: title,
+        start: "35% 35%",
+        end: "+=300%",
+        pin: true,
+        scrub: 1.2,
+        pinSpacing: false,
+      });
     };
     const handleResize = () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
@@ -116,7 +129,7 @@ const Steps = () => {
 
   return (
     <section className={styles.steps} data-section-id="light">
-      <div className={styles.pin_wrapper} ref={titleRef}>
+      <div className={styles.pin_wrapper}>
         <div className={styles.steps__body}>
           <div className={styles.steps__cards_wrapper}>
             <div className={styles.steps__cards} ref={cardsWrapperRef}>
@@ -202,7 +215,7 @@ const Steps = () => {
             </div>
           </div>
         </div>
-        <div className={styles.steps__title_block}>
+        <div className={styles.steps__title_block} ref={titleRef}>
           <h2 className={styles.steps__title}>
             Savings and comfort:
             <br /> invest in your future
