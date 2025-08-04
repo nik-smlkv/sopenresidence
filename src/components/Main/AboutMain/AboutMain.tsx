@@ -148,8 +148,8 @@ const AboutMain = () => {
     imagesArray.forEach((img) => {
       gsap.to(img, {
         top: "100%",
-        duration: 0.5,
-        ease: "none",
+        duration: 0,
+        ease: "power3.out",
         scrollTrigger: {
           trigger: img,
           start: "top 90%",

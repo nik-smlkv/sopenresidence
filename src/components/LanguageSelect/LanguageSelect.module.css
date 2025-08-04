@@ -16,6 +16,11 @@
 	cursor: pointer;
 	user-select: none;
 	padding: 0px 9px;
+	transition: color .5s ease;
+}
+
+.selected:hover {
+	color: var(--acc-light-apr);
 }
 
 .langSwitcher li {

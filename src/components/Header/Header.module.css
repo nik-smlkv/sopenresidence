@@ -190,7 +190,6 @@ header:global(.changed) .header__body .btn__body :global(.apart__btn)::after {
 }
 
 
-
 .langSwitcher_maintance {
 	display: flex;
 	align-items: center;
@@ -239,6 +238,64 @@ button.active {
 	flex-direction: column;
 	row-gap: 5.66px;
 	cursor: pointer;
+}
+
+.link {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.list__arrow {
+	width: 30px;
+	height: 30px;
+	background-color: var(--acc-main-green-btn);
+	border-radius: 100%;
+	display: flex;
+	align-items: center;
+	border: 1px solid var(--acc-main-green-btn);
+	justify-content: center;
+	position: relative;
+	z-index: 2;
+}
+
+.corner_arrow {
+	position: absolute;
+	top: 8px;
+	left: 8px;
+	width: 16px;
+	height: 16px;
+}
+
+.list__arrow svg {
+	position: relative;
+	z-index: 2;
+
+}
+
+.list__arrow::after {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: 1;
+	width: 0;
+	height: 0;
+	top: 50%;
+	left: 50%;
+	border-radius: 100%;
+	background-color: var(--bg-beige);
+	transform: translate(-50%, -50%);
+	transition: width .2s ease, height .2s ease;
+}
+
+.link:hover .list__arrow::after {
+	width: 100%;
+	height: 100%;
+	transition: width .2s ease, height .2s ease;
+}
+
+.link:hover .list__arrow svg path {
+	stroke: black;
 }
 
 .burger_line {

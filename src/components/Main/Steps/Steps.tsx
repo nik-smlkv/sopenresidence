@@ -58,9 +58,9 @@ const Steps = () => {
 
       gsap.fromTo(
         wrapper,
-        { yPercent: 110 },
+        { yPercent: 60 },
         {
-          yPercent: -110,
+          yPercent: -50,
           ease: "none",
           scrollTrigger: {
             trigger: steps,
@@ -72,13 +72,14 @@ const Steps = () => {
       );
 
       // Второй блок: pin + масштаб imgRef
-      /*       gsap.fromTo(
+      gsap.fromTo(
         image,
-        { yPercent: 110, maxWidth: "40vw", maxHeight: "40vh" },
         {
-          yPercent: -110,
-          maxWidth: "100vw",
-          maxHeight: "100vh",
+          scale: 0.41,
+          transformOrigin: "center center",
+        },
+        {
+          scale: 1,
           ease: "none",
           scrollTrigger: {
             trigger: imgWrapper,
@@ -90,10 +91,10 @@ const Steps = () => {
           },
         }
       );
- */
+
       titleTrigger = ScrollTrigger.create({
         trigger: title,
-        start: "-=100vh -=100vh",
+        start: "top center",
         end: "bottom bottom",
         pin: true,
         scrub: true,

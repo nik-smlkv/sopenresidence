@@ -177,12 +177,56 @@ const Header = () => {
                   <SelectApartmentBtn onClick={handleToggle} />
                 </div>
                 <div className={styles.btn__list} ref={modalRef}>
+                  <svg className={styles.corner_arrow} viewBox="0 0 24 24">
+                    <path
+                      d="M14 7l-5 5 5 5"
+                      stroke="#fff"
+                      stroke-width="2"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
                   <ul>
                     <li>
-                      <a href="">Filter by features</a>
+                      <a href="" className={styles.link}>
+                        Filter by features{" "}
+                        <span className={styles.list__arrow}>
+                          <svg
+                            width="30"
+                            height="30"
+                            viewBox="0 0 30 30"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M10 15H19.6226M19.6226 15L14.6655 10.1887M19.6226 15L14.6655 19.8113"
+                              stroke="#FAF7F2"
+                              stroke-width="0.75"
+                            />
+                          </svg>
+                        </span>
+                      </a>
                     </li>
                     <li>
-                      <a href="">Visual selectional of apartments</a>
+                      <a href="" className={styles.link}>
+                        Visual selectional of apartments{" "}
+                        <span className={styles.list__arrow}>
+                          <svg
+                            width="30"
+                            height="30"
+                            viewBox="0 0 30 30"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M10 15H19.6226M19.6226 15L14.6655 10.1887M19.6226 15L14.6655 19.8113"
+                              stroke="#FAF7F2"
+                              stroke-width="0.75"
+                            />
+                          </svg>
+                        </span>
+                      </a>
                     </li>
                   </ul>
                 </div>
