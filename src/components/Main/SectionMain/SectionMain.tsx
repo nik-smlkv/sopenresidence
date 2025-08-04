@@ -29,9 +29,9 @@ const SectionMain = () => {
           ease: "none",
           scrollTrigger: {
             trigger: img,
-            start: "25% 25%",
-            end: "+=35",
-            scrub: 1.2,
+            start: "top+=25% top+=25%",
+            end: "bottom+=25% bottom+=25%",
+            scrub: 1.7,
             pin: mainBody.current,
           },
         }

@@ -22,6 +22,16 @@
 	list-style: none;
 	cursor: pointer;
 	transition: .3s ease;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.langSwitcher li:first-child {
+	padding-top: 14px;
+}
+
+.langSwitcher li:last-child {
+	padding-bottom: 14px;
 }
 
 .langSwitcher li:hover {
@@ -37,19 +47,47 @@
 
 }
 
+
+
 .langSwitcher ul {
 	position: absolute;
 	top: 20px;
 	left: 0;
 	display: flex;
 	flex-direction: column;
+	align-items: start;
+	justify-content: start;
+	height: 0%;
 	row-gap: 4px;
-	padding: 10px 14px;
+	overflow: hidden;
+	width: 100%;
+	max-width: 64px;
 	background-color: #ffffff33;
 	backdrop-filter: blur(30px);
+	transition: height .5s ease;
 }
 
+.langSwitcher:global(.active) ul {
+	height: 360%;
+}
+
+.langSwitcher:global(.active) .arrow {
+	transform: rotate(180deg);
+}
+
+/* .langSwitcher ul::before {
+	content: '';
+	background-color: #ffffff33;
+	backdrop-filter: blur(30px);
+	position: absolute;
+	top: 0px;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+ */
 .arrow {
+	transition: transform .5s ease;
 	height: 10px;
 	width: 10px;
 }

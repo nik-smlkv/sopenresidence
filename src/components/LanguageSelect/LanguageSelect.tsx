@@ -49,7 +49,12 @@ export const LanguageSelect = () => {
     languages.find((l) => l.code === lang)?.label || "Select";
 
   return (
-    <div className={`${styles.langSwitcher} lang_switcher`} ref={wrapperRef}>
+    <div
+      className={`${styles.langSwitcher} lang_switcher ${
+        isOpen ? "active" : ""
+      }`}
+      ref={wrapperRef}
+    >
       <div className={styles.selectWrapper}>
         <div className={styles.selected} onClick={toggleDropdown}>
           {currentLabel}
@@ -65,23 +70,21 @@ export const LanguageSelect = () => {
             </svg>
           </span>
         </div>
-        {isOpen && (
-          <ul className={styles.options}>
-            {languages
-              .filter(({ code }) => code !== lang)
-              .map(({ code, label }) => (
-                <li
-                  key={code}
-                  className={`${styles.option} ${
-                    lang === code ? styles.active : ""
-                  }`}
-                  onClick={() => handleSelect(code)}
-                >
-                  {label}
-                </li>
-              ))}
-          </ul>
-        )}
+        <ul className={styles.options}>
+          {languages
+            .filter(({ code }) => code !== lang)
+            .map(({ code, label }) => (
+              <li
+                key={code}
+                className={`${styles.option} ${
+                  lang === code ? styles.active : ""
+                }`}
+                onClick={() => handleSelect(code)}
+              >
+                {label}
+              </li>
+            ))}
+        </ul>
       </div>
     </div>
   );

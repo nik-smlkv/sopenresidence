@@ -22,7 +22,29 @@ const Header = () => {
   const handleBurgerRemove = () => {
     burgerModal.close();
   };
+  const [isOpen, setIsOpen] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLDivElement>(null);
+  const handleToggle = () => {
+    setIsOpen((prev) => !prev);
+  };
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(e.target as Node) &&
+        btnRef.current &&
+        !btnRef.current.contains(e.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
 
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   const { setLang, lang } = useLang();
   useEffect(() => {
     const sections = document.querySelectorAll("section[data-section-id]");
@@ -140,9 +162,30 @@ const Header = () => {
               />
             </div>
             <div className={styles.header_block}>
-              <LanguageSelect />
+              <div
+                className={`${styles.lang_wrapper} ${
+                  burgerModal.isOpen ? "active" : ""
+                }`}
+              >
+                <LanguageSelect />
+              </div>
               <div onClick={handleBurgerRemove} className={styles.btn__body}>
-                <SelectApartmentBtn />
+                <div
+                  className={`${styles.btn_wrapper} ${isOpen ? "active" : ""}`}
+                  ref={btnRef}
+                >
+                  <SelectApartmentBtn onClick={handleToggle} />
+                </div>
+                <div className={styles.btn__list} ref={modalRef}>
+                  <ul>
+                    <li>
+                      <a href="">Filter by features</a>
+                    </li>
+                    <li>
+                      <a href="">Visual selectional of apartments</a>
+                    </li>
+                  </ul>
+                </div>
               </div>
               <HeaderBurger
                 isOpen={burgerModal.isOpen}

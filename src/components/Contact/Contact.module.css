@@ -25,6 +25,7 @@
 	font-size: 28px;
 	line-height: 100%;
 	font-weight: 500;
+	transition: .5s ease;
 }
 
 
@@ -40,6 +41,15 @@
 	font-weight: 500;
 	line-height: 110%;
 	margin-bottom: 20px;
+	transition: .5s ease;
+}
+
+@media (hover:hover) {
+
+	.number:hover,
+	.address:hover {
+		color: var(--acc-light-apr);
+	}
 }
 
 @media(max-width:1920px) {

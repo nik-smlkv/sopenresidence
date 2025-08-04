@@ -37,6 +37,7 @@ const Steps = () => {
   const titleRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const imgWrapperRef = useRef<HTMLDivElement>(null);
+  const stepsRef = useRef<HTMLDivElement>(null);
 
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   useEffect(() => {
@@ -49,66 +50,53 @@ const Steps = () => {
       const image = imgRef.current;
       const imgWrapper = imgWrapperRef.current;
       const width = window.innerWidth;
+      const steps = stepsRef.current;
+      if (!wrapper || !title || !image || !imgWrapper || !steps || width <= 768)
+        return;
 
-      if (!wrapper || !title || !image || !imgWrapper || width <= 768) return;
+      const triggerEl = steps.parentElement; // общий родитель для карточек и картинки
 
-      const triggerEl = wrapper.parentElement; // общий родитель для карточек и картинки
       gsap.fromTo(
         wrapper,
         { yPercent: 110 },
         {
-          yPercent: 20,
+          yPercent: -110,
           ease: "none",
           scrollTrigger: {
-            trigger: triggerEl,
-            start: "top bottom",
-            end: "+=200%",
-            scrub: true,
-          },
-        }
-      );
-
-      gsap.fromTo(
-        imgWrapper,
-        { yPercent: 110 },
-        {
-          yPercent: 10,
-          ease: "none",
-          scrollTrigger: {
-            trigger: triggerEl,
-            start: "top bottom",
-            end: "+=100%", // 👈 закончится здесь
+            trigger: steps,
+            start: "top top",
+            end: "bottom bottom",
             scrub: true,
           },
         }
       );
 
       // Второй блок: pin + масштаб imgRef
-      gsap.fromTo(
+      /*       gsap.fromTo(
         image,
-        { maxWidth: "40vw", maxHeight: "40vh" },
+        { yPercent: 110, maxWidth: "40vw", maxHeight: "40vh" },
         {
+          yPercent: -110,
           maxWidth: "100vw",
           maxHeight: "100vh",
           ease: "none",
           scrollTrigger: {
             trigger: imgWrapper,
-            start: "top+=20% top+=20%", // 👈 старт после движения
-            end: "+=100%", // можно подкорректировать по желаемой длине
+            start: "top top",
+            end: "bottom bottom",
             pin: true,
             pinSpacing: false,
             scrub: true,
-            markers: true,
           },
         }
       );
-
+ */
       titleTrigger = ScrollTrigger.create({
         trigger: title,
-        start: "35% 35%",
-        end: "+=300%",
+        start: "-=100vh -=100vh",
+        end: "bottom bottom",
         pin: true,
-        scrub: 1.2,
+        scrub: true,
         pinSpacing: false,
       });
     };
@@ -128,11 +116,11 @@ const Steps = () => {
   };
 
   return (
-    <section className={styles.steps} data-section-id="light">
-      <div className={styles.pin_wrapper}>
+    <section className={styles.steps} data-section-id="light" id="finance">
+      <div className={styles.pin_wrapper} ref={stepsRef}>
         <div className={styles.steps__body}>
-          <div className={styles.steps__cards_wrapper}>
-            <div className={styles.steps__cards} ref={cardsWrapperRef}>
+          <div className={styles.steps__cards_wrapper} ref={cardsWrapperRef}>
+            <div className={styles.steps__cards}>
               {stepsCardArray.map((card, index) => (
                 <div
                   key={index}
@@ -205,14 +193,14 @@ const Steps = () => {
                 </div>
               ))}
             </div>
-            <div className={styles.img__wrapper} ref={imgWrapperRef}>
-              <img
-                src="./images/steps-img.jpg"
-                alt="steps"
-                ref={imgRef}
-                className={styles.steps__img}
-              />
-            </div>
+          </div>
+          <div className={styles.img__wrapper} ref={imgWrapperRef}>
+            <img
+              src="./images/steps-img.jpg"
+              alt="steps"
+              ref={imgRef}
+              className={styles.steps__img}
+            />
           </div>
         </div>
         <div className={styles.steps__title_block} ref={titleRef}>
