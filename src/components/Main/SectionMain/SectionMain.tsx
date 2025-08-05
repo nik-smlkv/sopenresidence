@@ -17,25 +17,25 @@ const SectionMain = () => {
       const vh = window.innerHeight;
 
       animation?.kill();
-      animation = gsap.fromTo(
+ /*      animation = gsap.fromTo(
         img,
         {
-          maxWidth: vw > 768 ? "830px" : "90vw",
-          maxHeight: vh > 600 ? "496px" : "50vh",
+          scale: vw > 768 && vh > 600 ? 0.29 : 0.95,
+          transformOrigin: "center center",
         },
         {
-          maxWidth: "100vw",
-          maxHeight: "100vh",
+          scale: 1,
           ease: "none",
           scrollTrigger: {
-            trigger: img,
-            start: "top+=25% top+=25%",
-            end: "bottom+=25% bottom+=25%",
-            scrub: 1.7,
-            pin: mainBody.current,
+            trigger: mainBody.current,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 1.2,
+            pin: img,
+            pinSpacing: false,
           },
         }
-      );
+      ); */
     };
 
     createAnimation();
@@ -48,24 +48,27 @@ const SectionMain = () => {
   }, []);
   return (
     <section className={styles.main} id="main" data-section-id="dark-green">
-      <div className={styles.title_block}>
-        <p className={styles.text_welcome}>Welcome to</p>
-        <h1 className={styles.title} data-split="title">
-          sopen park
-        </h1>
-        <p className={styles.subtitle}>
-          A modern space for living and business in the heart of Niš
-        </p>
-      </div>
-      <div className={styles.pinWrapper} ref={mainBody}>
-        <div className={styles.content}>
-          <div className={styles.image__block}>
-            <img
-              ref={imageRef}
-              className={styles.main_img}
-              src="./images/main.jpg"
-              alt=""
-            />
+      <div className={styles.main__body} ref={mainBody}>
+        <div className={styles.title_block}>
+          <div className={styles.title_block_body}>
+            <div className="">
+              {" "}
+              <p className={styles.text_welcome}>Welcome to</p>{" "}
+              <h1 className={styles.title} data-split="title">
+                sopen park
+              </h1>
+            </div>
+            <div className={styles.image__block}>
+              <img
+                ref={imageRef}
+                className={styles.main_img}
+                src="./images/main.jpg"
+                alt=""
+              />
+            </div>
+            <p className={styles.subtitle}>
+              A modern space for living and business in the heart of Niš
+            </p>
           </div>
         </div>
       </div>

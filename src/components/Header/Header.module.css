@@ -235,6 +235,7 @@ button.active {
 
 .header__burger {
 	display: flex;
+	width: 40px;
 	flex-direction: column;
 	row-gap: 5.66px;
 	cursor: pointer;
@@ -295,7 +296,7 @@ button.active {
 }
 
 .link:hover .list__arrow svg path {
-	stroke: black;
+	stroke: var(--acc-main-green-btn);
 }
 
 .burger_line {
@@ -303,7 +304,7 @@ button.active {
 	height: 1.55px;
 	width: 40px;
 	background: #fff;
-	transition: transform .3s, background-color .8s;
+	transition: transform .3s, background-color .8s, width .3s ease;
 }
 
 .header__body:global(.active) .burger_line {
@@ -314,9 +315,14 @@ header:global(.changed) .header__body .burger_line {
 	background-color: var(--acc-main-green);
 }
 
+.header__burger.active .burger_line {
+	width: 32px;
+}
+
 .header__burger.active .burger_line:first-child {
-	transform: translateY(3px) rotate(45deg);
+	transform: translateY(6px) rotate(45deg);
 	margin: 5.5px 0;
+
 }
 
 .header__burger.active .burger_line:nth-child(2) {
@@ -324,7 +330,7 @@ header:global(.changed) .header__body .burger_line {
 }
 
 .header__burger.active .burger_line:last-child {
-	transform: translateY(-16px) rotate(-45deg)
+	transform: translateY(-13px) rotate(-45deg)
 }
 
 .modal__wrapper {
