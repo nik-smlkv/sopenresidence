@@ -8,8 +8,7 @@ const Infrastructura = () => {
         <div className={styles.infrastructura__block}>
           <div
             className={`section_name ${styles.infrastructura__name}`}
-            data-split="block-name"
-          >
+            data-split="block-name">
             Infrastructure
           </div>
           <div className={styles.infrastructura_text_block}>

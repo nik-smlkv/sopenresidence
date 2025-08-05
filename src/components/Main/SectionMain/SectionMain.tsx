@@ -17,13 +17,15 @@ const SectionMain = () => {
       const vh = window.innerHeight;
 
       animation?.kill();
- /*      animation = gsap.fromTo(
+      animation = gsap.fromTo(
         img,
         {
-          scale: vw > 768 && vh > 600 ? 0.29 : 0.95,
-          transformOrigin: "center center",
+          yPercent: 0,
+          scale: vw > 768 && vh > 600 ? 0.414 : 0.95,
+          transformOrigin: "50% 50%",
         },
         {
+			 yPercent: 12,
           scale: 1,
           ease: "none",
           scrollTrigger: {
@@ -35,7 +37,7 @@ const SectionMain = () => {
             pinSpacing: false,
           },
         }
-      ); */
+      );
     };
 
     createAnimation();
@@ -58,7 +60,10 @@ const SectionMain = () => {
                 sopen park
               </h1>
             </div>
-            <div className={styles.image__block}>
+            <div
+              className={styles.image__block}
+              data-section-id="transparent-black"
+            >
               <img
                 ref={imageRef}
                 className={styles.main_img}

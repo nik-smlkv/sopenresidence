@@ -95,7 +95,7 @@ const SwiperControls = ({
           >
             <path
               d="M21 11.0001H1.75472M1.75472 11.0001L11.669 1.37744M1.75472 11.0001L11.669 20.6227"
-              stroke="var(--acc-light-apr)"
+              stroke="var(--acc-light-apr-tx)"
               stroke-width="1.5"
             />
           </svg>

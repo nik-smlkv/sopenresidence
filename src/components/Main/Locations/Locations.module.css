@@ -56,7 +56,7 @@
 
 @media(hover:hover) {
 	.location__item:hover {
-		color: var(--acc-light-apr);
+		color: var(--acc-light-apr-tx);
 		transition: color .5s ease, font-weight .5s ease;
 	}
 }
@@ -70,7 +70,7 @@
 }
 
 .location__item.active {
-	color: var(--acc-light-apr);
+	color: var(--acc-light-apr-tx);
 	position: relative;
 	transition: left .5s ease;
 }

@@ -46,10 +46,10 @@
 	width: 100%;
 	display: flex;
 	flex-direction: row-reverse;
-	max-width: 780px;
+	max-width: 695px;
 	row-gap: 20px;
 	width: 100%;
-	font-weight: 400;
+	font-weight: 300;
 }
 
 .infrastructura_block_text p {
