@@ -2,11 +2,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
 import {
   EffectCreative,
-  FreeMode,
   Navigation,
   Pagination,
 } from "swiper/modules";
-import { useSwiper } from "swiper/react";
 
 import "./Mainslider.scss";
 import "swiper/swiper-bundle.css";

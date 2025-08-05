@@ -63,7 +63,7 @@ const SectionMain = () => {
             <img
               ref={imageRef}
               className={styles.main_img}
-              src="../../../public/images/main.jpg"
+              src="./images/main.jpg"
               alt=""
             />
           </div>

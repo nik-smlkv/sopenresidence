@@ -1,5 +1,4 @@
 import styles from "./Header.module.css";
-import { useModal } from "../../hooks/useModal";
 import Modal from "../Modals/Modal";
 import BurgerModal from "../Modals/BurgerModal";
 type HeaderBurgerProps = {

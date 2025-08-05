@@ -1,4 +1,4 @@
-import React from "react";
+
 import styles from "./ApartmentView.module.css";
 const ApartmentView = () => {
   return (

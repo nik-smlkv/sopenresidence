@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, type JSX } from "react";
+import { useEffect, useRef, useState, type JSX } from "react";
 import styles from "./Steps.module.css";
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -38,12 +38,8 @@ const Steps = () => {
   const imgRef = useRef<HTMLImageElement>(null);
   const imgWrapperRef = useRef<HTMLDivElement>(null);
   const stepsRef = useRef<HTMLDivElement>(null);
-
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   useEffect(() => {
-    let wrapperTrigger: ScrollTrigger | undefined;
-    let titleTrigger: ScrollTrigger | undefined;
-
     const createScroll = () => {
       const wrapper = cardsWrapperRef?.current;
       const title = titleRef.current;
@@ -53,8 +49,6 @@ const Steps = () => {
       const steps = stepsRef.current;
       if (!wrapper || !title || !image || !imgWrapper || !steps || width <= 768)
         return;
-
-      const triggerEl = steps.parentElement; // общий родитель для карточек и картинки
 
       gsap.fromTo(
         wrapper,
@@ -92,7 +86,7 @@ const Steps = () => {
         }
       );
 
-      titleTrigger = ScrollTrigger.create({
+      ScrollTrigger.create({
         trigger: title,
         start: "top center",
         end: "bottom bottom",

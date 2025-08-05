@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import styles from "./Equipment.module.css";
 import SelectApartmentBtn from "../../Buttons/SelectApartmentBtn";
 const Equipment = () => {

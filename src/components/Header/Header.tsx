@@ -6,7 +6,6 @@ import { LanguageSelect } from "../LanguageSelect/LanguageSelect";
 import { useEffect, useRef, useState } from "react";
 import "./style.css";
 import Navigation from "../Navigation/Navigation";
-import { useModalControl } from "../../context/ModalContext";
 import { useModal } from "../../hooks/useModal";
 
 const handleClick = (id: string) => {

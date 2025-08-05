@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import  { useEffect, useRef, useState } from "react";
 import styles from "./Locations.module.css";
 import {
   GoogleMap,
@@ -10,10 +10,7 @@ const containerStyle = {
   width: "100%",
   height: "820px",
 };
-const location = {
-  lat: 43.3169,
-  lng: 21.8955,
-};
+
 const mapOptions: google.maps.MapOptions = {
   zoomControl: true, // оставить кнопки масштабирования
   fullscreenControl: false, // убрать кнопку полноэкранного режима

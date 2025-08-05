@@ -8,11 +8,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
 import {
   EffectCreative,
-  FreeMode,
+
   Navigation,
   Pagination,
 } from "swiper/modules";
-import { useSwiper } from "swiper/react";
+
 
 const SwiperControls = ({
   swiperRef,
@@ -64,12 +64,6 @@ const SwiperControls = ({
 };
 
 const AboutMain = () => {
-  interface ImgsListType {
-    [key: string]: string;
-  }
-  interface InfoListType {
-    [key: string]: string;
-  }
   const swiperRef = useRef<SwiperType | null>(null);
   const InfoListArray: { key: string; name: string; info: string }[] = [
     { key: "Location", name: "Location", info: "Niš, Serbia" },
@@ -84,10 +78,8 @@ const AboutMain = () => {
     { key: "street-hythm", src: "street-hythm.jpg" },
     { key: "urban-oasis", src: "urban-oasis.jpg" },
   ];
-  const imgRef = useRef<HTMLImageElement>(null);
   useEffect(() => {
     const titlesArray = document.querySelectorAll('[data-split="title"]'); // или ".animate-text"
-    var tl = gsap.timeline();
     gsap.registerPlugin(ScrollTrigger);
     titlesArray.forEach((heading) => {
       const split = new SplitText(heading, { type: "chars" });

@@ -8,7 +8,6 @@ import styles from "./HomePage.module.css";
 import { useEffect, useRef } from "react";
 import HorizontParallax from "../components/Parallax/HorizontParallax";
 import Equipment from "../components/Main/Equipment/Equipment";
-import Form from "../components/Forms/Form";
 import Footer from "../components/Footer/Footer";
 import Steps from "../components/Main/Steps/Steps";
 import ApartmentView from "../components/Main/ApartmentChoise/ApartmentView";
@@ -17,7 +16,6 @@ import SpaceStructure from "../components/Main/Structure/SpaceStructure";
 import Locations from "../components/Main/Locations/Locations";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import type Lenis from "@studio-freight/lenis";
-import { frame, cancelFrame } from "motion/react";
 import { useResponsiveRef } from "../hooks/useResponsiveRef";
 
 type LenisRef = { lenis: Lenis | undefined };
