@@ -152,7 +152,7 @@ const Header = () => {
             >
               <Navigation
                 items={[
-                  { label: "About project", targetId: "about-project" },
+                  { label: "About Project", targetId: "about-project" },
                   { label: "Infrastructure", targetId: "infrastructure" },
                   { label: "Advantages", targetId: "advantages" },
                   { label: "Equipment", targetId: "equipment" },

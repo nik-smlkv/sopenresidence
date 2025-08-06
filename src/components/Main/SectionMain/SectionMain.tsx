@@ -20,18 +20,18 @@ const SectionMain = () => {
       animation = gsap.fromTo(
         img,
         {
-          yPercent: 0,
-          scale: vw > 768 && vh > 600 ? 0.414 : 0.95,
+          scaleX: 830 / vw,
+          scaleY: 496 / vh,
           transformOrigin: "50% 50%",
         },
         {
-			 yPercent: 12,
-          scale: 1,
+          scaleX: 1,
+          scaleY: 1,
           ease: "none",
           scrollTrigger: {
             trigger: mainBody.current,
             start: "top top",
-            end: "bottom bottom",
+            end: "bottom+=30% bottom+=30%",
             scrub: 1.2,
             pin: img,
             pinSpacing: false,

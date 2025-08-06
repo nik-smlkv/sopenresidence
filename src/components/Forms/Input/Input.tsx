@@ -23,10 +23,10 @@ const Input = (props: InputProps) => {
         type={type || "text"}
         {...rest}
       />
+      <p className="input_placeholder">{placeholderKey && t[placeholderKey]}</p>
       <p className="input_error" data-error={error}>
         {errorMessage}
       </p>
-      <p className="input_placeholder">{placeholderKey && t[placeholderKey]}</p>
     </label>
   );
 };

@@ -1,4 +1,4 @@
-import  { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styles from "./HorizontParallax.module.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -39,13 +39,17 @@ const HorizontParallax = () => {
       (sum, card) => sum + card.getBoundingClientRect().width,
       0
     );
+    const containerWidth =
+      containerRef.current?.offsetWidth || window.innerWidth;
+    const requiredPercent = ((totalWidth - containerWidth) / totalWidth) * 100;
+
     const trigger = gsap.to(parallaxCardRef.current, {
-      xPercent: -15,
+      xPercent: -requiredPercent,
       ease: "none",
       scrollTrigger: {
         trigger: containerRef.current,
         start: `top-=86 top`,
-        end: `+=${totalWidth - 150}`,
+        end: "bottom bottom-=386",
         scrub: 1.2,
         pin: parallaxCardRef.current,
         pinSpacing: false,

@@ -1,7 +1,7 @@
 .navigation {
 	display: flex;
 	align-items: center;
-	column-gap: 41px;
+	column-gap: 43px;
 	position: relative;
 	z-index: 5;
 }
@@ -12,7 +12,7 @@
 	color: var(--tx-wh);
 	mix-blend-mode: difference;
 	transition: color 0.5s ease;
-	font-weight: 300;
+	font-weight: 400;
 	line-height: 100%;
 }
 
@@ -22,11 +22,19 @@
 	}
 }
 
-@media (min-width: 1440px) and (max-width: 1920px) {
-	.navigation {
-		column-gap: clamp(1.25em, calc(3em - 2vw), 2.5em);
+@media (max-width: 1500px) {
+	.nav__link:nth-child(4) {
+		display: none;
 	}
-	.navigation__body{
+}
+
+@media (min-width: 1440px) and (max-width: 1920px) {
+
+	.navigation {
+		column-gap: clamp(1.25rem, -2.688rem + 4.375vi, 2.563rem);
+	}
+
+	.navigation__body {
 		flex: 1;
 		justify-content: end;
 	}

@@ -11,7 +11,7 @@
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		gap: 20px;
+		gap: 30px;
 
 		&[data-animation="true"] {
 			animation: exit 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
@@ -69,6 +69,7 @@
 
 .input_container {
 	gap: 5px;
+	position: relative;
 }
 
 .input_container:has(.input:focus)::after {
@@ -107,6 +108,7 @@
 
 	&:invalid:not([required])+&_error {
 		display: block;
+
 	}
 
 	&[data-error="true"],
@@ -143,7 +145,8 @@
 		color: rgba(244, 28, 54, 1);
 		margin-bottom: 5px;
 		font-size: 12px;
-
+		position: absolute;
+		bottom: -25px;
 		&[data-error="true"] {
 			display: block;
 		}

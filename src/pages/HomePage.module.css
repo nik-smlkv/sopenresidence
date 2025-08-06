@@ -68,7 +68,7 @@
 	.parallax_block_text {
 		max-width: 52vw;
 		padding-top: clamp(1.25rem, -7.857rem + 14.286vi, 5rem);
-		padding-right: clamp(1.25rem, -22.125rem + 36.667vi, 10.875rem);
+		padding-right: 0;
 	}
 }
 
@@ -97,3 +97,15 @@
 		row-gap: 20px;
 	}
 }
+
+@media((min-width: 1440px) and (max-width:1920px)) {
+	.parallax_image {
+		top: clamp(0vh, calc((-12 / 480) * (100vw - 1440px)), -12vh);
+	}
+}
+
+@media((min-width: 1024px) and (max-width:1440px)) {}
+
+@media(max-width: 1024px) {}
+
+@media((min-width: 768px) and (max-width:1024px)) {}

@@ -23,7 +23,7 @@
 
 .equip_text_block {
 	display: flex;
-	justify-content: end;
+	justify-content: space-between;
 	width: 100%;
 	column-gap: 160px;
 }
@@ -118,6 +118,8 @@
 
 .equip__name {
 	font-weight: 500;
+	width: 100%;
+	max-width: 399.5px;
 	font-size: 22px;
 	text-transform: uppercase;
 	line-height: 120%;
@@ -172,7 +174,7 @@
 	line-height: 100%;
 	font-weight: 400;
 	width: 100%;
-	max-width: 540px;
+	max-width: 543.67px;
 }
 
 .equip__item__text {

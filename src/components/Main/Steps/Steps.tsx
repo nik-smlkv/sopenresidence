@@ -89,7 +89,7 @@ const Steps = () => {
       ScrollTrigger.create({
         trigger: title,
         start: "top center",
-        end: "bottom bottom",
+        end: "bottom bottom+=25%",
         pin: true,
         scrub: true,
         pinSpacing: false,
