@@ -5,7 +5,7 @@
 	margin: 0 auto;
 	display: grid;
 	grid-auto-flow: column;
-	grid-auto-columns: 0.4fr 1fr;
+	grid-auto-columns: 0.39fr 1fr;
 	align-items: stretch;
 	column-gap: 20px;
 	padding-bottom: 6.25em;
@@ -15,6 +15,10 @@
 	.swiper {
 		max-height: 862px;
 		width: 100%;
+	}
+
+	.swiper-slide {
+		max-width: 1024px;
 	}
 
 	img {
@@ -45,6 +49,7 @@
 		overflow: hidden;
 		border: 1px solid var(--acc-light-apr-tx);
 	}
+
 
 	.infra__prev svg,
 	.infra__next svg {
@@ -166,11 +171,26 @@
 @media (min-width: 1440px) and (max-width: 1920px) {
 	.swiper__infra {
 		padding-bottom: clamp(8.75em, calc(12vw - 10em), 10em);
-		padding-left: clamp(5em, calc(9vw - 7em), 6.25em);
+		padding-left: clamp(5rem, 1.25rem + 4.167vi, 6.25rem);
+	}
+
+	.info_block_text p {
+		font-size: clamp(1rem, 0.625rem + 0.417vi, 1.125rem);
 	}
 
 	.swiper__slide_info_block {
+		row-gap: clamp(1.813rem, 1.625rem + 0.208vi, 1.875rem);
+	}
+}
+
+@media(max-width: 1440px) {
+	.infrastructura_text_block {
 		row-gap: 20px;
+	}
+
+	.info_block_text p {
+		font-size: 15px;
+		line-height: 110%;
 	}
 }
 
@@ -189,6 +209,22 @@
 	.swiper__infra {
 		padding-bottom: clamp(1.25em, 5vw, 2.5em);
 		padding-left: clamp(1.25em, 5vw, 2.5em);
+	}
+}
+
+@media(max-width: 1000px) {
+	.swiper__slide_info_block {
+		padding-top: 0;
+	}
+
+	.swiper__slide_info_block {
+		row-gap: 16px;
+	}
+
+	.infra__prev,
+	.infra__next {
+		width: 54px;
+		height: 54px;
 	}
 }
 

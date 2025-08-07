@@ -275,12 +275,22 @@
 	.burger_modal_contact :global(.address) {
 		font-size: clamp(1.13rem, 0.51rem + 0.96vw, 1.38rem);
 	}
+
+
 }
 
 @media(max-width: 1230px) {
 	.burger_modal_content {
 		flex-direction: column-reverse;
 		row-gap: 60px;
+	}
+
+	.burger_modal_nav_block {
+		row-gap: 30px;
+	}
+
+	.burger_modal_nav button {
+		position: static;
 	}
 
 	.burger_modal_nav nav {

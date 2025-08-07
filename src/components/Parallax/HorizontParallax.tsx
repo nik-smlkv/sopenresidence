@@ -12,27 +12,28 @@ const HorizontParallax = () => {
     name: string;
   }[] = [
     {
-      img: "beautiful-spa-client-with-tisane-looking-into-distance.jpg",
+      img: "./images/beautiful-spa-client-with-tisane-looking-into-distance.jpg",
       name: "Wellness center",
     },
     {
-      img: "close-up-barista-making-cappuccino-bartender-preparing-coffee-drink-1.jpg",
+      img: "./images/close-up-barista-making-cappuccino-bartender-preparing-coffee-drink-1.jpg",
       name: "Supermarket",
     },
     {
-      img: "close-up-barista-making-cappuccino-bartender-preparing-coffee-drink.jpg",
+      img: "./images/close-up-barista-making-cappuccino-bartender-preparing-coffee-drink.jpg",
       name: "Pharmacy",
     },
     {
-      img: "customer-choosing-milk-products-supermarket-refrigerator.jpg",
+      img: "./images/customer-choosing-milk-products-supermarket-refrigerator.jpg",
       name: "Café",
     },
-    { img: "pharmacist-work.jpg", name: "Business apartments" },
+    { img: "./images/pharmacist-work.jpg", name: "Business apartments" },
     {
-      img: "young-adult-woman-pushing-shopping-trolley-shelves-market.jpg",
+      img: "./images/young-adult-woman-pushing-shopping-trolley-shelves-market.jpg",
       name: "Other commercial spaces",
     },
   ];
+
   const initScrollTrigger = () => {
     const cards = gsap.utils.toArray<HTMLElement>('[data-type="parallax"]');
     const totalWidth = cards.reduce(
@@ -42,14 +43,16 @@ const HorizontParallax = () => {
     const containerWidth =
       containerRef.current?.offsetWidth || window.innerWidth;
     const requiredPercent = ((totalWidth - containerWidth) / totalWidth) * 100;
-
+    const screenWidth = window.innerWidth;
+    const endValue =
+      screenWidth > 1440 ? "bottom bottom-=386" : "bottom bottom";
     const trigger = gsap.to(parallaxCardRef.current, {
       xPercent: -requiredPercent,
       ease: "none",
       scrollTrigger: {
         trigger: containerRef.current,
         start: `top-=86 top`,
-        end: "bottom bottom-=386",
+        end: endValue,
         scrub: 1.2,
         pin: parallaxCardRef.current,
         pinSpacing: false,
@@ -140,7 +143,7 @@ const HorizontParallax = () => {
                 onMouseEnter={() => {
                   const preview = document.getElementById("cursorPreview");
                   if (preview) {
-                    preview.style.backgroundImage = `url(/images/${card.img})`;
+                    preview.style.backgroundImage = `url(${card.img})`;
                     preview.style.opacity = "1";
                   }
                 }}
@@ -187,7 +190,7 @@ const HorizontParallax = () => {
                     openIndex === index ? styles.open : ""
                   }`}
                 >
-                  <img src={`./images/${card.img}`} alt={card.name} />
+                  <img src={`${card.img}`} alt={card.name} />
                 </div>
               </div>
             ))}

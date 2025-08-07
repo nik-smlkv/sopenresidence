@@ -50,7 +50,7 @@
 .title {
 	font-family: "Celine Sans", sans-serif;
 	text-transform: uppercase;
-	font-size: 15rem;
+	font-size: 18.75rem;
 	font-weight: 400;
 	color: var(--tx-wh);
 	line-height: 85%;
@@ -103,7 +103,11 @@
 	}
 }
 
-@media (min-width: 1440px) and (max-width: 1920px) {}
+@media (min-width: 1440px) and (max-width: 1920px) {
+	.title {
+		font-size: clamp(15rem, 3.75rem + 12.5vi, 18.75rem);
+	}
+}
 
 @media (min-width: 1024px) and (max-width: 1439px) {
 

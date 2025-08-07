@@ -112,7 +112,7 @@ const ApartmentView = () => {
               <div className={styles.apartment__info}>
                 <img
                   className={styles.apartment__render}
-                  src="/images/render.png"
+                  src="./images/render.png"
                   alt="Render"
                 />
                 <svg

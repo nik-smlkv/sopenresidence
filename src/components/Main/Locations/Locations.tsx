@@ -151,7 +151,7 @@ const Locations = () => {
                     isDropdownOpen ? "active" : ""
                   }`}
                 >
-                  <img src="/images/equip-arrow.svg" alt="" />
+                  <img src="./images/equip-arrow.svg" alt="" />
                 </span>
               </div>
               <div

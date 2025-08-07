@@ -1,10 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
-import {
-  EffectCreative,
-  Navigation,
-  Pagination,
-} from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 
 import "./Mainslider.scss";
 import "swiper/swiper-bundle.css";
@@ -174,22 +170,25 @@ const MainSlider = () => {
         swiperRef={swiperRef}
       />
       <Swiper
-        effect="creative"
         loop={true}
         speed={600}
-        modules={[Navigation, Pagination, EffectCreative]}
+        modules={[Navigation, Pagination]}
         grabCursor={true}
-        creativeEffect={{
-          prev: {
-            shadow: true,				
-            translate: [0, 0, -400],
+        spaceBetween={20}
+        slidesPerView={1.3}
+        breakpoints={{
+          1440: {
+            slidesPerView: 1.1,
           },
-          next: {
-            translate: ["100%", 0, 0],
+          1200: {
+            spaceBetween: 20,
+          },
+          340: {
+            spaceBetween: 10,
           },
         }}
-        spaceBetween={20}
-        slidesPerView={1}
+        centeredSlides={true}
+		  
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
@@ -197,15 +196,10 @@ const MainSlider = () => {
           const index = getSlideIndex(swiper);
           setActiveSlide(index);
         }}
-
-        /*         breakpoints={{
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 1 },
-        }} */
       >
         {SliderListImgs.map((sliderInfo, index) => (
           <SwiperSlide key={index} className="swiper__slide_infrastructure">
-            <img src={`/images/${sliderInfo.img}`} alt={`Slide ${index}`} />
+            <img src={`./images/${sliderInfo.img}`} alt={`Slide ${index}`} />
           </SwiperSlide>
         ))}
       </Swiper>

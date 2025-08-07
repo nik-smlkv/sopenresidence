@@ -3,7 +3,7 @@
 	color: var(--tx-wh);
 	display: flex;
 	flex-direction: column;
-	row-gap: 30px;
+	row-gap: 60px;
 }
 
 .infrastructura__body {
@@ -21,7 +21,8 @@
 
 .infrastructura__name {
 	text-transform: uppercase;
-	flex: 0 1 auto;
+	width: 100%;
+	max-width: 388.67px;
 	font-weight: 500;
 	font-size: 22px;
 	line-height: 120%;
@@ -30,7 +31,7 @@
 .infrastructura__block {
 	display: flex;
 	justify-content: start;
-	column-gap: 156px;
+	column-gap: 25px;
 	align-items: start;
 	width: 100%;
 }
@@ -39,27 +40,28 @@
 	display: flex;
 	flex-direction: column;
 	flex: 1 1 100%;
-	row-gap: 26px;
+	row-gap: 20px;
 }
 
 .infrastructura_block_text {
 	width: 100%;
 	display: flex;
 	flex-direction: row-reverse;
-	max-width: 695px;
+	max-width: 615px;
 	row-gap: 20px;
 	width: 100%;
 	font-weight: 300;
 }
 
 .infrastructura_block_text p {
+	font-size: 18px;
 	line-height: 126%;
 	max-width: 504px;
 }
 
 @media(max-width: 1920px) {
 	.infrastructura_block_text {
-		max-width: 36.4vw;
+		max-width: 32.3vw;
 	}
 }
 
@@ -71,13 +73,22 @@
 	font-size: 80px;
 	line-height: 100%;
 	max-width: 797px;
+	margin-left: -3vw;
 }
 
 
 @media (min-width: 1440px) and (max-width: 1920px) {
 	.infrastructura__body {
-		padding: clamp(8.75em, calc(12vw - 10em), 10em) clamp(5em, calc(9vw - 7em), 6.25em) 0;
+		padding: clamp(8.75em, calc(12vw - 10em), 10em) clamp(5rem, 1.25rem + 4.167vi, 6.25rem) 0;
 		padding-bottom: 0;
+	}
+
+	.infrastructura {
+		row-gap: clamp(2.563rem, -1rem + 3.958vi, 3.75rem);
+	}
+
+	.infrastructura_block_text p {
+		font-size: clamp(1rem, 0.625rem + 0.417vi, 1.125rem);
 	}
 
 	:global(.info_block_text) {
@@ -86,19 +97,38 @@
 
 	.infrastructura_text_block_title {
 		font-size: clamp(3.75rem, 0rem + 4.167vi, 5rem);
-		max-width: 794px;
+		max-width: 50vw;
 	}
 }
 
-@media((min-width: 768px) and (max-width:1440px)) {
+@media((min-width: 1024px) and (max-width:1440px)) {
 	:global(.info_block_text) {
 		font-size: clamp(0.938rem, 0.723rem + 0.446vi, 1.125rem);
+		line-height: 120%;
+	}
+
+	.infrastructura_block_text p {
+		font-size: clamp(0.938rem, 0.784rem + 0.24vi, 1rem);
+	}
+
+	.infrastructura {
+		row-gap: clamp(1.875rem, 0.337rem + 2.404vi, 2.5rem)
 	}
 }
 
 @media((min-width: 768px) and (max-width:1920px)) {
 	:global(.info_walk) {
 		font-size: clamp(1.375rem, 0.625rem + 1.563vi, 2.5rem);
+	}
+}
+
+@media(max-width: 1023px) {
+	.infrastructura {
+		row-gap: 30px;
+	}
+
+	.infrastructura_block_text p {
+		font-size: 15px;
 	}
 }
 
@@ -109,20 +139,56 @@
 	}
 
 	.infrastructura_text_block_title {
-		font-size: clamp(2.25rem, 0.096rem + 3.365vi, 3.75rem);
+		font-size: clamp(3.125rem, 1.587rem + 2.404vi, 3.75rem);
 		max-width: 620px;
+		margin-left: -10vw;
+	}
+}
+
+@media ((min-width: 768px) and (max-width: 1023px)) {
+	.infrastructura_text_block_title {
+		font-size: clamp(2.375rem, 0.529rem + 2.885vi, 3.125rem);
 	}
 
+	.infrastructura_text_block_title {
+		max-width: 40vw;
+	}
 
+	.infrastructura_text_block_title {
+		margin-left: -10vw;
+	}
+}
+
+@media(max-width: 1440px) {
+	.infrastructura_block_text {
+		max-width: 33.8vw;
+		justify-content: end;
+	}
 }
 
 @media(max-width: 1220px) {
 	.infrastructura_block_text {
-		max-width: 52.5vw;
+		max-width: 54vw;
+	}
+
+	.infrastructura_block_text {
+		justify-content: start;
+	}
+
+	.infrastructura_text_block {
+		flex: 1 1 auto;
+		max-width: 100%;
+		width: 85%;
+		row-gap: 20px;
+	}
+
+	.infrastructura__name {
+		max-width: 26vw;
+		flex: 1 1 388.67px;
 	}
 
 	.infrastructura_text_block_title {
-		max-width: 45vw;
+		max-width: 50vw;
 	}
 }
 
@@ -172,5 +238,12 @@
 	.infrastructura__block {
 		flex-direction: column;
 		row-gap: 20px;
+	}
+}
+
+@media(max-width: 540px) {
+	.infrastructura_block_text p {
+		font-size: 14px;
+		line-height: 126%;
 	}
 }

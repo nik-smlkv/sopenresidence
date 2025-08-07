@@ -38,7 +38,6 @@ const HomePage = () => {
             start: "-30% 0%",
             end: "bottom center",
             scrub: true,
-            markers: true,
           },
         }).scrollTrigger;
       }

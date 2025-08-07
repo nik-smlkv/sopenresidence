@@ -417,7 +417,7 @@ div.burger_modal_content {
 
 @media((min-width: 1440px) and (max-width: 1920px)) {
 	.header__body {
-		padding: 0em clamp(5em, 6vw, 6.25em) 0;
+		padding: 0em clamp(5rem, 1.25rem + 4.167vi, 6.25rem);
 	}
 }
 
@@ -431,19 +431,19 @@ div.burger_modal_content {
 
 @media((min-width: 1024px) and (max-width: 1439px)) {
 	.header__body {
-		padding: 0em clamp(2.5em, 3vw, 5em) 0;
+		padding: 0em clamp(2.5rem, -3.654rem + 9.615vi, 5rem);
 	}
 }
 
 @media((min-width: 769px) and (max-width: 1023px)) {
 	.header__body {
-		padding: 0em clamp(1.25em, 3vw, 2.5em) 0;
+		padding: 0em clamp(1.25rem, -2.5rem + 7.813vi, 2.5rem);
 	}
 }
 
 @media(max-width: 768px) {
 	.header__body {
-		padding: 0em clamp(1.25em, 3vw, 2.5em) 0;
+		padding: 0em 20px;
 	}
 
 

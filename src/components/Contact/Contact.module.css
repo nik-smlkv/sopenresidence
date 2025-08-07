@@ -21,6 +21,10 @@
 	row-gap: 60px;
 }
 
+.contact__info:global(.contact_info_block) {
+	flex: 0 1 219px;
+}
+
 .number {
 	font-size: 28px;
 	line-height: 100%;

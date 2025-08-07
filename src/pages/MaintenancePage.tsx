@@ -41,7 +41,7 @@ const MaintenancePage = () => {
           </div>
           <img
             className={styles.image}
-            src="./public/images/maintance-image.jpg"
+            src="./images/maintance-image.jpg"
             alt="Techwork Image"
           />
         </div>

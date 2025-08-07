@@ -1,4 +1,3 @@
-
 import styles from "./Footer.module.css";
 import Contact from "../Contact/Contact";
 const handleClick = (id: string) => {
@@ -143,33 +142,35 @@ const Footer = () => {
             <p className={styles.footer__roots}>
               All rights reserved © 2025 Sopen Park
             </p>
-            <svg
-              className={styles.arrow__up}
-              onClick={() => {
-                handleClick("main");
-              }}
-              width="50"
-              height="50"
-              viewBox="0 0 50 50"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                x="-0.416667"
-                y="-0.416667"
-                width="49.1667"
-                height="49.1667"
-                rx="24.5833"
-                transform="matrix(1.19249e-08 -1 -1 -1.19249e-08 49.1667 49.1667)"
-                stroke="white"
-                stroke-width="0.833333"
-              />
-              <path
-                d="M25.0002 33.333L25.0002 17.2953M25.0002 17.2953L33.019 25.5571M25.0002 17.2953L16.9813 25.5571"
-                stroke="white"
-                stroke-width="0.833333"
-              />
-            </svg>
+            <div className={styles.arrow_up_body}>
+              <svg
+                className={styles.arrow__up}
+                onClick={() => {
+                  handleClick("main");
+                }}
+                width="50"
+                height="50"
+                viewBox="0 0 50 50"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="-0.416667"
+                  y="-0.416667"
+                  width="49.1667"
+                  height="49.1667"
+                  rx="24.5833"
+                  transform="matrix(1.19249e-08 -1 -1 -1.19249e-08 49.1667 49.1667)"
+                  stroke="white"
+                  stroke-width="0.833333"
+                />
+                <path
+                  d="M25.0002 33.333L25.0002 17.2953M25.0002 17.2953L33.019 25.5571M25.0002 17.2953L16.9813 25.5571"
+                  stroke="white"
+                  stroke-width="0.833333"
+                />
+              </svg>
+            </div>
           </div>
         </div>
       </div>

@@ -134,7 +134,7 @@ const SpaceStructure = () => {
                       ref={imgRef}
                       key={`img-${index}`}
                     >
-                      <img src={`/images/${image}`} alt="" />
+                      <img src={`./images/${image}`} alt="" />
                       <div
                         className={styles.img_overlay}
                         data-animate="image-fade"

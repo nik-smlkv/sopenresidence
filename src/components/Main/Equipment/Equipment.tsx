@@ -88,7 +88,7 @@ const Equipment = () => {
                 </div>
                 <button className={styles.equip__btn}>
                   <span>
-                    <img src="/images/equip-arrow.svg" alt="" />
+                    <img src="./images/equip-arrow.svg" alt="" />
                   </span>
                 </button>
               </div>

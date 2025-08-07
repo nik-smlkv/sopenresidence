@@ -3,26 +3,28 @@ import styles from "./Infrastructure.module.css";
 
 const Infrastructura = () => {
   return (
-    <section className={styles.infrastructura} id="infrastructure" data-section-id="dark-green">
+    <section
+      className={styles.infrastructura}
+      id="infrastructure"
+      data-section-id="dark-green"
+    >
       <div className={styles.infrastructura__body}>
         <div className={styles.infrastructura__block}>
           <div
             className={`section_name ${styles.infrastructura__name}`}
-            data-split="block-name">
+            data-split="block-name"
+          >
             Infrastructure
           </div>
           <div className={styles.infrastructura_text_block}>
             <h2 className={styles.infrastructura_text_block_title}>
               Everything here is designed for a modern lifestyle
             </h2>
-            <div className={styles.infrastructura_block_text}>	
+            <div className={styles.infrastructura_block_text}>
               <p>
-                Beethoven’s Park invites you to be part of this new chapter
-                in Niš. Join a community that values speed, quality, and
-                comfort. Your new home, your story, Beethoven’s Park.
-                Beethoven’s Park invites you to be part of this new chapter
-                in Niš. Join a community that values speed, quality, and
-                comfort.
+                Sopen Park invites you to be part of this new chapter in Niš.
+                Join a community that values speed, quality, and comfort. Your
+                new home, your story, Sopen Park
               </p>
             </div>
           </div>
