@@ -86,7 +86,7 @@
 	left: 15px;
 	width: 40px;
 	height: 40px;
-	background-image: url('./images/location-arrow.svg');
+	background-image: url('/images/location_arrow.svg');
 	background-repeat: no-repeat;
 	background-size: contain;
 	transition: .5s all ease;
