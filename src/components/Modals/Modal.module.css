@@ -340,7 +340,8 @@
 
 @media(max-width:768px) {
 	.burger_modal_content {
-		row-gap: 40px;
+		row-gap: 24px;
+		margin-bottom: 24px;
 	}
 
 

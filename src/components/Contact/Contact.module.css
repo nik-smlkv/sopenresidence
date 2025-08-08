@@ -88,6 +88,10 @@
 		row-gap: clamp(1.375rem, 0.156rem + 4.643vi, 3.125rem)
 	}
 
+	.contact__info:global(.contact_info_block) {
+		flex: 1 1 auto;
+	}
+
 	.address {
 		font-size: clamp(0.938rem, 0.711rem + 0.862vi, 1.125rem);
 		margin-bottom: 0;

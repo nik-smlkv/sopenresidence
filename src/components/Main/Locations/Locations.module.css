@@ -33,7 +33,7 @@
 	flex-direction: column;
 	row-gap: 40px;
 	align-self: start;
-
+	position: relative;
 }
 
 .map {
@@ -61,12 +61,17 @@
 	}
 }
 
+.location__item::before {
+	content: '';
+	width: 0;
+	transition: width .5s ease;
+}
+
 .location__item.active::before {
 	content: '';
-	width: 40px;
+	width: 50px;
 	height: auto;
-	background-image: url('./images/location-arrow.svg');
-	background-repeat: no-repeat;
+	transition: width .5s ease;
 }
 
 .location__item.active {
@@ -76,8 +81,9 @@
 }
 
 .arrow {
+	top: 0;
 	position: absolute;
-	left: 0px;
+	left: 15px;
 	width: 40px;
 	height: 40px;
 	background-image: url('./images/location-arrow.svg');

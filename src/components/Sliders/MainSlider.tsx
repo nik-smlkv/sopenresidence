@@ -175,10 +175,11 @@ const MainSlider = () => {
         modules={[Navigation, Pagination]}
         grabCursor={true}
         spaceBetween={20}
-        slidesPerView={1.3}
+        slidesPerView={"auto"}
+        /*             slidesPerView: 1.3, */
         breakpoints={{
           1440: {
-            slidesPerView: 1.1,
+            /*             slidesPerView: 1.1, */
           },
           1200: {
             spaceBetween: 20,
@@ -187,8 +188,6 @@ const MainSlider = () => {
             spaceBetween: 10,
           },
         }}
-        centeredSlides={true}
-		  
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}

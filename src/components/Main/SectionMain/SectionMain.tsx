@@ -7,6 +7,8 @@ const SectionMain = () => {
   const mainBody = useRef<HTMLDivElement>(null);
   gsap.registerPlugin(ScrollTrigger);
   useEffect(() => {
+    if (window.innerWidth <= 768) return; // 🚫 Не запускаем эффект на мобильных
+
     if (!imageRef.current || !mainBody.current) return;
 
     const img = imageRef.current;
@@ -16,22 +18,28 @@ const SectionMain = () => {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
 
+      const scaleX = 830 / vw;
+      const scaleY = 490 / vh;
+
       animation?.kill();
+
       animation = gsap.fromTo(
         img,
         {
-          scaleX: 830 / vw,
-          scaleY: 496 / vh,
+          scaleX,
+          scaleY,
           transformOrigin: "50% 50%",
         },
         {
           scaleX: 1,
           scaleY: 1,
+          maxWidth: "100vw",
+          maxHeight: "100vh",
           ease: "none",
           scrollTrigger: {
             trigger: mainBody.current,
             start: "top top",
-            end: "bottom+=30% bottom+=30%",
+            end: "bottom-=18% bottom-=18%",
             scrub: 1.2,
             pin: img,
             pinSpacing: false,
@@ -48,9 +56,15 @@ const SectionMain = () => {
       window.removeEventListener("resize", createAnimation);
     };
   }, []);
+
   return (
-    <section className={styles.main} id="main" data-section-id="dark-green">
-      <div className={styles.main__body} ref={mainBody}>
+    <section
+      className={styles.main}
+      id="main"
+      data-section-id="dark-green"
+      ref={mainBody}
+    >
+      <div className={styles.main__body}>
         <div className={styles.title_block}>
           <div className={styles.title_block_body}>
             <div className="">

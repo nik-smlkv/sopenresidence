@@ -60,11 +60,13 @@
 	.infra__prev {
 		background-color: transparent;
 
-		&:hover {
-			border: 1px solid var(--bg-beige);
+		@media(hover:hover) {
+			&:hover {
+				border: 1px solid var(--bg-beige);
 
-			svg path {
-				stroke: var(--acc-main-green);
+				svg path {
+					stroke: var(--acc-main-green);
+				}
 			}
 		}
 	}
@@ -72,11 +74,12 @@
 	.infra__next {
 		background-color: var(--acc-light-apr-tx);
 
-		&:hover {
-			border: none;
-
-
+		@media(hover:hover) {
+			&:hover {
+				border: none;
+			}
 		}
+
 
 	}
 
@@ -246,10 +249,23 @@
 
 	.text__content {
 		flex: 1 1 auto;
-		row-gap: 40px;
+		row-gap: 24px;
 	}
 
+	/* CHECk */
 	.swiper__slide_info_block {
 		padding-top: 0;
 	}
+}
+
+@media(max-width: 540px) {
+	.swiper__slide_info_block {
+		flex: 1 1 150px;
+	}
+
+	.swiper__infra img:first-child {
+		min-height: 228px;
+	}
+
+	/* CHECk */
 }

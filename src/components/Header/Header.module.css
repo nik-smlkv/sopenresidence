@@ -448,7 +448,9 @@ div.burger_modal_content {
 
 
 }
-
+.lang_wrapper{
+	height: auto;
+}
 @media(max-width: 600px) {
 
 	.btn__body {

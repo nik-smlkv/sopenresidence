@@ -61,6 +61,10 @@
 }
 
 @media(max-width: 1440px) {
+	.parallax_image {
+		top: -6vh;
+	}
+
 	.parallax_block_text p {
 		font-size: clamp(1.75rem, 0.84rem + 3.467vi, 5rem);
 	}
@@ -93,9 +97,15 @@
 		max-height: 100%;
 	}
 
+	.parallax_image {
+		top: 0;
+		width: 100%;
+		height: 100%;
+	}
+
 	.parallax {
 		height: 100%;
-		padding-top: 100px;
+		padding-top: 40px;
 		display: flex;
 		flex-direction: column-reverse;
 		background-color: transparent;
@@ -109,11 +119,7 @@
 	}
 }
 
-@media(max-width: 1440px) {
-	.parallax_image {
-		top: -6vh;
-	}
-}
+
 
 @media((min-width: 1024px) and (max-width:1440px)) {}
 

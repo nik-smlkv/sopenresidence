@@ -123,10 +123,13 @@
 	font-size: 22px;
 	text-transform: uppercase;
 	line-height: 120%;
+	transition: color .5s ease, font-size .5s ease;
 }
 
 .equip__name.open {
 	font-size: 40px;
+
+	transition: color .5s ease, font-size .5s ease;
 }
 
 .equip__item .equip__name {
@@ -134,7 +137,7 @@
 	font-weight: 500;
 	line-height: 100%;
 	text-transform: none;
-	transition: color 0.5s ease;
+	transition: color .5s ease, font-size .5s ease;
 	max-width: 600px;
 }
 
@@ -150,7 +153,8 @@
 
 .equip__item.open .equip__name {
 	color: var(--tx-bl);
-	transition: color 0.5s ease;
+
+	transition: color .5s ease, font-size .5s ease;
 }
 
 .equip__btn img {

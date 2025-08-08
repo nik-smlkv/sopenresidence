@@ -223,7 +223,9 @@
 	.structure__name {
 		flex: 1 1 auto;
 	}
-
+	.structure_text_block_title{
+		max-width: 100%;
+	}
 	.structure__card {
 		flex-direction: column;
 		row-gap: 12px;

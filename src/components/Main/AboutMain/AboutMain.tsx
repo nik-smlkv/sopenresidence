@@ -6,13 +6,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
-import {
-  EffectCreative,
-
-  Navigation,
-  Pagination,
-} from "swiper/modules";
-
+import { EffectCreative, Navigation, Pagination } from "swiper/modules";
 
 const SwiperControls = ({
   swiperRef,
@@ -79,8 +73,12 @@ const AboutMain = () => {
     { key: "urban-oasis", src: "urban-oasis.jpg" },
   ];
   useEffect(() => {
-    const titlesArray = document.querySelectorAll('[data-split="title"]'); // или ".animate-text"
+    const isMobile = window.innerWidth < 768;
+    const triggerStart = isMobile ? "top 100%" : "top 85%";
+
     gsap.registerPlugin(ScrollTrigger);
+
+    const titlesArray = document.querySelectorAll('[data-split="title"]');
     titlesArray.forEach((heading) => {
       const split = new SplitText(heading, { type: "chars" });
       gsap.from(split.chars, {
@@ -91,35 +89,35 @@ const AboutMain = () => {
         stagger: 0.05,
         scrollTrigger: {
           trigger: heading,
-          start: "top 80%",
+          start: triggerStart,
           toggleActions: "play none none none",
           once: true,
         },
       });
     });
+
     const blockNamesArray = document.querySelectorAll(
       '[data-split="block-name"]'
     );
-
     blockNamesArray.forEach((name) => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: name,
-          start: "top 80%", // когда блок входит в зону
-          toggleActions: "play none none none",
-          once: true,
-        },
-      });
-
-      tl.from(name, {
-        opacity: 0,
-        x: -50,
-        ease: "back.out(1.7)",
-        duration: 2,
-      });
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: name,
+            start: triggerStart,
+            toggleActions: "play none none none",
+            once: true,
+          },
+        })
+        .from(name, {
+          opacity: 0,
+          x: -50,
+          ease: "back.out(1.7)",
+          duration: 2,
+        });
     });
-    const paragraphs = document.querySelectorAll('[data-animate="fade-up"]');
 
+    const paragraphs = document.querySelectorAll('[data-animate="fade-up"]');
     paragraphs.forEach((el) => {
       gsap.from(el, {
         opacity: 0,
@@ -128,12 +126,13 @@ const AboutMain = () => {
         ease: "power2.out",
         scrollTrigger: {
           trigger: el,
-          start: "top 90%",
+          start: triggerStart,
           toggleActions: "play none none none",
           once: true,
         },
       });
     });
+
     const imagesArray = document.querySelectorAll(
       '[data-animate="image-fade"]'
     );
@@ -144,13 +143,14 @@ const AboutMain = () => {
         ease: "power3.out",
         scrollTrigger: {
           trigger: img,
-          start: "top 90%",
+          start: triggerStart,
           toggleActions: "play none none none",
           once: true,
         },
       });
     });
   }, []);
+
   return (
     <section
       className={styles.about}

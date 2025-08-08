@@ -213,9 +213,13 @@
 	}
 
 
+	.infrastructura_text_block {
+		width: 100%;
+	}
 
 	.infrastructura_text_block_title {
 		max-width: 100%;
+		margin-left: 0;
 	}
 
 	.infrastructura_block_text {
@@ -224,11 +228,11 @@
 	}
 
 	.infrastructura__body {
-		padding: 6.25em 1.25em 0;
+		padding: 5em 1.25em 0;
 	}
 
 	.location__body {
-		padding: 0 1.25em 6.25em;
+		padding: 0 1.25em 5.25em;
 	}
 
 	:global(.info_walk) {
@@ -246,4 +250,6 @@
 		font-size: 14px;
 		line-height: 126%;
 	}
+
+
 }

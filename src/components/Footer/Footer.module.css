@@ -246,8 +246,9 @@
 		position: static;
 	}
 
+
 	.arrow__up {
-		top: 36px;
+		top: -29vh;
 		right: 20px;
 	}
 

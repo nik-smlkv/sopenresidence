@@ -1,4 +1,4 @@
-import  { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Locations.module.css";
 import {
   GoogleMap,
@@ -40,55 +40,55 @@ const locations: LocationType[] = [
     id: "1",
     name: "Chair Park",
     icon: "./images/park.svg",
-    position: { lat: 43.31508, lng: 21.905176 },
+    position: { lat: 43.3152295, lng: 21.9039461 },
   },
   {
     id: "2",
     name: "Clinical Center",
     icon: "./images/hospital.svg",
-    position: { lat: 43.314634, lng: 21.938521 },
+    position: { lat: 43.315688, lng: 21.912405 },
   },
   {
     id: "3",
     name: "Shoping Center",
     icon: "./images/shop.svg",
-    position: { lat: 43.32476305519067, lng: 21.910750503501117 },
+    position: { lat: 43.3244918, lng: 21.9062526 },
   },
   {
     id: "4",
     name: "St. Sava's Park",
     icon: "./images/savapark.svg",
-    position: { lat: 43.32053743745635, lng: 21.918968273027748 },
+    position: { lat: 43.3202859, lng: 21.9167214 },
   },
   {
     id: "5",
     name: "King Milan sq.",
     icon: "./images/milan-sq.svg",
-    position: { lat: 43.321495, lng: 21.895797 },
+    position: { lat: 43.32144, lng: 21.8908982 },
   },
   {
     id: "6",
     name: "King Alexander sq.",
     icon: "./images/alexander.svg",
-    position: { lat: 43.3181201662413, lng: 21.891076593257026 },
+    position: { lat: 43.3181301, lng: 21.8883566 },
   },
   {
     id: "7",
     name: "Fortress",
     icon: "./images/fortress.svg",
-    position: { lat: 43.325683213803224, lng: 21.895901169471315 },
+    position: { lat: 43.3241346, lng: 21.901171 },
   },
   {
     id: "8",
     name: "Faculty of sports",
     icon: "./images/sport.svg",
-    position: { lat: 43.311951020434314, lng: 21.87235818616822 },
+    position: { lat: 43.3082365, lng: 21.8850973 },
   },
   {
     id: "9",
     name: "",
     icon: "./images/sopen.svg",
-    position: { lat: 43.311492, lng: 21.905292 },
+    position: { lat: 43.310192, lng: 21.907592 },
   },
 ];
 export const useIsMobile = (breakpoint: number = 1000): boolean => {
@@ -130,7 +130,11 @@ const Locations = () => {
   };
 
   return (
-    <section className={styles.location} id="location" data-section-id="dark-green">
+    <section
+      className={styles.location}
+      id="location"
+      data-section-id="dark-green"
+    >
       <div className={styles.location__body}>
         <div className={styles.location_name_block}>
           <p
