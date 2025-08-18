@@ -6,6 +6,7 @@ import {
   LoadScript,
   Marker,
 } from "@react-google-maps/api";
+import { useLang } from "../../../hooks/useLang";
 const containerStyle = {
   width: "100%",
   height: "820px",
@@ -35,62 +36,6 @@ const center = {
   lng: 21.905292,
 };
 
-const locations: LocationType[] = [
-  {
-    id: "1",
-    name: "Chair Park",
-    icon: "./images/park.svg",
-    position: { lat: 43.3152295, lng: 21.9039461 },
-  },
-  {
-    id: "2",
-    name: "Clinical Center",
-    icon: "./images/hospital.svg",
-    position: { lat: 43.315688, lng: 21.912405 },
-  },
-  {
-    id: "3",
-    name: "Shoping Center",
-    icon: "./images/shop.svg",
-    position: { lat: 43.3244918, lng: 21.9062526 },
-  },
-  {
-    id: "4",
-    name: "St. Sava's Park",
-    icon: "./images/savapark.svg",
-    position: { lat: 43.3202859, lng: 21.9167214 },
-  },
-  {
-    id: "5",
-    name: "King Milan sq.",
-    icon: "./images/milan-sq.svg",
-    position: { lat: 43.32144, lng: 21.8908982 },
-  },
-  {
-    id: "6",
-    name: "King Alexander sq.",
-    icon: "./images/alexander.svg",
-    position: { lat: 43.3181301, lng: 21.8883566 },
-  },
-  {
-    id: "7",
-    name: "Fortress",
-    icon: "./images/fortress.svg",
-    position: { lat: 43.3241346, lng: 21.901171 },
-  },
-  {
-    id: "8",
-    name: "Faculty of sports",
-    icon: "./images/sport.svg",
-    position: { lat: 43.3082365, lng: 21.8850973 },
-  },
-  {
-    id: "9",
-    name: "",
-    icon: "./images/sopen.svg",
-    position: { lat: 43.310192, lng: 21.907592 },
-  },
-];
 export const useIsMobile = (breakpoint: number = 1000): boolean => {
   const [isMobile, setIsMobile] = useState<boolean>(
     window.innerWidth <= breakpoint
@@ -106,7 +51,63 @@ export const useIsMobile = (breakpoint: number = 1000): boolean => {
 };
 const Locations = () => {
   const isMobile = useIsMobile(1000);
-
+  const { t, lang } = useLang();
+  const locations: LocationType[] = [
+    {
+      id: "1",
+      name: `${t.t_loc_txt_frst}`,
+      icon: "./images/park.svg",
+      position: { lat: 43.3152295, lng: 21.9039461 },
+    },
+    {
+      id: "2",
+      name: `${t.t_loc_txt_secnd}`,
+      icon: "./images/hospital.svg",
+      position: { lat: 43.315688, lng: 21.912405 },
+    },
+    {
+      id: "3",
+      name: `${t.t_loc_txt_frtd}`,
+      icon: "./images/shop.svg",
+      position: { lat: 43.3244918, lng: 21.9062526 },
+    },
+    {
+      id: "4",
+      name: `${t.t_loc_txt_frth}`,
+      icon: "./images/savapark.svg",
+      position: { lat: 43.3202859, lng: 21.9167214 },
+    },
+    {
+      id: "5",
+      name: `${t.t_loc_txt_fft}`,
+      icon: "./images/milan-sq.svg",
+      position: { lat: 43.32144, lng: 21.8908982 },
+    },
+    {
+      id: "6",
+      name: `${t.t_loc_txt_six}`,
+      icon: "./images/alexander.svg",
+      position: { lat: 43.3181301, lng: 21.8883566 },
+    },
+    {
+      id: "7",
+      name: `${t.t_loc_txt_seventh}`,
+      icon: "./images/fortress.svg",
+      position: { lat: 43.3241346, lng: 21.901171 },
+    },
+    {
+      id: "8",
+      name: `${t.t_loc_txt_neinght}`,
+      icon: "./images/sport.svg",
+      position: { lat: 43.3082365, lng: 21.8850973 },
+    },
+    {
+      id: "9",
+      name: "",
+      icon: "./images/sopen.svg",
+      position: { lat: 43.310192, lng: 21.907592 },
+    },
+  ];
   const [openIndex, setOpenIndex] = useState<number>(0);
   const [selectedLocation, setSelectedLocation] = useState<LocationType | null>(
     locations[0]
@@ -128,7 +129,6 @@ const Locations = () => {
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
-
   return (
     <section
       className={styles.location}
@@ -141,7 +141,7 @@ const Locations = () => {
             className={`section_name ${styles.location__name}`}
             data-split="block-name"
           >
-            Locations
+            {t.t_locatns}
           </p>
         </div>
 

@@ -17,10 +17,12 @@ import Locations from "../components/Main/Locations/Locations";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import type Lenis from "@studio-freight/lenis";
 import { useResponsiveRef } from "../hooks/useResponsiveRef";
+import { useLang } from "../hooks/useLang";
 
 type LenisRef = { lenis: Lenis | undefined };
 
 const HomePage = () => {
+  const { t } = useLang();
   const lenisRef = useRef<LenisRef>(null);
   gsap.registerPlugin(ScrollTrigger);
   const parallaxRef = useResponsiveRef<HTMLDivElement>(1000);
@@ -99,7 +101,7 @@ const HomePage = () => {
             </div>
           </div>
           <div className={styles.parallax_block_text}>
-            <p>A comfortable lifestyle within walking distance</p>
+            <p>{t.t_parallax_title}</p>
           </div>
         </section>
         <HorizontParallax />

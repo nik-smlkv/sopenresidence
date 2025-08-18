@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import styles from "./SectionMain.module.css";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { gsap } from "gsap";
+import { useLang } from "../../../hooks/useLang";
 const SectionMain = () => {
   const imageRef = useRef<HTMLImageElement>(null);
   const mainBody = useRef<HTMLDivElement>(null);
@@ -13,16 +14,12 @@ const SectionMain = () => {
 
     const img = imageRef.current;
     let animation: GSAPTween | undefined;
-
     const createAnimation = () => {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
-
       const scaleX = 830 / vw;
       const scaleY = 490 / vh;
-
       animation?.kill();
-
       animation = gsap.fromTo(
         img,
         {
@@ -49,14 +46,13 @@ const SectionMain = () => {
     };
 
     createAnimation();
-
     window.addEventListener("resize", createAnimation);
     return () => {
       animation?.kill();
       window.removeEventListener("resize", createAnimation);
     };
   }, []);
-
+  const { t } = useLang();
   return (
     <section
       className={styles.main}
@@ -68,10 +64,9 @@ const SectionMain = () => {
         <div className={styles.title_block}>
           <div className={styles.title_block_body}>
             <div className="">
-              {" "}
-              <p className={styles.text_welcome}>Welcome to</p>{" "}
+              <p className={styles.text_welcome}>{t.t_welcome}</p>
               <h1 className={styles.title} data-split="title">
-                sopen park
+                {t.t_title}
               </h1>
             </div>
             <div

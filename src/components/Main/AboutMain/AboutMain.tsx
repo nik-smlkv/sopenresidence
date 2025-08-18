@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
 import { EffectCreative, Navigation, Pagination } from "swiper/modules";
+import { useLang } from "../../../hooks/useLang";
 
 const SwiperControls = ({
   swiperRef,
@@ -59,12 +60,13 @@ const SwiperControls = ({
 
 const AboutMain = () => {
   const swiperRef = useRef<SwiperType | null>(null);
+  const { t, lang } = useLang();
   const InfoListArray: { key: string; name: string; info: string }[] = [
-    { key: "Location", name: "Location", info: "Niš, Serbia" },
-    { key: "Complex area", name: "Complex area", info: "42,683 m²" },
-    { key: "Structure", name: "Structure", info: "3P0+P+15" },
-    { key: "Number of apartments", name: "Number of apartments", info: "326" },
-    { key: "Parking spaces", name: "Parking spaces", info: "386" },
+    { key: "Location", name: t.t_locat, info: t.t_abt_addr },
+    { key: "Complex area", name: t.t_complex_area, info: "42,683 m²" },
+    { key: "Structure", name: t.t_struct, info: "3P0+P+15" },
+    { key: "Number of apartments", name: t.t_num_apart, info: "326" },
+    { key: "Parking spaces", name: t.t_park_space, info: "386" },
   ];
   const ImgsListArray: { key: string; src: string }[] = [
     { key: "curves-horizon", src: "curves-horizon.jpg" },
@@ -163,27 +165,18 @@ const AboutMain = () => {
             className={`section_name ${styles.about__name}`}
             data-split="block-name"
           >
-            About the project
+            {t.link_project}
           </div>
           <div className={styles.about_text_block}>
             <h2
               className={styles.about_text_block_title}
               data-animate="fade-up"
             >
-              Creating a space <br /> inspired by classics
+              {t.t_abouttitle}
             </h2>
             <div className={styles.about_block_text}>
-              <p data-animate="fade-up">
-                After the distinctive Beethoven's Park, which provided a home
-                for families and individuals in a complex of 75 apartments, we
-                continue to build in the same spirit — combining opulence,
-                elegance, comfort and luxury.
-              </p>
-              <p data-animate="fade-up">
-                Just as the world's greatest composers Beethoven and Chopin
-                created music that inspires, our new commercial and residential
-                complex, Chopin Park, exudes that artistic vision.
-              </p>
+              <p data-animate="fade-up">{t.t_about_text_1}</p>
+              <p data-animate="fade-up">{t.t_about_text_2}</p>
             </div>
           </div>
           <div className={styles.about__apart_btn}>
@@ -224,13 +217,10 @@ const AboutMain = () => {
         </div>
 
         <div className={styles.about__content}>
-          <p className={styles.about_content_title}>About</p>
+          <p className={styles.about_content_title}>{t.about_title}</p>
           <div className={styles.about_content_block}>
             <p className={styles.about_content_block_description}>
-              Chopin Park offers a refined living experience, blending luxury
-              with functionality. Thoughtfully designed, it provides elegant
-              homes, commercial spaces, wellness facilities, and business
-              apartments for a balanced lifestyle.
+              {t.t_about_content_block}
             </p>
             <div className={styles.info__list}>
               {InfoListArray.map((information) => (

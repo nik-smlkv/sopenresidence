@@ -5,37 +5,8 @@ import { Navigation, Pagination } from "swiper/modules";
 import "./Mainslider.scss";
 import "swiper/swiper-bundle.css";
 import React, { useRef, useState } from "react";
-const SliderListInfo: {
-  text: string;
-  walk: string;
-  meter: string;
-}[] = [
-  {
-    text: "To take a leisurely stroll through the green alleys, breathe in the fresh air, and enjoy the peaceful atmosphere",
-    walk: "5 minutes walk",
-    meter: "or 280 meters",
-  },
-  {
-    text: "Provide emergency care, specialized treatment, and academic medical programs",
-    walk: " 15 minutes walk",
-    meter: "or 770 meters",
-  },
-  {
-    text: "Can enjoy dramatic performances, concerts, and festivals",
-    walk: "7 minutes by car",
-    meter: "or 1 kilometer",
-  },
-  {
-    text: "You can indulge in a shopping experience",
-    walk: "10 minutes by car",
-    meter: "or 1,5 kilometer",
-  },
-  {
-    text: "To step inside the monumental dome, feel the timeless serenity of sacred space, and admire the brilliance of Byzantine-inspired mosaics.",
-    walk: "10 minutes by car",
-    meter: "or 1,5 kilometer",
-  },
-];
+import { useLang } from "../../hooks/useLang";
+
 const SliderListImgs: {
   img: string;
 }[] = [
@@ -130,6 +101,38 @@ const SliderText = ({
   total: number;
   swiperRef: React.MutableRefObject<any>;
 }) => {
+  const { t, lang } = useLang();
+  const SliderListInfo: {
+    text: string;
+    walk: string;
+    meter: string;
+  }[] = [
+    {
+      text: `${t.sl_text_frst}`,
+      walk: `5 ${t.sl_walk}`,
+      meter: `${t.sl_ili} 280 ${t.sl_meters}`,
+    },
+    {
+      text: `${t.sl_text_scnd}`,
+      walk: ` 15 ${t.sl_walk}`,
+      meter: `${t.sl_ili} 770 ${t.sl_meters}`,
+    },
+    {
+      text: `${t.sl_text_trhd}`,
+      walk: `7 ${t.sl_card}`,
+      meter: `${t.sl_ili} 1 ${t.sl_km}`,
+    },
+    {
+      text: `${t.sl_text_frth}`,
+      walk: `10 ${t.sl_card}`,
+      meter: `${t.sl_ili} 1,5 ${t.sl_km}`,
+    },
+    {
+      text: `${t.sl_text_fift}`,
+      walk: `10 ${t.sl_card}`,
+      meter: `${t.sl_ili} 1,5 ${t.sl_ili}`,
+    },
+  ];
   const customPagination = { active, total };
   return (
     <>

@@ -1,5 +1,7 @@
+import { useLang } from "../../hooks/useLang";
 import styles from "./Button.module.css";
 const FormButton = ({ disabled }: { disabled: boolean }) => {
+  const { t } = useLang();
   return (
     <>
       {/* <button className={styles.button__circle} disabled={disabled}>
@@ -19,7 +21,7 @@ const FormButton = ({ disabled }: { disabled: boolean }) => {
       </svg>
     </button> */}
       <button className={styles.button__form} disabled={disabled}>
-        <span>leave a request</span>
+        <span>{t.t_req}</span>
       </button>
     </>
   );

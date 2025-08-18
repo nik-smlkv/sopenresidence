@@ -167,7 +167,7 @@
 }
 
 .equip__item.open .equip__block__content {
-	height: 72px;
+	height: 80px;
 	width: 100%;
 	max-width: 100%;
 }
@@ -200,12 +200,7 @@
 	width: 32px;
 }
 
-@media(hover:hover) {
-	.equip__item:hover .equip__name {
-		color: var(--tx-bl);
-		transition: color 0.5s ease;
-	}
-}
+
 
 @media(max-width: 1920px) {
 	.equip_text_block_title {
@@ -288,5 +283,11 @@
 @media(max-width: 560px) {
 	.equip__num {
 		display: none;
+	}
+}
+@media(hover:hover) {
+	.equip__item:hover .equip__name {
+		color: var(--tx-bl);
+		transition: color 0.5s ease, font-size .5s ease;
 	}
 }

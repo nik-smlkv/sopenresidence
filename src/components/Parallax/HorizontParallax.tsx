@@ -2,7 +2,9 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styles from "./HorizontParallax.module.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLang } from "../../hooks/useLang";
 const HorizontParallax = () => {
+  const {t} = useLang();
   const containerRef = useRef<HTMLDivElement>(null);
   const parallaxCardRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<ScrollTrigger | undefined>(undefined);

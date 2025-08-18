@@ -1,4 +1,3 @@
-import { useLang } from "../../hooks/useLang";
 import SelectApartmentBtn from "../Buttons/SelectApartmentBtn";
 import styles from "./Header.module.css";
 import HeaderBurger from "./HeaderBurger";
@@ -7,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import "./style.css";
 import Navigation from "../Navigation/Navigation";
 import { useModal } from "../../hooks/useModal";
+import { useLang } from "../../hooks/useLang";
 
 const handleClick = (id: string) => {
   const targetEl = document.getElementById(id);
@@ -24,6 +24,7 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const btnRef = useRef<HTMLDivElement>(null);
+  const { t, setLang, lang } = useLang();
   const handleToggle = () => {
     setIsOpen((prev) => !prev);
   };
@@ -44,7 +45,6 @@ const Header = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  const { setLang, lang } = useLang();
   useEffect(() => {
     const sections = document.querySelectorAll("section[data-section-id]");
     const headerEl = document.querySelector("header");
@@ -152,11 +152,11 @@ const Header = () => {
             >
               <Navigation
                 items={[
-                  { label: "About Project", targetId: "about-project" },
-                  { label: "Infrastructure", targetId: "infrastructure" },
-                  { label: "Advantages", targetId: "advantages" },
-                  { label: "Equipment", targetId: "equipment" },
-                  { label: "Contact", targetId: "contact" },
+                  { label: t.link_about_btn, targetId: "about-project" },
+                  { label: t.link_infra, targetId: "infrastructure" },
+                  { label: t.link_adv, targetId: "advantages" },
+                  { label: t.link_equip, targetId: "equipment" },
+                  { label: t.link_cont, targetId: "contact" },
                 ]}
               />
             </div>
