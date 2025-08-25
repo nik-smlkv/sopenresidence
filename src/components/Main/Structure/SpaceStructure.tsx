@@ -1,9 +1,11 @@
-import  { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import styles from "./SpaceStructure.module.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLang } from "../../../hooks/useLang";
 
 const SpaceStructure = () => {
+  const { t, lang } = useLang();
   const imgRef = useRef<HTMLImageElement>(null);
   type DescriptionBlock = {
     text: string[];
@@ -17,32 +19,23 @@ const SpaceStructure = () => {
 
   const structureCards: LamelaItem[] = [
     {
-      name: "Lamela A",
+      name: t.t_struct_name_1,
       description: {
-        text: [
-          "A majestic 15-story tower featuring 182 residential units.",
-          "Thanks to modern engineering solutions and elegant design, it shapes the distinctive architectural character of the complex.",
-        ],
+        text: [t.t_struct_txt_1_1, lang === "srb" ? "" : t.t_struct_txt_1_2],
         img: ["structure-1.jpg", "structure-2.jpg"],
       },
     },
     {
-      name: "Lamela B and C",
+      name: t.t_struct_name_2,
       description: {
-        text: [
-          "Harmonious residential spaces with a height of 10 stories, each containing 72 apartments.",
-          "Thanks to modern engineering solutions and elegant design, it shapes the distinctive architectural character of the complex.",
-        ],
+        text: [t.t_struct_txt_2_1, lang === "srb" ? "" : t.t_struct_txt_2_2],
         img: ["structure-3.jpg", "structure-4.jpg"],
       },
     },
     {
-      name: "Parking",
+      name: t.t_struct_name_3,
       description: {
-        text: [
-          "Parking spaces are located on three underground levels.",
-          "Elevators provide direct access between the parking area and residential floors, ensuring convenience and maximum comfort for residents.",
-        ],
+        text: [t.t_struct_txt_3_1, lang === "srb" ? "" : t.t_struct_txt_3_2],
         img: ["structure-5.jpg", "structure-6.jpg"],
       },
     },
@@ -95,21 +88,25 @@ const SpaceStructure = () => {
     });
   }, []);
   return (
-    <section className={styles.structure} data-section-id="light" id="space-structure">
+    <section
+      className={styles.structure}
+      data-section-id="light"
+      id="space-structure"
+    >
       <div className={styles.structure__body}>
         <div className={styles.structure__block}>
           <div
             className={`section_name ${styles.structure__name}`}
             data-split="block-name"
           >
-            Space structure
+            {t.t_space_str}
           </div>
           <div className={styles.structure_text_block}>
             <h2
               className={styles.structure_text_block_title}
               data-animate="fade-up"
             >
-              Thoughtful layout for modern living
+              {t.t_struct_title}
             </h2>
           </div>
         </div>

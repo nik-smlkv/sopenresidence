@@ -1,21 +1,25 @@
-
+import { useLang } from "../../../hooks/useLang";
 import styles from "./ApartmentView.module.css";
 const ApartmentView = () => {
+  const { t } = useLang();
+
   return (
     <section
       className={styles.apartment__view}
       data-section-id="transparent-black"
     >
       <div className={styles.apartment__body}>
-        <h2 className={styles.apartment__title}>Step Towards Your New Home</h2>
+        <h2 className={styles.apartment__title}>{t.t_apart_view_title}</h2>
         <div className={styles.apartments__cards}>
           <div className={styles.apartment__card}>
             <div className={styles.apartment_card_body}>
-              <p className={styles.apartment__filter}>filter by features</p>
+              <p className={styles.apartment__filter}>
+                {t.t_apart_view_filter}
+              </p>
               <div className={styles.apartment__info}>
                 <div className={styles.apart__info_text}>
                   <p className={styles.apart__count}>376</p>
-                  <p className={styles.apart__text}>Apartment</p>
+                  <p className={styles.apart__text}>{t.stat_apr}</p>
                 </div>
                 <svg
                   className={styles.apartment__icon}
@@ -107,7 +111,7 @@ const ApartmentView = () => {
           <div className={styles.apartment__card}>
             <div className={styles.apartment_card_body}>
               <p className={styles.apartment__visual}>
-                visual selectional of apartments
+                {t.t_apart_view_selet_text}
               </p>
               <div className={styles.apartment__info}>
                 <img

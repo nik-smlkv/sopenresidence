@@ -153,6 +153,9 @@ img.img__item {
 	transition: top .5s ease;
 }
 
+.about_content_title:global(.srb) {
+	font-size: 233px;
+}
 
 .about_content_title {
 	text-align: right;
@@ -163,6 +166,8 @@ img.img__item {
 	font-weight: 400;
 	line-height: 100%;
 }
+
+
 
 .about__content {
 	width: 100%;
@@ -320,6 +325,10 @@ img.img__item {
 		font-size: clamp(3.13rem, 1.25rem + 2.08vw, 3.75rem);
 	}
 
+	.about_content_title:global(.srb) {
+		font-size: 233px;
+	}
+
 	.about_content_title {
 		font-size: clamp(18.063rem, -0.875rem + 21.042vi, 24.375rem)
 	}
@@ -364,6 +373,10 @@ img.img__item {
 		font-size: clamp(1rem, 0.69rem + 0.48vw, 1.13rem);
 	}
 
+	.about_content_title:global(.srb) {
+		font-size: clamp(11.5rem, 3.962rem + 11.779vi, 14.563rem)
+	}
+
 	.about_content_title {
 		font-size: clamp(13.375rem, 1.809rem + 18.072vi, 18.063rem)
 	}
@@ -378,6 +391,10 @@ img.img__item {
 @media (min-width: 768px) and (max-width: 1023px) {
 	.about__body {
 		padding: 6.25em clamp(1.25em, 5vw, 2.5em);
+	}
+
+	.about_content_title:global(.srb) {
+		font-size: clamp(8.438rem, -0.75rem + 19.141vi, 11.5rem)
 	}
 
 	.about_content_title {
@@ -470,6 +487,10 @@ img.img__item {
 
 	.about_content_block {
 		row-gap: 20px;
+	}
+
+	.about_content_title:global(.srb) {
+		font-size: clamp(3.625rem, -0.198rem + 17.991vi, 8.438rem);
 	}
 
 	.about_content_title {

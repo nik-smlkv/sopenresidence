@@ -4,8 +4,10 @@ import Navigation from "../Navigation/Navigation";
 import SelectApartmentBtn from "../Buttons/SelectApartmentBtn";
 import { useModalControl } from "../../context/ModalContext";
 import "../Contact/Contact.module.css";
+import { useLang } from "../../hooks/useLang";
 const BurgerModal = () => {
   const { close } = useModalControl();
+  const { t } = useLang();
   return (
     <div
       className={styles.burger_modal}
@@ -26,13 +28,13 @@ const BurgerModal = () => {
             <div className={styles.burger_modal_nav_block}>
               <Navigation
                 items={[
-                  { label: "About project", targetId: "about-project" },
-                  { label: "Infrastructure", targetId: "infrastructure" },
-                  { label: "Locations", targetId: "location" },
-                  { label: "Advantages", targetId: "advantages" },
-                  { label: "Equipment", targetId: "equipment" },
-                  { label: "Finance", targetId: "finance" },
-                  { label: "Space Structure", targetId: "space-structure" },
+                  { label: t.link_about_btn, targetId: "about-project" },
+                  { label: t.link_infra, targetId: "infrastructure" },
+                  { label: t.t_locatns, targetId: "location" },
+                  { label: t.link_adv, targetId: "advantages" },
+                  { label: t.link_equip, targetId: "equipment" },
+                  { label: t.t_link_fin, targetId: "finance" },
+                  { label: t.t_space_str, targetId: "space-structure" },
                 ]}
               />
               <SelectApartmentBtn data-close />
@@ -45,7 +47,7 @@ const BurgerModal = () => {
         <div className={styles.burger_modal_block}>
           <div className={styles.burger_modal_btns}>
             <div className={styles.request__btn} data-close>
-              <span>Leave a request</span>
+              <span>{t.t_req}</span>
             </div>
             {/* <div className="current_language"></div> */}
             <div className={styles.burger_modal_socials}>
@@ -66,9 +68,7 @@ const BurgerModal = () => {
             </div>
           </div>
 
-          <p className={styles.burger_modal_notation}>
-            All rights reserved © 2025 Sopen Park
-          </p>
+          <p className={styles.burger_modal_notation}>{t.t_anot}</p>
         </div>
       </div>
     </div>

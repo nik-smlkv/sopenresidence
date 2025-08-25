@@ -3,33 +3,35 @@ import styles from "./Steps.module.css";
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useResponsiveRef } from "../../../hooks/useResponsiveRef";
+import { useLang } from "../../../hooks/useLang";
 const Steps = () => {
+  const { t } = useLang();
   const stepsCardArray: { name: string; text: string[] }[] = [
     {
-      name: "Housing credit API Bank",
+      name: t.t_fin_name_1,
       text: [
-        "No Serbian residency required. You can purchase an apartment in Sava Residence through API Bank, even if you are not a resident of Serbia.",
-        "Flexible income assessment. To determine your creditworthiness, API Bank accepts all types of income, not just salaries.",
-        "Path to residency. The property you purchase can be a basis for obtaining a residence permit in Serbia.",
-        "Loan consultation. Leave your details, and an API Bank housing loan advisor will contact you.",
+        t.t_fin_txt_1_1,
+        t.t_fin_txt_1_2,
+        t.t_fin_txt_1_3,
+        t.t_fin_txt_1_4,
       ],
     },
     {
-      name: "Housing credit Banca Intesa",
+      name: t.t_fin_name_1,
       text: [
-        "Special Loan Conditions. Banca Intesa offers favorable terms for housing loans to purchase property in our complex, including a fixed interest rate of 5.03%.",
-        "Fast and Easy Processing. Financing real estate in Sava Residence is a simple and efficient procedure, taking only 7 days from the date of application submission.",
-        "Path to residency. The property you purchase can be a basis for obtaining a residence permit in Serbia.",
-        "Loan Consultation. If you need additional details, leave your contact information, and a Banca Intesa housing loan advisor will get in touch with you.",
+        t.t_fin_txt_2_1,
+        t.t_fin_txt_2_2,
+        t.t_fin_txt_2_3,
+        t.t_fin_txt_2_4,
       ],
     },
     {
-      name: "Housing credit UniCredit Bank",
+      name: t.t_fin_name_1,
       text: [
-        "Attractive Rates. Fixed or variable interest rates from ~3.19% (EUR loans).",
-        "Fast Processing. Simple procedure with quick approval times.",
-        "Path to residency. Property purchase may help obtain a Serbian residence permit.",
-        "Loan Consultation. Leave your details for a UniCredit Bank advisor to contact you.",
+        t.t_fin_txt_3_1,
+        t.t_fin_txt_3_2,
+        t.t_fin_txt_3_3,
+        t.t_fin_txt_3_4,
       ],
     },
   ];
@@ -168,7 +170,7 @@ const Steps = () => {
                   </div>
                   <div className={styles.steps__card__content}>
                     <p className={styles.card__content_title}>
-                      Main conditions
+                      {t.t_main_cond}
                     </p>
                     <ul className={styles.card__text_list}>
                       {card.text.map((text) => (
@@ -199,10 +201,7 @@ const Steps = () => {
           </div>
         </div>
         <div className={styles.steps__title_block} ref={titleRef}>
-          <h2 className={styles.steps__title}>
-            Savings and comfort:
-            <br /> invest in your future
-          </h2>
+          <h2 className={styles.steps__title}>{t.t_fin_title}</h2>
         </div>
       </div>
     </section>

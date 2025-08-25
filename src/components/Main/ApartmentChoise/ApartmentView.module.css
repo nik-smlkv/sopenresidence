@@ -319,7 +319,7 @@
 	}
 
 	.apartment_card_body {
-		flex: 1 1 130px;
+		flex: 1 1 170px;
 	}
 
 	.apartment__view {
@@ -327,11 +327,12 @@
 	}
 
 	.apartment__title {
-		max-width: 350px;
+		max-width: 292px;
 	}
 
 	.apartment__view {
-		background-size: auto;
+		background-size: cover;
+		background-position: 15%;
 	}
 
 
@@ -347,5 +348,21 @@
 		flex-direction: row;
 		align-items: end;
 		column-gap: 4px;
+	}
+	.apartment__title {
+		max-width: 225px;
+	}
+	.apartment__filter,
+	.apartment__visual {
+		font-size: 1.125rem;
+	}
+
+	.apartment__render {
+		width: 46.5vw;
+	}
+
+	.apartment__render {
+		top: 20px;
+		right: 20px;
 	}
 }

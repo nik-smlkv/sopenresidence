@@ -88,7 +88,6 @@
 	width: 100%;
 	min-height: 52px;
 	font-weight: 300;
-	padding: 13px 0px 19px 10px;
 	background-color: transparent;
 	border: none;
 	position: relative;
@@ -147,6 +146,7 @@
 		font-size: 12px;
 		position: absolute;
 		bottom: -25px;
+
 		&[data-error="true"] {
 			display: block;
 		}
@@ -156,7 +156,8 @@
 .form__text {
 	width: 100%;
 	text-align: center;
-
+	text-transform: uppercase;
+	font-size: 14px;
 }
 
 .personal__block {
@@ -170,44 +171,62 @@
 	display: flex;
 	width: 100%;
 	justify-content: space-between;
+}
 
-	.text__personal {
-		max-width: 315px;
-		display: inline-block;
-		line-height: 110%;
-		color: var(--tx-bl-50);
-	}
+.text__personal {
+	max-width: 315px;
+	display: inline-block;
+	line-height: 110%;
+	color: var(--tx-bl-50);
+}
 
 
 
-	.link__personal {
-		display: inline-block;
-		text-decoration: none;
-		margin-left: 3px;
-		color: var(--acc-main-green);
-	}
+.link__personal {
+	display: inline-block;
+	text-decoration: none;
+	margin-left: 3px;
+	color: var(--acc-main-green);
+	text-decoration: underline;
+}
 
-	.input_placeholder {
-		font-size: clamp(1em, 3vw, 1.125em);
-	}
+.input_placeholder {
+	font-size: clamp(1em, 3vw, 1.125em);
+}
 
-	.content__personal {
+.content__personal {
 
-		margin-top: 2px;
-	}
+	margin-top: 2px;
+}
 
-	.text__personal {
-		font-size: clamp(0.75em, 3vw, 1em);
-	}
+.text__personal {
+	font-size: clamp(0.75em, 3vw, 1em);
+}
 
-	.input_container:focus-within .input_placeholder {
-		font-size: 10px;
-	}
+.input_container:focus-within .input_placeholder {
+	font-size: 10px;
+}
 
-	.form_container {
-		gap: 6px;
+.form_container {
+	gap: 20px;
+}
+
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+	.personal__block {
+		row-gap: clamp(0.875rem, -0.663rem + 2.404vi, 1.5rem);
+		margin-top: 20px;
 	}
 }
+
+@media (min-width: 768px) and (max-width: 1023px) {
+
+	.personal__block {
+		row-gap: 13px;
+		margin-top: 20px;
+	}
+}
+
 
 
 @media(max-width: 767.99px) {
@@ -222,15 +241,20 @@
 			position: relative;
 			display: flex;
 			flex-direction: column-reverse;
-
+			font-size: 15px;
 
 
 			&:focus-within .input_placeholder {
-				bottom: 45px;
+				bottom: 25px;
 				left: 0px;
 				font-size: 12px;
 			}
 		}
+	}
+
+	.personal__block {
+		row-gap: clamp(0.563rem, 0.165rem + 1.479vi, 0.875rem);
+		margin-top: clamp(0.5rem, -0.454rem + 3.55vi, 1.25rem);
 	}
 }
 

@@ -4,7 +4,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLang } from "../../hooks/useLang";
 const HorizontParallax = () => {
-  const {t} = useLang();
+  const { t } = useLang();
   const containerRef = useRef<HTMLDivElement>(null);
   const parallaxCardRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<ScrollTrigger | undefined>(undefined);
@@ -15,24 +15,27 @@ const HorizontParallax = () => {
   }[] = [
     {
       img: "./images/beautiful-spa-client-with-tisane-looking-into-distance.jpg",
-      name: "Wellness center",
-    },
-    {
-      img: "./images/close-up-barista-making-cappuccino-bartender-preparing-coffee-drink-1.jpg",
-      name: "Supermarket",
-    },
-    {
-      img: "./images/close-up-barista-making-cappuccino-bartender-preparing-coffee-drink.jpg",
-      name: "Pharmacy",
+      name: t.t_hor_par_2,
     },
     {
       img: "./images/customer-choosing-milk-products-supermarket-refrigerator.jpg",
-      name: "Café",
+      name: t.t_hor_par_3,
     },
-    { img: "./images/pharmacist-work.jpg", name: "Business apartments" },
+    {
+      img: "./images/pharmacist-work.jpg",
+      name: t.t_hor_par_4,
+    },
+    {
+      img: "./images/close-up-barista-making-cappuccino-bartender-preparing-coffee-drink.jpg",
+      name: t.t_hor_par_5,
+    },
+    {
+      img: "./images/close-up-barista-making-cappuccino-bartender-preparing-coffee-drink-1.jpg ",
+      name: t.t_hor_par_6,
+    },
     {
       img: "./images/young-adult-woman-pushing-shopping-trolley-shelves-market.jpg",
-      name: "Other commercial spaces",
+      name: t.t_hor_par_7,
     },
   ];
 
@@ -133,10 +136,7 @@ const HorizontParallax = () => {
             ref={parallaxCardRef}
           >
             <div className={styles.parallax__card_preview}>
-              <p>
-                Residents don’t have to travel far to enjoy themselves —
-                entertainment is delivered right to their doorstep.
-              </p>
+              <p>{t.t_hor_par_1}</p>
             </div>
             {ParallaxCards.map((card, index) => (
               <div

@@ -122,7 +122,7 @@ function Form({ ...enabled }: TypeInputEnabled) {
         <form className="form" onSubmit={onSubmit}>
           <div className="form_container">
             <p className="input_error" data-error={!!errors.username}>
-              Wrong email or name
+              {t.t_form_err_txt}
             </p>
             {config.map((item) => {
               const { validate, name, ...rest } = item;
@@ -169,7 +169,7 @@ function Form({ ...enabled }: TypeInputEnabled) {
         <form className="form" onSubmit={onSubmit}>
           <div className="form_container">
             <p className="input_error" data-error={!!errors.username}>
-              Wrong email or name
+              {t.t_form_err_txt}
             </p>
             {config.map((item) => {
               const { validate, name, ...rest } = item;

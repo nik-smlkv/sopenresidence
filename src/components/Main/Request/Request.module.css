@@ -44,23 +44,38 @@
 @media (min-width: 1024px) and (max-width: 1439px) {
 	.form__body {
 		padding: clamp(6.25em, calc(11vw - 5em), 8.75em) clamp(2.5em, calc(9.6vw - 7em), 5em);
+		row-gap: clamp(1.5rem, -0.962rem + 3.846vi, 2.5rem);
+	}
+
+	.personal__block {
+		row-gap: clamp(0.875rem, -0.663rem + 2.404vi, 1.5rem);
 	}
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
 	.form__body {
 		padding: 6.25em clamp(1.25em, 5vw, 2.5em);
+		row-gap: clamp(1.25rem, 0.5rem + 1.563vi, 1.5rem);
+	}
+
+	.personal__block {
+		row-gap: 13px;
 	}
 }
 
 @media(max-width: 768px) {
 	.form__body {
 		padding: 6.25em 1.25em;
+		row-gap: clamp(1rem, 0.682rem + 1.183vi, 1.25rem);
 	}
 
 	.form__title {
 		text-align: center;
 
+	}
+
+	.personal__block {
+		row-gap: clamp(0.563rem, 0.165rem + 1.479vi, 0.875rem);
 	}
 }
 

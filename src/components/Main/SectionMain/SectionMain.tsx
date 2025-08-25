@@ -81,7 +81,7 @@ const SectionMain = () => {
               />
             </div>
             <p className={styles.subtitle}>
-              A modern space for living and business in the heart of Niš
+              {t.t_subtitle}
             </p>
           </div>
         </div>

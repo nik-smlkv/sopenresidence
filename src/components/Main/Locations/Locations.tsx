@@ -51,7 +51,7 @@ export const useIsMobile = (breakpoint: number = 1000): boolean => {
 };
 const Locations = () => {
   const isMobile = useIsMobile(1000);
-  const { t, lang } = useLang();
+  const { t } = useLang();
   const locations: LocationType[] = [
     {
       id: "1",
@@ -116,11 +116,23 @@ const Locations = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
   const ulRef = useRef<HTMLUListElement>(null);
-
+  const mapRef = useRef<google.maps.Map | null>(null);
   const handleClickLocation = (index: number) => {
     setOpenIndex(index);
     setSelectedLocation(locations[index]);
     setIsDropdownOpen(false);
+
+    if (mapRef.current) {
+
+      mapRef.current.setZoom(14);
+
+
+      mapRef.current.panTo(locations[index].position);
+
+      setTimeout(() => {
+        mapRef.current?.setZoom(15);
+      }, 500);
+    }
 
     const li = ulRef.current?.querySelectorAll("li")[index];
     if (li) setArrowOffset(li.offsetTop);
@@ -209,6 +221,9 @@ const Locations = () => {
                 zoom={15}
                 center={selectedLocation?.position || center}
                 options={mapOptions}
+                onLoad={(map) => {
+                  mapRef.current = map;
+                }}
               >
                 {locations.map((loc) => (
                   <Marker

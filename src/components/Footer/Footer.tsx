@@ -1,5 +1,6 @@
 import styles from "./Footer.module.css";
 import Contact from "../Contact/Contact";
+import { useLang } from "../../hooks/useLang";
 const handleClick = (id: string) => {
   const targetEl = document.getElementById(id);
   if (targetEl) {
@@ -7,13 +8,14 @@ const handleClick = (id: string) => {
   }
 };
 const Footer = () => {
+  const { t } = useLang();
   return (
     <footer className={styles.footer} id="contact">
       <div className={styles.footer__body}>
         <div className={styles.footer__info_block}>
           <Contact />
           <button className={styles.get__directions}>
-            <span>Get directions</span>
+            <span>{t.t_get_dir_btn}</span>
           </button>
         </div>
         <div className={styles.footer__content}>
@@ -139,9 +141,7 @@ const Footer = () => {
                 />
               </svg>
             </div>
-            <p className={styles.footer__roots}>
-              All rights reserved © 2025 Sopen Park
-            </p>
+            <p className={styles.footer__roots}>{t.t_anot}</p>
             <div className={styles.arrow_up_body}>
               <svg
                 className={styles.arrow__up}

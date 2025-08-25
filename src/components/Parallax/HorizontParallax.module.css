@@ -53,7 +53,8 @@
 }
 
 .parallax__card_preview p {
-	max-width: 268px;
+	max-width: 100%;
+	font-size: 20px;
 	color: var(--acc-main-green);
 	font-weight: 500;
 }
@@ -262,6 +263,10 @@
 	.card__name {
 		font-size: clamp(1.625rem, 1.25rem + 0.417vi, 1.75rem);
 	}
+
+	.parallax__card_preview p {
+		font-size: clamp(1.125rem, 0.75rem + 0.417vi, 1.25rem);
+	}
 }
 
 @media((min-width: 1024px) and (max-width:1440px)) {
@@ -272,6 +277,10 @@
 	.card__name {
 		font-size: clamp(1.375rem, 0.608rem + 1.199vi, 1.688rem)
 	}
+
+	.parallax__card_preview p {
+		font-size: clamp(1rem, 0.692rem + 0.481vi, 1.125rem);
+	}
 }
 
 @media(max-width: 1024px) {
@@ -279,6 +288,9 @@
 		font-size: 22px;
 	}
 
+	.parallax__card_preview p {
+		font-size: clamp(0.875rem, 0.5rem + 0.781vi, 1rem);
+	}
 }
 
 @media((min-width: 768px) and (max-width:1024px)) {

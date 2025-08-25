@@ -1,41 +1,40 @@
-import  { useState } from "react";
+import { useState } from "react";
 import styles from "./Equipment.module.css";
 import SelectApartmentBtn from "../../Buttons/SelectApartmentBtn";
+import { useLang } from "../../../hooks/useLang";
 const Equipment = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-
+  const { t } = useLang();
   const equipmentList: { name: string; description: string }[] = [
     {
-      name: "Thermal insulation",
-      description:
-        "Facade walls made of high-quality economical blocks, thermal insulation with 12 cm polystyrene.",
+      name: t.t_equip_name_1,
+      description: t.t_equip_discr_1,
     },
-    { name: "Facade carpentry", description: "High-quality multi-chamber PVC" },
+    { name: t.t_equip_name_2, description: t.t_equip_discr_2 },
     {
-      name: "Climate control",
-      description: "Split-system air conditioning in the living room.",
-    },
-    {
-      name: "Access control",
-      description: "Video intercom at the entrance to each section.",
+      name: t.t_equip_name_3,
+      description: t.t_equip_discr_3,
     },
     {
-      name: "Entrance doors",
-      description: "Protective entrance doors with high fire resistance.",
+      name: t.t_equip_name_4,
+      description: t.t_equip_discr_4,
     },
     {
-      name: "Interior doors",
-      description: "MDF doors covered with white CPL film.",
+      name: t.t_equip_name_5,
+      description: t.t_equip_discr_5,
     },
     {
-      name: "Flooring",
-      description: "Multi-layer parquet from a renowned manufacturer.",
+      name: t.t_equip_name_6,
+      description: t.t_equip_discr_6,
     },
-    { name: "Ceramics", description: "First-class ceramic tiles." },
     {
-      name: "Plumbing",
-      description:
-        "Plumbing and sanitary equipment from collections of leading global manufacturers.",
+      name: t.t_equip_name_7,
+      description: t.t_equip_discr_7,
+    },
+    { name: t.t_equip_name_8, description: t.t_equip_discr_8 },
+    {
+      name: t.t_equip_name_9,
+      description: t.t_equip_discr_9,
     },
   ];
 
@@ -44,20 +43,21 @@ const Equipment = () => {
   };
 
   return (
-    <section className={styles.equipment} id="equipment"
-	 data-section-id="light">
+    <section
+      className={styles.equipment}
+      id="equipment"
+      data-section-id="light"
+    >
       <div className={styles.equip__body}>
         <div className={styles.equip__block}>
           <div
             className={`section_name ${styles.equip__name}`}
             data-split="block-name"
           >
-            Equipment
+            {t.link_equip}
           </div>
           <div className={styles.equip_text_block}>
-            <h2 className={styles.equip_text_block_title}>
-              Quality in every detail: comfort and security
-            </h2>
+            <h2 className={styles.equip_text_block_title}>{t.t_equip_title}</h2>
             <div className={styles.btn__block}>
               <SelectApartmentBtn />
             </div>

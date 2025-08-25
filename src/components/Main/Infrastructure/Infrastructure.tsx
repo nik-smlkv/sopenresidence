@@ -3,7 +3,7 @@ import MainSlider from "../../Sliders/MainSlider";
 import styles from "./Infrastructure.module.css";
 
 const Infrastructura = () => {
-  const { t, lang } = useLang();
+  const { t } = useLang();
   return (
     <section
       className={styles.infrastructura}

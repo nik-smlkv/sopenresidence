@@ -22,7 +22,7 @@ import { useLang } from "../hooks/useLang";
 type LenisRef = { lenis: Lenis | undefined };
 
 const HomePage = () => {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const lenisRef = useRef<LenisRef>(null);
   gsap.registerPlugin(ScrollTrigger);
   const parallaxRef = useResponsiveRef<HTMLDivElement>(1000);
@@ -100,7 +100,13 @@ const HomePage = () => {
               />
             </div>
           </div>
-          <div className={styles.parallax_block_text}>
+          <div
+            className={
+              lang === "srb"
+                ? styles.parallax_block_text_srb
+                : styles.parallax_block_text
+            }
+          >
             <p>{t.t_parallax_title}</p>
           </div>
         </section>

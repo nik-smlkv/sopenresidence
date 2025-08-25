@@ -101,7 +101,7 @@ const SliderText = ({
   total: number;
   swiperRef: React.MutableRefObject<any>;
 }) => {
-  const { t, lang } = useLang();
+  const { t } = useLang();
   const SliderListInfo: {
     text: string;
     walk: string;

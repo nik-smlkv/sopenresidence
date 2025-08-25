@@ -76,7 +76,7 @@ const AboutMain = () => {
   ];
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
-    const triggerStart = isMobile ? "top 100%" : "top 85%";
+    const triggerStart = isMobile ? "top 120%" : "top 85%";
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -217,7 +217,13 @@ const AboutMain = () => {
         </div>
 
         <div className={styles.about__content}>
-          <p className={styles.about_content_title}>{t.about_title}</p>
+          <p
+            className={`${styles.about_content_title} ${
+              lang === "srb" ? "srb" : ""
+            }`}
+          >
+            {t.about_title}
+          </p>
           <div className={styles.about_content_block}>
             <p className={styles.about_content_block_description}>
               {t.t_about_content_block}
