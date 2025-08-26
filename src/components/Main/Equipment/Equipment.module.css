@@ -255,7 +255,7 @@
 
 	.equip_text_block .btn__block {
 		width: 100%;
-		max-width: 540px;
+		max-width: 100%;
 	}
 
 	.equip__block__content {

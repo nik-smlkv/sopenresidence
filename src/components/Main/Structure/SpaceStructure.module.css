@@ -58,6 +58,7 @@
 	row-gap: 20px;
 	width: 100%;
 	max-width: 1198px;
+	flex: 1 1 1198px;
 }
 
 .structure__card_block_text,
@@ -127,6 +128,10 @@
 	text-transform: uppercase;
 }
 
+.structure_text_block_title:global(.title_srb) {
+	max-width: 100%;
+}
+
 .img_wrapper {
 	position: relative;
 	overflow: hidden;
@@ -145,9 +150,9 @@
 }
 
 @media(max-width: 1920px) {
+
 	.structure_text_block_title {
-		font-size: clamp(1.75rem, 0.833rem + 1.91vi, 3.125rem);
-		max-width: 30vw;
+		font-size: clamp(1.75rem, 0.417rem + 2.778vi, 3.75rem);
 	}
 }
 
@@ -223,9 +228,11 @@
 	.structure__name {
 		flex: 1 1 auto;
 	}
-	.structure_text_block_title{
+
+	.structure_text_block_title {
 		max-width: 100%;
 	}
+
 	.structure__card {
 		flex-direction: column;
 		row-gap: 12px;
@@ -239,6 +246,9 @@
 	.structure__block {
 		flex-direction: column;
 		row-gap: 20px;
+	}
+	.structure__card_block{
+		flex: 1 1 auto;
 	}
 }
 

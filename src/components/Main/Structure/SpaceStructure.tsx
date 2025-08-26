@@ -42,6 +42,9 @@ const SpaceStructure = () => {
   ];
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    const triggerStart = isMobile ? "top 120%" : "top 90%";
+
     gsap.registerPlugin(ScrollTrigger);
 
     const overlays = gsap.utils.toArray<HTMLElement>(
@@ -62,7 +65,7 @@ const SpaceStructure = () => {
           ease: "power2.out",
           scrollTrigger: {
             trigger: text,
-            start: "top 90%",
+            start: triggerStart,
             toggleActions: "play none none none",
             once: true,
           },
@@ -79,7 +82,7 @@ const SpaceStructure = () => {
           ease: "power2.out",
           scrollTrigger: {
             trigger: overlay,
-            start: "top 90%",
+            start: triggerStart,
             toggleActions: "play none none none",
             once: true,
           },
@@ -103,7 +106,9 @@ const SpaceStructure = () => {
           </div>
           <div className={styles.structure_text_block}>
             <h2
-              className={styles.structure_text_block_title}
+              className={`${styles.structure_text_block_title} ${
+                lang === "srb" ? "title_srb" : ""
+              }`}
               data-animate="fade-up"
             >
               {t.t_struct_title}
