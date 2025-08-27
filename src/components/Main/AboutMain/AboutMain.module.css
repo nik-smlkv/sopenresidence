@@ -258,6 +258,7 @@ img.img__item {
 
 .infra__prev,
 .infra__next {
+	display: flex;
 	width: 60px;
 	height: 60px;
 	display: none;

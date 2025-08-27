@@ -3,7 +3,63 @@ import styles from "./HorizontParallax.module.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLang } from "../../hooks/useLang";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+
+const SwiperControls = ({
+  swiperRef,
+}: {
+  swiperRef: React.MutableRefObject<SwiperType | null>;
+}) => {
+  return (
+    <div className={styles.controls__wrapper}>
+      <div className={styles.buttons__content}>
+        <button
+          className={styles.infra__prev}
+          onClick={() => {
+            swiperRef.current?.slidePrev();
+          }}
+        >
+          <svg
+            width="21"
+            height="22"
+            viewBox="0 0 21 22"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M21 11.0001H1.75472M1.75472 11.0001L11.669 1.37744M1.75472 11.0001L11.669 20.6227"
+              stroke="var(--acc-light-apr)"
+              strokeWidth="1.5"
+            />
+          </svg>
+        </button>
+        <button
+          className={styles.infra__next}
+          onClick={() => swiperRef.current?.slideNext()}
+        >
+          <svg
+            width="21"
+            height="22"
+            viewBox="0 0 21 22"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0 11.0001H19.2453M19.2453 11.0001L9.33105 1.37744M19.2453 11.0001L9.33105 20.6227"
+              stroke="white"
+              strokeWidth="1.5"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const HorizontParallax = () => {
+  const swiperRef = useRef<SwiperType | null>(null);
   const { t } = useLang();
   const containerRef = useRef<HTMLDivElement>(null);
   const parallaxCardRef = useRef<HTMLDivElement>(null);
@@ -92,20 +148,6 @@ const HorizontParallax = () => {
     };
   }, [isDesktop]);
 
-  useEffect(() => {
-    const cursorPreview = document.getElementById("cursorPreview");
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (cursorPreview) {
-        cursorPreview.style.left = `${e.clientX}px`;
-        cursorPreview.style.top = `${e.clientY}px`;
-      }
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const handleToggle = (index: number) => {
@@ -125,42 +167,27 @@ const HorizontParallax = () => {
       ref={containerRef}
       data-section-id="light"
     >
-      {isDesktop && (
-        <div id="cursorPreview" className={styles.cursorPreview}></div>
-      )}
       {isDesktop ? (
-        <div className={styles.pinWrapper}>
-          <div
-            className={styles.parallax__cards}
-            data-type="parallax"
-            ref={parallaxCardRef}
-          >
-            <div className={styles.parallax__card_preview}>
-              <p>{t.t_hor_par_1}</p>
-            </div>
-            {ParallaxCards.map((card, index) => (
-              <div
-                key={index}
-                className={styles.parallax__card}
-                onMouseEnter={() => {
-                  const preview = document.getElementById("cursorPreview");
-                  if (preview) {
-                    preview.style.backgroundImage = `url(${card.img})`;
-                    preview.style.opacity = "1";
-                  }
-                }}
-                onMouseLeave={() => {
-                  const preview = document.getElementById("cursorPreview");
-                  if (preview) {
-                    preview.style.opacity = "0";
-                  }
-                }}
-              >
-                <p className={styles.card__index}>0{index + 1}</p>
-                <p className={styles.card__name}>{card.name}</p>
-              </div>
-            ))}
+        <div className={styles.parallax__cards}>
+          <div className={styles.parallax__card_preview}>
+            <SwiperControls swiperRef={swiperRef} />
+            <p>{t.t_hor_par_1}</p>
           </div>
+          <Swiper
+            modules={[Pagination, Navigation]}
+            slidesPerView="auto"
+            onSwiper={(swiper) => (swiperRef.current = swiper)}
+
+            className={styles.parallax__cards}
+          >
+            {ParallaxCards.map((card, index) => (
+              <SwiperSlide key={index} className={styles.parallax__card}>
+                <p className={styles.card__index}>0{index + 1}</p>
+                <img src={card.img} alt={card.name} />
+                <p className={styles.card__name}>{card.name}</p>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       ) : (
         <>

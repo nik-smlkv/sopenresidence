@@ -17,8 +17,12 @@ const SectionMain = () => {
     const createAnimation = () => {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
-      const scaleXVersion = window.innerWidth < 1410 ? 686 : 830;
-      const scaleYVersion = window.innerWidth < 1410 ? 410 : 490;
+      const scaleXVersion =
+        window.innerWidth > 2000 ? 1024 : window.innerWidth < 1410 ? 686 : 830;
+
+      const scaleYVersion =
+        window.innerWidth > 2000 ? 600 : window.innerWidth < 1410 ? 410 : 490;
+
       const scaleX = scaleXVersion / vw;
       const scaleY = scaleYVersion / vh;
       animation?.kill();

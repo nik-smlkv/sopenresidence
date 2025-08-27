@@ -1,15 +1,18 @@
 .horizontal_parallax {
 	background-color: var(--bg-beige);
 	position: relative;
-	height: 191vh;
-	overflow: hidden;
+	height: 100%;
+	display: flex;
+	flex: 1 1 auto;
+	align-items: start;
+	justify-content: start;
 }
 
 .parallax__cards {
 	display: flex;
 	flex-direction: row;
 
-	width: fit-content;
+	width: 100%;
 	transform: translate3d(0, 0, 0);
 	flex-wrap: nowrap;
 
@@ -18,6 +21,109 @@
 .parallax__cards::-webkit-scrollbar {
 	display: none;
 }
+
+.parallax__cards :global(.swiper-wrapper) {
+	width: 100%;
+}
+
+.controls__wrapper {
+	display: flex;
+	flex-direction: row;
+	align-items: end;
+	column-gap: 24px;
+	width: 100%;
+}
+
+.buttons__content {
+	display: flex;
+	position: relative;
+	z-index: 2;
+	justify-content: end;
+	column-gap: 10px;
+
+}
+
+
+.infra__prev,
+.infra__next {
+	width: 60px;
+	height: 60px;
+	display: flex;
+	mix-blend-mode: difference;
+	position: relative;
+	align-items: center;
+	justify-content: center;
+	border-radius: 100%;
+	cursor: pointer;
+	overflow: hidden;
+	border: 1px solid var(--acc-main-green);
+}
+
+.infra__prev svg,
+.infra__next svg {
+	position: relative;
+	z-index: 3;
+}
+
+
+.infra__prev {
+	background-color: transparent;
+
+
+}
+
+.infra__prev svg path {
+
+	stroke: var(--acc-main-green);
+
+}
+
+.infra__next {
+	background-color: var(--acc-main-green);
+}
+
+
+.infra__prev::after,
+.infra__next::after {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: 1;
+	width: 0;
+	height: 0;
+	top: 50%;
+	left: 50%;
+	border-radius: 100%;
+	background-color: var(--bg-beige);
+	transform: translate(-50%, -50%);
+	transition: width .2s ease, height .2s ease;
+}
+
+.infra__prev::after {
+	background-color: var(--acc-main-green);
+}
+
+.infra__prev::after,
+.infra__next::after {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: 1;
+	width: 0;
+	height: 0;
+	top: 50%;
+	left: 50%;
+	border-radius: 100%;
+	background-color: var(--bg-beige);
+	transform: translate(-50%, -50%);
+	transition: width .2s ease, height .2s ease;
+}
+
+.infra__prev::after {
+	background-color: var(--acc-main-green);
+}
+
+
 
 .cursorPreview {
 	position: fixed;
@@ -36,12 +142,14 @@
 
 .parallax__card,
 .parallax__card_preview {
-	flex: 0 0 428px;
-
+	flex: 1 1 490px;
+	max-width: 490px;
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	flex-direction: column;
+	row-gap: 30px;
 }
 
 .parallax__card_preview {
@@ -61,6 +169,8 @@
 
 .parallax__card {
 	padding: 60px 30px 50px 30px;
+	justify-content: start;
+	align-items: start;
 }
 
 .parallax__card,
@@ -72,8 +182,7 @@
 
 .parallax__card img {
 	width: 254px;
-	margin-right: 55px;
-	height: 260px;
+	height: 310px;
 }
 
 .card__index,
@@ -167,13 +276,9 @@
 	}
 }
 
-@media((min-width: 2520px) and (max-width: 3400px)) {
-	.horizontal_parallax {
-		display: flex;
-		flex: 1 1 auto;
-		align-items: start;
-		justify-content: center;
-	}
+@media((min-width: 2520px) and (max-width: 3600px)) {
+
+
 
 	.parallax_text {
 		flex: 1 1 100%;
@@ -317,5 +422,22 @@
 		justify-content: center;
 		position: relative;
 		top: 20px;
+	}
+}
+
+@media (hover: hover) {
+	.infra__next:hover svg path {
+		stroke: black;
+	}
+
+	.infra__prev:hover svg path {
+		stroke: white;
+	}
+
+	.infra__prev:hover::after,
+	.infra__next:hover::after {
+		width: 100%;
+		height: 100%;
+		transition: width .2s ease, height .2s ease;
 	}
 }
