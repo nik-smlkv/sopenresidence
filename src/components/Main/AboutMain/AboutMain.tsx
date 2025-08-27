@@ -78,9 +78,9 @@ const AboutMain = () => {
     gsap.registerPlugin(ScrollTrigger);
 
     ScrollTrigger.matchMedia({
-      // 💻 Десктоп
+      // Десктоп
       "(min-width: 769px)": function () {
-        const triggerStart = "top 85%";
+        const triggerStart = "top 95%";
 
         const titlesArray = document.querySelectorAll('[data-split="title"]');
         titlesArray.forEach((heading) => {
@@ -143,15 +143,20 @@ const AboutMain = () => {
           '[data-animate="image-fade"]'
         );
         imagesArray.forEach((img) => {
-          gsap.to(img, {
-            duration: 0.6,
-            scrollTrigger: {
-              trigger: img,
-              start: triggerStart,
-              toggleActions: "play none none none",
-              once: true,
-            },
-          });
+          gsap.fromTo(
+            img,
+            { top: "0%" },
+            {
+              top: "100%",
+              duration: 0.6,
+              scrollTrigger: {
+                trigger: img,
+                start: triggerStart,
+                toggleActions: "play none none none",
+                once: true,
+              },
+            }
+          );
         });
       },
 
@@ -220,34 +225,43 @@ const AboutMain = () => {
           '[data-animate="image-fade"]'
         );
         imagesArray.forEach((img) => {
-          gsap.to(img, {
-            duration: 0.6,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: img,
-              start: triggerStart,
-              toggleActions: "play none none none",
-              once: true,
-            },
-          });
+          gsap.fromTo(
+            img,
+            { top: "0%" },
+            {
+              top: "100%",
+              duration: 0.6,
+              scrollTrigger: {
+                trigger: img,
+                start: triggerStart,
+                toggleActions: "play none none none",
+                once: true,
+              },
+            }
+          );
         });
       },
 
       "(max-width: 560px)": function () {
+        const triggerStart = "top 120%";
         const imagesArray = document.querySelectorAll(
           '[data-animate="image-fade"]'
         );
         imagesArray.forEach((img) => {
-          gsap.to(img, {
-            duration: 0.6,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: img,
-              start: "top 220%",
-              toggleActions: "play none none none",
-              once: true,
-            },
-          });
+          gsap.fromTo(
+            img,
+            { top: "0%" },
+            {
+              top: "100%",
+              duration: 0.6,
+              scrollTrigger: {
+                trigger: img,
+                start: triggerStart,
+                toggleActions: "play none none none",
+                once: true,
+              },
+            }
+          );
         });
       },
     });

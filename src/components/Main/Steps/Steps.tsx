@@ -80,7 +80,7 @@ const Steps = () => {
           scrollTrigger: {
             trigger: imgWrapper,
             start: "top top",
-            end: "bottom bottom",
+            end: "bottom-=158 bottom",
             pin: true,
             pinSpacing: false,
             scrub: true,

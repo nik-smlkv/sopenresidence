@@ -29,7 +29,7 @@ export const langArr = {
     t_email: `Email`,
     t_req: `Leave a request`,
     t_apart: `Select an apartment`,
-    t_welcome: `Welcome`,
+    t_welcome: `Welcome to`,
     t_title: "Sopen park",
     t_subtitle: "A modern space for living and business in the heart of Niš",
     t_abouttitle: "Creating a space inspired by classics",

@@ -333,7 +333,7 @@ header:global(.changed) .header__body .burger_line {
 }
 
 .header__burger.active .burger_line:last-child {
-	transform: translateY(-13px) rotate(-45deg)
+	transform: translateY(-14px) rotate(-45deg)
 }
 
 .modal__wrapper {

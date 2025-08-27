@@ -8,7 +8,7 @@ const SectionMain = () => {
   const mainBody = useRef<HTMLDivElement>(null);
   gsap.registerPlugin(ScrollTrigger);
   useEffect(() => {
-    if (window.innerWidth <= 768) return; // 🚫 Не запускаем эффект на мобильных
+    if (window.innerWidth <= 768) return;
 
     if (!imageRef.current || !mainBody.current) return;
 
@@ -17,17 +17,20 @@ const SectionMain = () => {
     const createAnimation = () => {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
-      const scaleX = 830 / vw;
-      const scaleY = 490 / vh;
+      const scaleXVersion = window.innerWidth < 1410 ? 686 : 830;
+      const scaleYVersion = window.innerWidth < 1410 ? 410 : 490;
+      const scaleX = scaleXVersion / vw;
+      const scaleY = scaleYVersion / vh;
       animation?.kill();
       animation = gsap.fromTo(
         img,
         {
+          yPercent: 0,
           scaleX,
           scaleY,
-          transformOrigin: "50% 50%",
         },
         {
+          yPercent: 13.2,
           scaleX: 1,
           scaleY: 1,
           maxWidth: "100vw",
@@ -35,9 +38,9 @@ const SectionMain = () => {
           ease: "none",
           scrollTrigger: {
             trigger: mainBody.current,
-            start: "top top",
-            end: "bottom-=18% bottom-=18%",
-            scrub: 1.2,
+            start: () => `center center`,
+            end: () => `bottom bottom`,
+            scrub: true,
             pin: img,
             pinSpacing: false,
           },
@@ -80,9 +83,7 @@ const SectionMain = () => {
                 alt=""
               />
             </div>
-            <p className={styles.subtitle}>
-              {t.t_subtitle}
-            </p>
+            <p className={styles.subtitle}>{t.t_subtitle}</p>
           </div>
         </div>
       </div>
