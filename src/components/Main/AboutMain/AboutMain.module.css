@@ -412,6 +412,10 @@ img.img__item {
 		font-size: 16px;
 	}
 
+	.img_overlay {
+		display: none;
+	}
+
 	:global(.swiper-img__list) :global(.swiper-slide.swiper-slide-next) {
 		transition: max-width .5s ease;
 		max-width: min(390px, 57vw);

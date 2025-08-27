@@ -5,7 +5,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import { useResponsiveRef } from "../../../hooks/useResponsiveRef";
 import { useLang } from "../../../hooks/useLang";
 const Steps = () => {
-  const { t, lang } = useLang();
+  const { t } = useLang();
   const stepsCardArray: { name: string; text: string[] }[] = [
     {
       name: t.t_fin_name_1,
@@ -128,8 +128,7 @@ const Steps = () => {
                   <div className={styles.steps__card_front}>
                     <p className={styles.card__name}>
                       {card.name.split(" ").reduce((acc, word, i) => {
-                        const index = lang === "srb" ? i % 3 : i % 2;
-                        if (index === 0 && i !== 0) acc.push(<br key={i} />);
+                        if (i % 2 === 0 && i !== 0) acc.push(<br key={i} />);
                         acc.push(word + " ");
                         return acc;
                       }, [] as (string | JSX.Element)[])}

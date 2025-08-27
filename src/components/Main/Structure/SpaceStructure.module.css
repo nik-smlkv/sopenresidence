@@ -229,6 +229,10 @@
 		flex: 1 1 auto;
 	}
 
+	.img_overlay {
+		display: none;
+	}
+
 	.structure_text_block_title {
 		max-width: 100%;
 	}
@@ -247,7 +251,8 @@
 		flex-direction: column;
 		row-gap: 20px;
 	}
-	.structure__card_block{
+
+	.structure__card_block {
 		flex: 1 1 auto;
 	}
 }

@@ -1,7 +1,6 @@
-import { useEffect, useRef } from "react";
+import {  useRef } from "react";
 import styles from "./SpaceStructure.module.css";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 import { useLang } from "../../../hooks/useLang";
 
 const SpaceStructure = () => {
@@ -41,55 +40,7 @@ const SpaceStructure = () => {
     },
   ];
 
-  useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-    const triggerStart = isMobile ? "top 120%" : "top 90%";
 
-    gsap.registerPlugin(ScrollTrigger);
-
-    const overlays = gsap.utils.toArray<HTMLElement>(
-      '[data-animate="image-fade"]'
-    );
-    const texts = gsap.utils.toArray<HTMLElement>(
-      '[data-animate="fade-up-text"]'
-    );
-
-    texts.forEach((text) => {
-      gsap.fromTo(
-        text,
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: text,
-            start: triggerStart,
-            toggleActions: "play none none none",
-            once: true,
-          },
-        }
-      );
-    });
-    overlays.forEach((overlay) => {
-      gsap.fromTo(
-        overlay,
-        { top: "0%" },
-        {
-          top: "100%",
-          duration: 1.5,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: overlay,
-            start: triggerStart,
-            toggleActions: "play none none none",
-            once: true,
-          },
-        }
-      );
-    });
-  }, []);
   return (
     <section
       className={styles.structure}

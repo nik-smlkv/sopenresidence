@@ -75,82 +75,184 @@ const AboutMain = () => {
     { key: "urban-oasis", src: "urban-oasis.jpg" },
   ];
   useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-    const triggerStart = isMobile ? "top 120%" : "top 85%";
-
     gsap.registerPlugin(ScrollTrigger);
 
-    const titlesArray = document.querySelectorAll('[data-split="title"]');
-    titlesArray.forEach((heading) => {
-      const split = new SplitText(heading, { type: "chars" });
-      gsap.from(split.chars, {
-        opacity: 0,
-        y: 50,
-        duration: 0.5,
-        ease: "back.out(1.7)",
-        stagger: 0.05,
-        scrollTrigger: {
-          trigger: heading,
-          start: triggerStart,
-          toggleActions: "play none none none",
-          once: true,
-        },
-      });
-    });
+    ScrollTrigger.matchMedia({
+      // 💻 Десктоп
+      "(min-width: 769px)": function () {
+        const triggerStart = "top 85%";
 
-    const blockNamesArray = document.querySelectorAll(
-      '[data-split="block-name"]'
-    );
-    blockNamesArray.forEach((name) => {
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: name,
-            start: triggerStart,
-            toggleActions: "play none none none",
-            once: true,
-          },
-        })
-        .from(name, {
-          opacity: 0,
-          x: -50,
-          ease: "back.out(1.7)",
-          duration: 2,
+        const titlesArray = document.querySelectorAll('[data-split="title"]');
+        titlesArray.forEach((heading) => {
+          const split = new SplitText(heading, { type: "chars" });
+          gsap.from(split.chars, {
+            opacity: 0,
+            y: 50,
+            duration: 0.5,
+            ease: "back.out(1.7)",
+            stagger: 0.05,
+            scrollTrigger: {
+              trigger: heading,
+              start: triggerStart,
+              toggleActions: "play none none none",
+              once: true,
+            },
+          });
         });
+
+        const blockNamesArray = document.querySelectorAll(
+          '[data-split="block-name"]'
+        );
+        blockNamesArray.forEach((name) => {
+          gsap
+            .timeline({
+              scrollTrigger: {
+                trigger: name,
+                start: triggerStart,
+                toggleActions: "play none none none",
+                once: true,
+              },
+            })
+            .from(name, {
+              opacity: 0,
+              x: -50,
+              ease: "back.out(1.7)",
+              duration: 2,
+            });
+        });
+
+        const paragraphs = document.querySelectorAll(
+          '[data-animate="fade-up"]'
+        );
+        paragraphs.forEach((el) => {
+          gsap.from(el, {
+            opacity: 0,
+            y: 70,
+            duration: 2,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: triggerStart,
+              toggleActions: "play none none none",
+              once: true,
+            },
+          });
+        });
+
+        const imagesArray = document.querySelectorAll(
+          '[data-animate="image-fade"]'
+        );
+        imagesArray.forEach((img) => {
+          gsap.to(img, {
+            duration: 0.6,
+            scrollTrigger: {
+              trigger: img,
+              start: triggerStart,
+              toggleActions: "play none none none",
+              once: true,
+            },
+          });
+        });
+      },
+
+      // 📱 Мобильные до 768px
+      "(min-width: 561px) and (max-width: 768px)": function () {
+        const triggerStart = "top 120%";
+
+        const titlesArray = document.querySelectorAll('[data-split="title"]');
+        titlesArray.forEach((heading) => {
+          const split = new SplitText(heading, { type: "chars" });
+          gsap.from(split.chars, {
+            opacity: 0,
+            y: 50,
+            duration: 0.5,
+            ease: "back.out(1.7)",
+            stagger: 0.05,
+            scrollTrigger: {
+              trigger: heading,
+              start: triggerStart,
+              toggleActions: "play none none none",
+              once: true,
+            },
+          });
+        });
+
+        const blockNamesArray = document.querySelectorAll(
+          '[data-split="block-name"]'
+        );
+        blockNamesArray.forEach((name) => {
+          gsap
+            .timeline({
+              scrollTrigger: {
+                trigger: name,
+                start: triggerStart,
+                toggleActions: "play none none none",
+                once: true,
+              },
+            })
+            .from(name, {
+              opacity: 0,
+              x: -50,
+              ease: "back.out(1.7)",
+              duration: 2,
+            });
+        });
+
+        const paragraphs = document.querySelectorAll(
+          '[data-animate="fade-up"]'
+        );
+        paragraphs.forEach((el) => {
+          gsap.from(el, {
+            opacity: 0,
+            y: 70,
+            duration: 2,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: triggerStart,
+              toggleActions: "play none none none",
+              once: true,
+            },
+          });
+        });
+
+        const imagesArray = document.querySelectorAll(
+          '[data-animate="image-fade"]'
+        );
+        imagesArray.forEach((img) => {
+          gsap.to(img, {
+            duration: 0.6,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: img,
+              start: triggerStart,
+              toggleActions: "play none none none",
+              once: true,
+            },
+          });
+        });
+      },
+
+      "(max-width: 560px)": function () {
+        const imagesArray = document.querySelectorAll(
+          '[data-animate="image-fade"]'
+        );
+        imagesArray.forEach((img) => {
+          gsap.to(img, {
+            duration: 0.6,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: img,
+              start: "top 220%",
+              toggleActions: "play none none none",
+              once: true,
+            },
+          });
+        });
+      },
     });
 
-    const paragraphs = document.querySelectorAll('[data-animate="fade-up"]');
-    paragraphs.forEach((el) => {
-      gsap.from(el, {
-        opacity: 0,
-        y: 70,
-        duration: 2,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: el,
-          start: triggerStart,
-          toggleActions: "play none none none",
-          once: true,
-        },
-      });
-    });
-
-    const imagesArray = document.querySelectorAll(
-      '[data-animate="image-fade"]'
-    );
-    imagesArray.forEach((img) => {
-      gsap.to(img, {
-        top: "100%",
-        duration: 0,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: img,
-          start: triggerStart,
-          toggleActions: "play none none none",
-          once: true,
-        },
-      });
-    });
+    ScrollTrigger.refresh();
   }, []);
 
   return (

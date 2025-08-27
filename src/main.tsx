@@ -6,9 +6,9 @@ import { LangProvider } from "./context/LangContext/LangContext";
 import React from "react";
 
 createRoot(document.getElementById("root")!).render(
-  <BrowserRouter basename={import.meta.env.BASE_URL}>
-    <LangProvider>
-      <AppRoutes />
-    </LangProvider>
-  </BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <LangProvider>
+        <AppRoutes />
+      </LangProvider>
+    </BrowserRouter>
 );

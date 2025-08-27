@@ -21,6 +21,8 @@ const mapOptions: google.maps.MapOptions = {
   rotateControl: false, // убрать управление поворотом
   mapId: "4e4c4bd27969e1db7e6be3af",
   disableDefaultUI: true,
+  minZoom: 14,
+  maxZoom: 17,
 };
 type LocationType = {
   id: string;
@@ -123,9 +125,7 @@ const Locations = () => {
     setIsDropdownOpen(false);
 
     if (mapRef.current) {
-
       mapRef.current.setZoom(14);
-
 
       mapRef.current.panTo(locations[index].position);
 
