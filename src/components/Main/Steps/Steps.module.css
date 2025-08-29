@@ -237,7 +237,7 @@
 		font-size: clamp(0.875rem, 0.732rem + 0.298vi, 1rem);
 	}
 	.steps {
-		height: 364vh;
+		height: 400vh;
 	}
 }
 

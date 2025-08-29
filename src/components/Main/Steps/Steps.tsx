@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type JSX } from "react";
+import { useLayoutEffect, useRef, useState, type JSX } from "react";
 import styles from "./Steps.module.css";
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -41,73 +41,88 @@ const Steps = () => {
   const imgWrapperRef = useRef<HTMLDivElement>(null);
   const stepsRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  useEffect(() => {
-    const createScroll = () => {
-      const wrapper = cardsWrapperRef?.current;
-      const title = titleRef.current;
-      const image = imgRef.current;
-      const imgWrapper = imgWrapperRef.current;
-      const width = window.innerWidth;
-      const steps = stepsRef.current;
-      if (!wrapper || !title || !image || !imgWrapper || !steps || width <= 768)
-        return;
+  useLayoutEffect(() => {
+    const timeoutId = setTimeout(() => {
+      const createScroll = () => {
+        const wrapper = cardsWrapperRef?.current;
+        const title = titleRef.current;
+        const image = imgRef.current;
+        const imgWrapper = imgWrapperRef.current;
+        const steps = stepsRef.current;
+        const width = window.innerWidth;
+        if (
+          !wrapper ||
+          !title ||
+          !image ||
+          !imgWrapper ||
+          !steps ||
+          width <= 768
+        )
+          return;
 
-      gsap.fromTo(
-        wrapper,
-        { yPercent: 60 },
-        {
-          yPercent: -50,
-          ease: "none",
-          scrollTrigger: {
-            trigger: steps,
-            start: "top top",
-            end: "bottom bottom",
-            scrub: true,
+        gsap.fromTo(
+          wrapper,
+          { yPercent: 60 },
+          {
+            yPercent: -50,
+            ease: "none",
+            scrollTrigger: {
+              trigger: steps,
+              start: "top center",
+              end: "bottom bottom",
+              scrub: true,
+            },
+          }
+        );
+
+        gsap.fromTo(
+          image,
+          {
+            scale: 0.41,
+            transformOrigin: "center center",
           },
-        }
-      );
+          {
+            scale: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: imgWrapper,
+              start: "top top",
+              end: "bottom bottom",
+              pin: true,
+              pinSpacing: false,
+              scrub: true,
+            },
+          }
+        );
 
-      // Второй блок: pin + масштаб imgRef
-      gsap.fromTo(
-        image,
-        {
-          scale: 0.41,
-          transformOrigin: "center center",
-        },
-        {
-          scale: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: imgWrapper,
-            start: "top top",
-            end: "bottom-=0 bottom",
-            pin: true,
-            pinSpacing: false,
-            scrub: true,
-          },
-        }
-      );
+        ScrollTrigger.create({
+          trigger: title,
+          start: "top center-=86",
+          end: "bottom bottom+=25%",
+          pin: true,
+          scrub: true,
+          pinSpacing: false,
+        });
+      };
 
-      ScrollTrigger.create({
-        trigger: title,
-        start: "top center-=86",
-        end: "bottom bottom+=25%",
-        pin: true,
-        scrub: true,
-        pinSpacing: false,
-      });
-    };
-    const handleResize = () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      const handleResize = () => {
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+        createScroll();
+      };
+
       createScroll();
-    };
-    createScroll();
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+      window.addEventListener("resize", handleResize);
+
+      // Очистка при размонтировании
+      return () => {
+        window.removeEventListener("resize", handleResize);
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      };
+    }, 400); // задержка 400 мс
+
+    return () => clearTimeout(timeoutId);
   }, []);
+
   const handleToggle = (index: number) => {
     setActiveIndex((prev) => (prev === index ? null : index));
   };

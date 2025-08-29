@@ -273,6 +273,7 @@
 
 	.horizontal_parallax {
 		height: 100%;
+		flex-direction: column;
 	}
 }
 
