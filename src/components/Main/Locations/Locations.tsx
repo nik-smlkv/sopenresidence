@@ -51,7 +51,8 @@ export const useIsMobile = (breakpoint: number = 1000): boolean => {
 
   return isMobile;
 };
-const Locations = () => {
+const 
+Locations = () => {
   const isMobile = useIsMobile(1000);
   const { t } = useLang();
   const locations: LocationType[] = [

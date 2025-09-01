@@ -1,5 +1,5 @@
 .steps {
-	height: 320vh;
+	height: 318vh;
 	background-color: var(--bg-beige);
 	padding-bottom: 158px;
 	width: 100%;
@@ -49,6 +49,12 @@
 	line-height: 100%;
 	color: var(--acc-main-green);
 	max-width: 65vw;
+}
+
+@media(min-width: 1920px) {
+	.steps__title {
+		max-width: 50vw;
+	}
 }
 
 @media(max-width: 1920px) {
@@ -236,6 +242,7 @@
 	.card__text_item {
 		font-size: clamp(0.875rem, 0.732rem + 0.298vi, 1rem);
 	}
+
 	.steps {
 		height: 400vh;
 	}

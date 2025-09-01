@@ -94,7 +94,7 @@
 	border-bottom: 1px solid var(--inpt-br);
 
 	&:not([value=""]):not(:focus)~.input_placeholder {
-		bottom: 45px;
+		bottom: 35px;
 		left: 0px;
 		font-size: 15px;
 	}
@@ -121,7 +121,7 @@
 		flex-direction: column-reverse;
 
 		&:focus-within .input_placeholder {
-			bottom: 25px;
+			bottom: 35px;
 			left: 0px;
 			font-size: 15px;
 		}
@@ -140,7 +140,6 @@
 
 	&_error {
 		display: none;
-		margin-left: 10px;
 		color: rgba(244, 28, 54, 1);
 		margin-bottom: 5px;
 		font-size: 12px;
@@ -208,7 +207,7 @@
 }
 
 .form_container {
-	gap: 20px;
+	gap: 27px;
 }
 
 
@@ -232,7 +231,7 @@
 @media(max-width: 767.99px) {
 	.input {
 		&:not([value=""]):not(:focus)~.input_placeholder {
-			bottom: 45px;
+			bottom: 35px;
 			left: 0px;
 			font-size: 12px;
 		}
@@ -245,7 +244,7 @@
 
 
 			&:focus-within .input_placeholder {
-				bottom: 25px;
+				bottom: 35px;
 				left: 0px;
 				font-size: 12px;
 			}

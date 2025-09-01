@@ -130,7 +130,7 @@ const SliderText = ({
     {
       text: `${t.sl_text_fift}`,
       walk: `10 ${t.sl_card}`,
-      meter: `${t.sl_ili} 1,5 ${t.sl_ili}`,
+      meter: `${t.sl_ili} 1,5 ${t.sl_km}`,
     },
   ];
   const customPagination = { active, total };
