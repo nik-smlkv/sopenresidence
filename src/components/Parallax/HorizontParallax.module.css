@@ -222,6 +222,8 @@
 	.parallax__card {
 		padding: 20px;
 		row-gap: 20px;
+		width: 100%;
+		max-width: 100%;
 	}
 
 	.parallax__card_img img {

@@ -8,11 +8,13 @@
 }
 
 html {
+	height: 100%;
 	line-height: 1.15;
 	-webkit-text-size-adjust: 100%;
 }
 
 body {
+	height: 100%;
 	margin: 0;
 	font-family: 'Hauora', sans-serif;
 	font-size: 16px;
@@ -22,10 +24,14 @@ body {
 	touch-action: pan-y;
 }
 
-
-main {
+#root{
+	display: flex;
 	min-height: 100%;
-	flex: 1 1 100%;
+	flex-direction: column;
+	flex: 1 1 auto;
+}
+main {
+	flex: 1 1 auto;
 }
 
 h1 {
@@ -220,9 +226,12 @@ template {
 }
 
 .wrapper {
+	min-height: 100%;
 	display: flex;
-	overflow: hidden;
 	flex-direction: column;
+	overflow: hidden;
+	flex: 1 1 auto;
+	background-color: var(--bg-beige);
 }
 
 .gm-style .gm-style-iw-c {
@@ -251,11 +260,14 @@ template {
 	display: none !important;
 }
 
-.gm-style-iw-tc {
+
+ .gm-style-iw-tc {
 	filter: none !important;
+
 }
 
 .gm-style-iw-tc::after {
+	height: 6px !important;
 	box-shadow: none !important;
 	background-color: var(--acc-light-apr-tx) !important;
 }
