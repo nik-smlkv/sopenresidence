@@ -295,7 +295,15 @@ const AboutMain = () => {
               <p data-animate="fade-up">{t.t_about_text_2}</p>
             </div>
           </div>
-          <div className={styles.about__apart_btn}>
+          <div
+            className={styles.about__apart_btn}
+            onClick={() => {
+              const target = document.getElementById("apartments-anchor");
+              if (target) {
+                target.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+          >
             <SelectApartmentBtn />
           </div>
         </div>

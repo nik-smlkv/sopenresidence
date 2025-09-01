@@ -37,7 +37,9 @@ const BurgerModal = () => {
                   { label: t.t_space_str, targetId: "space-structure" },
                 ]}
               />
-              <SelectApartmentBtn data-close />
+              <a href="/search-by-parameters">
+                <SelectApartmentBtn data-close />
+              </a>
             </div>
           </div>
           <div className={styles.burger_modal_picture}>

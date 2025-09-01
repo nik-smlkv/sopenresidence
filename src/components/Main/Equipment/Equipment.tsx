@@ -58,7 +58,15 @@ const Equipment = () => {
           </div>
           <div className={styles.equip_text_block}>
             <h2 className={styles.equip_text_block_title}>{t.t_equip_title}</h2>
-            <div className={styles.btn__block}>
+            <div
+              className={styles.btn__block}
+              onClick={() => {
+                const target = document.getElementById("apartments-anchor");
+                if (target) {
+                  target.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+            >
               <SelectApartmentBtn />
             </div>
           </div>

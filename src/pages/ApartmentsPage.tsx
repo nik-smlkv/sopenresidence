@@ -1,7 +1,12 @@
+import Footer from "../components/Footer/Footer"
+import Header from "../components/Header/Header"
 
 const ApartmentsPage = () => {
   return (
-	 <div>ApartmentsPage</div>
+		<>
+			<Header/>
+			<Footer/>
+		</>
   )
 }
 

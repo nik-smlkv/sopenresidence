@@ -57,6 +57,12 @@
 	}
 }
 
+@media(min-width: 2040px) {
+	.steps__title {
+		max-width: 35vw;
+	}
+}
+
 @media(max-width: 1920px) {
 	.steps__title {
 		font-size: clamp(1.75rem, 0.665rem + 4.133vi, 5.625rem);

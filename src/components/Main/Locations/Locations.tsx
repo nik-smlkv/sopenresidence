@@ -51,8 +51,7 @@ export const useIsMobile = (breakpoint: number = 1000): boolean => {
 
   return isMobile;
 };
-const 
-Locations = () => {
+const Locations = () => {
   const isMobile = useIsMobile(1000);
   const { t } = useLang();
   const locations: LocationType[] = [
@@ -187,7 +186,7 @@ Locations = () => {
                       onClick={() => handleClickLocation(index)}
                     >
                       <span>
-                        <img src={`${item.icon}`} alt="" />
+                        <img src={item.icon} alt="" />
                       </span>
                       {item.name}
                     </li>
@@ -226,12 +225,19 @@ Locations = () => {
                   mapRef.current = map;
                 }}
               >
-                {locations.map((loc) => (
+                {locations.map((loc, index) => (
                   <Marker
+                    
                     key={loc.id}
                     position={loc.position}
                     title={loc.name}
-                    icon={{ url: loc.icon }}
+						  
+                    icon={{
+                      url:
+                        openIndex === index
+                          ? loc.icon.replace(".svg", "-active.svg")
+                          : loc.icon,
+                    }}
                   />
                 ))}
                 {selectedLocation && (

@@ -7,11 +7,12 @@ const ApartmentView = () => {
     <section
       className={styles.apartment__view}
       data-section-id="transparent-black"
+      id="apartments-anchor"
     >
       <div className={styles.apartment__body}>
         <h2 className={styles.apartment__title}>{t.t_apart_view_title}</h2>
         <div className={styles.apartments__cards}>
-          <div className={styles.apartment__card}>
+          <a href="/search-by-parameters" className={styles.apartment__card}>
             <div className={styles.apartment_card_body}>
               <p className={styles.apartment__filter}>
                 {t.t_apart_view_filter}
@@ -107,8 +108,8 @@ const ApartmentView = () => {
                 </svg>
               </div>
             </div>
-          </div>
-          <div className={styles.apartment__card}>
+          </a>
+          <a href="/" className={styles.apartment__card}>
             <div className={styles.apartment_card_body}>
               <p className={styles.apartment__visual}>
                 {t.t_apart_view_selet_text}
@@ -144,7 +145,7 @@ const ApartmentView = () => {
                 </svg>
               </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </section>

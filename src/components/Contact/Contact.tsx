@@ -16,7 +16,7 @@ const Contact = () => {
         <span className={`contact__name_depart ${styles.contact__name}`}>
           {t.t_depart_foot}
         </span>
-        <a href="" className={`address ${styles.address}`} data-close>
+        <a href="https://clck.ru/3NwmuA" target="_blank" className={`address ${styles.address}`} data-close>
           Novogradnja Niš — Palilulska ulica 11-13 — Palilula
         </a>
       </div>

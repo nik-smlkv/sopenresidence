@@ -17,7 +17,10 @@
 }
 
 @media (hover: hover) {
-	.nav__link:hover {
+	:global(.mainHeader) .nav__link:hover {
+		color: var(--acc-light-apr);
+	}
+	.navigation__body p:hover {
 		color: var(--acc-light-apr);
 	}
 }
