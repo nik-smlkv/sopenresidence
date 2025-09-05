@@ -1,0 +1,48 @@
+.apartament__filter {
+	max-inline-size: 1920px;
+	padding: 0em 6.25em;
+	margin: 0 auto;
+	padding-top: 57px;
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+}
+
+.list ul {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+
+.apart__card {
+	background-color: #fff;
+	display: flex;
+	flex: 1 1 560px;
+	width: 100%;
+	flex-direction: column;
+	max-width: 560px;
+	padding: 30px;
+	padding-bottom: 50px;
+}
+
+.apart__card_content {
+	display: flex;
+	flex-direction: column;
+	row-gap: 22px;
+	flex: 1 1 380px;
+	height: 100%;
+	max-height: 380px;
+	justify-content: space-between;
+}
+
+.apart__card_content img {
+	flex: 0;
+}
+
+.apart__card_info {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}

@@ -1,3 +1,35 @@
-.breadcrumbs_list{
+.breadcrumbs_list {
 	display: flex;
+	gap: 5px;
+	list-style-type: none;
+}
+
+
+.breadcrumbs {
+	padding-top: 64px;
+	color: #FFFFFF80;
+	font-weight: 200;
+	letter-spacing: 0.7px;
+}
+
+
+@media((min-width: 768px) and (max-width: 1024px)) {
+	.breadcrumbs_list {
+		font-size: 15px;
+	}
+}
+
+@media(max-width: 767.99px) {
+	.breadcrumbs_list {
+		font-size: clamp(0.75rem, 0.616rem + 0.67vi, 0.938rem);
+	}
+}
+
+@media(max-width: 420px) {}
+
+@media(hover:hover) {
+	.breadcrumbs_list li a:hover {
+		text-decoration: underline;
+
+	}
 }
