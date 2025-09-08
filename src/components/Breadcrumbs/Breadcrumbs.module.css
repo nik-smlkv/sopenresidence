@@ -33,3 +33,9 @@
 
 	}
 }
+
+@media(max-width: 1920px) {
+	.breadcrumbs {
+		padding-top: clamp(2.75rem, -1rem + 4.167vi, 4rem);
+	}
+}

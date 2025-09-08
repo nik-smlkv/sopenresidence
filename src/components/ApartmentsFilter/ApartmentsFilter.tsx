@@ -1,44 +1,57 @@
-import React, { useEffect, useState } from "react";
-import { fetchExcelFromPublic, type Apartment } from "../../utils";
+import React, { useState } from "react";
+import { type Apartment } from "../../utils";
 import styles from "./ApartmentsFilter.module.css";
-const ApartmentsFilter: React.FC = () => {
-  const [apartments, setApartments] = useState<Apartment[]>([]);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchExcelFromPublic()
-      .then(setApartments)
-      .catch((err: unknown) => {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError("Произошла неизвестная ошибка");
-        }
-      });
-  }, []);
+type Props = {
+  apartments: Apartment[];
+};
 
-  if (error) return <div>Ошибка: {error}</div>;
-  if (apartments.length === 0) return <div>Загрузка...</div>;
+const ApartmentsFilter: React.FC<Props> = ({ apartments }) => {
+  const [visibleCount, setVisibleCount] = useState(9);
+
+  const handleShowMore = () => {
+    setVisibleCount((prev) => prev + 9);
+  };
+
+  const visibleApartments = apartments.slice(0, visibleCount);
+  const hasMore = visibleCount < apartments.length;
+
+  if (apartments.length === 0) {
+    return <div>Загрузка...</div>;
+  }
 
   return (
     <section className={styles.apartament__filter}>
       <div className={styles.list}>
         <ul>
-          {apartments.map((apt) => (
-            <li className={styles.apart__card}>
+          {visibleApartments.map((apt) => (
+            <li key={apt.id} className={styles.apart__card}>
               <div className={styles.apart__card_content}>
                 <div className={styles.apart__card_info}>
-                  <p className={styles.info_name}>{apt.id}</p>
-                  <div className="">
-                    <p className={styles.info_area}>{apt.area} m²</p>{" "}
+                  <p className={styles.info_name}>{`${apt.id[0]}.${apt.id.slice(
+                    1
+                  )}`}</p>
+                  <div className={styles.info__card_descr}>
+                    <p className={styles.info_area}>{apt.area} m²</p>
                     <p className={styles.info_floor}>{apt.floor} floor</p>
                   </div>
                 </div>
-                <img src="" alt="" />
+                <div className={styles.card_img_block}>
+                  <img
+                    className={styles.card_img}
+                    src={`./images/flats/${apt.id[0]}/${apt.floor} этаж/${apt.id}.jpg`}
+                    alt="Flat card"
+                  />
+                </div>
               </div>
             </li>
           ))}
         </ul>
+        {hasMore && (
+          <button className={styles.show_more_btn} onClick={handleShowMore}>
+            <span>Show more</span>
+          </button>
+        )}
       </div>
     </section>
   );
