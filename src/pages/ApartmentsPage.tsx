@@ -25,7 +25,7 @@ const ApartmentsPage = () => {
     <>
       <Header />
       <main className={styles.main}>
-        <section className={styles.intro_section}>
+        <section className={styles.intro_section}  data-section-id="transparent-black">
           <div className={styles.intro_section_container}>
             <Breadcrumbs />
             <div className={styles.intro_title_block}>

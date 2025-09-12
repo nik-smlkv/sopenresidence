@@ -30,7 +30,7 @@ export type Apartment = {
 };
 
 export async function fetchExcelFromPublic(): Promise<Apartment[]> {
-  const response = await fetch("/apartments.xlsx");
+  const response = await fetch("apartments.xlsx");
   if (!response.ok) {
     throw new Error("Не удалось загрузить Excel-файл");
   }

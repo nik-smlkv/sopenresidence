@@ -22,14 +22,20 @@ body {
 	background-color: var(--bg-beige);
 	-ms-touch-action: pan-y;
 	touch-action: pan-y;
+
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+
+
 }
 
-#root{
+#root {
 	display: flex;
 	min-height: 100%;
 	flex-direction: column;
 	flex: 1 1 auto;
 }
+
 main {
 	flex: 1 1 auto;
 }
@@ -261,7 +267,7 @@ template {
 }
 
 
- .gm-style-iw-tc {
+.gm-style-iw-tc {
 	filter: none !important;
 
 }
