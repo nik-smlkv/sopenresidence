@@ -1,23 +1,23 @@
 import { Link, useLocation } from "react-router-dom";
 import styles from "./Breadcrumbs.module.css";
-
-const breadcrumbMap: Record<string, string> = {
-  apartments: "Apartments",
-  details: "Details",
-  "search-by-parameters": "Filter by features",
-};
+import { useLang } from "../../hooks/useLang";
 
 const Breadcrumbs = () => {
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter(Boolean);
-
+  const { t } = useLang();
+  const breadcrumbMap: Record<string, string> = {
+    apartments: "Apartments",
+    details: "Details",
+    "search-by-parameters": t.t_apart_view_filter,
+  };
   return (
     <nav className={styles.breadcrumbs}>
       <ul className={styles.breadcrumbs_list}>
         <li>
-          <Link to="/">Main</Link>
+          <Link to="/">{t.t_bread_main_txt}</Link>
         </li>
-		  /
+        /
         {pathnames.map((name, index) => {
           const routeTo = "/" + pathnames.slice(0, index + 1).join("/");
           const isLast = index === pathnames.length - 1;

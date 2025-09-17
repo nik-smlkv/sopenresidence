@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { type Apartment } from "../../utils";
 import styles from "./ApartmentsFilter.module.css";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import { useLang } from "../../hooks/useLang";
+import GenPlans from "../GenPlans/GenPlans";
 type Props = {
   apartments: Apartment[];
 };
@@ -14,13 +16,10 @@ const ApartmentsFilter: React.FC<Props> = ({ apartments }) => {
   const [viewMode, setViewMode] = useState<"grid" | "floor">("grid");
   const [activeLamela, setActiveLamela] = useState<string>("All");
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState("Sorted by increasing area");
-
-  const options = [
-    "Sorted by increasing area",
-    "Sorted by increasing floor",
-    "Sorted by increasing section",
-  ];
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const { t } = useLang();
+  const [selected, setSelected] = useState(t.t_sort_area_txt);
+  const options = [t.t_sort_area_txt, t.t_sort_flor_txt, t.t_sort_sect_txt];
   useEffect(() => {
     if (apartments.length > 0) {
       const floorValues = apartments.map((apt) => apt.floor);
@@ -30,6 +29,25 @@ const ApartmentsFilter: React.FC<Props> = ({ apartments }) => {
       setAreaRange([Math.min(...areaValues), Math.max(...areaValues)]);
     }
   }, [apartments]);
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
   const floorValues = apartments.map((apt) => apt.floor);
   const minFloor = floorValues.length ? Math.min(...floorValues) : 0;
   const maxFloor = floorValues.length ? Math.max(...floorValues) : 0;
@@ -55,12 +73,37 @@ const ApartmentsFilter: React.FC<Props> = ({ apartments }) => {
   const handleViewChange = (mode: "grid" | "floor") => {
     setViewMode(mode);
   };
+  const filteredApartments = apartments
+    .filter((apt) =>
+      activeLamela === "All" ? true : apt.lamela === activeLamela
+    )
+    .filter((apt) => apt.floor >= floorRange[0] && apt.floor <= floorRange[1])
+    .filter((apt) => apt.area >= areaRange[0] && apt.area <= areaRange[1]);
+  const sortedApartments = [...filteredApartments].sort((a, b) => {
+    switch (selected) {
+      case t.t_sort_area_txt:
+        return a.area - b.area;
+      case t.t_sort_flor_txt:
+        return a.floor - b.floor;
+      case t.t_sort_sect_txt:
+        return a.lamela.localeCompare(b.lamela);
+      default:
+        return 0;
+    }
+  });
+  const handleResetFilters = () => {
+    setFloorRange([minFloor, maxFloor]);
+    setAreaRange([minArea, maxArea]);
+    setActiveLamela("All");
+    setSelected(t.t_sort_area_txt);
+    setVisibleCount(9);
+  };
 
-  const visibleApartments = apartments.slice(0, visibleCount);
-  const hasMore = visibleCount < apartments.length;
+  const visibleApartments = sortedApartments.slice(0, visibleCount);
+  const hasMore = visibleCount < sortedApartments.length;
 
   if (apartments.length === 0) {
-    return <div>Загрузка...</div>;
+    return <div></div>;
   }
 
   return (
@@ -74,7 +117,7 @@ const ApartmentsFilter: React.FC<Props> = ({ apartments }) => {
               }`}
               onClick={() => handleViewChange("grid")}
             >
-              Grid view
+              {t.t_grid_view_txt}
             </li>
             <li
               className={`${styles.view_item_floor} ${
@@ -82,13 +125,13 @@ const ApartmentsFilter: React.FC<Props> = ({ apartments }) => {
               }`}
               onClick={() => handleViewChange("floor")}
             >
-              Floor plan
+              {t.t_flor_plan_txt}
             </li>
           </ul>
         </div>
         <div className={styles.apartments_filter_content}>
           <div className={styles.apartment_section}>
-            <label className={styles.apartment_label}>Section</label>
+            <label className={styles.apartment_label}>{t.t_lam_txt}</label>
             <ul className={styles.apartmet_section_list}>
               <li
                 className={activeLamela === "All" ? "active" : ""}
@@ -109,7 +152,7 @@ const ApartmentsFilter: React.FC<Props> = ({ apartments }) => {
           </div>
           <div className={styles.apartment_floor}>
             <div className={styles.apartment_label_block}>
-              <label className={styles.apartment_label}>Floor</label>
+              <label className={styles.apartment_label}>{t.t_flor_txt}</label>
               <p>
                 {floorRange[0]} — {floorRange[1]}
               </p>
@@ -126,7 +169,7 @@ const ApartmentsFilter: React.FC<Props> = ({ apartments }) => {
           </div>
           <div className={styles.apartment_area}>
             <div className={styles.apartment_label_block}>
-              <label className={styles.apartment_label}>Area</label>
+              <label className={styles.apartment_label}>{t.t_area_txt}</label>
               <p>
                 {areaRange[0]} — {areaRange[1]} m²
               </p>
@@ -141,7 +184,7 @@ const ApartmentsFilter: React.FC<Props> = ({ apartments }) => {
               className="floor-slider"
             />
           </div>
-          <button className={styles.filter_reset}>
+          <button className={styles.filter_reset} onClick={handleResetFilters}>
             <svg
               width="20"
               height="20"
@@ -157,74 +200,91 @@ const ApartmentsFilter: React.FC<Props> = ({ apartments }) => {
                 stroke-linejoin="round"
               />
             </svg>
-            <span className={styles.reset_span_txt}>Reset</span>
+            <span className={styles.reset_span_txt}>{t.t_reset_txt}</span>
           </button>
         </div>
       </div>
       <div className={styles.apartmets_list_block}>
-        <div className={styles.dropdown}>
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className={styles.dropdownToggle}
-          >
-            {selected}
-          </button>
-          <div className={styles.sort_list_block}>
-            <ul
-              className={`${styles.dropdownMenu} ${isOpen ? styles.open : ""}`}
-            >
-              {options.map((option) => (
-                <li key={option} onClick={() => handleSelect(option)}>
-                  {option}
-                </li>
-              ))}
-            </ul>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="12"
-              height="8"
-              viewBox="0 0 12 8"
-              fill="none"
-            >
-              <path
-                d="M0.890625 1.51389L6.00174 6.625L11.1128 1.51389"
-                stroke="#1C2F24"
-                stroke-linecap="round"
-              />
-            </svg>
-          </div>
-        </div>
-        <div className={styles.list}>
-          <ul>
-            {visibleApartments.map((apt) => (
-              <li key={apt.id} className={styles.apart__card}>
-                <div className={styles.apart__card_content}>
-                  <div className={styles.apart__card_info}>
-                    <p className={styles.info_name}>{`${
-                      apt.id[0]
-                    }.${apt.id.slice(1)}`}</p>
-                    <div className={styles.info__card_descr}>
-                      <p className={styles.info_area}>{apt.area} m²</p>
-                      <p className={styles.info_floor}>{apt.floor} floor</p>
+        {viewMode === "grid" ? (
+          <>
+            <div className={styles.dropdown} ref={dropdownRef}>
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className={styles.dropdownToggle}
+              >
+                {selected}
+              </button>
+              <div
+                className={`${styles.sort_list_block} ${
+                  isOpen ? styles.open : ""
+                } `}
+              >
+                <ul
+                  className={`${styles.dropdownMenu} ${
+                    isOpen ? styles.open : ""
+                  }`}
+                >
+                  {options.map((option) => (
+                    <li key={option} onClick={() => handleSelect(option)}>
+                      {option}
+                    </li>
+                  ))}
+                </ul>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="12"
+                  height="8"
+                  viewBox="0 0 12 8"
+                  fill="none"
+                >
+                  <path
+                    d="M0.890625 1.51389L6.00174 6.625L11.1128 1.51389"
+                    stroke="#1C2F24"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div className={styles.list}>
+              <ul>
+                {visibleApartments.map((apt) => (
+                  <li key={apt.id} className={styles.apart__card}>
+                    <div className={styles.apart__card_content}>
+                      <div className={styles.apart__card_info}>
+                        <p className={styles.info_name}>{`${
+                          apt.id[0]
+                        }.${apt.id.slice(1)}`}</p>
+                        <div className={styles.info__card_descr}>
+                          <p className={styles.info_area}>{apt.area} m²</p>
+                          <p className={styles.info_floor}>
+                            {apt.floor} {t.t_flor_txt}
+                          </p>
+                        </div>
+                      </div>
+                      <div className={styles.card_img_block}>
+                        <img
+                          className={styles.card_img}
+                          src={`./images/flats/${apt.id[0]}/${apt.floor} этаж/${apt.id}.jpg`}
+                          alt="Flat card"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className={styles.card_img_block}>
-                    <img
-                      className={styles.card_img}
-                      src={`./images/flats/${apt.id[0]}/${apt.floor} этаж/${apt.id}.jpg`}
-                      alt="Flat card"
-                    />
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-          {hasMore && (
-            <button className={styles.show_more_btn} onClick={handleShowMore}>
-              <span>Show more</span>
-            </button>
-          )}
-        </div>
+                  </li>
+                ))}
+              </ul>
+              {hasMore && (
+                <button
+                  className={styles.show_more_btn}
+                  onClick={handleShowMore}
+                >
+                  <span>{t.t_show_more_txt}</span>
+                </button>
+              )}
+            </div>
+          </>
+        ) : (
+          <GenPlans />
+        )}
       </div>
     </section>
   );

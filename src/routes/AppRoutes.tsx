@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import ApartmentsPage from "../pages/ApartmentsPage";
 import MaintenancePage from "../pages/MaintenancePage";
+import VisualApartments from "../components/VisualApartments/VisualApartments";
 
 const AppRoutes = () => {
   const isTechWork = false;
@@ -13,6 +14,10 @@ const AppRoutes = () => {
           element={isTechWork ? <MaintenancePage /> : <HomePage />}
         />
         <Route path="/search-by-parameters" element={<ApartmentsPage />} />
+        <Route
+          path="/visual-selectional-of-apartments"
+          element={<VisualApartments />}
+        />
       </Routes>
     </div>
   );

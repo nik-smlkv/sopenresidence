@@ -193,7 +193,7 @@ const Header = () => {
                   <ul>
                     <li>
                       <a href="/search-by-parameters" className={styles.link}>
-                        Filter by features{" "}
+                        {t.t_apart_view_filter}
                         <span className={styles.list__arrow}>
                           <svg
                             width="30"
@@ -212,8 +212,11 @@ const Header = () => {
                       </a>
                     </li>
                     <li>
-                      <a href="" className={styles.link}>
-                        Visual selectional of apartments{" "}
+                      <a
+                        href="/visual-selectional-of-apartments"
+                        className={styles.link}
+                      >
+                        {t.t_apart_view_selet_text}
                         <span className={styles.list__arrow}>
                           <svg
                             width="30"

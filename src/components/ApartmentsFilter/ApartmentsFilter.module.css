@@ -58,6 +58,7 @@
 .info_name {
 	font-size: 24px;
 	text-transform: uppercase;
+	align-self: start;
 	font-weight: 400;
 }
 
@@ -67,6 +68,7 @@
 }
 
 .info_floor {
+	text-transform: lowercase;
 	font-size: 16px;
 	font-weight: 400;
 }
@@ -173,12 +175,46 @@
 	align-items: center;
 	justify-content: center;
 	column-gap: 6px;
+	position: relative;
+	overflow: hidden;
 	padding: 12px 22px;
 	border-radius: 30px;
 	color: var(--acc-main-green);
 	outline: 1px solid var(--acc-main-green);
 	cursor: pointer;
 }
+
+.filter_reset svg {
+	position: relative;
+	z-index: 2;
+}
+
+.filter_reset svg path {
+	transition: stroke .5s ease;
+}
+
+.reset_span_txt {
+	transition: color .3s ease;
+	position: relative;
+	z-index: 2;
+}
+
+.filter_reset::after {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: 1;
+	width: 0;
+	height: 0;
+	top: 50%;
+	left: 50%;
+	border-radius: 100%;
+	background-color: var(--acc-main-green-btn);
+	transform: translate(-50%, -50%);
+	transition: width .4s ease, height .6s ease;
+}
+
+
 
 .filter_reset span {
 	font-weight: 500;
@@ -355,7 +391,7 @@
 	column-gap: 8px;
 	align-self: start;
 	width: 100%;
-	max-width: 250px;
+	max-width: 280px;
 }
 
 .dropdownToggle {
@@ -369,6 +405,14 @@
 	display: flex;
 	align-items: center;
 	flex-direction: row;
+}
+
+.sort_list_block svg {
+	transition: transform .5s ease;
+}
+
+.sort_list_block.open svg {
+	transform: rotate(180deg);
 }
 
 .dropdownMenu {
@@ -427,6 +471,25 @@
 
 	.show_more_btn:hover {
 		border: 1px solid var(--acc-main-green);
+	}
+
+	.filter_reset:hover::after {
+		width: 200%;
+		height: 250%;
+		transition: width 1s ease, height .5s ease;
+	}
+
+	.filter_reset:hover .reset_span_txt {
+		color: var(--tx-wh);
+		transition: color .5s ease;
+	}
+
+	.filter_reset:hover svg path {
+		stroke: var(--tx-wh);
+	}
+
+	.filter_reset:hover {
+		outline: 1px solid var(--acc-main-green);
 	}
 
 	.apartmet_section_list li:hover {
@@ -524,9 +587,9 @@
 		display: block;
 
 	}
-	.card_img{
-		
-	}
+
+	.card_img {}
+
 	.apartmets_list_block {
 		row-gap: clamp(1rem, 0.504rem + 2.336vi, 1.625rem);
 	}

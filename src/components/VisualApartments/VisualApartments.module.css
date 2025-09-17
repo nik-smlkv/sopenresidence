@@ -1,0 +1,54 @@
+.intro_section_container {
+	position: absolute;
+	display: none;
+}
+
+.intro_section_container {
+	position: absolute;
+	display: none;
+}
+
+
+.svgWrapper {
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	margin: 0 auto;
+}
+
+.plan_img {
+	position: relative;
+}
+
+.plan_img img {
+	width: 100vw;
+	min-width: auto;
+	height: 100vh;
+	max-height: 100vh;
+	object-fit: cover;
+	object-position: 50% 45%;
+	display: block;
+}
+
+
+.svgImage {
+	width: 100vw;
+	min-width: 100vw;
+	height: auto;
+	max-height: auto;
+	margin: 0 auto;
+	position: absolute;
+	left: 0;
+	top: -2%;
+}
+
+.plan_floor_click {
+	cursor: pointer;
+}
+
+@media(hover:hover) {
+	:global(.plan_floor_click):hover {
+		opacity: 0.6;
+	}
+}
