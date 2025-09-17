@@ -1,54 +1,59 @@
-.intro_section_container {
-	position: absolute;
-	display: none;
+.visual_floor_section {
+  position: relative;
 }
-
-.intro_section_container {
-	position: absolute;
-	display: none;
+.visual_floor_section_container {
+  display: flex;
+  width: 100%;
+  height: auto;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 64px;
+  z-index: 2;
+  left: 0;
 }
-
 
 .svgWrapper {
-	position: relative;
-	width: 100vw;
-	height: 100vh;
-	overflow: hidden;
-	margin: 0 auto;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0 auto;
 }
 
 .plan_img {
-	position: relative;
+  position: relative;
 }
 
 .plan_img img {
-	width: 100vw;
-	min-width: auto;
-	height: 100vh;
-	max-height: 100vh;
-	object-fit: cover;
-	object-position: 50% 45%;
-	display: block;
+  width: 100vw;
+  min-width: auto;
+  height: 100vh;
+  max-height: 100vh;
+  object-fit: cover;
+  object-position: 50% 45%;
+  display: block;
+  user-select: none;
 }
 
-
 .svgImage {
-	width: 100vw;
-	min-width: 100vw;
-	height: auto;
-	max-height: auto;
-	margin: 0 auto;
-	position: absolute;
-	left: 0;
-	top: -2%;
+  width: 100vw;
+  min-width: 100vw;
+  height: auto;
+  max-height: auto;
+  margin: 0 auto;
+  position: absolute;
+  left: 0;
+  user-select: none;
+  top: -2%;
 }
 
 .plan_floor_click {
-	cursor: pointer;
+  cursor: pointer;
 }
 
-@media(hover:hover) {
-	:global(.plan_floor_click):hover {
-		opacity: 0.6;
-	}
+@media (hover: hover) {
+  :global(.plan_floor_click):hover {
+    opacity: 0.6;
+  }
 }

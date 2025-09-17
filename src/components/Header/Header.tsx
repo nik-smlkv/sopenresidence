@@ -55,6 +55,7 @@ const Header = () => {
       "dark-green": "#1C2F24",
       light: "#FAF7F2",
       "transparent-black": "#00000033",
+      "transparent": "transparent",
     };
 
     const observer = new IntersectionObserver(
