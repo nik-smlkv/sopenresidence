@@ -287,8 +287,6 @@ template {
 }
 
 
-
-
 @media (min-width: 1024px) and (max-width: 1439px) {
 	.section_name {
 		font-size: clamp(1rem, 0.69rem + 0.48vw, 1.13rem);

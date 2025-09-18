@@ -5,7 +5,7 @@ import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import Request from "../components/Main/Request/Request";
 import styles from "./Apartments.module.css";
-import { fetchExcelFromPublic, type Apartment } from "../utils";
+import { fetchExcelFromPublic, type Apartment } from "../utils/utils";
 import { useLang } from "../hooks/useLang";
 const ApartmentsPage = () => {
   const [apartments, setApartments] = useState<Apartment[]>([]);

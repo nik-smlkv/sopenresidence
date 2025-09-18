@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "../Header/Header";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import styles from "./VisualApartments.module.css";
-import { fetchExcelFromPublic, type Apartment } from "../../utils";
+import { fetchExcelFromPublic, type Apartment } from "../../utils/utils";
 import { useLang } from "../../hooks/useLang";
 import VisualTooltip from "../VisualTooltip/VisualTooltip";
 import { floorPaths } from "./floorPaths";

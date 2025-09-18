@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { type Apartment } from "../../utils";
+import { type Apartment } from "../../utils/utils";
 import styles from "./ApartmentsFilter.module.css";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
