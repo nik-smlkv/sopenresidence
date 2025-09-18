@@ -10,9 +10,10 @@ const Breadcrumbs = () => {
     apartments: "Apartments",
     details: "Details",
     "search-by-parameters": t.t_apart_view_filter,
+    "visual-selectional-of-apartments": "Visual Selectional Of Apartments",
   };
   return (
-    <nav className={styles.breadcrumbs}>
+    <nav className={`${styles.breadcrumbs} breadcrumbs_section`}>
       <ul className={styles.breadcrumbs_list}>
         <li>
           <Link to="/">{t.t_bread_main_txt}</Link>

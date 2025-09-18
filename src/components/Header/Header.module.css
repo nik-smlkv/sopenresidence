@@ -120,6 +120,8 @@
 	background-color: var(--acc-main-green-btn);
 }
 
+
+
 header:global(.changed) .header__body .logo svg path {
 	transition: all .8s ease;
 	fill: var(--acc-main-green);

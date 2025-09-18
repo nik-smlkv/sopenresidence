@@ -1,59 +1,172 @@
 .visual_floor_section {
-  position: relative;
+	position: relative;
 }
+
 .visual_floor_section_container {
-  display: flex;
-  width: 100%;
-  height: auto;
-  justify-content: space-between;
-  align-items: center;
-  position: absolute;
-  top: 64px;
-  z-index: 2;
-  left: 0;
+	display: flex;
+	width: 100%;
+	height: auto;
+	justify-content: space-between;
+	align-items: center;
+	position: absolute;
+	margin: 0 auto;
+	width: 100%;
+	top: 150px;
+	z-index: 2;
+	left: 0;
+}
+
+.visual__body {
+	max-inline-size: 1920px;
+	padding: 0em 6.25em 0;
+	display: flex;
+	justify-content: space-between;
+	margin: 0 auto;
+	width: 100%;
+}
+
+.visual_tooltip {
+	background-color: var(--bg-beige);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	column-gap: 80px;
+	width: 100%;
+}
+
+.tooltip_floor {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	align-items: center;
+	justify-content: center;
+}
+
+.tooltip_floor::after {
+	content: '';
+	position: absolute;
+	width: 2px;
+	right: -40px;
+	height: 100%;
+	background-color: var(--tx-gray);
+}
+
+.tooltip_floor_num {
+	font-size: 68px;
+	font-weight: 400;
+	color: var(--acc-main-green-btn);
+}
+
+.tooltip_floor_txt {
+	text-transform: uppercase;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 120%;
+	color: var(--acc-main-green-btn);
+}
+
+.visual_tooltip_count_apt {
+	color: var(--tx-bl);
+	font-size: 20px;
+	font-weight: 600;
+	text-transform: uppercase;
+	line-height: 120%;
+}
+
+.visual_tooltip_area_meter {
+	display: flex;
+	font-size: 16px;
+	font-weight: 500;
+	text-transform: uppercase;
+}
+
+
+.visual_info_block {
+	display: flex;
+	row-gap: 6px;
+	flex-direction: column;
 }
 
 .svgWrapper {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  margin: 0 auto;
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	margin: 0 auto;
+}
+
+.svgImage path {
+	cursor: pointer;
 }
 
 .plan_img {
-  position: relative;
+	position: relative;
 }
 
 .plan_img img {
-  width: 100vw;
-  min-width: auto;
-  height: 100vh;
-  max-height: 100vh;
-  object-fit: cover;
-  object-position: 50% 45%;
-  display: block;
-  user-select: none;
+	width: 100vw;
+	min-width: auto;
+	height: 100vh;
+	max-height: 100vh;
+	object-fit: cover;
+	object-position: 50% 45%;
+	display: block;
+	user-select: none;
 }
 
 .svgImage {
-  width: 100vw;
-  min-width: 100vw;
-  height: auto;
-  max-height: auto;
-  margin: 0 auto;
-  position: absolute;
-  left: 0;
-  user-select: none;
-  top: -2%;
+	width: 100vw;
+	min-width: 100vw;
+	height: auto;
+	max-height: auto;
+	margin: 0 auto;
+	position: absolute;
+	z-index: 2;
+	left: 0;
+	user-select: none;
+	top: -2%;
 }
 
 .plan_floor_click {
-  cursor: pointer;
+	cursor: pointer;
+}
+
+.apart_info_txt {
+	color: var(--tx-wh);
+	font-family: 'Hauora', sans-serif;
+	font-size: 22px;
+	line-height: 110%;
+}
+
+.visual_title_block {
+	display: flex;
+	column-gap: 10px;
+	justify-content: center;
+}
+
+.visual_title {
+	font-size: 140px;
+	font-weight: 400;
+	font-family: 'Celine Sans', sans-serif;
+	line-height: 100%;
+	color: var(--tx-wh);
+	text-transform: uppercase;
+}
+
+.visual_floor_section_container :global(.breadcrumbs_section) {
+	padding-top: 0;
+	align-self: start;
 }
 
 @media (hover: hover) {
-  :global(.plan_floor_click):hover {
-    opacity: 0.6;
-  }
+	:global(.plan_floor_click):hover {
+		opacity: 0.6;
+	}
+}
+
+
+.visual_floor__body {
+	display: flex;
+	justify-content: space-between;
+
 }
