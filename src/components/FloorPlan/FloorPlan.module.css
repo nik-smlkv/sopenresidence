@@ -10,6 +10,7 @@
 	padding: 0em 6.25em;
 	padding-top: 150px;
 	margin: 0 auto;
+	row-gap: 60px;
 }
 
 .plan_info_content {
@@ -50,6 +51,29 @@
 
 .grid_view_btn svg path {
 	transition: stroke .3s ease;
+}
+
+.floor_info_block {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 280px;
+	flex: 1 1 280px;
+	row-gap: 60px;
+	border-right: 1px solid var(--tx-gray);
+}
+
+.floor_list_block {
+	display: flex;
+	flex-direction: column;
+	row-gap: 20px;
+
+}
+
+.section_list_label,
+.floor_list_label {
+	font-size: 18px;
+	text-transform: uppercase;
 }
 
 .floor_title {

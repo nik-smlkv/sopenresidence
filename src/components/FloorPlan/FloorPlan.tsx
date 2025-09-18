@@ -21,7 +21,7 @@ const FloorPlan = () => {
           </div>
           <div className={styles.floor_info_block}>
             <div className={styles.floor_list_block}>
-              <span>Floor</span>
+              <span className={styles.floor_list_label}>Floor</span>
               <div className={styles.floor_list}>
                 <span></span>
                 <ul>
@@ -32,7 +32,7 @@ const FloorPlan = () => {
             </div>
             <div className={styles.section_block}>
               <div className={styles.section_content}>
-                <span>Lamela</span>
+                <span className={styles.section_list_label}>Lamela</span>
               </div>
             </div>
           </div>
