@@ -32,6 +32,8 @@
 	align-items: center;
 	column-gap: 80px;
 	width: 100%;
+	max-width: 420px;
+	padding: 0px 54px;
 }
 
 .tooltip_floor {
@@ -129,7 +131,10 @@
 
 .plan_floor_click {
 	cursor: pointer;
+
 }
+
+
 
 .apart_info_txt {
 	color: var(--tx-wh);

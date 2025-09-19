@@ -80,6 +80,32 @@
 	stroke: #1D1D1D50;
 }
 
+:global(.st0) {
+	opacity: 0;
+	fill: var(--acc-light-apr);
+	transition: opacity .3s ease;
+	position: relative;
+}
+
+:global(.svg-label) {
+	font-size: 32px;
+	fill: white;
+	width: 40px;
+	height: 40px;
+	position: relative;
+	z-index: 1;
+	font-weight: 300;
+	text-anchor: middle;
+	dominant-baseline: central;
+	pointer-events: none;
+	position: absolute;
+}
+
+
+:global(.st0):hover {
+	opacity: .3;
+}
+
 .floor_plan_body {
 	display: flex;
 	justify-content: space-between;
@@ -227,6 +253,103 @@
 	transform: translate(-50%, -50%);
 	transition: width .4s ease, height .6s ease;
 
+}
+
+
+.floor_plan_dus_str,
+.floor_plan_mokr_str,
+.floor_plan_ztsk_str {
+	font-size: 16px;
+	color: #1D1D1D50;
+	font-weight: 400;
+	position: absolute;
+	width: auto;
+	height: auto;
+}
+
+.floor_plan_dus_str {
+	top: 9%;
+	left: 50%;
+}
+
+.floor_plan_mokr_str {
+	top: 50%;
+	left: -8%;
+	transform: rotate(-90deg);
+}
+
+.floor_plan_ztsk_str {
+	bottom: -7%;
+	left: 50%;
+}
+
+.visual_tooltip {
+	background-color: var(--acc-main-green);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	column-gap: 60px;
+	width: 100%;
+	max-width: 360px;
+	padding: 0px 54px;
+}
+
+.tooltip_floor {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	align-items: center;
+	justify-content: center;
+}
+
+.tooltip_floor::after {
+	content: '';
+	position: absolute;
+	width: 2px;
+	right: -40px;
+	height: 100%;
+	background-color: var(--tx-gray);
+}
+
+.tooltip_floor_num {
+	font-size: 60px;
+	font-weight: 400;
+	color: white
+}
+
+.tooltip_floor_txt {
+	text-transform: uppercase;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 120%;
+	color: white
+}
+
+.visual_tooltip_count_apt {
+	color: var(--tx-bl);
+	font-size: 20px;
+	font-weight: 600;
+	text-transform: uppercase;
+	line-height: 120%;
+}
+
+.visual_tooltip_area_meter {
+	display: flex;
+	font-size: 20px;
+	font-weight: 400;
+
+	width: 90px;
+	text-transform: uppercase;
+	color: var(--tx-wh);
+}
+
+
+.visual_info_block {
+	display: flex;
+	row-gap: 6px;
+	width: 100%;
+	max-width: 100px;
+	flex-direction: column;
 }
 
 

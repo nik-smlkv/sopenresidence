@@ -70,7 +70,7 @@ const VisualApartments = () => {
     const { count, minArea, maxArea } = getFloorStats(floor);
     setTooltip({
       visible: true,
-      x: rect.right + 8,
+      x: rect.right - 231,
       y: rect.top,
       content: (
         <div className={styles.visual_tooltip}>
@@ -133,8 +133,8 @@ const VisualApartments = () => {
             </picture>
             <svg
               width="1920"
-              height="1080"
-              viewBox="0 0 1920 1080"
+              height="1654"
+              viewBox="0 0 1920 1654"
               fill="none"
               className={styles.svgImage}
               xmlns="http://www.w3.org/2000/svg"
@@ -145,7 +145,7 @@ const VisualApartments = () => {
                   key={index}
                   d={d}
                   fill="#FFD9C3"
-                  opacity="0"
+                 
                   className="plan_floor_click"
                   data-floor={floor}
                   onMouseEnter={handleMouseEnter}

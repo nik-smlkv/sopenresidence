@@ -1,16 +1,20 @@
 .tooltip {
 	position: absolute;
-	width: 100%;
+	width: auto;
 	height: 100%;
-	max-width: 420px;
 	z-index: 2;
 	max-height: 178px;
-	padding: 0px 54px;
+
+	pointer-events: none;
 	background-color: var(--bg-beige);
 	display: flex;
+	  opacity: 0;
 	color: var(--acc-main-green-btn);
+	transition: opacity 0.2s ease, transform 0.2s ease;
 }
-
+.tooltip.tooltipVisible{
+	opacity: 1;
+}
 .tooltip::before {
 	content: '';
 	width: 10px;

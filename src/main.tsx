@@ -7,11 +7,11 @@ import React from "react";
 import { ApartmentsProvider } from "./context/ApartmentsContext";
 
 createRoot(document.getElementById("root")!).render(
-  <BrowserRouter basename={import.meta.env.BASE_URL}>
-    <LangProvider>
-      <ApartmentsProvider>
+  <ApartmentsProvider>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <LangProvider>
         <AppRoutes />
-      </ApartmentsProvider>
-    </LangProvider>
-  </BrowserRouter>
+      </LangProvider>
+    </BrowserRouter>
+  </ApartmentsProvider>
 );
