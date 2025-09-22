@@ -139,7 +139,14 @@
 	transition: color .7s ease;
 }
 
-.show_more_btn::after {
+.view_item_floor span {
+	position: relative;
+	transition: color .5s ease;
+	z-index: 2;
+}
+
+.show_more_btn::after,
+.view_item_floor::after {
 	content: "";
 	display: block;
 	position: absolute;
@@ -293,9 +300,21 @@
 }
 
 .view_item_floor {
-	flex: 1 1 165px;
+
 	width: 100%;
-	max-width: 165px;
+	text-transform: uppercase;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	column-gap: 6px;
+	position: relative;
+	overflow: hidden;
+	padding: 12px 22px;
+	border-radius: 30px;
+	color: var(--acc-main-green);
+	outline: 1px solid var(--acc-main-green);
+	cursor: pointer;
 }
 
 .view_item_grid::after {
@@ -309,20 +328,6 @@
 	background-color: var(--acc-main-green-btn);
 	border-top-left-radius: 30px;
 	border-bottom-left-radius: 30px;
-	transition: width .5s ease;
-}
-
-.view_item_floor::after {
-	content: '';
-	width: 0%;
-	position: absolute;
-	z-index: -1;
-	top: 0;
-	left: 0;
-	height: 100%;
-	background-color: var(--acc-main-green-btn);
-	border-top-right-radius: 30px;
-	border-bottom-right-radius: 30px;
 	transition: width .5s ease;
 }
 
@@ -464,7 +469,8 @@
 		transition: width 1s ease, height .5s ease;
 	}
 
-	.show_more_btn:hover span {
+	.show_more_btn:hover span,
+	.view_item_floor:hover span {
 		color: var(--tx-wh);
 		transition: color .5s ease;
 	}
@@ -473,7 +479,8 @@
 		border: 1px solid var(--acc-main-green);
 	}
 
-	.filter_reset:hover::after {
+	.filter_reset:hover::after,
+	.view_item_floor:hover::after {
 		width: 200%;
 		height: 250%;
 		transition: width 1s ease, height .5s ease;

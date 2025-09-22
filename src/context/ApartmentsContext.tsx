@@ -5,12 +5,14 @@ interface ApartmentsContextType {
   apartments: Apartment[];
   loading: boolean;
   error: string | null;
+  getByFloor: (floor: number) => Apartment[];
 }
 
 const ApartmentsContext = createContext<ApartmentsContextType>({
   apartments: [],
   loading: true,
   error: null,
+  getByFloor: () => [],
 });
 
 export const useApartments = () => useContext(ApartmentsContext);
@@ -34,8 +36,13 @@ export const ApartmentsProvider: React.FC<{ children: React.ReactNode }> = ({
       });
   }, []);
 
+  const getByFloor = (floor: number) =>
+    apartments.filter((apt) => apt.floor === floor);
+
   return (
-    <ApartmentsContext.Provider value={{ apartments, loading, error }}>
+    <ApartmentsContext.Provider
+      value={{ apartments, loading, error, getByFloor }}
+    >
       {children}
     </ApartmentsContext.Provider>
   );

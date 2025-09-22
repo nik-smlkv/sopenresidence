@@ -291,6 +291,7 @@ Flexible income assessment. To determine your creditworthiness, API Bank accepts
     t_grid_view_txt: `Mrežni prikaz`,
   },
   ru: {
+    t_filter_param_txt: `Filter by features`,
     t_bread_main_txt: `Main`,
     t_sort_area_txt: `Sorted by increasing area`,
     t_sort_flor_txt: `Sorted by increasing floor`,

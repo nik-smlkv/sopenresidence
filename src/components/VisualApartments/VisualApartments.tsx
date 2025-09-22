@@ -3,7 +3,7 @@ import Header from "../Header/Header";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import styles from "./VisualApartments.module.css";
 import { fetchExcelFromPublic, type Apartment } from "../../utils/utils";
-import { useLang } from "../../hooks/useLang";
+ 
 import VisualTooltip from "../VisualTooltip/VisualTooltip";
 import { floorPaths } from "./floorPaths";
 import FloorPlan from "../FloorPlan/FloorPlan";
@@ -20,10 +20,10 @@ const VisualApartments = () => {
     y: 0,
     content: null,
   });
-  const [selectedFloor, setSelectedFloor] = useState<number | null>(null);
+  const [selectedFloor] = useState<number | null>(null);
   const [apartments, setApartments] = useState<Apartment[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const { t } = useLang();
+ 
   const navigate = useNavigate();
 
   const handleFloorClick = (e: React.MouseEvent<SVGPathElement>) => {
@@ -45,7 +45,7 @@ const VisualApartments = () => {
         }
       });
   }, []);
-
+  console.log(error);
   const handleMouseLeave = () => {
     setTooltip({ visible: false, x: 0, y: 0, content: null });
   };
@@ -109,44 +109,22 @@ const VisualApartments = () => {
             </div>
           </div>
           <div className={styles.svgWrapper}>
-            <picture className={styles.plan_img}>
-              <source
-                srcSet="./images/2026-1117.jpg"
-                media="(max-width: 767px)"
-                type="image/jpeg"
-              />
-              <source
-                srcSet="./images/2400-1323.jpg"
-                media="(min-width: 768px) and (max-width: 1279px)"
-                type="image/jpeg"
-              />
-              <source
-                srcSet="./images/3000-1654.jpg"
-                media="(min-width: 1280px)"
-                type="image/jpeg"
-              />
-              <img
-                src="./images/3000-1654.jpg"
-                alt="Responsive background"
-                className="responsiveImage"
-              />
-            </picture>
+            <img src="./images/bg-apart.jpg" className={styles.plan_img} />
+
             <svg
               width="1920"
-              height="1654"
-              viewBox="0 0 1920 1654"
-              fill="none"
+              height="1124"
+              viewBox="0 0 1920 1124"
+              preserveAspectRatio="xMidYMid slice"
               className={styles.svgImage}
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
             >
               {floorPaths.map(({ floor, d }, index) => (
                 <path
                   key={index}
                   d={d}
                   fill="#FFD9C3"
-                 
                   className="plan_floor_click"
+                  opacity="0"
                   data-floor={floor}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}

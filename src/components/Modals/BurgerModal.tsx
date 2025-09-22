@@ -43,7 +43,7 @@ const BurgerModal = () => {
             </div>
           </div>
           <div className={styles.burger_modal_picture}>
-            <img src="./images/modal-image.jpg" alt="Modal Image" />
+            <img src="/images/modal-image.jpg" alt="Modal Image" />
           </div>
         </div>
         <div className={styles.burger_modal_block}>

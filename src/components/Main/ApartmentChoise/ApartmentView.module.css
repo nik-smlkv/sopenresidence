@@ -54,7 +54,7 @@
 
 @media(max-width: 1440px) {
 	.apartment__render {
-		width: 31.5vw;
+		width: 26.5vw;
 	}
 }
 
@@ -216,6 +216,11 @@
 
 }
 
+@media(max-width: 1024px) {
+ 
+ 
+}
+
 @media (min-width: 1024px) and (max-width: 1439px) {
 	.apartment__body {
 		padding: clamp(2.5em, calc(9.6vw - 7em), 5em);
@@ -349,9 +354,11 @@
 		align-items: end;
 		column-gap: 4px;
 	}
+
 	.apartment__title {
 		max-width: 225px;
 	}
+
 	.apartment__filter,
 	.apartment__visual {
 		font-size: 1.125rem;

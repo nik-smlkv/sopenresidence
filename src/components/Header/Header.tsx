@@ -98,7 +98,7 @@ const Header = () => {
     <>
       {isProduct ? (
         <header className={styles.maintanceHeader}>
-          <a href="/">
+          <a href="/sopenresidence">
             <img className={styles.logo} src="/logo.svg" alt="logo" />
           </a>
           <div className={styles.langSwitcher_maintance}>
@@ -120,7 +120,7 @@ const Header = () => {
               burgerModal.isOpen ? "active" : ""
             }`}
           >
-            <a href="/">
+            <a href="/sopenresidence">
               <div
                 className={styles.logo}
                 onClick={() => {
@@ -193,7 +193,7 @@ const Header = () => {
                   </svg>
                   <ul>
                     <li>
-                      <a href="/search-by-parameters" className={styles.link}>
+                      <a href="/sopenresidence/search-by-parameters" className={styles.link}>
                         {t.t_apart_view_filter}
                         <span className={styles.list__arrow}>
                           <svg
@@ -212,9 +212,9 @@ const Header = () => {
                         </span>
                       </a>
                     </li>
-                    <li>
+                    <li className={styles.visual_hidden}>
                       <a
-                        href="/visual-selectional-of-apartments"
+                        href="/sopenresidence/visual-selectional-of-apartments"
                         className={styles.link}
                       >
                         {t.t_apart_view_selet_text}

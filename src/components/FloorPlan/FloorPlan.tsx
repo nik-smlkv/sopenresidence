@@ -5,13 +5,17 @@ import Header from "../Header/Header";
 import { useParams, useNavigate } from "react-router-dom";
 import { useApartments } from "../../context/ApartmentsContext";
 import VisualTooltip from "../VisualTooltip/VisualTooltip";
+import ApartmentModal from "../ApartmentModal/ApartmentModal";
+import Request from "../Main/Request/Request";
 
 const FloorPlan = () => {
   const { floorId } = useParams();
-  const { apartments, loading, error } = useApartments();
-  const navigate = useNavigate();
-
   const selectedFloor = parseInt(floorId || "0", 10);
+  const { apartments } = useApartments();
+
+  const navigate = useNavigate();
+  const [selectedApartment, setSelectedApartment] = useState<any | null>(null);
+
   const svgRef = useRef<SVGSVGElement>(null);
   const activeFloorRef = useRef<HTMLLIElement | null>(null);
   const [tooltip, setTooltip] = useState<{
@@ -20,17 +24,21 @@ const FloorPlan = () => {
     content: React.ReactNode;
   } | null>(null);
 
-  const uniqueFloors = Array.from(
-    new Set(apartments.map((apt) => apt.floor))
-  ).sort((a, b) => b - a);
-  const currentIndex = uniqueFloors.indexOf(selectedFloor);
-  const prevFloor = uniqueFloors[currentIndex + 1];
-  const nextFloor = uniqueFloors[currentIndex - 1];
+  const uniqueFloors = apartments.length
+    ? Array.from(new Set(apartments.map((apt) => apt.floor))).sort(
+        (a, b) => b - a
+      )
+    : [];
+
+const currentIndex = uniqueFloors.indexOf(selectedFloor);
+const prevFloor = uniqueFloors[currentIndex + 1] ?? null;
+const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
+
 
   const handleArrowClick = (floor?: number) => {
     if (floor !== undefined) navigate(`/floor/${floor}`);
   };
-
+  const normalize = (str: string) => str.replace(/\s+/g, "").toUpperCase();
   useEffect(() => {
     if (activeFloorRef.current) {
       activeFloorRef.current.scrollIntoView({
@@ -84,7 +92,6 @@ const FloorPlan = () => {
 
       // Вставляем группу в SVG
       poly.parentNode?.appendChild(group);
-      const normalize = (str: string) => str.replace(/\s+/g, "").toUpperCase();
 
       const el = poly as SVGGraphicsElement;
       if (!label) return;
@@ -150,7 +157,6 @@ const FloorPlan = () => {
           ),
         });
       };
-
       const handleMouseMove = (e: MouseEvent) => {
         const target = e.currentTarget as SVGGraphicsElement;
         const bbox = target.getBBox();
@@ -170,19 +176,43 @@ const FloorPlan = () => {
           prev ? { ...prev, x: transformed.x, y: transformed.y } : null
         );
       };
-
       const handleMouseLeave = () => {
         setTooltip(null);
       };
+      const handleClick = (e: MouseEvent) => {
+        const target = e.currentTarget as SVGGraphicsElement;
+        const rawLabel = target.getAttribute("data-label");
+        if (!rawLabel) return;
+        const label = rawLabel.slice(1);
 
+        let section = "";
+        let current: Element | null = target;
+        while (current) {
+          if (current.tagName === "g" && current.hasAttribute("data-name")) {
+            section = current.getAttribute("data-name") || "";
+            break;
+          }
+          current = current.parentElement;
+        }
+        if (!section) return;
+
+        const fullId = `${section} ${label}`;
+        const apt = apartments.find(
+          (a) => normalize(a.id) === normalize(fullId)
+        );
+        if (!apt) return;
+
+        setSelectedApartment(apt);
+      };
       el.addEventListener("mouseenter", handleMouseEnter);
       el.addEventListener("mousemove", handleMouseMove);
       el.addEventListener("mouseleave", handleMouseLeave);
-
+      el.addEventListener("click", handleClick);
       (el as any)._tooltipHandlers = {
         handleMouseEnter,
         handleMouseMove,
         handleMouseLeave,
+        handleClick,
       };
     });
   }, []);
@@ -225,21 +255,29 @@ const FloorPlan = () => {
       });
     };
   }, [selectedFloor]);
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelectedApartment(null);
+        setTooltip(null);
+      }
+    };
 
-  if (loading) return <div>Загрузка...</div>;
-  if (error) return <div>Ошибка: {error}</div>;
-  if (loading || apartments.length === 0) {
-    return <div>Загрузка данных...</div>;
-  }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   return (
     <>
       <Header />
-      <main>
+      <main className={styles.floor_main}>
         <section className={styles.floor_plan} data-section-id="light">
           <div className={styles.plan_info_content}>
-            <button className={styles.grid_view_btn}>
+            <a href="/sopenresidence/search-by-parameters" className={styles.grid_view_btn}>
               <span>Grid view</span>
-            </button>
+            </a>
             <h2 className={styles.floor_title}>Floor {selectedFloor}</h2>
           </div>
 
@@ -247,6 +285,7 @@ const FloorPlan = () => {
             <div className={styles.floor_info_block}>
               <div className={styles.floor_list_block}>
                 <span className={styles.floor_list_label}>Floor</span>
+
                 <div className={styles.floor_list}>
                   <span
                     className={styles.floor_arrow}
@@ -265,22 +304,22 @@ const FloorPlan = () => {
                       />
                     </svg>
                   </span>
-
-                  <ul>
-                    {uniqueFloors.map((f) => (
-                      <li
-                        key={f}
-                        ref={f === selectedFloor ? activeFloorRef : null}
-                        className={`${styles.floor_item} ${
-                          f === selectedFloor ? styles.active_floor : ""
-                        }`}
-                        onClick={() => navigate(`/floor/${f}`)}
-                      >
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-
+                  <div className={styles.floor_scroll_wrapper}>
+                    <ul className={styles.floor_unique_list}>
+                      {uniqueFloors.map((f) => (
+                        <li
+                          key={f}
+                          ref={f === selectedFloor ? activeFloorRef : null}
+                          className={`${styles.floor_item} ${
+                            f === selectedFloor ? styles.active_floor : ""
+                          }`}
+                          onClick={() => navigate(`/floor/${f}`)}
+                        >
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                   <span
                     className={styles.floor_arrow}
                     onClick={() => handleArrowClick(prevFloor)}
@@ -305,7 +344,30 @@ const FloorPlan = () => {
               <div className={styles.section_block}>
                 <div className={styles.section_content}>
                   <span className={styles.section_list_label}>Section</span>
-                  <img src="../images/n.png" alt="Section" />
+                  <svg
+                    width="36"
+                    height="36"
+                    viewBox="0 0 36 36"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M30.9133 8.69301C28.8062 5.66522 25.8391 3.40333 22.4675 2.25462C19.0959 1.10591 15.5062 1.13389 12.2497 2.33425C8.99308 3.53462 6.24963 5.84102 4.44052 8.89932C2.6314 11.9576 1.85665 15.5988 2.2352 19.2637"
+                      stroke="#07412E"
+                      stroke-width="2.54649"
+                    />
+                    <circle
+                      cx="17.9883"
+                      cy="18.001"
+                      r="17.4244"
+                      stroke="#07412E"
+                      stroke-width="0.848831"
+                    />
+                    <path
+                      d="M15.2283 23.001L13.9683 23.001L13.9683 12.921L15.2283 12.921L20.4853 20.796L20.4853 12.921L21.7453 12.921L21.7453 23.001L20.4853 23.001L15.2283 15.119L15.2283 23.001Z"
+                      fill="#07412E"
+                    />
+                  </svg>
                 </div>
                 <img
                   className={styles.section_plan_img}
@@ -316,9 +378,13 @@ const FloorPlan = () => {
             </div>
 
             <div className={styles.floor_plan_image_wrapper}>
-					<span className={styles.floor_plan_dus_str}>Dusana Popovicha Street</span>
-					<span className={styles.floor_plan_mokr_str}>Mokrancheva Street</span>
-					<span className={styles.floor_plan_ztsk_str}>Zetska Street</span>
+              <span className={styles.floor_plan_dus_str}>
+                Dusana Popovicha Street
+              </span>
+              <span className={styles.floor_plan_mokr_str}>
+                Mokrancheva Street
+              </span>
+              <span className={styles.floor_plan_ztsk_str}>Zetska Street</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 version="1.1"
@@ -331,7 +397,7 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/3.png"
+                    xlinkHref="../images/genplans/3.png"
                   />
                   <g id="A5" data-name="A03">
                     <polygon
@@ -568,7 +634,7 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/4.png"
+                    xlinkHref="../images/genplans/4.png"
                   />
                   <g id="A4" data-name="A04">
                     <polygon
@@ -805,7 +871,7 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/5.png"
+                    xlinkHref="../images/genplans/5.png"
                   />
                   <g id="A4" data-name="A05">
                     <polygon
@@ -1041,7 +1107,7 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/6.png"
+                    xlinkHref="../images/genplans/6.png"
                   />
                   <g id="A4" data-name="A06">
                     <polygon
@@ -1277,7 +1343,7 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/7.png"
+                    xlinkHref="../images/genplans/7.png"
                   />
                   <g id="A4" data-name="A07">
                     <polygon
@@ -1513,7 +1579,7 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/8.png"
+                    xlinkHref="../images/genplans/8.png"
                   />
                   <g id="A4" data-name="A08">
                     <polygon
@@ -1749,7 +1815,7 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/9.png"
+                    xlinkHref="../images/genplans/9.png"
                   />
                   <g id="A" data-name="A09">
                     <polygon
@@ -1986,7 +2052,7 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/10.png"
+                    xlinkHref="../images/genplans/10.png"
                   />
                   <g id="A" data-name="A10">
                     <polygon
@@ -2223,7 +2289,7 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/11.png"
+                    xlinkHref="../images/genplans/11.png"
                   />
                   <g id="A2" data-name="A11">
                     <polygon
@@ -2330,7 +2396,7 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/12.png"
+                    xlinkHref="../images/genplans/12.png"
                   />
                   <g id="A3" data-name="A12">
                     <polygon
@@ -2437,7 +2503,7 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/13.png"
+                    xlinkHref="../images/genplans/13.png"
                   />
                   <g id="A" data-name="A13">
                     <polygon
@@ -2530,7 +2596,7 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/14.png"
+                    xlinkHref="../images/genplans/14.png"
                   />
                   <g xmlns="http://www.w3.org/2000/svg" id="A" data-name="A14">
                     <polygon
@@ -2623,7 +2689,7 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/15.png"
+                    xlinkHref="../images/genplans/15.png"
                   />
                   <g xmlns="http://www.w3.org/2000/svg" id="A" data-name="A15">
                     <polygon
@@ -2723,6 +2789,13 @@ const FloorPlan = () => {
             )}
           </div>
         </section>
+        {selectedApartment && (
+          <ApartmentModal
+            apartment={selectedApartment}
+            onClose={() => setSelectedApartment(null)}
+          />
+        )}
+        <Request />
       </main>
       <Footer />
     </>

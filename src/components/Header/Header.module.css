@@ -431,6 +431,7 @@ div.burger_modal_content {
 	}
 }
 
+ 
 @media((min-width: 769px) and (max-width: 1023px)) {
 	.header__body {
 		padding: 0em clamp(1.25rem, -2.5rem + 7.813vi, 2.5rem);
