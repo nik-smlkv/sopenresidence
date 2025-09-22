@@ -1,18 +1,30 @@
 import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./Navigation.module.css";
 
 type NavigationItem = {
   label: string;
   targetId: string;
 };
+
 type NavigationProps = {
   items: NavigationItem[];
 };
+
 const Navigation: React.FC<NavigationProps> = ({ items }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const handleClick = (id: string) => {
-    const targetEl = document.getElementById(id);
-    if (targetEl) {
-      targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (location.pathname === "/") {
+ 
+      const targetEl = document.getElementById(id);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    } else {
+ 
+      navigate("/", { state: { scrollTo: id } });
     }
   };
 
@@ -23,7 +35,7 @@ const Navigation: React.FC<NavigationProps> = ({ items }) => {
           key={targetId}
           className={styles.nav__link}
           onClick={() => handleClick(targetId)}
-			 data-close
+          data-close
         >
           {label}
         </p>

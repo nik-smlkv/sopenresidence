@@ -97,7 +97,7 @@
 	height: auto;
 	aspect-ratio: 3000 / 1124;
 	margin: 0 auto;
-
+	user-select: none;
 }
 
 
@@ -150,6 +150,7 @@
 .visual_floor_section_container :global(.breadcrumbs_section) {
 	padding-top: 0;
 	align-self: start;
+	position: relative;
 }
 
 @media (hover: hover) {
@@ -182,6 +183,16 @@
 @media((min-width: 1440px) and (max-width: 1920px)) {
 	.visual__body {
 		padding: 0em clamp(5rem, 1.25rem + 4.167vi, 6.25rem);
+	}
+
+	.visual_floor_section_container {
+		top: clamp(8.125rem, 4.375rem + 4.167vi, 9.375rem);
+	}
+}
+
+@media(max-width: 1200px) {
+	.visual_floor_section_container {
+		top: 146px;
 	}
 }
 

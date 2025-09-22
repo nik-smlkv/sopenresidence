@@ -53,7 +53,11 @@ const BurgerModal = () => {
             </div>
             {/* <div className="current_language"></div> */}
             <div className={styles.burger_modal_socials}>
-              <div className={styles.burger_modal_social}>
+              <a
+                href="https://www.instagram.com/sopenpark/"
+                target="_blank"
+                className={styles.burger_modal_social}
+              >
                 <svg
                   width="46"
                   height="46"
@@ -66,7 +70,7 @@ const BurgerModal = () => {
                     fill="#1C2F24"
                   />
                 </svg>
-              </div>
+              </a>
             </div>
           </div>
 

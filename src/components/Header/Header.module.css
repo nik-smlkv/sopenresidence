@@ -356,7 +356,7 @@ header:global(.changed) .header__body .burger_line {
 .header_block div:not(:last-child) {
 	position: relative;
 	z-index: 4;
-
+	
 }
 
 div.burger_modal_content {

@@ -1,18 +1,4 @@
-.modal_overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	max-height: 960px;
-	background: rgba(0, 0, 0, 0.4);
-	z-index: 2;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	background: var(--bg-beige);
-	align-items: stretch;
-}
+
 
 .modal_content {
 	width: 100%;
@@ -620,10 +606,7 @@
 		border-top: 1px solid var(--tx-gray);
 		padding-top: 24px;
 	}
-
-	.modal_overlay {
-		max-height: 911px
-	}
+ 
 
 	.img_location {
 		max-width: 178px;

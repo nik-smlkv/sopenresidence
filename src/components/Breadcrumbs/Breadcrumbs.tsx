@@ -10,7 +10,7 @@ const Breadcrumbs = () => {
     apartments: "Apartments",
     details: "Details",
     "search-by-parameters": t.t_apart_view_filter,
-    "visual-selectional-of-apartments": "Visual Selectional Of Apartments",
+    "visual-selectional-of-apartments": t.t_apart_view_selet_text,
   };
   return (
     <nav className={`${styles.breadcrumbs} breadcrumbs_section`}>

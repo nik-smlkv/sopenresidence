@@ -5,17 +5,44 @@ import Header from "../Header/Header";
 import { useParams, useNavigate } from "react-router-dom";
 import { useApartments } from "../../context/ApartmentsContext";
 import VisualTooltip from "../VisualTooltip/VisualTooltip";
-import ApartmentModal from "../ApartmentModal/ApartmentModal";
+import { fetchExcelFromPublic, type Apartment } from "../../utils/utils";
+import { useLang } from "../../hooks/useLang";
 import Request from "../Main/Request/Request";
+import ApartmentModal from "../ApartmentModal/ApartmentModal";
 
 const FloorPlan = () => {
   const { floorId } = useParams();
-  const selectedFloor = parseInt(floorId || "0", 10);
-  const { apartments } = useApartments();
+  const { apartments, loading, error } = useApartments();
 
+  const [initialRedirected, setInitialRedirected] = useState(false);
+  const { t } = useLang();
   const navigate = useNavigate();
   const [selectedApartment, setSelectedApartment] = useState<any | null>(null);
+  const [manualApartments, setManualApartments] = useState<Apartment[] | null>(
+    null
+  );
+  const effectiveApartments = manualApartments ?? apartments;
+  const refA = useRef<HTMLDivElement>(null);
+  const refB = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    if (refA.current && refB.current) {
+      const computed = getComputedStyle(refA.current);
+      const height = refA.current.offsetHeight;
+
+      // Если нужно учесть padding отдельно:
+      const paddingTop = parseFloat(computed.paddingTop);
+      const paddingBottom = parseFloat(computed.paddingBottom);
+
+      const totalHeight = height + paddingTop + paddingBottom;
+
+      refB.current.style.maxHeight = `${totalHeight}px`;
+    }
+  }, []);
+
+  const handleClick = () => {
+    navigate("/search-by-parameters");
+  };
   const svgRef = useRef<SVGSVGElement>(null);
   const activeFloorRef = useRef<HTMLLIElement | null>(null);
   const [tooltip, setTooltip] = useState<{
@@ -24,21 +51,54 @@ const FloorPlan = () => {
     content: React.ReactNode;
   } | null>(null);
 
-  const uniqueFloors = apartments.length
-    ? Array.from(new Set(apartments.map((apt) => apt.floor))).sort(
-        (a, b) => b - a
-      )
-    : [];
+  const uniqueFloors = Array.from(
+    new Set(effectiveApartments.map((apt) => apt.floor))
+  ).sort((a, b) => b - a);
 
-const currentIndex = uniqueFloors.indexOf(selectedFloor);
-const prevFloor = uniqueFloors[currentIndex + 1] ?? null;
-const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
+  const selectedFloor = floorId
+    ? parseInt(floorId, 10)
+    : uniqueFloors.length > 0
+    ? uniqueFloors[0]
+    : 0;
 
+  const currentIndex = uniqueFloors.indexOf(selectedFloor);
+  const prevFloor = uniqueFloors[currentIndex + 1];
+  const nextFloor = uniqueFloors[currentIndex - 1];
 
   const handleArrowClick = (floor?: number) => {
     if (floor !== undefined) navigate(`/floor/${floor}`);
   };
-  const normalize = (str: string) => str.replace(/\s+/g, "").toUpperCase();
+
+  // Fallback загрузка из Excel
+  useEffect(() => {
+    if (!loading && Array.isArray(apartments) && apartments.length === 0) {
+      (async () => {
+        try {
+          const data = await fetchExcelFromPublic();
+          if (data.length > 0) {
+            setManualApartments(data);
+          }
+        } catch (err) {
+          console.error("Ошибка при загрузке Excel:", err);
+        }
+      })();
+    }
+  }, [loading, apartments]);
+
+  // Автоматический редирект на верхний этаж, если floorId отсутствует
+  useEffect(() => {
+    if (floorId && !initialRedirected && !loading) {
+      navigate("/floor", { replace: true });
+      setInitialRedirected(true);
+    }
+  }, [floorId, initialRedirected, loading]);
+
+  useEffect(() => {
+    if (!floorId && initialRedirected && uniqueFloors.length > 0 && !loading) {
+      navigate(`/floor/${uniqueFloors[0]}`, { replace: true });
+    }
+  }, [floorId, initialRedirected, uniqueFloors, loading]);
+
   useEffect(() => {
     if (activeFloorRef.current) {
       activeFloorRef.current.scrollIntoView({
@@ -47,6 +107,7 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
       });
     }
   }, [selectedFloor]);
+
   useEffect(() => {
     const svg = svgRef.current;
     if (!svg) return;
@@ -57,12 +118,10 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
     polygons.forEach((poly) => {
       const label = poly.getAttribute("data-label");
       const bbox = (poly as SVGGraphicsElement).getBBox();
-
       const centerX = bbox.x + bbox.width / 2;
       const centerY = bbox.y + bbox.height / 2;
 
       const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
-
       const circle = document.createElementNS(
         "http://www.w3.org/2000/svg",
         "circle"
@@ -72,13 +131,11 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
       circle.setAttribute("r", "46");
       circle.setAttribute("fill", "#6C776D");
 
-      // Текст
       const text = document.createElementNS(
         "http://www.w3.org/2000/svg",
         "text"
       );
       group.setAttribute("pointer-events", "none");
-
       text.setAttribute("x", String(centerX));
       text.setAttribute("y", String(centerY));
       text.setAttribute("class", "svg-label");
@@ -86,13 +143,11 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
       text.setAttribute("dominant-baseline", "central");
       text.textContent = label;
 
-      // Добавляем в группу
       group.appendChild(circle);
       group.appendChild(text);
-
-      // Вставляем группу в SVG
       poly.parentNode?.appendChild(group);
 
+      const normalize = (str: string) => str.replace(/\s+/g, "").toUpperCase();
       const el = poly as SVGGraphicsElement;
       if (!label) return;
 
@@ -101,7 +156,7 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
         const rawLabel = target.getAttribute("data-label");
         if (!rawLabel) return;
         const label = rawLabel.slice(1);
-        // Ищем ближайший g[data-name] — это секция
+
         let section = "";
         let current: Element | null = target;
         while (current) {
@@ -113,16 +168,12 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
         }
         if (!section) return;
 
-        // Собираем полный id:
         const fullId = `${section} ${label}`;
-
-        // Ищем квартиру по полному id
-        const apt = apartments.find(
+        const apt = effectiveApartments.find(
           (a) => normalize(a.id) === normalize(fullId)
         );
         if (!apt) return;
 
-        // Вычисляем позицию tooltip'а по правому краю фигуры
         const bbox = target.getBBox();
         const rightX = bbox.x + bbox.width;
         const centerY = bbox.y + bbox.height / 2;
@@ -143,20 +194,20 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
             <div className={styles.visual_tooltip}>
               <div className={styles.tooltip_floor}>
                 <p className={styles.tooltip_floor_num}>{rawLabel}</p>
-                <p className={styles.tooltip_floor_txt}> Floor {apt.floor}</p>
+                <p className={styles.tooltip_floor_txt}>
+                  {t.t_flor_txt} {apt.floor}
+                </p>
               </div>
               <div className={styles.visual_info_block}>
                 <p className={styles.visual_tooltip_area_meter}>
                   {apt.area} m²
                 </p>
-                {/* <p className={styles.visual_tooltip_count_apt}>
-                   rooms
-                </p> */}
               </div>
             </div>
           ),
         });
       };
+
       const handleMouseMove = (e: MouseEvent) => {
         const target = e.currentTarget as SVGGraphicsElement;
         const bbox = target.getBBox();
@@ -176,6 +227,7 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
           prev ? { ...prev, x: transformed.x, y: transformed.y } : null
         );
       };
+
       const handleMouseLeave = () => {
         setTooltip(null);
       };
@@ -215,7 +267,7 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
         handleClick,
       };
     });
-  }, []);
+  }, [effectiveApartments]);
 
   useEffect(() => {
     const svgDoc = svgRef.current?.ownerDocument;
@@ -228,7 +280,6 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
 
       el.style.display = floor === selectedFloor ? "block" : "none";
       el.style.cursor = "pointer";
-
       el.onclick = () => navigate(`/floor/${floor}`);
     });
 
@@ -255,37 +306,28 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
       });
     };
   }, [selectedFloor]);
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setSelectedApartment(null);
-        setTooltip(null);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
-
   return (
     <>
       <Header />
-      <main className={styles.floor_main}>
-        <section className={styles.floor_plan} data-section-id="light">
+      <main>
+        <section
+          className={styles.floor_plan}
+          ref={refA}
+          data-section-id="light"
+        >
           <div className={styles.plan_info_content}>
-            <a href="/sopenresidence/search-by-parameters" className={styles.grid_view_btn}>
-              <span>Grid view</span>
-            </a>
-            <h2 className={styles.floor_title}>Floor {selectedFloor}</h2>
+            <button className={styles.grid_view_btn} onClick={handleClick}>
+              <span>{t.t_grid_view_txt}</span>
+            </button>
+            <h2 className={styles.floor_title}>
+              {t.t_flor_txt} {selectedFloor}
+            </h2>
           </div>
 
           <div className={styles.floor_plan_body}>
             <div className={styles.floor_info_block}>
               <div className={styles.floor_list_block}>
-                <span className={styles.floor_list_label}>Floor</span>
-
+                <span className={styles.floor_list_label}>{t.t_flor_txt}</span>
                 <div className={styles.floor_list}>
                   <span
                     className={styles.floor_arrow}
@@ -304,22 +346,22 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
                       />
                     </svg>
                   </span>
-                  <div className={styles.floor_scroll_wrapper}>
-                    <ul className={styles.floor_unique_list}>
-                      {uniqueFloors.map((f) => (
-                        <li
-                          key={f}
-                          ref={f === selectedFloor ? activeFloorRef : null}
-                          className={`${styles.floor_item} ${
-                            f === selectedFloor ? styles.active_floor : ""
-                          }`}
-                          onClick={() => navigate(`/floor/${f}`)}
-                        >
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+
+                  <ul>
+                    {uniqueFloors.map((f) => (
+                      <li
+                        key={f}
+                        ref={f === selectedFloor ? activeFloorRef : null}
+                        className={`${styles.floor_item} ${
+                          f === selectedFloor ? styles.active_floor : ""
+                        }`}
+                        onClick={() => navigate(`/floor/${f}`)}
+                      >
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+
                   <span
                     className={styles.floor_arrow}
                     onClick={() => handleArrowClick(prevFloor)}
@@ -343,31 +385,10 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
 
               <div className={styles.section_block}>
                 <div className={styles.section_content}>
-                  <span className={styles.section_list_label}>Section</span>
-                  <svg
-                    width="36"
-                    height="36"
-                    viewBox="0 0 36 36"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M30.9133 8.69301C28.8062 5.66522 25.8391 3.40333 22.4675 2.25462C19.0959 1.10591 15.5062 1.13389 12.2497 2.33425C8.99308 3.53462 6.24963 5.84102 4.44052 8.89932C2.6314 11.9576 1.85665 15.5988 2.2352 19.2637"
-                      stroke="#07412E"
-                      stroke-width="2.54649"
-                    />
-                    <circle
-                      cx="17.9883"
-                      cy="18.001"
-                      r="17.4244"
-                      stroke="#07412E"
-                      stroke-width="0.848831"
-                    />
-                    <path
-                      d="M15.2283 23.001L13.9683 23.001L13.9683 12.921L15.2283 12.921L20.4853 20.796L20.4853 12.921L21.7453 12.921L21.7453 23.001L20.4853 23.001L15.2283 15.119L15.2283 23.001Z"
-                      fill="#07412E"
-                    />
-                  </svg>
+                  <span className={styles.section_list_label}>
+                    {t.t_lam_txt}
+                  </span>
+                  <img src="../images/n.png" alt="Section" />
                 </div>
                 <img
                   className={styles.section_plan_img}
@@ -397,7 +418,7 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="../images/genplans/3.png"
+                    xlinkHref="/images/genplans/3.png"
                   />
                   <g id="A5" data-name="A03">
                     <polygon
@@ -634,7 +655,7 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="../images/genplans/4.png"
+                    xlinkHref="/images/genplans/4.png"
                   />
                   <g id="A4" data-name="A04">
                     <polygon
@@ -871,7 +892,7 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="../images/genplans/5.png"
+                    xlinkHref="/images/genplans/5.png"
                   />
                   <g id="A4" data-name="A05">
                     <polygon
@@ -1107,7 +1128,7 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="../images/genplans/6.png"
+                    xlinkHref="/images/genplans/6.png"
                   />
                   <g id="A4" data-name="A06">
                     <polygon
@@ -1343,7 +1364,7 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="../images/genplans/7.png"
+                    xlinkHref="/images/genplans/7.png"
                   />
                   <g id="A4" data-name="A07">
                     <polygon
@@ -1579,7 +1600,7 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="../images/genplans/8.png"
+                    xlinkHref="/images/genplans/8.png"
                   />
                   <g id="A4" data-name="A08">
                     <polygon
@@ -1815,7 +1836,7 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="../images/genplans/9.png"
+                    xlinkHref="/images/genplans/9.png"
                   />
                   <g id="A" data-name="A09">
                     <polygon
@@ -2052,7 +2073,7 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="../images/genplans/10.png"
+                    xlinkHref="/images/genplans/10.png"
                   />
                   <g id="A" data-name="A10">
                     <polygon
@@ -2289,7 +2310,7 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="../images/genplans/11.png"
+                    xlinkHref="/images/genplans/11.png"
                   />
                   <g id="A2" data-name="A11">
                     <polygon
@@ -2396,7 +2417,7 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="../images/genplans/12.png"
+                    xlinkHref="/images/genplans/12.png"
                   />
                   <g id="A3" data-name="A12">
                     <polygon
@@ -2503,7 +2524,7 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="../images/genplans/13.png"
+                    xlinkHref="/images/genplans/13.png"
                   />
                   <g id="A" data-name="A13">
                     <polygon
@@ -2596,7 +2617,7 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="../images/genplans/14.png"
+                    xlinkHref="/images/genplans/14.png"
                   />
                   <g xmlns="http://www.w3.org/2000/svg" id="A" data-name="A14">
                     <polygon
@@ -2689,7 +2710,7 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="../images/genplans/15.png"
+                    xlinkHref="/images/genplans/15.png"
                   />
                   <g xmlns="http://www.w3.org/2000/svg" id="A" data-name="A15">
                     <polygon
@@ -2790,12 +2811,16 @@ const nextFloor = uniqueFloors[currentIndex - 1] ?? null;
           </div>
         </section>
         {selectedApartment && (
-          <ApartmentModal
-            apartment={selectedApartment}
-            onClose={() => setSelectedApartment(null)}
-          />
+          <div ref={refB} className={styles.modal_overlay}>
+            <ApartmentModal
+              apartment={selectedApartment}
+              onClose={() => setSelectedApartment(null)}
+            />
+          </div>
         )}
-        <Request />
+        <div data-id="form">
+          <Request />
+        </div>
       </main>
       <Footer />
     </>

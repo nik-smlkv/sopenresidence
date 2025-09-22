@@ -3,11 +3,12 @@ import Header from "../Header/Header";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import styles from "./VisualApartments.module.css";
 import { fetchExcelFromPublic, type Apartment } from "../../utils/utils";
- 
+
 import VisualTooltip from "../VisualTooltip/VisualTooltip";
 import { floorPaths } from "./floorPaths";
 import FloorPlan from "../FloorPlan/FloorPlan";
 import { useNavigate } from "react-router-dom";
+import { useLang } from "../../hooks/useLang";
 const VisualApartments = () => {
   const [tooltip, setTooltip] = useState<{
     visible: boolean;
@@ -20,11 +21,17 @@ const VisualApartments = () => {
     y: 0,
     content: null,
   });
+  const { t } = useLang();
   const [selectedFloor] = useState<number | null>(null);
   const [apartments, setApartments] = useState<Apartment[]>([]);
   const [error, setError] = useState<string | null>(null);
- 
+
   const navigate = useNavigate();
+  useEffect(() => {
+    if (window.innerWidth <= 1024) {
+      navigate("/floor", { replace: true });
+    }
+  }, []);
 
   const handleFloorClick = (e: React.MouseEvent<SVGPathElement>) => {
     const rawFloor = e.currentTarget.dataset.floor;
@@ -76,11 +83,11 @@ const VisualApartments = () => {
         <div className={styles.visual_tooltip}>
           <div className={styles.tooltip_floor}>
             <p className={styles.tooltip_floor_num}>{floor}</p>
-            <p className={styles.tooltip_floor_txt}>Floor</p>
+            <p className={styles.tooltip_floor_txt}>{t.t_flor_txt}</p>
           </div>
           <div className={styles.visual_info_block}>
             <p className={styles.visual_tooltip_count_apt}>
-              {count} apartments
+              {count} {t.t_apart_title}
             </p>
             <p className={styles.visual_tooltip_area_meter}>
               {minArea}–{maxArea} m²
@@ -104,7 +111,7 @@ const VisualApartments = () => {
               <Breadcrumbs />
               <div className={styles.visual_title_block}>
                 <p className={styles.apart_info_txt}>({maxFloor})</p>
-                <h1 className={styles.visual_title}>Floor plan</h1>
+                <h1 className={styles.visual_title}>{t.t_flor_plan_txt}</h1>
               </div>
             </div>
           </div>
@@ -113,8 +120,8 @@ const VisualApartments = () => {
 
             <svg
               width="1920"
-              height="1124"
-              viewBox="0 0 1920 1124"
+              height="1090"
+              viewBox="0 0 1920 1090"
               preserveAspectRatio="xMidYMid slice"
               className={styles.svgImage}
             >

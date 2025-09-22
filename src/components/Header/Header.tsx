@@ -28,6 +28,7 @@ const Header = () => {
   const handleToggle = () => {
     setIsOpen((prev) => !prev);
   };
+
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (
@@ -55,7 +56,7 @@ const Header = () => {
       "dark-green": "#1C2F24",
       light: "#FAF7F2",
       "transparent-black": "#00000033",
-      "transparent": "transparent",
+      transparent: "transparent",
     };
 
     const observer = new IntersectionObserver(
@@ -98,7 +99,7 @@ const Header = () => {
     <>
       {isProduct ? (
         <header className={styles.maintanceHeader}>
-          <a href="/sopenresidence">
+          <a href="">
             <img className={styles.logo} src="/logo.svg" alt="logo" />
           </a>
           <div className={styles.langSwitcher_maintance}>
@@ -120,7 +121,7 @@ const Header = () => {
               burgerModal.isOpen ? "active" : ""
             }`}
           >
-            <a href="/sopenresidence">
+            <a href="">
               <div
                 className={styles.logo}
                 onClick={() => {
@@ -193,7 +194,7 @@ const Header = () => {
                   </svg>
                   <ul>
                     <li>
-                      <a href="/sopenresidence/search-by-parameters" className={styles.link}>
+                      <a href="/search-by-parameters" className={styles.link}>
                         {t.t_apart_view_filter}
                         <span className={styles.list__arrow}>
                           <svg
@@ -214,7 +215,7 @@ const Header = () => {
                     </li>
                     <li className={styles.visual_hidden}>
                       <a
-                        href="/sopenresidence/visual-selectional-of-apartments"
+                        href="/visual-selectional-of-apartments"
                         className={styles.link}
                       >
                         {t.t_apart_view_selet_text}

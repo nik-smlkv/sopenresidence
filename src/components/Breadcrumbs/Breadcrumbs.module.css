@@ -8,11 +8,13 @@
 .breadcrumbs {
 	padding-top: 64px;
 	color: #FFFFFF95;
-	font-weight: 400;
+	font-weight: 300;
 	letter-spacing: 0.7px;
 }
 
-
+.breadcrumbs_list li {
+	text-transform: capitalize;
+}
 
 @media((min-width: 768px) and (max-width: 1024px)) {
 	.breadcrumbs_list {

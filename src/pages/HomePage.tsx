@@ -5,7 +5,7 @@ import AboutMain from "../components/Main/AboutMain/AboutMain";
 import Infrastructura from "../components/Main/Infrastructure/Infrastructure";
 import SectionMain from "../components/Main/SectionMain/SectionMain";
 import styles from "./HomePage.module.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import HorizontParallax from "../components/Parallax/HorizontParallax";
 import Equipment from "../components/Main/Equipment/Equipment";
 import Footer from "../components/Footer/Footer";
@@ -18,6 +18,7 @@ import { ReactLenis } from "@studio-freight/react-lenis";
 import type Lenis from "@studio-freight/lenis";
 import { useResponsiveRef } from "../hooks/useResponsiveRef";
 import { useLang } from "../hooks/useLang";
+import { useLocation } from "react-router-dom";
 
 type LenisRef = { lenis: Lenis | undefined };
 
@@ -65,6 +66,7 @@ const HomePage = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  const location = useLocation();
 
   useEffect(() => {
     function raf(time: number) {
@@ -74,6 +76,25 @@ const HomePage = () => {
 
     requestAnimationFrame(raf);
   }, []);
+  useLayoutEffect(() => {
+    const scrollTo = location.state?.scrollTo;
+    if (!scrollTo) return;
+
+    const scrollAfterGSAP = () => {
+      const el = document.getElementById(scrollTo);
+      if (el) {
+        const yOffset = -80;
+        const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+    };
+
+    // Даем время GSAP и DOM отработать
+    setTimeout(() => {
+      ScrollTrigger.refresh(); // сначала обновляем ScrollTrigger
+      setTimeout(scrollAfterGSAP, 100); // потом скроллим
+    }, 500); // задержка перед ScrollTrigger.refresh
+  }, [location.state]);
 
   return (
     <ReactLenis ref={lenisRef} root options={{}}>

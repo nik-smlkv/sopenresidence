@@ -19,6 +19,7 @@ const AppRoutes = () => {
           path="/visual-selectional-of-apartments"
           element={<VisualApartments />}
         />
+        <Route path="/floor" element={<FloorPlan />} />
         <Route path="/floor/:floorId" element={<FloorPlan />} />
       </Routes>
     </div>
