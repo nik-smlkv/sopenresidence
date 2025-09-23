@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
 import Form from "../components/Forms/Form";
 import styles from "./MaintenancePage.module.css";
-import Header from "../components/Header/Header";
+ 
 import { useLang } from "../hooks/useLang";
 
 const MaintenancePage = () => {
   const { t, lang } = useLang();
   return (
     <>
-      <Header />
       <main>
         <div className={styles.maintanceContent}>
           <div className={styles.formMaintance}>

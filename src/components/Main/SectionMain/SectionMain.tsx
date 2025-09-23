@@ -83,8 +83,8 @@ const SectionMain = () => {
               <img
                 ref={imageRef}
                 className={styles.main_img}
-                src="./images/main.jpg"
-                alt=""
+                src={new URL("/images/main.jpg", import.meta.url).href}
+                alt="Main"
               />
             </div>
             <p className={styles.subtitle}>{t.t_subtitle}</p>

@@ -14,9 +14,9 @@ const Footer = () => {
       <div className={styles.footer__body}>
         <div className={styles.footer__info_block}>
           <Contact />
-          <button className={styles.get__directions}>
+          <a href="https://clck.ru/3NxQwf" target="_blank" className={styles.get__directions}>
             <span>{t.t_get_dir_btn}</span>
-          </button>
+          </a>
         </div>
         <div className={styles.footer__content}>
           <div className={styles.footer__content_body}>

@@ -325,7 +325,7 @@ const AboutMain = () => {
               <SwiperSlide key={img.key}>
                 <div className={styles.img_wrapper}>
                   <img
-                    src={`./images/${img.src}`}
+                    src={`images/${img.src}`}
                     alt={img.key}
                     className={styles.img__item}
                   />

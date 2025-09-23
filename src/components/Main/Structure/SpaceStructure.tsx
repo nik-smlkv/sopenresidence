@@ -1,4 +1,4 @@
-import {  useRef } from "react";
+import { useRef } from "react";
 import styles from "./SpaceStructure.module.css";
 
 import { useLang } from "../../../hooks/useLang";
@@ -39,7 +39,6 @@ const SpaceStructure = () => {
       },
     },
   ];
-
 
   return (
     <section
@@ -87,7 +86,10 @@ const SpaceStructure = () => {
                       ref={imgRef}
                       key={`img-${index}`}
                     >
-                      <img src={`./images/${image}`} alt="" />
+                      <img
+                        src={`https://sopenpark.rs/park-test/images/${image}`}
+                        alt=""
+                      />
                       <div
                         className={styles.img_overlay}
                         data-animate="image-fade"

@@ -142,8 +142,8 @@
 
 .parallax__card,
 .parallax__card_preview {
-	flex: 1 1 490px;
-	max-width: 490px;
+	flex: 0 0 clamp(17.5rem, 3.5rem + 21.875vi, 29.75rem);
+ 
 	position: relative;
 	display: flex;
 	align-items: center;
@@ -169,7 +169,7 @@
 
 .parallax__card {
 	padding: 60px 30px 50px 30px;
-	justify-content: start;
+ 
 	align-items: start;
 }
 

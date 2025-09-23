@@ -78,6 +78,8 @@
 	display: flex;
 	justify-content: end;
 	align-items: center;
+	width: 100%;
+	max-width: 346px;
 }
 
 .burger_modal_social:hover {
@@ -146,6 +148,7 @@
 	cursor: pointer;
 	color: var(--acc-main-green-btn);
 	border: 1px solid #07412E;
+	flex: 0;
 }
 
 .request__btn span {
@@ -192,7 +195,9 @@
 .burger_modal_block div {
 	flex: 1 1 33.333%;
 }
-
+.burger_modal_block button{
+	flex: 0;
+}
 .burger_modal_social {
 	max-width: 46px;
 }

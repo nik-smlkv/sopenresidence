@@ -7,6 +7,7 @@ import "./style.css";
 import Navigation from "../Navigation/Navigation";
 import { useModal } from "../../hooks/useModal";
 import { useLang } from "../../hooks/useLang";
+import { Link } from "react-router-dom";
 
 const handleClick = (id: string) => {
   const targetEl = document.getElementById(id);
@@ -121,7 +122,7 @@ const Header = () => {
               burgerModal.isOpen ? "active" : ""
             }`}
           >
-            <a href="">
+            <Link to="/">
               <div
                 className={styles.logo}
                 onClick={() => {
@@ -151,7 +152,7 @@ const Header = () => {
                   />
                 </svg>
               </div>
-            </a>
+            </Link>
             <div
               onClick={handleBurgerRemove}
               className={styles.navigation__body}
@@ -194,7 +195,9 @@ const Header = () => {
                   </svg>
                   <ul>
                     <li>
-                      <a href="/search-by-parameters" className={styles.link}>
+                      <Link to="/search-by-parameters"
+                        className={styles.link}
+                      >
                         {t.t_apart_view_filter}
                         <span className={styles.list__arrow}>
                           <svg
@@ -211,11 +214,10 @@ const Header = () => {
                             />
                           </svg>
                         </span>
-                      </a>
+                      </Link>
                     </li>
                     <li className={styles.visual_hidden}>
-                      <a
-                        href="/visual-selectional-of-apartments"
+                      <Link to="/visual-selectional-of-apartments"
                         className={styles.link}
                       >
                         {t.t_apart_view_selet_text}
@@ -230,11 +232,11 @@ const Header = () => {
                             <path
                               d="M10 15H19.6226M19.6226 15L14.6655 10.1887M19.6226 15L14.6655 19.8113"
                               stroke="#FAF7F2"
-                              stroke-width="0.75"
+                              strokeWidth="0.75"
                             />
                           </svg>
                         </span>
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </div>

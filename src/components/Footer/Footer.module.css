@@ -120,6 +120,7 @@
 	overflow: hidden;
 	cursor: pointer;
 	position: relative;
+	z-index: 2;
 }
 
 .get__directions span {
@@ -170,7 +171,7 @@
 	position: relative;
 	border-radius: 100%;
 	background-color: transparent;
-	border: 1px solid var(--bg-beige);
+ 
 	transition: background-color .3s ease;
 }
 

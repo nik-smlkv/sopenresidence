@@ -255,7 +255,7 @@ const ApartmentsFilter: React.FC<Props> = ({ apartments }) => {
                     <div className={styles.card_img_block}>
                       <img
                         className={styles.card_img}
-                        src={`../images/flats/${apt.id[0]}/${apt.floor} этаж/${apt.id}.jpg`}
+                        src={`images/flats/${apt.id[0]}/${apt.floor} этаж/${apt.id}.jpg`}
                         alt="Flat card"
                       />
                     </div>

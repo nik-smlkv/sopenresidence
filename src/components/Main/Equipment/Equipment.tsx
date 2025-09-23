@@ -96,7 +96,12 @@ const Equipment = () => {
                 </div>
                 <button className={styles.equip__btn}>
                   <span>
-                    <img src="./images/equip-arrow.svg" alt="" />
+                    <img
+                      src={
+                        new URL("/images/equip-arrow.svg", import.meta.url).href
+                      }
+                      alt="Equip Arrow"
+                    />
                   </span>
                 </button>
               </div>

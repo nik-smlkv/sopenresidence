@@ -163,6 +163,9 @@
 	.apartment__btn:hover {
 		border: 1px solid var(--acc-light-apr-tx);
 	}
+	:global(.apart__btn).apartment__btn:hover {
+		border: 1px solid var(--acc-main-green);
+	}
 
 	.button__circle:hover {
 		background-color: transparent;

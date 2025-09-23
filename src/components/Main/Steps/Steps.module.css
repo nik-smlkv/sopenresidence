@@ -59,7 +59,7 @@
 
 @media(min-width: 2040px) {
 	.steps__title {
-		max-width: 35vw;
+		max-width: 1350px;
 	}
 }
 
@@ -201,6 +201,7 @@
 	row-gap: 14px;
 	margin-left: 18px;
 	flex: 1 1 100%;
+	list-style: disc;
 }
 
 .card__text_item {

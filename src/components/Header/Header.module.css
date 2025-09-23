@@ -54,7 +54,10 @@
 .btn_wrapper:global(.active)~.btn__list {
 	max-height: 350px;
 }
-
+:global(.changed) .btn__list{
+	background-color: var(--tx-wh);
+	border: 1px solid var(--tx-gray);
+}
 .btn__list li {
 	list-style-type: none;
 }
@@ -356,7 +359,7 @@ header:global(.changed) .header__body .burger_line {
 .header_block div:not(:last-child) {
 	position: relative;
 	z-index: 4;
-	
+
 }
 
 div.burger_modal_content {
@@ -431,7 +434,7 @@ div.burger_modal_content {
 	}
 }
 
- 
+
 @media((min-width: 769px) and (max-width: 1023px)) {
 	.header__body {
 		padding: 0em clamp(1.25rem, -2.5rem + 7.813vi, 2.5rem);
@@ -475,6 +478,10 @@ div.burger_modal_content {
 @media(hover:hover) {
 	.btn__body :global(.apart__btn):hover span {
 		color: var(--acc-main-green);
+	}
+
+	.btn__body .apartment__btn:hover {
+		border: 1px solid var(--acc-main-green)
 	}
 
 	:global(.changed) .btn__body :global(.apart__btn):hover span {

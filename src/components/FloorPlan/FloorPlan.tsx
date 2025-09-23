@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./FloorPlan.module.css";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useApartments } from "../../context/ApartmentsContext";
 import VisualTooltip from "../VisualTooltip/VisualTooltip";
 import { fetchExcelFromPublic, type Apartment } from "../../utils/utils";
@@ -12,93 +12,78 @@ import ApartmentModal from "../ApartmentModal/ApartmentModal";
 
 const FloorPlan = () => {
   const { floorId } = useParams();
-  const { apartments, loading, error } = useApartments();
-
-  const [initialRedirected, setInitialRedirected] = useState(false);
-  const { t } = useLang();
   const navigate = useNavigate();
-  const [selectedApartment, setSelectedApartment] = useState<any | null>(null);
+  const { t } = useLang();
+  const { apartments, loading } = useApartments();
+
   const [manualApartments, setManualApartments] = useState<Apartment[] | null>(
     null
   );
   const effectiveApartments = manualApartments ?? apartments;
-  const refA = useRef<HTMLDivElement>(null);
-  const refB = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (refA.current && refB.current) {
-      const computed = getComputedStyle(refA.current);
-      const height = refA.current.offsetHeight;
-
-      // Если нужно учесть padding отдельно:
-      const paddingTop = parseFloat(computed.paddingTop);
-      const paddingBottom = parseFloat(computed.paddingBottom);
-
-      const totalHeight = height + paddingTop + paddingBottom;
-
-      refB.current.style.maxHeight = `${totalHeight}px`;
-    }
-  }, []);
-
-  const handleClick = () => {
-    navigate("/search-by-parameters");
-  };
-  const svgRef = useRef<SVGSVGElement>(null);
-  const activeFloorRef = useRef<HTMLLIElement | null>(null);
+  const [selectedFloor, setSelectedFloor] = useState<number | null>(null);
+  const [selectedApartment, setSelectedApartment] = useState<Apartment | null>(
+    null
+  );
   const [tooltip, setTooltip] = useState<{
     x: number;
     y: number;
     content: React.ReactNode;
   } | null>(null);
 
-  const uniqueFloors = Array.from(
-    new Set(effectiveApartments.map((apt) => apt.floor))
-  ).sort((a, b) => b - a);
+  const refA = useRef<HTMLDivElement>(null);
+  const refB = useRef<HTMLDivElement>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
+  const activeFloorRef = useRef<HTMLLIElement | null>(null);
 
-  const selectedFloor = floorId
-    ? parseInt(floorId, 10)
-    : uniqueFloors.length > 0
-    ? uniqueFloors[0]
-    : 0;
-
-  const currentIndex = uniqueFloors.indexOf(selectedFloor);
-  const prevFloor = uniqueFloors[currentIndex + 1];
-  const nextFloor = uniqueFloors[currentIndex - 1];
-
-  const handleArrowClick = (floor?: number) => {
-    if (floor !== undefined) navigate(`/floor/${floor}`);
-  };
-
-  // Fallback загрузка из Excel
+  // 📦 Fallback загрузка из Excel
   useEffect(() => {
-    if (!loading && Array.isArray(apartments) && apartments.length === 0) {
-      (async () => {
-        try {
-          const data = await fetchExcelFromPublic();
-          if (data.length > 0) {
-            setManualApartments(data);
-          }
-        } catch (err) {
-          console.error("Ошибка при загрузке Excel:", err);
-        }
-      })();
+    if (!loading && apartments.length === 0 && !manualApartments) {
+      fetchExcelFromPublic()
+        .then((data) => {
+          if (data.length > 0) setManualApartments(data);
+        })
+        .catch((err) => console.error("Ошибка при загрузке Excel:", err));
     }
-  }, [loading, apartments]);
+  }, [loading, apartments, manualApartments]);
 
-  // Автоматический редирект на верхний этаж, если floorId отсутствует
+  // 🧠 Вычисляем этаж
   useEffect(() => {
-    if (floorId && !initialRedirected && !loading) {
-      navigate("/floor", { replace: true });
-      setInitialRedirected(true);
-    }
-  }, [floorId, initialRedirected, loading]);
+    if (loading || effectiveApartments.length === 0) return;
 
+    const uniqueFloors = Array.from(
+      new Set(effectiveApartments.map((apt) => apt.floor))
+    ).sort((a, b) => b - a);
+    const resolvedFloor = floorId
+      ? parseInt(floorId, 10)
+      : uniqueFloors[0] ?? null;
+    setSelectedFloor(resolvedFloor);
+  }, [floorId, effectiveApartments, loading]);
+
+  // 🚨 Редирект, если floorId невалиден
+  console.log(floorId);
+  console.log(effectiveApartments);
+  console.log(loading);
   useEffect(() => {
-    if (!floorId && initialRedirected && uniqueFloors.length > 0 && !loading) {
-      navigate(`/floor/${uniqueFloors[0]}`, { replace: true });
-    }
-  }, [floorId, initialRedirected, uniqueFloors, loading]);
+    if (!loading && effectiveApartments.length === 0 && floorId) {
+      const floorNum = parseInt(floorId, 10);
+      const exists = effectiveApartments.some((apt) => apt.floor === floorNum);
 
+      if (!exists) navigate("/floor", { replace: true });
+    }
+  }, [floorId, effectiveApartments, loading, navigate]);
+
+  // 📐 Подгонка высоты блока
+  useEffect(() => {
+    if (refA.current && refB.current) {
+      const computed = getComputedStyle(refA.current);
+      const height = refA.current.offsetHeight;
+      const paddingTop = parseFloat(computed.paddingTop);
+      const paddingBottom = parseFloat(computed.paddingBottom);
+      refB.current.style.maxHeight = `${height + paddingTop + paddingBottom}px`;
+    }
+  }, []);
+
+  // 🎯 Скроллим к активному этажу
   useEffect(() => {
     if (activeFloorRef.current) {
       activeFloorRef.current.scrollIntoView({
@@ -108,16 +93,36 @@ const FloorPlan = () => {
     }
   }, [selectedFloor]);
 
+  // 🧭 Навигация по этажам
+  const uniqueFloors = Array.from(
+    new Set(effectiveApartments.map((apt) => apt.floor))
+  ).sort((a, b) => b - a);
+  const currentIndex =
+    selectedFloor !== null ? uniqueFloors.indexOf(selectedFloor) : -1;
+  const prevFloor =
+    currentIndex !== -1 ? uniqueFloors[currentIndex + 1] : undefined;
+  const nextFloor =
+    currentIndex !== -1 ? uniqueFloors[currentIndex - 1] : undefined;
+
+  const handleArrowClick = (floor?: number) => {
+    if (floor !== undefined) navigate(`/floor/${floor}`);
+  };
+
+  // Обработка SVG
   useEffect(() => {
     const svg = svgRef.current;
     if (!svg) return;
 
+    const normalize = (str: string) => str.replace(/\s+/g, "").toUpperCase();
+
     const polygons = svg.querySelectorAll(
       "polygon[data-label], path[data-label]"
     );
-    polygons.forEach((poly) => {
-      const label = poly.getAttribute("data-label");
-      const bbox = (poly as SVGGraphicsElement).getBBox();
+    polygons.forEach((el) => {
+      const label = el.getAttribute("data-label");
+      if (!label) return;
+
+      const bbox = (el as SVGGraphicsElement).getBBox();
       const centerX = bbox.x + bbox.width / 2;
       const centerY = bbox.y + bbox.height / 2;
 
@@ -145,11 +150,7 @@ const FloorPlan = () => {
 
       group.appendChild(circle);
       group.appendChild(text);
-      poly.parentNode?.appendChild(group);
-
-      const normalize = (str: string) => str.replace(/\s+/g, "").toUpperCase();
-      const el = poly as SVGGraphicsElement;
-      if (!label) return;
+      el.parentNode?.appendChild(group);
 
       const handleMouseEnter = (e: MouseEvent) => {
         const target = e.currentTarget as SVGGraphicsElement;
@@ -228,9 +229,8 @@ const FloorPlan = () => {
         );
       };
 
-      const handleMouseLeave = () => {
-        setTooltip(null);
-      };
+      const handleMouseLeave = () => setTooltip(null);
+
       const handleClick = (e: MouseEvent) => {
         const target = e.currentTarget as SVGGraphicsElement;
         const rawLabel = target.getAttribute("data-label");
@@ -249,25 +249,25 @@ const FloorPlan = () => {
         if (!section) return;
 
         const fullId = `${section} ${label}`;
-        const apt = apartments.find(
+        const apt = effectiveApartments.find(
           (a) => normalize(a.id) === normalize(fullId)
         );
         if (!apt) return;
 
         setSelectedApartment(apt);
       };
-      el.addEventListener("mouseenter", handleMouseEnter);
-      el.addEventListener("mousemove", handleMouseMove);
-      el.addEventListener("mouseleave", handleMouseLeave);
-      el.addEventListener("click", handleClick);
-      (el as any)._tooltipHandlers = {
-        handleMouseEnter,
-        handleMouseMove,
-        handleMouseLeave,
-        handleClick,
-      };
+
+      el.addEventListener("mouseenter", (e) =>
+        handleMouseEnter(e as MouseEvent)
+      );
+
+      el.addEventListener("mousemove", (e) => handleMouseMove(e as MouseEvent));
+
+      el.addEventListener("mouseleave", () => handleMouseLeave());
+
+      el.addEventListener("click", (e) => handleClick(e as MouseEvent));
     });
-  }, [effectiveApartments]);
+  }, [effectiveApartments, t]);
 
   useEffect(() => {
     const svgDoc = svgRef.current?.ownerDocument;
@@ -316,9 +316,9 @@ const FloorPlan = () => {
           data-section-id="light"
         >
           <div className={styles.plan_info_content}>
-            <button className={styles.grid_view_btn} onClick={handleClick}>
+            <Link to={"/search-by-parameters"} className={styles.grid_view_btn}>
               <span>{t.t_grid_view_txt}</span>
-            </button>
+            </Link>
             <h2 className={styles.floor_title}>
               {t.t_flor_txt} {selectedFloor}
             </h2>
@@ -388,11 +388,15 @@ const FloorPlan = () => {
                   <span className={styles.section_list_label}>
                     {t.t_lam_txt}
                   </span>
-                  <img src="../images/n.png" alt="Section" />
+                  <img src={
+                      new URL("/images/n.png", import.meta.url).href
+                    } alt="Section" />
                 </div>
                 <img
                   className={styles.section_plan_img}
-                  src="../images/plan-little.svg"
+                  src={
+                      new URL("/images/plan-little.svg", import.meta.url).href
+                    }
                   alt="Plan"
                 />
               </div>
@@ -418,8 +422,11 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/3.png"
+                    xlinkHref={
+                      new URL("/images/genplans/3.png", import.meta.url).href
+                    }
                   />
+
                   <g id="A5" data-name="A03">
                     <polygon
                       data-label="A01"
@@ -655,7 +662,9 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/4.png"
+                    xlinkHref={
+                      new URL("/images/genplans/4.png", import.meta.url).href
+                    }
                   />
                   <g id="A4" data-name="A04">
                     <polygon
@@ -892,7 +901,9 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/5.png"
+                    xlinkHref={
+                      new URL("/images/genplans/5.png", import.meta.url).href
+                    }
                   />
                   <g id="A4" data-name="A05">
                     <polygon
@@ -1128,7 +1139,9 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/6.png"
+                    xlinkHref={
+                      new URL("/images/genplans/6.png", import.meta.url).href
+                    }
                   />
                   <g id="A4" data-name="A06">
                     <polygon
@@ -1364,7 +1377,9 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/7.png"
+                    xlinkHref={
+                      new URL("/images/genplans/7.png", import.meta.url).href
+                    }
                   />
                   <g id="A4" data-name="A07">
                     <polygon
@@ -1600,7 +1615,9 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/8.png"
+                    xlinkHref={
+                      new URL("/images/genplans/8.png", import.meta.url).href
+                    }
                   />
                   <g id="A4" data-name="A08">
                     <polygon
@@ -1836,7 +1853,9 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/9.png"
+                    xlinkHref={
+                      new URL("/images/genplans/9.png", import.meta.url).href
+                    }
                   />
                   <g id="A" data-name="A09">
                     <polygon
@@ -2073,7 +2092,9 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/10.png"
+                    xlinkHref={
+                      new URL("/images/genplans/10.png", import.meta.url).href
+                    }
                   />
                   <g id="A" data-name="A10">
                     <polygon
@@ -2310,7 +2331,9 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/11.png"
+                    xlinkHref={
+                      new URL("/images/genplans/11.png", import.meta.url).href
+                    }
                   />
                   <g id="A2" data-name="A11">
                     <polygon
@@ -2417,7 +2440,9 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/12.png"
+                    xlinkHref={
+                      new URL("/images/genplans/12.png", import.meta.url).href
+                    }
                   />
                   <g id="A3" data-name="A12">
                     <polygon
@@ -2524,7 +2549,9 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/13.png"
+                    xlinkHref={
+                      new URL("/images/genplans/3.png", import.meta.url).href
+                    }
                   />
                   <g id="A" data-name="A13">
                     <polygon
@@ -2617,7 +2644,9 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/14.png"
+                    xlinkHref={
+                      new URL("/images/genplans/3.png", import.meta.url).href
+                    }
                   />
                   <g xmlns="http://www.w3.org/2000/svg" id="A" data-name="A14">
                     <polygon
@@ -2710,7 +2739,9 @@ const FloorPlan = () => {
                   <image
                     width="3149"
                     height="1310"
-                    xlinkHref="/images/genplans/15.png"
+                    xlinkHref={
+                      new URL("/images/genplans/3.png", import.meta.url).href
+                    }
                   />
                   <g xmlns="http://www.w3.org/2000/svg" id="A" data-name="A15">
                     <polygon

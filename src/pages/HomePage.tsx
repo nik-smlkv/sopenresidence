@@ -89,11 +89,22 @@ const HomePage = () => {
       }
     };
 
-    // Даем время GSAP и DOM отработать
-    setTimeout(() => {
-      ScrollTrigger.refresh(); // сначала обновляем ScrollTrigger
-      setTimeout(scrollAfterGSAP, 100); // потом скроллим
-    }, 500); // задержка перед ScrollTrigger.refresh
+    const handleReady = () => {
+      setTimeout(() => {
+        ScrollTrigger.refresh(); // сначала обновляем ScrollTrigger
+        setTimeout(scrollAfterGSAP, 100); // потом скроллим
+      }, 500); // задержка перед ScrollTrigger.refresh
+    };
+
+    if (document.readyState === "complete") {
+      handleReady();
+    } else {
+      window.addEventListener("load", handleReady);
+    }
+
+    return () => {
+      window.removeEventListener("load", handleReady);
+    };
   }, [location.state]);
 
   return (
@@ -116,7 +127,7 @@ const HomePage = () => {
             >
               <img
                 className={styles.parallax_image}
-                src="./images/comfortable.jpg"
+                src={new URL("/images/comfortable.jpg", import.meta.url).href}
                 alt="Comfortable"
               />
             </div>

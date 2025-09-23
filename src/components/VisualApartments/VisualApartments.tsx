@@ -6,7 +6,7 @@ import { fetchExcelFromPublic, type Apartment } from "../../utils/utils";
 
 import VisualTooltip from "../VisualTooltip/VisualTooltip";
 import { floorPaths } from "./floorPaths";
-import FloorPlan from "../FloorPlan/FloorPlan";
+ 
 import { useNavigate } from "react-router-dom";
 import { useLang } from "../../hooks/useLang";
 const VisualApartments = () => {
@@ -22,7 +22,7 @@ const VisualApartments = () => {
     content: null,
   });
   const { t } = useLang();
-  const [selectedFloor] = useState<number | null>(null);
+ 
   const [apartments, setApartments] = useState<Apartment[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -33,13 +33,13 @@ const VisualApartments = () => {
     }
   }, []);
 
-  const handleFloorClick = (e: React.MouseEvent<SVGPathElement>) => {
-    const rawFloor = e.currentTarget.dataset.floor;
-    const floor = rawFloor ? parseInt(rawFloor, 10) : null;
-    if (floor !== null && !isNaN(floor)) {
-      navigate(`/floor/${floor}`);
-    }
-  };
+const handleFloorClick = (e: React.MouseEvent<SVGPathElement>) => {
+  const rawFloor = e.currentTarget.dataset.floor;
+  const floor = rawFloor ? parseInt(rawFloor, 10) : null;
+  if (floor !== null && !isNaN(floor)) {
+    navigate(`/floor/${floor}`); // передаём этаж через URL
+  }
+};
 
   useEffect(() => {
     fetchExcelFromPublic()
@@ -146,7 +146,7 @@ const VisualApartments = () => {
                 content={tooltip.content}
               />
             )}
-            {selectedFloor !== null && <FloorPlan />}
+ 
           </div>
         </section>
       </main>

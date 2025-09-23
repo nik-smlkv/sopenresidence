@@ -5,6 +5,7 @@ import SelectApartmentBtn from "../Buttons/SelectApartmentBtn";
 import { useModalControl } from "../../context/ModalContext";
 import "../Contact/Contact.module.css";
 import { useLang } from "../../hooks/useLang";
+import { Link } from "react-router-dom";
 const BurgerModal = () => {
   const { close } = useModalControl();
   const { t } = useLang();
@@ -37,13 +38,16 @@ const BurgerModal = () => {
                   { label: t.t_space_str, targetId: "space-structure" },
                 ]}
               />
-              <a href="/search-by-parameters">
+              <Link to="/search-by-parameters">
                 <SelectApartmentBtn data-close />
-              </a>
+              </Link>
             </div>
           </div>
           <div className={styles.burger_modal_picture}>
-            <img src="/images/modal-image.jpg" alt="Modal Image" />
+            <img
+              src={new URL("/images/modal-image.jpg", import.meta.url).href}
+              alt="Modal Image"
+            />
           </div>
         </div>
         <div className={styles.burger_modal_block}>

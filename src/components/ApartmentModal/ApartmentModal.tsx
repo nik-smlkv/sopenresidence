@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./ApartmentModal.module.css";
 
 import { apartmentTypes } from "../FloorPlan/apartmentTypes";
+import { useLang } from "../../hooks/useLang";
 
 const ApartmentModal = ({
   apartment,
@@ -15,7 +16,7 @@ const ApartmentModal = ({
   const handleViewChange = (mode: "plan" | "3d") => {
     setViewMode(mode);
   };
-
+  const { t } = useLang();
   const matchedTip = apartmentTypes.find((tipObj) =>
     tipObj.apartments.includes(apartment.id)
   );
@@ -48,23 +49,25 @@ const ApartmentModal = ({
             stroke-width="1.5"
           />
         </svg>
-        <span>Back</span>
+        <span>{t.t_back_txt}</span>
       </button>
       <div className={styles.apart_body}>
         <div className={styles.apart_block_info}>
           <h2 className={styles.apart_name}>{apartment.id}</h2>
           <div className={styles.apart_info_content}>
             <div className={styles.apart_info_txt}>
-              <span>Area</span>
+              <span>{t.t_area_txt}</span>
               <p>{apartment.area} m²</p>
             </div>
             <div className={styles.apart_info_txt}>
-              <span>Floor</span>
+              <span>{t.t_flor_txt}</span>
               <p>{apartment.floor}</p>
             </div>
             <div className={styles.apart_info_txt}>
-              <span>Builduing wind</span>
-              <p>Section {apartment.id.slice(0, 1)}</p>
+              <span>{t.t_build_wing_txt}</span>
+              <p>
+                {t.t_lam_txt} {apartment.id.slice(0, 1)}
+              </p>
             </div>
           </div>
           <div className={styles.apart_meter_info}>
@@ -93,7 +96,7 @@ const ApartmentModal = ({
               }
             }}
           >
-            <span>price upon request</span>
+            <span>{t.t_pr_upon_txt}</span>
           </div>
         </div>
         <div className={styles.plan_view_content}>

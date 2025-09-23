@@ -208,7 +208,7 @@ const Steps = () => {
           </div>
           <div className={styles.img__wrapper} ref={imgWrapperRef}>
             <img
-              src="./images/steps-img.jpg"
+              src={new URL("/images/steps-img.jpg", import.meta.url).href}
               alt="steps"
               ref={imgRef}
               className={styles.steps__img}

@@ -70,27 +70,27 @@ const HorizontParallax = () => {
     name: string;
   }[] = [
     {
-      img: "./images/beautiful-spa-client-with-tisane-looking-into-distance.jpg",
+      img: "/park-test/images/beautiful-spa-client-with-tisane-looking-into-distance.jpg",
       name: t.t_hor_par_2,
     },
     {
-      img: "./images/customer-choosing-milk-products-supermarket-refrigerator.jpg",
+      img: "/park-test/images/customer-choosing-milk-products-supermarket-refrigerator.jpg",
       name: t.t_hor_par_3,
     },
     {
-      img: "./images/pharmacist-work.jpg",
+      img: "/park-test/images/pharmacist-work.jpg",
       name: t.t_hor_par_4,
     },
     {
-      img: "./images/close-up-barista-making-cappuccino-bartender-preparing-coffee-drink.jpg",
+      img: "/park-test/images/close-up-barista-making-cappuccino-bartender-preparing-coffee-drink.jpg",
       name: t.t_hor_par_5,
     },
     {
-      img: "./images/close-up-barista-making-cappuccino-bartender-preparing-coffee-drink-1.jpg ",
+      img: "/park-test/images/close-up-barista-making-cappuccino-bartender-preparing-coffee-drink-1.jpg ",
       name: t.t_hor_par_6,
     },
     {
-      img: "./images/young-adult-woman-pushing-shopping-trolley-shelves-market.jpg",
+      img: "/park-test/images/young-adult-woman-pushing-shopping-trolley-shelves-market.jpg",
       name: t.t_hor_par_7,
     },
   ];
@@ -177,13 +177,15 @@ const HorizontParallax = () => {
             modules={[Pagination, Navigation]}
             slidesPerView="auto"
             onSwiper={(swiper) => (swiperRef.current = swiper)}
-
             className={styles.parallax__cards}
           >
             {ParallaxCards.map((card, index) => (
               <SwiperSlide key={index} className={styles.parallax__card}>
                 <p className={styles.card__index}>0{index + 1}</p>
-                <img src={card.img} alt={card.name} />
+                <img
+                  src={new URL(card.img, import.meta.url).href}
+                  alt={card.name}
+                />
                 <p className={styles.card__name}>{card.name}</p>
               </SwiperSlide>
             ))}
@@ -219,7 +221,10 @@ const HorizontParallax = () => {
                     openIndex === index ? styles.open : ""
                   }`}
                 >
-                  <img src={`${card.img}`} alt={card.name} />
+                  <img
+                    src={new URL(`${card.img}`, import.meta.url).href}
+                    alt={card.name}
+                  />
                 </div>
               </div>
             ))}

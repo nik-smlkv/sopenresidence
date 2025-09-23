@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useLang } from "../../../hooks/useLang";
 import styles from "./ApartmentView.module.css";
 const ApartmentView = () => {
@@ -7,12 +8,12 @@ const ApartmentView = () => {
     <section
       className={styles.apartment__view}
       data-section-id="transparent-black"
-      id="apartments-anchor"
+
     >
       <div className={styles.apartment__body}>
         <h2 className={styles.apartment__title}>{t.t_apart_view_title}</h2>
         <div className={styles.apartments__cards}>
-          <a href="/search-by-parameters" className={styles.apartment__card}>
+          <Link to="/search-by-parameters" className={styles.apartment__card}>
             <div className={styles.apartment_card_body}>
               <p className={styles.apartment__filter}>
                 {t.t_apart_view_filter}
@@ -108,9 +109,8 @@ const ApartmentView = () => {
                 </svg>
               </div>
             </div>
-          </a>
-          <a
-            href="/visual-selectional-of-apartments"
+          </Link>
+          <Link to="/visual-selectional-of-apartments"
             className={styles.apartment__card}
           >
             <div className={styles.apartment_card_body}>
@@ -120,7 +120,7 @@ const ApartmentView = () => {
               <div className={styles.apartment__info}>
                 <img
                   className={styles.apartment__render}
-                  src="./images/render.png"
+                  src={new URL("/images/render.png", import.meta.url).href}
                   alt="Render"
                 />
                 <svg
@@ -148,7 +148,7 @@ const ApartmentView = () => {
                 </svg>
               </div>
             </div>
-          </a>
+          </Link>
         </div>
       </div>
     </section>
