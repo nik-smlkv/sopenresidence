@@ -38,17 +38,19 @@ const FloorPlan = () => {
   const activeFloorRef = useRef<HTMLLIElement | null>(null);
 
   // 📦 Fallback загрузка из Excel
-useEffect(() => {
-  if (!loading && apartments.length === 0 && !manualApartments) {
-    setExcelLoading(true);
-    fetchExcelFromPublic()
-      .then((data) => {
-        if (data.length > 0) setManualApartments(data);
-      })
-      .catch((err) => console.error(`Ошибка при загрузке Excel: ${excelLoading}`, err))
-      .finally(() => setExcelLoading(false));
-  }
-}, [loading, apartments, manualApartments]);
+  useEffect(() => {
+    if (!loading && apartments.length === 0 && !manualApartments) {
+      setExcelLoading(true);
+      fetchExcelFromPublic()
+        .then((data) => {
+          if (data.length > 0) setManualApartments(data);
+        })
+        .catch((err) =>
+          console.error(`Ошибка при загрузке Excel: ${excelLoading}`, err)
+        )
+        .finally(() => setExcelLoading(false));
+    }
+  }, [loading, apartments, manualApartments]);
 
   // 🧠 Вычисляем этаж
   useEffect(() => {
@@ -259,9 +261,16 @@ useEffect(() => {
         setSelectedApartment(apt);
       };
 
-      el.addEventListener("mouseenter", (e) =>
-        handleMouseEnter(e as MouseEvent)
-      );
+      const mediaQuery = window.matchMedia("(max-width: 1024px)");
+      if (mediaQuery.matches && el) {
+        el.addEventListener("mouseenter", (e) =>
+          handleMouseEnter(e as MouseEvent)
+        );
+      } else if (el) {
+        el.addEventListener("mouseenter", (e) =>
+          handleMouseEnter(e as MouseEvent)
+        );
+      }
 
       el.addEventListener("mousemove", (e) => handleMouseMove(e as MouseEvent));
 
@@ -336,30 +345,24 @@ useEffect(() => {
                   <span className={styles.floor_list_label}>
                     {t.t_flor_txt}
                   </span>
+                  <span
+                    className={styles.floor_arrow}
+                    onClick={() => handleArrowClick(nextFloor)}
+                    style={{
+                      cursor: nextFloor ? "pointer" : "default",
+                      opacity: nextFloor ? 1 : 0.3,
+                    }}
+                  >
+                    <svg width="18" height="10" viewBox="0 0 18 10" fill="none">
+                      <path
+                        d="M1.33203 8.8335L8.9987 1.16683L16.6654 8.8335"
+                        stroke="#1D1D1D"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </span>
                   <div className={styles.floor_list}>
-                    <span
-                      className={styles.floor_arrow}
-                      onClick={() => handleArrowClick(nextFloor)}
-                      style={{
-                        cursor: nextFloor ? "pointer" : "default",
-                        opacity: nextFloor ? 1 : 0.3,
-                      }}
-                    >
-                      <svg
-                        width="18"
-                        height="10"
-                        viewBox="0 0 18 10"
-                        fill="none"
-                      >
-                        <path
-                          d="M1.33203 8.8335L8.9987 1.16683L16.6654 8.8335"
-                          stroke="#1D1D1D"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                    </span>
-
                     <ul>
                       {uniqueFloors.map((f) => (
                         <li
@@ -374,7 +377,6 @@ useEffect(() => {
                         </li>
                       ))}
                     </ul>
-
                     <span
                       className={styles.floor_arrow}
                       onClick={() => handleArrowClick(prevFloor)}

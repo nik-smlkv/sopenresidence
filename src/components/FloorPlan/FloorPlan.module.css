@@ -585,6 +585,10 @@
 	}
 
 	.floor_list ul {
+		overflow-y: hidden;
+	}
+
+	.floor_list ul {
 		min-width: 668px;
 	}
 
