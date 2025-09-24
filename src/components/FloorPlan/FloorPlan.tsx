@@ -2914,8 +2914,8 @@ const FloorPlan = () => {
               </div>
               {tooltip && (
                 <VisualTooltip
-                  x={tooltip.x - 600}
-                  y={tooltip.y - 80}
+                  x={tooltip.x}
+                  y={tooltip.y}
                   content={tooltip.content}
                 />
               )}
