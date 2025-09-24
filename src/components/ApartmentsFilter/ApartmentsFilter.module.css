@@ -533,6 +533,10 @@
 		row-gap: clamp(1.75rem, 1.325rem + 2vi, 3.125rem);
 	}
 
+	.card_img {
+		max-height: 290px;
+	}
+
 	.list {
 		row-gap: clamp(2.5rem, -0.577rem + 4.808vi, 3.75rem);
 	}
@@ -595,7 +599,9 @@
 
 	}
 
-	.card_img {}
+	.card_img {
+		max-height: clamp(14rem, 2.894rem + 31.731vi, 18.125rem);
+	}
 
 	.apartmets_list_block {
 		row-gap: clamp(1rem, 0.504rem + 2.336vi, 1.625rem);

@@ -58,55 +58,55 @@ const Locations = () => {
     {
       id: "1",
       name: `${t.t_loc_txt_frst}`,
-      icon: "./images/park.svg",
+      icon: "/park-test/images/park.svg",
       position: { lat: 43.3152295, lng: 21.9039461 },
     },
     {
       id: "2",
       name: `${t.t_loc_txt_secnd}`,
-      icon: "./images/hospital.svg",
+      icon: "/park-test/images/hospital.svg",
       position: { lat: 43.315688, lng: 21.912405 },
     },
     {
       id: "3",
       name: `${t.t_loc_txt_frtd}`,
-      icon: "./images/shop.svg",
+      icon: "/park-test/images/shop.svg",
       position: { lat: 43.3244918, lng: 21.9062526 },
     },
     {
       id: "4",
       name: `${t.t_loc_txt_frth}`,
-      icon: "./images/savapark.svg",
+      icon: "/park-test/images/savapark.svg",
       position: { lat: 43.3202859, lng: 21.9167214 },
     },
     {
       id: "5",
       name: `${t.t_loc_txt_fft}`,
-      icon: "./images/milan-sq.svg",
+      icon: "/park-test/images/milan-sq.svg",
       position: { lat: 43.32144, lng: 21.8908982 },
     },
     {
       id: "6",
       name: `${t.t_loc_txt_six}`,
-      icon: "./images/alexander.svg",
+      icon: "/park-test/images/alexander.svg",
       position: { lat: 43.3181301, lng: 21.8883566 },
     },
     {
       id: "7",
       name: `${t.t_loc_txt_seventh}`,
-      icon: "./images/fortress.svg",
+      icon: "/park-test/images/fortress.svg",
       position: { lat: 43.3241346, lng: 21.901171 },
     },
     {
       id: "8",
       name: `${t.t_loc_txt_neinght}`,
-      icon: "./images/sport.svg",
+      icon: "/park-test/images/sport.svg",
       position: { lat: 43.3082365, lng: 21.8850973 },
     },
     {
       id: "9",
       name: "",
-      icon: "./images/sopen.svg",
+      icon: "/park-test/images/sopen.svg",
       position: { lat: 43.310192, lng: 21.907592 },
     },
   ];
@@ -167,7 +167,7 @@ const Locations = () => {
                     isDropdownOpen ? "active" : ""
                   }`}
                 >
-                  <img src="./images/equip-arrow.svg" alt="" />
+                  <img src={new URL("/images/equip-arrow.svg", import.meta.url).href} alt="" />
                 </span>
               </div>
               <div
@@ -234,9 +234,9 @@ const Locations = () => {
 						  
                     icon={{
                       url:
-                        openIndex === index
-                          ? loc.icon.replace(".svg", "-active.svg")
-                          : loc.icon,
+                        openIndex === index 
+                          ? new URL(loc.icon, import.meta.url).href.replace(".svg", "-active.svg")
+                          : new URL(loc.icon, import.meta.url).href,
                     }}
                   />
                 ))}

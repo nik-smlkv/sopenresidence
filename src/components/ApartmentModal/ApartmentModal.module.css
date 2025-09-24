@@ -71,7 +71,7 @@
 	max-width: 1060px;
 	height: 100%;
 	flex-direction: column;
-	max-height: 600px;
+	max-height: 100%;
 	background-color: white;
 	padding: 30px;
 	position: relative;
@@ -595,19 +595,11 @@
 		width: 100%;
 	}
 
-	.apartment_view_list {
-		width: 100%;
-		max-width: 100%;
-	}
-
 	.apartment_view_list li {
 		flex: 1 1 50%;
 	}
 
-	.apartment_view_list:global(.view_srb) {
-		max-width: 100%;
-		flex: 1;
-	}
+
 
 	.apart_block_info {
 		flex: 0;
@@ -653,7 +645,7 @@
 	.apart_name {
 		position: absolute;
 		right: 20px;
-		top: 120px;
+		top: 113px;
 		border-bottom: none;
 		padding-bottom: 0;
 	}
@@ -680,8 +672,23 @@
 		max-width: 140px;
 	}
 
+	.apartment_view_list:global(.view_srb) {
+		max-width: 100%;
+		flex: 1;
+	}
+
+	.img_object:global(.plan) {
+		max-height: 376px;
+		top: 50%;
+		left: 50%;
+	}
+
+	.apartment_view_list {
+		flex: 1 1 auto;
+	}
+
 	.plan_view_content {
-		flex: 1 1 360px;
+		flex: 1 1 502px;
 	}
 
 	.apart_meter_item {
@@ -704,7 +711,7 @@
 	}
 
 	.img_object:global(.plan) {
-		max-height: 170px;
+		max-height: 190px;
 		max-width: 520px;
 	}
 
@@ -727,4 +734,6 @@
 	.modal_content {
 		padding: 110px 20px 0em;
 	}
+
+
 }

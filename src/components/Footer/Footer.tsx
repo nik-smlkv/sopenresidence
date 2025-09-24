@@ -11,7 +11,7 @@ const Footer = () => {
   const { t } = useLang();
   return (
     <footer className={styles.footer} id="contact">
-      <div className={styles.footer__body}>
+      <div className={styles.footer__body} >
         <div className={styles.footer__info_block}>
           <Contact />
           <a href="https://clck.ru/3NxQwf" target="_blank" className={styles.get__directions}>

@@ -69,10 +69,10 @@ const AboutMain = () => {
     { key: "Parking spaces", name: t.t_park_space, info: "386" },
   ];
   const ImgsListArray: { key: string; src: string }[] = [
-    { key: "curves-horizon", src: "curves-horizon.jpg" },
-    { key: "futures-balcones", src: "futures-balcones.jpg" },
-    { key: "street-hythm", src: "street-hythm.jpg" },
-    { key: "urban-oasis", src: "urban-oasis.jpg" },
+    { key: "curves-horizon", src: "/park-test/images/curves-horizon.jpg" },
+    { key: "futures-balcones", src: "/park-test/images/futures-balcones.jpg" },
+    { key: "street-hythm", src: "/park-test/images/street-hythm.jpg" },
+    { key: "urban-oasis", src: "/park-test/images/urban-oasis.jpg" },
   ];
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -298,7 +298,7 @@ const AboutMain = () => {
           <div
             className={styles.about__apart_btn}
             onClick={() => {
-              const target = document.getElementById("apartments-anchor");
+              const target = document.getElementById("contact");
               if (target) {
                 target.scrollIntoView({ behavior: "smooth" });
               }
@@ -325,7 +325,7 @@ const AboutMain = () => {
               <SwiperSlide key={img.key}>
                 <div className={styles.img_wrapper}>
                   <img
-                    src={`images/${img.src}`}
+                    src={new URL(`${img.src}`, import.meta.url).href}
                     alt={img.key}
                     className={styles.img__item}
                   />

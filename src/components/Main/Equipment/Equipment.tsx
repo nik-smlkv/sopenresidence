@@ -61,7 +61,7 @@ const Equipment = () => {
             <div
               className={styles.btn__block}
               onClick={() => {
-                const target = document.getElementById("apartments-anchor");
+                const target = document.getElementById("contact");
                 if (target) {
                   target.scrollIntoView({ behavior: "smooth" });
                 }

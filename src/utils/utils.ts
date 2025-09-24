@@ -27,6 +27,7 @@ export type Apartment = {
   toilets: number;
   terraces: number;
   status: string;
+  
 };
 
 export async function fetchExcelFromPublic(): Promise<Apartment[]> {

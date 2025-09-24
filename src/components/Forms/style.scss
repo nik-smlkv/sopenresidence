@@ -92,7 +92,7 @@
 	border: none;
 	position: relative;
 	border-bottom: 1px solid var(--inpt-br);
-
+	padding-top: 10px;
 	&:not([value=""]):not(:focus)~.input_placeholder {
 		bottom: 35px;
 		left: 0px;

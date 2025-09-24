@@ -101,7 +101,7 @@ const handleFloorClick = (e: React.MouseEvent<SVGPathElement>) => {
   return (
     <>
       <Header />
-      <main className={styles.main}>
+      <main className={styles.main} id="main">
         <section
           className={styles.visual_floor_section}
           data-section-id="transparent"

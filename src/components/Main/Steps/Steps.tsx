@@ -139,6 +139,7 @@ const Steps = () => {
                   className={`${styles.steps__card} ${
                     activeIndex === index ? styles.active : ""
                   }`}
+                  onClick={() => handleToggle(index)}
                 >
                   <div className={styles.steps__card_front}>
                     <p className={styles.card__name}>
@@ -148,10 +149,7 @@ const Steps = () => {
                         return acc;
                       }, [] as (string | JSX.Element)[])}
                     </p>
-                    <div
-                      className={styles.card__btn}
-                      onClick={() => handleToggle(index)}
-                    >
+                    <div className={styles.card__btn}>
                       <svg
                         width="60"
                         height="60"
@@ -195,9 +193,9 @@ const Steps = () => {
                     <div className={styles.card__content_block}>
                       <p className={styles.card__content_block_name}>
                         {card.name}
-                      </p>{" "}
+                      </p>
                       <div className={styles.card__content_num}>
-                        <span>0{index + 1}</span>{" "}
+                        <span>0{index + 1}</span>
                         <span>/ 0{stepsCardArray.length}</span>
                       </div>
                     </div>

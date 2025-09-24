@@ -52,7 +52,16 @@ const BurgerModal = () => {
         </div>
         <div className={styles.burger_modal_block}>
           <div className={styles.burger_modal_btns}>
-            <div className={styles.request__btn} data-close>
+            <div
+              className={styles.request__btn}
+              data-close
+              onClick={() => {
+                const target = document.getElementById("contact");
+                if (target) {
+                  target.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+            >
               <span>{t.t_req}</span>
             </div>
             {/* <div className="current_language"></div> */}

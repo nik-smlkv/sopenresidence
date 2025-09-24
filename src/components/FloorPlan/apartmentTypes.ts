@@ -2,6 +2,8 @@ export const apartmentTypes = [
   {
     tip: "TIP 1",
     name: "JEDNOSOBAN STAN",
+    room: "One-room apartment",
+    countRoom: 1,
     netArea: "25.96",
     layout: {
       Hallway: "3.52",
@@ -25,6 +27,7 @@ export const apartmentTypes = [
     tip: "TIP 2.1",
     name: "JEDNOSOBAN STAN",
     room: "One-room apartment",
+    countRoom: 1,
     netArea: "35.10",
     layout: {
       Hallway: "3.91",
@@ -52,7 +55,8 @@ export const apartmentTypes = [
   {
     tip: "TIP 2.2",
     name: "JEDNOSOBAN STAN",
-    room: "One-room ",
+    room: "One-room apartment",
+    countRoom: 1,
     netArea: "34.95",
     layout: {
       Hallway: "3.83",
@@ -80,7 +84,8 @@ export const apartmentTypes = [
   {
     tip: "TIP 3",
     name: "JEDNOIPOSOBAN STAN",
-    room: "One-room ",
+    room: "One-room apartment",
+    countRoom: 1,
     netArea: "38.24",
     layout: {
       Hallway: "4.05",
@@ -106,6 +111,7 @@ export const apartmentTypes = [
     tip: "TIP 4.1",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "53.59",
     layout: {
       Hallway: "7.81",
@@ -152,6 +158,7 @@ export const apartmentTypes = [
     tip: "TIP 4.2",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "54.73",
     layout: {
       Hallway: "7.43",
@@ -182,6 +189,7 @@ export const apartmentTypes = [
     tip: "TIP 4.3",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "56.37 – 56.48",
     layout: {
       Hallway: "7.22",
@@ -215,6 +223,7 @@ export const apartmentTypes = [
     tip: "TIP 4.4",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "60.01",
     layout: {
       Hallway: "8.87",
@@ -240,6 +249,7 @@ export const apartmentTypes = [
     tip: "TIP 5",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "46.79",
     layout: {
       Hallway: "5.50",
@@ -265,6 +275,7 @@ export const apartmentTypes = [
     tip: "TIP 6.1",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "49.12",
     layout: {
       Hallway: "5.11",
@@ -295,6 +306,7 @@ export const apartmentTypes = [
     tip: "TIP 6.2",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "49.70",
     layout: {
       Hallway: "5.05",
@@ -325,6 +337,7 @@ export const apartmentTypes = [
     tip: "TIP 6.3",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "50.52",
     layout: {
       Hallway: "5.53",
@@ -355,6 +368,7 @@ export const apartmentTypes = [
     tip: "TIP 6.4",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "53.60",
     layout: {
       Hallway: "5.62",
@@ -385,6 +399,7 @@ export const apartmentTypes = [
     tip: "TIP 6.5",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "55.31",
     layout: {
       Hallway: "5.29",
@@ -415,6 +430,7 @@ export const apartmentTypes = [
     tip: "TIP 6.6",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "54.70",
     layout: {
       Hallway: "5.69",
@@ -445,6 +461,7 @@ export const apartmentTypes = [
     tip: "TIP 7.1",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "47.40",
     layout: {
       Hallway: "5.56",
@@ -470,6 +487,7 @@ export const apartmentTypes = [
     tip: "TIP 7.2",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "49.11",
     layout: {
       Hallway: "4.62",
@@ -495,6 +513,7 @@ export const apartmentTypes = [
     tip: "TIP 7.3",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "50.06",
     layout: {
       Hallway: "5.15",
@@ -528,6 +547,7 @@ export const apartmentTypes = [
     tip: "TIP 7.4",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "51.72",
     layout: {
       Hallway: "4.89",
@@ -553,6 +573,7 @@ export const apartmentTypes = [
     tip: "TIP 7.5",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "51.40",
     layout: {
       Hallway: "5.30",
@@ -578,6 +599,7 @@ export const apartmentTypes = [
     tip: "TIP 7.6",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "52.02",
     layout: {
       Hallway: "5.34",
@@ -603,6 +625,7 @@ export const apartmentTypes = [
     tip: "TIP 8",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "51.84",
     layout: {
       Hallway: "6.93",
@@ -633,6 +656,7 @@ export const apartmentTypes = [
     tip: "TIP 9",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "50.48",
     layout: {
       Hallway: "5.78",
@@ -663,6 +687,7 @@ export const apartmentTypes = [
     tip: "TIP 10",
     name: "DVOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "56.04",
     layout: {
       Hallway: "7.74",
@@ -688,6 +713,7 @@ export const apartmentTypes = [
     tip: "TIP 11",
     name: "DVOIPOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "56.27",
     layout: {
       Hallway: "6.31",
@@ -718,6 +744,7 @@ export const apartmentTypes = [
     tip: "TIP 12",
     name: "DVOIPOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "59.81",
     layout: {
       Hallway: "5.06",
@@ -743,6 +770,7 @@ export const apartmentTypes = [
     tip: "TIP 13",
     name: "DVOIPOSOBAN STAN",
     room: "Two-room apartment",
+    countRoom: 2,
     netArea: "68.87",
     layout: {
       Hallway: "7.59",
@@ -768,6 +796,7 @@ export const apartmentTypes = [
     tip: "TIP 14",
     name: "ČETVOROSOBAN STAN",
     room: "Four-room apartment",
+    countRoom: 4,
     netArea: "81.42",
     layout: {
       Hallway: "10.27",

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./FloorPlan.module.css";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 import { useApartments } from "../../context/ApartmentsContext";
 import VisualTooltip from "../VisualTooltip/VisualTooltip";
 import { fetchExcelFromPublic, type Apartment } from "../../utils/utils";
@@ -15,13 +15,16 @@ const FloorPlan = () => {
   const navigate = useNavigate();
   const { t } = useLang();
   const { apartments, loading } = useApartments();
-
+  type LocationState = {
+    selectedApartment?: Apartment;
+  };
   const [manualApartments, setManualApartments] = useState<Apartment[] | null>(
     null
   );
   const effectiveApartments = manualApartments ?? apartments;
   const [selectedFloor, setSelectedFloor] = useState<number | null>(null);
   const [excelLoading, setExcelLoading] = useState(false);
+  const [excelAttempted, setExcelAttempted] = useState(false);
 
   const [selectedApartment, setSelectedApartment] = useState<Apartment | null>(
     null
@@ -36,11 +39,29 @@ const FloorPlan = () => {
   const refB = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const activeFloorRef = useRef<HTMLLIElement | null>(null);
+  const [showHint, setShowHint] = useState(false);
+  const location = useLocation();
+  const state = location.state as LocationState | null;
+  useEffect(() => {
+    if (!loading && effectiveApartments.length === 0 && floorId) {
+      const floorNum = parseInt(floorId, 10);
+      const exists = effectiveApartments.some((apt) => apt.floor === floorNum);
+
+      if (!exists) navigate("/floor", { replace: true });
+    }
+  }, [floorId, effectiveApartments, loading, navigate]);
 
   // 📦 Fallback загрузка из Excel
   useEffect(() => {
-    if (!loading && apartments.length === 0 && !manualApartments) {
+    if (
+      !loading &&
+      apartments.length === 0 &&
+      !manualApartments &&
+      !excelAttempted
+    ) {
       setExcelLoading(true);
+      setExcelAttempted(true); // ✅ чтобы не повторять загрузку
+
       fetchExcelFromPublic()
         .then((data) => {
           if (data.length > 0) setManualApartments(data);
@@ -50,7 +71,14 @@ const FloorPlan = () => {
         )
         .finally(() => setExcelLoading(false));
     }
-  }, [loading, apartments, manualApartments]);
+  }, [loading, apartments, manualApartments, excelAttempted]);
+  useEffect(() => {
+    const aptFromState = state?.selectedApartment;
+    if (aptFromState) {
+      setSelectedApartment(aptFromState);
+      window.history.replaceState({}, document.title); // очищает state
+    }
+  }, [state]);
 
   // 🧠 Вычисляем этаж
   useEffect(() => {
@@ -59,22 +87,17 @@ const FloorPlan = () => {
     const uniqueFloors = Array.from(
       new Set(effectiveApartments.map((apt) => apt.floor))
     ).sort((a, b) => b - a);
+
     const resolvedFloor = floorId
       ? parseInt(floorId, 10)
       : uniqueFloors[0] ?? null;
-    setSelectedFloor(resolvedFloor);
+
+    if (resolvedFloor !== null) {
+      setSelectedFloor(resolvedFloor);
+    }
   }, [floorId, effectiveApartments, loading]);
 
   // 🚨 Редирект, если floorId невалиден
-
-  useEffect(() => {
-    if (!loading && effectiveApartments.length === 0 && floorId) {
-      const floorNum = parseInt(floorId, 10);
-      const exists = effectiveApartments.some((apt) => apt.floor === floorNum);
-
-      if (!exists) navigate("/floor", { replace: true });
-    }
-  }, [floorId, effectiveApartments, loading, navigate]);
 
   // 📐 Подгонка высоты блока
   useEffect(() => {
@@ -92,7 +115,7 @@ const FloorPlan = () => {
     if (activeFloorRef.current) {
       activeFloorRef.current.scrollIntoView({
         behavior: "smooth",
-        block: "center",
+        block: "end",
       });
     }
   }, [selectedFloor]);
@@ -179,38 +202,30 @@ const FloorPlan = () => {
         );
         if (!apt) return;
 
-        const bbox = target.getBBox();
-        const rightX = bbox.x + bbox.width;
-        const centerY = bbox.y + bbox.height / 2;
-
-        const pt = target.ownerSVGElement!.createSVGPoint();
-        pt.x = rightX;
-        pt.y = centerY;
-
-        const screenCTM = target.getScreenCTM();
-        if (!screenCTM) return;
-
-        const transformed = pt.matrixTransform(screenCTM);
-
-        setTooltip({
-          x: transformed.x,
-          y: transformed.y,
-          content: (
-            <div className={styles.visual_tooltip}>
-              <div className={styles.tooltip_floor}>
-                <p className={styles.tooltip_floor_num}>{rawLabel}</p>
-                <p className={styles.tooltip_floor_txt}>
-                  {t.t_flor_txt} {apt.floor}
-                </p>
+        if (window.matchMedia("(min-width: 1024px)").matches) {
+          setTooltip({
+            x: e.clientX - 600,
+            y: e.clientY - 10,
+            content: (
+              <div className={styles.visual_tooltip}>
+                <div className={styles.tooltip_floor}>
+                  <p className={styles.tooltip_floor_num}>{rawLabel}</p>
+                  <p className={styles.tooltip_floor_txt}>
+                    {t.t_flor_txt} {apt.floor}
+                  </p>
+                </div>
+                <div className={styles.visual_info_block}>
+                  <p className={styles.visual_tooltip_area_meter}>
+                    {apt.area} m²
+                  </p>
+                  <p className={styles.visual_tooltip_count}>
+                    {apt.bedrooms + 1} rooms
+                  </p>
+                </div>
               </div>
-              <div className={styles.visual_info_block}>
-                <p className={styles.visual_tooltip_area_meter}>
-                  {apt.area} m²
-                </p>
-              </div>
-            </div>
-          ),
-        });
+            ),
+          });
+        }
       };
 
       const handleMouseMove = (e: MouseEvent) => {
@@ -317,10 +332,38 @@ const FloorPlan = () => {
       });
     };
   }, [selectedFloor]);
+
+  useEffect(() => {
+    const el = refA.current;
+    if (!el) return;
+
+    if (selectedApartment) {
+      el.classList.add("modalOpen");
+    } else {
+      el.classList.remove("modalOpen");
+    }
+  }, [selectedApartment]);
+
+  useEffect(() => {
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const hasSeen = localStorage.getItem("scrollHintShown");
+
+    if (isMobile && !hasSeen) {
+      setShowHint(true);
+      localStorage.setItem("scrollHintShown", "true");
+
+      const timeout = setTimeout(() => {
+        setShowHint(false);
+      }, 2000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, []);
+
   return (
     <>
       <Header />
-      <main>
+      <main id="main">
         <div className={styles.view_apart_container}>
           <section
             className={styles.floor_plan}
@@ -345,38 +388,45 @@ const FloorPlan = () => {
                   <span className={styles.floor_list_label}>
                     {t.t_flor_txt}
                   </span>
-                  <span
-                    className={styles.floor_arrow}
-                    onClick={() => handleArrowClick(nextFloor)}
-                    style={{
-                      cursor: nextFloor ? "pointer" : "default",
-                      opacity: nextFloor ? 1 : 0.3,
-                    }}
-                  >
-                    <svg width="18" height="10" viewBox="0 0 18 10" fill="none">
-                      <path
-                        d="M1.33203 8.8335L8.9987 1.16683L16.6654 8.8335"
-                        stroke="#1D1D1D"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </span>
-                  <div className={styles.floor_list}>
-                    <ul>
-                      {uniqueFloors.map((f) => (
-                        <li
-                          key={f}
-                          ref={f === selectedFloor ? activeFloorRef : null}
-                          className={`${styles.floor_item} ${
-                            f === selectedFloor ? styles.active_floor : ""
-                          }`}
-                          onClick={() => navigate(`/floor/${f}`)}
-                        >
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
+                  <div className={styles.floor_list_content}>
+                    <span
+                      className={styles.floor_arrow}
+                      onClick={() => handleArrowClick(nextFloor)}
+                      style={{
+                        cursor: nextFloor ? "pointer" : "default",
+                        opacity: nextFloor ? 1 : 0.3,
+                      }}
+                    >
+                      <svg
+                        width="18"
+                        height="10"
+                        viewBox="0 0 18 10"
+                        fill="none"
+                      >
+                        <path
+                          d="M1.33203 8.8335L8.9987 1.16683L16.6654 8.8335"
+                          stroke="#1D1D1D"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    </span>
+                    <div className={styles.floor_list}>
+                      <ul>
+                        {uniqueFloors.map((f) => (
+                          <li
+                            key={f}
+                            ref={f === selectedFloor ? activeFloorRef : null}
+                            className={`${styles.floor_item} ${
+                              f === selectedFloor ? styles.active_floor : ""
+                            }`}
+                            onClick={() => navigate(`/floor/${f}`)}
+                          >
+                            {f}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                     <span
                       className={styles.floor_arrow}
                       onClick={() => handleArrowClick(prevFloor)}
@@ -402,7 +452,6 @@ const FloorPlan = () => {
                     </span>
                   </div>
                 </div>
-
                 <div className={styles.section_block}>
                   <div className={styles.section_content}>
                     <span className={styles.section_list_label}>
@@ -2865,27 +2914,39 @@ const FloorPlan = () => {
               </div>
               {tooltip && (
                 <VisualTooltip
-                  x={tooltip.x}
-                  y={tooltip.y}
+                  x={tooltip.x - 600}
+                  y={tooltip.y - 80}
                   content={tooltip.content}
                 />
               )}
             </div>
+
+            {selectedApartment && (
+              <div ref={refB} className={styles.modal_overlay}>
+                <ApartmentModal
+                  apartment={selectedApartment}
+                  onClose={() => setSelectedApartment(null)}
+                />
+              </div>
+            )}
           </section>
-          {selectedApartment && (
-            <div ref={refB} className={styles.modal_overlay}>
-              <ApartmentModal
-                apartment={selectedApartment}
-                onClose={() => setSelectedApartment(null)}
-              />
-            </div>
-          )}
         </div>
         <div data-id="form">
           <Request />
         </div>
       </main>
+
       <Footer />
+      {showHint && (
+        <div
+          className={styles.scroll_hint_overlay}
+          onClick={() => setShowHint(false)}
+        >
+          <div className={styles.scroll_hint_text}>
+            To move the plan, swipe with fingers
+          </div>
+        </div>
+      )}
     </>
   );
 };

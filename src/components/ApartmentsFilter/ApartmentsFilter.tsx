@@ -14,7 +14,7 @@ const ApartmentsFilter: React.FC<Props> = ({ apartments }) => {
   const [visibleCount, setVisibleCount] = useState(9);
   const [floorRange, setFloorRange] = useState<[number, number]>([0, 0]);
   const [areaRange, setAreaRange] = useState<[number, number]>([0, 0]);
- 
+
   const [activeLamela, setActiveLamela] = useState<string>("All");
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -101,6 +101,12 @@ const ApartmentsFilter: React.FC<Props> = ({ apartments }) => {
 
   const handleFloorClick = (floorId: number) => {
     navigate(`/floor/${floorId}`);
+  };
+
+  const handleApartmentClick = (apt: Apartment) => {
+    navigate(`/floor/${apt.floor}`, {
+      state: { selectedApartment: apt },
+    });
   };
 
   const visibleApartments = sortedApartments.slice(0, visibleCount);
@@ -239,12 +245,16 @@ const ApartmentsFilter: React.FC<Props> = ({ apartments }) => {
           <div className={styles.list}>
             <ul>
               {visibleApartments.map((apt) => (
-                <li key={apt.id} className={styles.apart__card}>
+                <li
+                  key={apt.id}
+                  className={styles.apart__card}
+                  onClick={() => handleApartmentClick(apt)}
+                >
                   <div className={styles.apart__card_content}>
                     <div className={styles.apart__card_info}>
                       <p className={styles.info_name}>{`${
                         apt.id[0]
-                      }.${apt.id.slice(1)}`}</p>
+                      }${apt.id.slice(1)}`}</p>
                       <div className={styles.info__card_descr}>
                         <p className={styles.info_area}>{apt.area} m²</p>
                         <p className={styles.info_floor}>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./ApartmentModal.module.css";
 
 import { apartmentTypes } from "../FloorPlan/apartmentTypes";
@@ -12,6 +12,22 @@ const ApartmentModal = ({
   onClose: () => void;
 }) => {
   const [viewMode, setViewMode] = useState<"plan" | "3d">("plan");
+  const [imgLoaded, setImgLoaded] = useState(false);
+
+  if (!apartment) return null;
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
+
   if (!apartment) return null;
   const handleViewChange = (mode: "plan" | "3d") => {
     setViewMode(mode);
@@ -20,6 +36,7 @@ const ApartmentModal = ({
   const matchedTip = apartmentTypes.find((tipObj) =>
     tipObj.apartments.includes(apartment.id)
   );
+  if (!apartment || !matchedTip) return null;
 
   const translations: Record<string, string> = {
     "One-room apartment": "Jednosoban stan",
@@ -142,20 +159,28 @@ const ApartmentModal = ({
           </div>
           <img
             key={viewMode}
-            src={imagePath}
+            src={new URL(`${imagePath}`, import.meta.url).href}
             alt={`${viewMode} view for ${matchedTip?.tip}`}
             className={`${styles.img_object} ${
               viewMode === "plan" ? "plan" : ""
             }`}
+            onLoad={() => setImgLoaded(true)}
+            onError={() => setImgLoaded(false)}
           />
+
+          {!imgLoaded && <div className={styles.img_loader}>Loaded</div>}
+
           <div className={styles.location_content}>
             <img
               className={styles.img_loc_arrow}
-              src="../images/arrow-loc.svg"
-              alt=""
+              src={new URL("/images/arrow-loc.svg", import.meta.url).href}
+              alt="arrow location"
             />
             <img
-              src={matchedTip?.imageLocation || ""}
+              src={
+                new URL(`${matchedTip?.imageLocation || ""}`, import.meta.url)
+                  .href
+              }
               alt={`Plan for ${matchedTip?.tip}`}
               className={styles.img_location}
             />

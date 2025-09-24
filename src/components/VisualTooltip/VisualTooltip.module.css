@@ -1,4 +1,4 @@
-.tooltip {
+:global(.tooltip) {
 	position: absolute;
 	width: auto;
 	height: 100%;
@@ -12,10 +12,10 @@
 	color: var(--acc-main-green-btn);
 	transition: opacity 0.2s ease, transform 0.2s ease;
 }
-.tooltip.tooltipVisible{
+:global(.tooltip).tooltipVisible{
 	opacity: 1;
 }
-.tooltip::before {
+:global(.tooltip)::before {
 	content: '';
 	width: 10px;
 	display: block;

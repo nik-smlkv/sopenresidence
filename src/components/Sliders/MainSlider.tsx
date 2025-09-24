@@ -11,19 +11,19 @@ const SliderListImgs: {
   img: string;
 }[] = [
   {
-    img: "happy-couple-with-picnic-basket-summer-park.jpg",
+    img: "/park-test/images/happy-couple-with-picnic-basket-summer-park.jpg",
   },
   {
-    img: "pretty-female-with-drink-paperbags-her-husband-passing-by-large-shopwindow-mall-process-shopping.jpg",
+    img: "/park-test/images/pretty-female-with-drink-paperbags-her-husband-passing-by-large-shopwindow-mall-process-shopping.jpg",
   },
   {
-    img: "mother-with-daughter-cinema.jpg",
+    img: "/park-test/images/mother-with-daughter-cinema.jpg",
   },
   {
-    img: "professional-senior-asian-female-orthopedic-doctor-checking-her-patient-s-wrist-joint.jpg",
+    img: "/park-test/images/professional-senior-asian-female-orthopedic-doctor-checking-her-patient-s-wrist-joint.jpg",
   },
   {
-    img: "pretty-female-with-drink-paperbags.jpg",
+    img: "/park-test/images/pretty-female-with-drink-paperbags.jpg",
   },
 ];
 export function getSlideIndex(swiper: SwiperType): number {
@@ -201,7 +201,7 @@ const MainSlider = () => {
       >
         {SliderListImgs.map((sliderInfo, index) => (
           <SwiperSlide key={index} className="swiper__slide_infrastructure">
-            <img src={`./images/${sliderInfo.img}`} alt={`Slide ${index}`} />
+            <img src={new URL(`${sliderInfo.img}`, import.meta.url).href} alt={`Slide ${index}`} />
           </SwiperSlide>
         ))}
       </Swiper>

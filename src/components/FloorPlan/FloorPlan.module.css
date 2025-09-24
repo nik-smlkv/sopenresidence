@@ -30,6 +30,8 @@
 	display: flex;
 	flex-direction: column;
 	row-gap: 6px;
+	overflow: auto;
+	scroll-behavior: smooth;
 }
 
 .floor_list ul {
@@ -38,7 +40,8 @@
 	row-gap: 6px;
 	height: 100%;
 	max-height: 316px;
-	overflow-y: auto;
+	overflow: auto;
+	scroll-behavior: smooth;
 }
 
 .floor_list ul::-webkit-scrollbar {
@@ -250,6 +253,8 @@
 	background-color: var(--tx-gray);
 }
 
+
+
 .section_list_label,
 .floor_list_label {
 	font-size: 18px;
@@ -309,6 +314,32 @@
 	left: 50%;
 }
 
+.scroll_hint_overlay {
+	position: fixed;
+	width: 100%;
+	z-index: 10;
+	height: 100%;
+	left: 0;
+	top: 0;
+	backdrop-filter: blur(3px);
+	background-color: #1C2F2470;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	animation: pulseBlur 1.8s ease-in-out infinite;
+	margin: 0 auto;
+}
+
+.scroll_hint_text {
+	color: var(--tx-wh);
+	font-weight: 500;
+	font-size: 28px;
+	text-align: center;
+	max-width: 294px;
+	text-transform: uppercase;
+}
+
 .visual_tooltip {
 	background-color: var(--acc-main-green);
 	display: flex;
@@ -318,6 +349,10 @@
 	width: 100%;
 	max-width: 360px;
 	padding: 0px 54px;
+}
+
+.floor_plan_body :global(.tooltip)::before {
+	border-right: 10px solid var(--acc-main-green);
 }
 
 .tooltip_floor {
@@ -349,6 +384,10 @@
 	font-size: 18px;
 	line-height: 120%;
 	color: white
+}
+
+.visual_tooltip_count {
+	color: var(--tx-wh);
 }
 
 .visual_tooltip_count_apt {
@@ -398,6 +437,13 @@
 	.section_list_label {
 		font-size: clamp(1rem, 0.845rem + 0.583vi, 1.125rem);
 	}
+
+}
+
+.floor_list_content {
+	display: flex;
+	flex-direction: column;
+	row-gap: 8px;
 }
 
 @media(hover:hover) {
@@ -471,11 +517,17 @@
 	.floor_list {
 		flex-direction: row;
 		column-gap: 6px;
+		overflow-x: auto;
+		overflow-y: hidden;
+		white-space: nowrap;
+		display: flex;
+		flex-direction: row;
 	}
 
 	.floor_list ul {
 		flex-direction: row;
 		column-gap: 10px;
+
 	}
 
 	.floor_arrow {
@@ -530,8 +582,12 @@
 	}
 
 	.floor_plan {
-		padding-bottom: 390px;
 		position: relative;
+		transition: padding .3s ease;
+	}
+
+	.floor_plan:global(.modalOpen) {
+		padding-bottom: 390px;
 	}
 
 	.floor_plan_ztsk_str,
@@ -540,9 +596,26 @@
 	}
 }
 
+.visual_tooltip_count_apt {
+	display: flex;
+}
+
 @media(max-width: 768px) {
 	.floor_plan {
-		padding: 120px 20px clamp(16.875rem, 15.008rem + 6.494vi, 18.125rem);
+		padding: 120px 20px 195px;
+
+	}
+
+	.floor_plan:global(.modalOpen) {
+		padding-bottom: 29rem;
+	}
+
+	.floor_list_content {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		column-gap: 8px;
+		flex-direction: row;
 	}
 
 	.floor_plan_body {
@@ -564,7 +637,7 @@
 	}
 
 	.section_block {
-		bottom: clamp(5rem, 3.133rem + 6.494vi, 6.25rem)
+		bottom: 0;
 	}
 
 	.floor_plan_image_wrapper {
@@ -631,5 +704,25 @@
 @media(max-width: 420px) {
 	.floor_plan {
 		padding-top: 100px;
+	}
+}
+
+@keyframes pulseBlur {
+	0% {
+		transform: scale(1);
+		filter: blur(0px);
+		opacity: 1;
+	}
+
+	50% {
+		transform: scale(1.05);
+		filter: blur(2px);
+		opacity: 0.9;
+	}
+
+	100% {
+		transform: scale(1);
+		filter: blur(0px);
+		opacity: 1;
 	}
 }
