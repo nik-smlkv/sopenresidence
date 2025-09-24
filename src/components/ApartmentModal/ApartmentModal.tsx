@@ -16,10 +16,22 @@ const ApartmentModal = ({
   const handleViewChange = (mode: "plan" | "3d") => {
     setViewMode(mode);
   };
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const matchedTip = apartmentTypes.find((tipObj) =>
     tipObj.apartments.includes(apartment.id)
   );
+
+  const translations: Record<string, string> = {
+    "One-room apartment": "Jednosoban stan",
+    "Two-room apartment": "Dvosoban stan",
+    "Three-room apartment": "Trosoban stan",
+    Hallway: t.t_hallway,
+    Livingroom: t.t_living,
+    Bathroom: t.t_bath,
+    Bedroom: t.t_bedrom,
+    Terrace: t.t_terace,
+  };
+
   const imagePath =
     viewMode === "3d"
       ? matchedTip?.imageObject || ""
@@ -80,7 +92,10 @@ const ApartmentModal = ({
                   <li key={key} className={styles.apart_meter_item}>
                     <span>{index + 1}</span>
                     <div className={styles.apart_meter_item_txt}>
-                      <span>{key.replace(/([A-Z])/g, " $1")}</span>
+                      <span>
+                        {translations[key.replace(/([A-Z])/g, " $1").trim()] ||
+                          key}
+                      </span>
                       <span>{value} m²</span>
                     </div>
                   </li>
@@ -101,14 +116,18 @@ const ApartmentModal = ({
         </div>
         <div className={styles.plan_view_content}>
           <div className={styles.apartments_filter_view}>
-            <ul className={styles.apartment_view_list}>
+            <ul
+              className={`${styles.apartment_view_list} ${
+                lang === "srb" ? "view_srb" : ""
+              }`}
+            >
               <li
                 className={`${styles.view_item_grid} ${
                   viewMode === "plan" ? "active" : ""
                 }`}
                 onClick={() => handleViewChange("plan")}
               >
-                plan view
+                {t.t_plan_view_txt}
               </li>
               <li
                 className={`${styles.view_item_floor} ${
@@ -116,7 +135,7 @@ const ApartmentModal = ({
                 }`}
                 onClick={() => handleViewChange("3d")}
               >
-                3d view
+                {t.t_3d_view_txt}
               </li>
             </ul>
             <p className={styles.tips}>{matchedTip?.tip}</p>

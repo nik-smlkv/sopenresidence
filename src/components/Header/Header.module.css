@@ -46,7 +46,7 @@
 	height: auto;
 	max-height: 0;
 	padding: 0px 30px;
-	transition: max-height .5s ease;
+	transition: max-height .5s ease, outline .5s ease;
 	background-color: var(--bg-beige);
 	overflow: hidden;
 }
@@ -54,10 +54,13 @@
 .btn_wrapper:global(.active)~.btn__list {
 	max-height: 350px;
 }
-:global(.changed) .btn__list{
+
+.btn_wrapper:global(.active)~.btn__list {
+	transition: max-height .5s ease, outline .5s ease;
 	background-color: var(--tx-wh);
-	border: 1px solid var(--tx-gray);
+ 
 }
+
 .btn__list li {
 	list-style-type: none;
 }

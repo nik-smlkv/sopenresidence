@@ -10,7 +10,7 @@
 	max-inline-size: 1920px;
 	padding: 0em 6.25em;
 	padding-top: 150px;
-	margin: 0 auto;	
+	margin: 0 auto;
 	row-gap: 60px;
 
 }
@@ -359,6 +359,13 @@
 	line-height: 120%;
 }
 
+.view_apart_container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+
+}
+
 .visual_tooltip_area_meter {
 	display: flex;
 	font-size: 20px;
@@ -523,7 +530,7 @@
 	}
 
 	.floor_plan {
-		padding-bottom: 290px;
+		padding-bottom: 390px;
 		position: relative;
 	}
 

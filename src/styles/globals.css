@@ -43,6 +43,14 @@ body {
 	overflow: hidden;
 }
 
+@media (max-width: 1024px), (pointer: coarse) {
+  .lenis,
+  .lenis body {
+    height: auto !important;
+    overflow: auto !important;
+  }
+}
+
 
 #root {
 	display: flex;
