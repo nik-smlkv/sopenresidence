@@ -2,43 +2,30 @@ import { useLayoutEffect, useRef, useState, type JSX } from "react";
 import styles from "./Steps.module.css";
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { useResponsiveRef } from "../../../hooks/useResponsiveRef";
 import { useLang } from "../../../hooks/useLang";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const Steps = () => {
   const { t } = useLang();
   const stepsRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const stepsCardArray = [
     {
       name: t.t_fin_name_1,
-      text: [
-        t.t_fin_txt_1_1,
-        t.t_fin_txt_1_2,
-        t.t_fin_txt_1_3,
-        t.t_fin_txt_1_4,
-      ],
+      text: [t.t_fin_txt_1_1, t.t_fin_txt_1_2, t.t_fin_txt_1_3, t.t_fin_txt_1_4],
     },
     {
       name: t.t_fin_name_2,
-      text: [
-        t.t_fin_txt_2_1,
-        t.t_fin_txt_2_2,
-        t.t_fin_txt_2_3,
-        t.t_fin_txt_2_4,
-      ],
+      text: [t.t_fin_txt_2_1, t.t_fin_txt_2_2, t.t_fin_txt_2_3, t.t_fin_txt_2_4],
     },
     {
       name: t.t_fin_name_3,
-      text: [
-        t.t_fin_txt_3_1,
-        t.t_fin_txt_3_2,
-        t.t_fin_txt_3_3,
-        t.t_fin_txt_3_4,
-      ],
+      text: [t.t_fin_txt_3_1, t.t_fin_txt_3_2, t.t_fin_txt_3_3, t.t_fin_txt_3_4],
     },
   ];
 
@@ -47,53 +34,73 @@ const Steps = () => {
     const title = titleRef.current;
     const image = imageRef.current;
     const cards = cardsRef.current;
-    if (!steps || !title || !image || !cards || window.innerWidth <= 768)
-      return;
+    if (!steps || !title || !image || !cards || window.innerWidth <= 768) return;
 
     const stepsHeight = steps.getBoundingClientRect().height;
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
 
-    const desiredWidth = vw > 2000 ? 1024 : vw < 1410 ? 686 : 830;
-    const desiredHeight = vw > 2000 ? 600 : vw < 1410 ? 410 : 490;
-
-    const scaleX = desiredWidth / vw;
-    const scaleY = desiredHeight / vh;
-
+    // Пин всей секции
     ScrollTrigger.create({
       trigger: steps,
       start: "top center",
-      end: `bottom bottom`,
-
-      pinSpacing: true,
+      end: `+=${stepsHeight}`,
+      pin: true,
       scrub: true,
     });
 
+    // Начальное состояние картинки
+    gsap.set(image, {
+      yPercent: 150,
+      scale: 0.46,
+      transformOrigin: "center center",
+    });
+
+    // Анимация карточек
     gsap.fromTo(
-      image,
-      { scaleX, scaleY, transformOrigin: "center center" },
+      cards,
+      { y: window.innerHeight / 3 },
       {
-        scaleX: 1,
-        scaleY: 1,
+        y: -window.innerHeight * 2,
         ease: "none",
         scrollTrigger: {
           trigger: steps,
           start: "top center",
           end: `+=${stepsHeight}`,
           scrub: true,
-          pin: true,
         },
       }
     );
 
-    ScrollTrigger.create({
-      trigger: steps,
-      start: "top center",
-      end: "bottom bottom",
-      pin: titleRef.current,
-      pinSpacing: false,
-      scrub: false,
-    });
+    // Фаза 1: движение картинки по yPercent
+    gsap.fromTo(
+      image,
+      { yPercent: 150 },
+      {
+        yPercent: -200,
+        ease: "none",
+        scrollTrigger: {
+          trigger: steps,
+          start: "top center",
+          end: `+=${stepsHeight * 3.5}`, // первая половина пути
+          scrub: true,
+        },
+      }
+    );
+
+    // Фаза 2: масштабирование картинки после достижения yPercent -200
+    gsap.fromTo(
+      image,
+      { scale: 0.46 },
+      {
+        scale: 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: steps,
+          start: `top+=${stepsHeight / 2} center`, // начинается после первой фазы
+          end: `+=${stepsHeight / 2}`,             // вторая половина пути
+          scrub: true,
+        },
+      }
+    );
 
     const handleResize = () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
@@ -110,13 +117,9 @@ const Steps = () => {
   const handleToggle = (index: number) => {
     setActiveIndex((prev) => (prev === index ? null : index));
   };
+
   return (
-    <section
-      className={styles.steps}
-      ref={stepsRef}
-      data-section-id="light"
-      id="finance"
-    >
+    <section className={styles.steps} ref={stepsRef} data-section-id="light" id="finance">
       <div className={styles.steps__title_block} ref={titleRef}>
         <h2 className={styles.steps__title}>{t.t_fin_title}</h2>
       </div>
@@ -125,9 +128,7 @@ const Steps = () => {
           {stepsCardArray.map((card, index) => (
             <div
               key={index}
-              className={`${styles.steps__card} ${
-                activeIndex === index ? styles.active : ""
-              }`}
+              className={`${styles.steps__card} ${activeIndex === index ? styles.active : ""}`}
               onClick={() => handleToggle(index)}
             >
               <div className={styles.steps__card_front}>
@@ -139,42 +140,26 @@ const Steps = () => {
                   }, [] as (string | JSX.Element)[])}
                 </p>
                 <div className={styles.card__btn}>
-                  <svg
-                    width="60"
-                    height="60"
-                    viewBox="0 0 60 60"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      x="0.576923"
-                      y="0.576923"
-                      width="58.8462"
-                      height="58.8462"
-                      rx="29.4231"
-                      stroke="#5A6C54"
-                      stroke-width="1.15385"
-                    />
+                  <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0.576923" y="0.576923" width="58.8462" height="58.8462" rx="29.4231" stroke="#5A6C54" strokeWidth="1.15385" />
                     <path
                       d="M30.7036 19.0186V29.2969H40.9819V30.7041H30.7036V40.9824H29.2964V30.7041H19.0181V29.2969H29.2964V19.0186H30.7036Z"
                       fill="#5A6C54"
                       stroke="#5A6C54"
-                      stroke-width="0.535714"
+                      strokeWidth="0.535714"
                     />
                   </svg>
                 </div>
                 <div className={styles.card__num}>
                   <span className={styles.card__index}>0{index + 1}</span>
-                  <span className={styles.card__count}>
-                    / 0{stepsCardArray.length}
-                  </span>
+                  <span className={styles.card__count}>/ 0{stepsCardArray.length}</span>
                 </div>
               </div>
               <div className={styles.steps__card__content}>
                 <p className={styles.card__content_title}>{t.t_main_cond}</p>
                 <ul className={styles.card__text_list}>
-                  {card.text.map((text) => (
-                    <li className={styles.card__text_item}>{text}</li>
+                  {card.text.map((text, i) => (
+                    <li key={i} className={styles.card__text_item}>{text}</li>
                   ))}
                 </ul>
                 <div className={styles.card__content_block}>
@@ -189,11 +174,10 @@ const Steps = () => {
           ))}
         </div>
       </div>
-      <div className={styles.img__wrapper}>
+      <div className={styles.img__wrapper} ref={imageRef}>
         <img
           src={new URL("/images/steps-img.jpg", import.meta.url).href}
           alt="steps"
-          ref={imageRef}
           className={styles.steps__img}
         />
       </div>

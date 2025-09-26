@@ -145,10 +145,10 @@ const HomePage = () => {
         <HorizontParallax /> */}
         <Equipment />
         <Steps />
-        <SpaceStructure />
+{/*         <SpaceStructure />
         <ApartmentView />
-        <Request />
-        <Footer />
+        <Request /> */}
+{/*         <Footer /> */}
       </main>
     </ReactLenis>
   );
