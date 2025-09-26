@@ -3,29 +3,39 @@ import styles from "./SectionMain.module.css";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { gsap } from "gsap";
 import { useLang } from "../../../hooks/useLang";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const SectionMain = () => {
   const imageRef = useRef<HTMLImageElement>(null);
   const mainBody = useRef<HTMLDivElement>(null);
-  gsap.registerPlugin(ScrollTrigger);
+  const { t } = useLang();
+
   useEffect(() => {
     if (window.innerWidth <= 768) return;
-
     if (!imageRef.current || !mainBody.current) return;
+
+ 
+    ScrollTrigger.config({
+      autoRefreshEvents: "resize visibilitychange DOMContentLoaded load",
+    });
 
     const img = imageRef.current;
     let animation: GSAPTween | undefined;
+
     const createAnimation = () => {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
-      const scaleXVersion =
-        window.innerWidth > 2000 ? 1024 : window.innerWidth < 1410 ? 686 : 830;
 
-      const scaleYVersion =
-        window.innerWidth > 2000 ? 600 : window.innerWidth < 1410 ? 410 : 490;
+      const scaleXVersion = vw > 2000 ? 1024 : vw < 1410 ? 686 : 830;
+      const scaleYVersion = vw > 2000 ? 600 : vw < 1410 ? 410 : 490;
 
       const scaleX = scaleXVersion / vw;
       const scaleY = scaleYVersion / vh;
+
+      animation?.scrollTrigger?.kill();
       animation?.kill();
+
       animation = gsap.fromTo(
         img,
         {
@@ -42,24 +52,43 @@ const SectionMain = () => {
           ease: "none",
           scrollTrigger: {
             trigger: mainBody.current,
-            start: () => `center center`,
-            end: () => `bottom bottom`,
+            start: "center center",
+            end: "bottom bottom",
             scrub: true,
             pin: img,
-            pinSpacing: false,
+            pinSpacing: true,
           },
         }
       );
+
+      ScrollTrigger.refresh();
     };
 
     createAnimation();
-    window.addEventListener("resize", createAnimation);
+
+    const handleResize = () => {
+      setTimeout(() => {
+        createAnimation();
+        ScrollTrigger.refresh();
+      }, 100);
+    };
+
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") {
+        ScrollTrigger.refresh();
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    document.addEventListener("visibilitychange", handleVisibility);
+
     return () => {
       animation?.kill();
-      window.removeEventListener("resize", createAnimation);
+      window.removeEventListener("resize", handleResize);
+      document.removeEventListener("visibilitychange", handleVisibility);
     };
   }, []);
-  const { t } = useLang();
+
   return (
     <section
       className={styles.main}
@@ -70,7 +99,7 @@ const SectionMain = () => {
       <div className={styles.main__body}>
         <div className={styles.title_block}>
           <div className={styles.title_block_body}>
-            <div className="">
+            <div>
               <p className={styles.text_welcome}>{t.t_welcome}</p>
               <h1 className={styles.title} data-split="title">
                 {t.t_title}
