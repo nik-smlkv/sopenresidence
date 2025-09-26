@@ -78,36 +78,21 @@ const Steps = () => {
         ease: "none",
         scrollTrigger: {
           trigger: steps,
-          start: "top top",
+          start: "top center",
           end: `+=${stepsHeight}`,
           scrub: true,
-        },
-      }
-    );
-
-    gsap.fromTo(
-      cards,
-      { yPercent: 60 },
-      {
-        yPercent: -50,
-        ease: "none",
-        scrollTrigger: {
-          trigger: steps,
-          start: "top center",
-          end: "bottom bottom",
-          scrub: true,
+          pin: true,
         },
       }
     );
 
     ScrollTrigger.create({
-      trigger: title,
-      start: "top center ",
-      end: "bottom bottom ",
-      pin: true,
-      scrub: true,
-      markers: true,
+      trigger: steps,
+      start: "top center",
+      end: "bottom bottom",
+      pin: titleRef.current,
       pinSpacing: false,
+      scrub: false,
     });
 
     const handleResize = () => {
@@ -132,89 +117,85 @@ const Steps = () => {
       data-section-id="light"
       id="finance"
     >
-      <div className={styles.steps__body}>
-        <div className={styles.steps__title_block} ref={titleRef}>
-          <h2 className={styles.steps__title}>{t.t_fin_title}</h2>
-        </div>
-        {/*         <div className={styles.steps__cards_wrapper} ref={cardsRef}>
-          <div className={styles.steps__cards}>
-            {stepsCardArray.map((card, index) => (
-              <div
-                key={index}
-                className={`${styles.steps__card} ${
-                  activeIndex === index ? styles.active : ""
-                }`}
-                onClick={() => handleToggle(index)}
-              >
-                <div className={styles.steps__card_front}>
-                  <p className={styles.card__name}>
-                    {card.name.split(" ").reduce((acc, word, i) => {
-                      if (i % 2 === 0 && i !== 0) acc.push(<br key={i} />);
-                      acc.push(word + " ");
-                      return acc;
-                    }, [] as (string | JSX.Element)[])}
-                  </p>
-                  <div className={styles.card__btn}>
-                    <svg
-                      width="60"
-                      height="60"
-                      viewBox="0 0 60 60"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <rect
-                        x="0.576923"
-                        y="0.576923"
-                        width="58.8462"
-                        height="58.8462"
-                        rx="29.4231"
-                        stroke="#5A6C54"
-                        stroke-width="1.15385"
-                      />
-                      <path
-                        d="M30.7036 19.0186V29.2969H40.9819V30.7041H30.7036V40.9824H29.2964V30.7041H19.0181V29.2969H29.2964V19.0186H30.7036Z"
-                        fill="#5A6C54"
-                        stroke="#5A6C54"
-                        stroke-width="0.535714"
-                      />
-                    </svg>
-                  </div>
-                  <div className={styles.card__num}>
-                    <span className={styles.card__index}>0{index + 1}</span>
-                    <span className={styles.card__count}>
-                      / 0{stepsCardArray.length}
-                    </span>
-                  </div>
+      <div className={styles.steps__title_block} ref={titleRef}>
+        <h2 className={styles.steps__title}>{t.t_fin_title}</h2>
+      </div>
+      <div className={styles.steps__cards_wrapper} ref={cardsRef}>
+        <div className={styles.steps__cards}>
+          {stepsCardArray.map((card, index) => (
+            <div
+              key={index}
+              className={`${styles.steps__card} ${
+                activeIndex === index ? styles.active : ""
+              }`}
+              onClick={() => handleToggle(index)}
+            >
+              <div className={styles.steps__card_front}>
+                <p className={styles.card__name}>
+                  {card.name.split(" ").reduce((acc, word, i) => {
+                    if (i % 2 === 0 && i !== 0) acc.push(<br key={i} />);
+                    acc.push(word + " ");
+                    return acc;
+                  }, [] as (string | JSX.Element)[])}
+                </p>
+                <div className={styles.card__btn}>
+                  <svg
+                    width="60"
+                    height="60"
+                    viewBox="0 0 60 60"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="0.576923"
+                      y="0.576923"
+                      width="58.8462"
+                      height="58.8462"
+                      rx="29.4231"
+                      stroke="#5A6C54"
+                      stroke-width="1.15385"
+                    />
+                    <path
+                      d="M30.7036 19.0186V29.2969H40.9819V30.7041H30.7036V40.9824H29.2964V30.7041H19.0181V29.2969H29.2964V19.0186H30.7036Z"
+                      fill="#5A6C54"
+                      stroke="#5A6C54"
+                      stroke-width="0.535714"
+                    />
+                  </svg>
                 </div>
-                <div className={styles.steps__card__content}>
-                  <p className={styles.card__content_title}>{t.t_main_cond}</p>
-                  <ul className={styles.card__text_list}>
-                    {card.text.map((text) => (
-                      <li className={styles.card__text_item}>{text}</li>
-                    ))}
-                  </ul>
-                  <div className={styles.card__content_block}>
-                    <p className={styles.card__content_block_name}>
-                      {card.name}
-                    </p>
-                    <div className={styles.card__content_num}>
-                      <span>0{index + 1}</span>
-                      <span>/ 0{stepsCardArray.length}</span>
-                    </div>
+                <div className={styles.card__num}>
+                  <span className={styles.card__index}>0{index + 1}</span>
+                  <span className={styles.card__count}>
+                    / 0{stepsCardArray.length}
+                  </span>
+                </div>
+              </div>
+              <div className={styles.steps__card__content}>
+                <p className={styles.card__content_title}>{t.t_main_cond}</p>
+                <ul className={styles.card__text_list}>
+                  {card.text.map((text) => (
+                    <li className={styles.card__text_item}>{text}</li>
+                  ))}
+                </ul>
+                <div className={styles.card__content_block}>
+                  <p className={styles.card__content_block_name}>{card.name}</p>
+                  <div className={styles.card__content_num}>
+                    <span>0{index + 1}</span>
+                    <span>/ 0{stepsCardArray.length}</span>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-        <div className={styles.img__wrapper}>
-          <img
-            src={new URL("/images/steps-img.jpg", import.meta.url).href}
-            alt="steps"
-            ref={imageRef}
-            className={styles.steps__img}
-          />
-        </div> */}
+      </div>
+      <div className={styles.img__wrapper}>
+        <img
+          src={new URL("/images/steps-img.jpg", import.meta.url).href}
+          alt="steps"
+          ref={imageRef}
+          className={styles.steps__img}
+        />
       </div>
     </section>
   );

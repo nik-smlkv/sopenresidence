@@ -23,7 +23,7 @@ import { useLocation } from "react-router-dom";
 type LenisRef = { lenis: Lenis | undefined };
 
 const HomePage = () => {
-  const { t, lang } = useLang();
+/*   const { t, lang } = useLang(); */
   const lenisRef = useRef<LenisRef>(null);
   gsap.registerPlugin(ScrollTrigger);
   const parallaxRef = useResponsiveRef<HTMLDivElement>(1000);
@@ -111,7 +111,7 @@ const HomePage = () => {
     <ReactLenis ref={lenisRef} root options={{}}>
       <Header />
       <main className={styles.main}>
-        <SectionMain />
+        {/*         <SectionMain />
         <AboutMain />
         <Infrastructura />
         <Locations />
@@ -142,7 +142,7 @@ const HomePage = () => {
             <p>{t.t_parallax_title}</p>
           </div>
         </section>
-        <HorizontParallax />
+        <HorizontParallax /> */}
         <Equipment />
         <Steps />
         <SpaceStructure />
