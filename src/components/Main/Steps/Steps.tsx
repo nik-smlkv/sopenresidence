@@ -55,51 +55,50 @@ const Steps = () => {
     const stepsHeight = steps.getBoundingClientRect().height;
 
     // Пин всей секции
+    const totalHeight = stepsHeight ; // три фазы подряд
+
+    // Пин всей секции на всю длину
     ScrollTrigger.create({
       trigger: steps,
       start: "top center",
-      end: `+=${stepsHeight}`,
+      end: `+=${totalHeight}`,
       pin: true,
       scrub: true,
-    });
-    // Начальное состояние картинки
-    gsap.set(image, {
-      yPercent: 150,
-      scale: 0.46,
-      transformOrigin: "center center",
+  
     });
 
-    // Анимация карточек
+    // Общий ScrollTrigger для карточек и картинки
     gsap.fromTo(
       cards,
       { y: window.innerHeight / 3 },
       {
-        y: -window.innerHeight * 2,
+        y: -window.innerHeight * 2.2,
         ease: "none",
         scrollTrigger: {
           trigger: steps,
           start: "top center",
-          end: `+=${stepsHeight}`,
-          scrub: true,
-        },
-      }
-    );
-    gsap.fromTo(
-      image,
-      { yPercent: 150 },
-      {
-        yPercent: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: steps,
-          start: "top center",
-          end: `+=${stepsHeight}`,
+          end: `+=${stepsHeight}`, // одна и та же высота
           scrub: true,
         },
       }
     );
 
-    // Фаза 2: масштабирование картинки после достижения yPercent -200
+    gsap.fromTo(
+      image,
+      { yPercent: -20 },
+      {
+        yPercent: -200,
+        ease: "none",
+        scrollTrigger: {
+          trigger: steps,
+          start: "top center",
+          end: `+=${stepsHeight}`, // та же самая высота
+          scrub: true,
+        },
+      }
+    );
+
+    // Фаза 3: масштабирование картинки
     gsap.fromTo(
       image,
       { scale: 0.46 },
@@ -108,8 +107,10 @@ const Steps = () => {
         ease: "none",
         scrollTrigger: {
           trigger: steps,
-          start: `top center`, // начинается после первой фазы
-          end: `+=${stepsHeight}`, // вторая половина пути
+          start: `top-=590`, // третья часть
+          end: `+=${stepsHeight}`,
+			 pin: true,
+			 pinSpacing: true,
           scrub: true,
         },
       }
