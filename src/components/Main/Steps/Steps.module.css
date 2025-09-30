@@ -1,12 +1,12 @@
 .steps {
 	background-color: var(--bg-beige);
-	padding-bottom: 158px;
 	width: 100%;
 	overflow: hidden;
 	top: 0;
 	position: relative;
 	text-align: center;
 	margin: 0 auto;
+	margin-bottom: 158px;
 }
 
 
@@ -28,7 +28,7 @@
 }
 
 .steps__title_block {
-
+	padding-top: 45vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;

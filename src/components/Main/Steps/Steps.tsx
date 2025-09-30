@@ -52,50 +52,42 @@ const Steps: React.FC = () => {
     const imageWrapper = imageRef.current;
     const imageInner = imageWrapper?.querySelector(
       `.${styles.steps__img}`
-    ) as HTMLElement | null; // двигаем/скейлим внутренний элемент
+    ) as HTMLElement | null;
 
     if (!section || !title || !cards || !imageWrapper || !imageInner) return;
     if (window.innerWidth <= 768) return;
 
-    // очистка
+    // убиваем старые триггеры
     ScrollTrigger.getAll().forEach((t) => t.kill());
 
-    const vh = window.innerHeight;
-    const phase1Len = Math.round(vh * 1.0); // движение карточек/картинки
-    const phase2Len = Math.round(vh * 0.8); // масштаб картинки
-    const totalLen = phase1Len + phase2Len;
-
-    section.style.minHeight = `${totalLen + vh}px`;
-
-    // 1) Title — пин чуть позже, чтобы "войти" плавно. Держим до конца секции.
+    // Title — всегда по центру экрана
     ScrollTrigger.create({
       trigger: section,
-      start: `top+=${Math.round(vh * 0.2)} center`,
-      end: () => "+=" + section.offsetHeight / 2,
+      start: "top top",
+      end: "bottom bottom",
       pin: title,
       pinSpacing: false,
       invalidateOnRefresh: true,
     });
     gsap.set(title, {
-      position: "absolute",
       top: "50%",
       left: "50%",
-      yPercent: -50,
       xPercent: -50,
+      yPercent: -50,
       willChange: "transform",
     });
 
-    // 2) Фаза 1 — движение карточек и картинка (двигаем imageInner, а не wrapper)
+    // Фаза 1 — карточки и картинка двигаются к центру
     gsap.fromTo(
       cards,
-      { y: vh },
+      { y: () => window.innerHeight }, // старт: ниже экрана
       {
-        y: -vh / 1.7,
+        y: () => -window.innerHeight * 1.2, // уводим вверх на 60% высоты
         ease: "none",
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: `+=${phase1Len}`,
+          end: "center center",
           scrub: true,
           invalidateOnRefresh: true,
         },
@@ -104,37 +96,35 @@ const Steps: React.FC = () => {
 
     gsap.fromTo(
       imageInner,
-      { y: vh * 0.6 },
+      { y: () => window.innerHeight * 0.6 }, // старт: ниже центра
       {
-        y: -vh / 1.7,
+        y: () => -window.innerHeight * 1.1, // конец: ровно по центру
         ease: "none",
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: `+=${phase1Len}`,
+          end: "center center",
           scrub: true,
           invalidateOnRefresh: true,
         },
       }
     );
 
-    // 3) Фаза 2 — пинится wrapper, scale на imageInner. Без ручных position — всё делает pin.
+    // Фаза 2 — пинится wrapper, scale на imageInner
     ScrollTrigger.create({
       trigger: section,
-      start: `top+=${phase1Len} top`,
-      end: `+=${phase2Len}`,
+      start: "center center",
+      end: "bottom bottom",
       pin: imageWrapper,
       pinSpacing: false,
       anticipatePin: 1,
       invalidateOnRefresh: true,
-      onEnter: () => {
-        // обнуляем y у внутреннего элемента, чтобы при входе в pin он не "убежал"
-        gsap.set(imageInner, { y: 0 });
-      },
-      onLeaveBack: () => {
-        // при обратном скролле возвращаем начальные состояния, pin сам снимется
-        gsap.set(imageInner, { clearProps: "transform" });
-      },
+      onEnter: () => gsap.set(imageInner, { y: 0 }),
+      onLeaveBack: () =>
+        gsap.set(imageInner, {
+          y: () => window.innerHeight * 0.6,
+          scale: 0.46,
+        }),
     });
 
     gsap.fromTo(
@@ -145,22 +135,30 @@ const Steps: React.FC = () => {
         ease: "none",
         scrollTrigger: {
           trigger: section,
-          start: `top+=${phase1Len} top`,
-          end: `+=${phase2Len}`,
+          start: "center center",
+          end: "bottom bottom",
           scrub: true,
           invalidateOnRefresh: true,
         },
       }
     );
 
+    // пересоздание при ресайзе
+    const handleResize = () => ScrollTrigger.refresh();
+    window.addEventListener("resize", handleResize);
+
     return () => {
+      window.removeEventListener("resize", handleResize);
       ScrollTrigger.getAll().forEach((t) => t.kill());
-      section.style.minHeight = "";
       gsap.set(title, { clearProps: "all" });
       gsap.set(imageInner, { clearProps: "all" });
     };
   }, []);
-
+  useLayoutEffect(() => {
+    const handleLoad = () => ScrollTrigger.refresh();
+    window.addEventListener("load", handleLoad);
+    return () => window.removeEventListener("load", handleLoad);
+  }, []);
   const handleToggle = (index: number) => {
     setActiveIndex((prev) => (prev === index ? null : index));
   };
