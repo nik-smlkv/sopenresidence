@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState, type JSX } from "react";
+import React, { useLayoutEffect, useRef, useState, type JSX } from "react";
 import styles from "./Steps.module.css";
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -6,12 +6,11 @@ import { useLang } from "../../../hooks/useLang";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Steps = () => {
+const Steps: React.FC = () => {
   const { t } = useLang();
-  const stepsRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
+  const stepsRef = useRef<HTMLDivElement | null>(null);
+  const imageRef = useRef<HTMLDivElement | null>(null);
+  const cardsRef = useRef<HTMLDivElement | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const stepsCardArray = [
@@ -45,186 +44,218 @@ const Steps = () => {
   ];
 
   useLayoutEffect(() => {
-    const steps = stepsRef.current;
-    const title = titleRef.current;
-    const image = imageRef.current;
+    const section = stepsRef.current;
+    const title = section?.querySelector(
+      `.${styles.steps__title}`
+    ) as HTMLElement | null;
     const cards = cardsRef.current;
-    if (!steps || !title || !image || !cards || window.innerWidth <= 768)
-      return;
+    const imageWrapper = imageRef.current;
+    const imageInner = imageWrapper?.querySelector(
+      `.${styles.steps__img}`
+    ) as HTMLElement | null; // двигаем/скейлим внутренний элемент
 
-    const stepsHeight = steps.getBoundingClientRect().height;
+    if (!section || !title || !cards || !imageWrapper || !imageInner) return;
+    if (window.innerWidth <= 768) return;
 
-    // Пин всей секции
-    const totalHeight = stepsHeight ; // три фазы подряд
+    // очистка
+    ScrollTrigger.getAll().forEach((t) => t.kill());
 
-    // Пин всей секции на всю длину
+    const vh = window.innerHeight;
+    const phase1Len = Math.round(vh * 1.0); // движение карточек/картинки
+    const phase2Len = Math.round(vh * 0.8); // масштаб картинки
+    const totalLen = phase1Len + phase2Len;
+
+    section.style.minHeight = `${totalLen + vh}px`;
+
+    // 1) Title — пин чуть позже, чтобы "войти" плавно. Держим до конца секции.
     ScrollTrigger.create({
-      trigger: steps,
-      start: "top center",
-      end: `+=${totalHeight}`,
-      pin: true,
-      scrub: true,
-  
+      trigger: section,
+      start: `top+=${Math.round(vh * 0.2)} center`,
+      end: () => "+=" + section.offsetHeight / 2,
+      pin: title,
+      pinSpacing: false,
+      invalidateOnRefresh: true,
+    });
+    gsap.set(title, {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      yPercent: -50,
+      xPercent: -50,
+      willChange: "transform",
     });
 
-    // Общий ScrollTrigger для карточек и картинки
+    // 2) Фаза 1 — движение карточек и картинка (двигаем imageInner, а не wrapper)
     gsap.fromTo(
       cards,
-      { y: window.innerHeight / 3 },
+      { y: vh },
       {
-        y: -window.innerHeight * 2.2,
+        y: -vh / 1.7,
         ease: "none",
         scrollTrigger: {
-          trigger: steps,
-          start: "top center",
-          end: `+=${stepsHeight}`, // одна и та же высота
+          trigger: section,
+          start: "top top",
+          end: `+=${phase1Len}`,
           scrub: true,
+          invalidateOnRefresh: true,
         },
       }
     );
 
     gsap.fromTo(
-      image,
-      { yPercent: -20 },
+      imageInner,
+      { y: vh * 0.6 },
       {
-        yPercent: -200,
+        y: -vh / 1.7,
         ease: "none",
         scrollTrigger: {
-          trigger: steps,
-          start: "top center",
-          end: `+=${stepsHeight}`, // та же самая высота
+          trigger: section,
+          start: "top top",
+          end: `+=${phase1Len}`,
           scrub: true,
+          invalidateOnRefresh: true,
         },
       }
     );
 
-    // Фаза 3: масштабирование картинки
+    // 3) Фаза 2 — пинится wrapper, scale на imageInner. Без ручных position — всё делает pin.
+    ScrollTrigger.create({
+      trigger: section,
+      start: `top+=${phase1Len} top`,
+      end: `+=${phase2Len}`,
+      pin: imageWrapper,
+      pinSpacing: false,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      onEnter: () => {
+        // обнуляем y у внутреннего элемента, чтобы при входе в pin он не "убежал"
+        gsap.set(imageInner, { y: 0 });
+      },
+      onLeaveBack: () => {
+        // при обратном скролле возвращаем начальные состояния, pin сам снимется
+        gsap.set(imageInner, { clearProps: "transform" });
+      },
+    });
+
     gsap.fromTo(
-      image,
-      { scale: 0.46 },
+      imageInner,
+      { scale: 0.46, transformOrigin: "50% 50%" },
       {
         scale: 1,
         ease: "none",
         scrollTrigger: {
-          trigger: steps,
-          start: `top-=590`, // третья часть
-          end: `+=${stepsHeight}`,
-			 pin: true,
-			 pinSpacing: true,
+          trigger: section,
+          start: `top+=${phase1Len} top`,
+          end: `+=${phase2Len}`,
           scrub: true,
+          invalidateOnRefresh: true,
         },
       }
     );
 
-    const handleResize = () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      ScrollTrigger.refresh();
-    };
-
-    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener("resize", handleResize);
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+      section.style.minHeight = "";
+      gsap.set(title, { clearProps: "all" });
+      gsap.set(imageInner, { clearProps: "all" });
     };
   }, []);
 
   const handleToggle = (index: number) => {
     setActiveIndex((prev) => (prev === index ? null : index));
   };
-
   return (
-    <>
-      <section
-        className={styles.steps}
-        ref={stepsRef}
-        data-section-id="light"
-        id="finance"
-      >
-        <div className={styles.steps__title_block} ref={titleRef}>
-          <h2 className={styles.steps__title}>{t.t_fin_title}</h2>
-        </div>
-        <div className={styles.steps__cards_wrapper} ref={cardsRef}>
-          <div className={styles.steps__cards}>
-            {stepsCardArray.map((card, index) => (
-              <div
-                key={index}
-                className={`${styles.steps__card} ${
-                  activeIndex === index ? styles.active : ""
-                }`}
-                onClick={() => handleToggle(index)}
-              >
-                <div className={styles.steps__card_front}>
-                  <p className={styles.card__name}>
-                    {card.name.split(" ").reduce((acc, word, i) => {
-                      if (i % 2 === 0 && i !== 0) acc.push(<br key={i} />);
-                      acc.push(word + " ");
-                      return acc;
-                    }, [] as (string | JSX.Element)[])}
-                  </p>
-                  <div className={styles.card__btn}>
-                    <svg
-                      width="60"
-                      height="60"
-                      viewBox="0 0 60 60"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <rect
-                        x="0.576923"
-                        y="0.576923"
-                        width="58.8462"
-                        height="58.8462"
-                        rx="29.4231"
-                        stroke="#5A6C54"
-                        strokeWidth="1.15385"
-                      />
-                      <path
-                        d="M30.7036 19.0186V29.2969H40.9819V30.7041H30.7036V40.9824H29.2964V30.7041H19.0181V29.2969H29.2964V19.0186H30.7036Z"
-                        fill="#5A6C54"
-                        stroke="#5A6C54"
-                        strokeWidth="0.535714"
-                      />
-                    </svg>
-                  </div>
-                  <div className={styles.card__num}>
-                    <span className={styles.card__index}>0{index + 1}</span>
-                    <span className={styles.card__count}>
-                      / 0{stepsCardArray.length}
-                    </span>
-                  </div>
+    <section
+      className={styles.steps}
+      ref={stepsRef}
+      data-section-id="light"
+      id="finance"
+    >
+      <div className={styles.steps__title_block}>
+        <h2 className={styles.steps__title}>{t.t_fin_title}</h2>
+      </div>
+
+      <div className={styles.steps__cards_wrapper} ref={cardsRef}>
+        <div className={styles.steps__cards}>
+          {stepsCardArray.map((card, index) => (
+            <div
+              key={index}
+              className={`${styles.steps__card} ${
+                activeIndex === index ? styles.active : ""
+              }`}
+              onClick={() => handleToggle(index)}
+            >
+              <div className={styles.steps__card_front}>
+                <p className={styles.card__name}>
+                  {card.name.split(" ").reduce((acc, word, i) => {
+                    if (i % 2 === 0 && i !== 0) acc.push(<br key={i} />);
+                    acc.push(word + " ");
+                    return acc;
+                  }, [] as (string | JSX.Element)[])}
+                </p>
+                <div className={styles.card__btn}>
+                  <svg
+                    width="60"
+                    height="60"
+                    viewBox="0 0 60 60"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="0.576923"
+                      y="0.576923"
+                      width="58.8462"
+                      height="58.8462"
+                      rx="29.4231"
+                      stroke="#5A6C54"
+                      strokeWidth="1.15385"
+                    />
+                    <path
+                      d="M30.7036 19.0186V29.2969H40.9819V30.7041H30.7036V40.9824H29.2964V30.7041H19.0181V29.2969H29.2964V19.0186H30.7036Z"
+                      fill="#5A6C54"
+                      stroke="#5A6C54"
+                      strokeWidth="0.535714"
+                    />
+                  </svg>
                 </div>
-                <div className={styles.steps__card__content}>
-                  <p className={styles.card__content_title}>{t.t_main_cond}</p>
-                  <ul className={styles.card__text_list}>
-                    {card.text.map((text, i) => (
-                      <li key={i} className={styles.card__text_item}>
-                        {text}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className={styles.card__content_block}>
-                    <p className={styles.card__content_block_name}>
-                      {card.name}
-                    </p>
-                    <div className={styles.card__content_num}>
-                      <span>0{index + 1}</span>
-                      <span>/ 0{stepsCardArray.length}</span>
-                    </div>
+                <div className={styles.card__num}>
+                  <span className={styles.card__index}>0{index + 1}</span>
+                  <span className={styles.card__count}>
+                    / 0{stepsCardArray.length}
+                  </span>
+                </div>
+              </div>
+
+              <div className={styles.steps__card__content}>
+                <p className={styles.card__content_title}>{t.t_main_cond}</p>
+                <ul className={styles.card__text_list}>
+                  {card.text.map((text, i) => (
+                    <li key={i} className={styles.card__text_item}>
+                      {text}
+                    </li>
+                  ))}
+                </ul>
+                <div className={styles.card__content_block}>
+                  <p className={styles.card__content_block_name}>{card.name}</p>
+                  <div className={styles.card__content_num}>
+                    <span>0{index + 1}</span>
+                    <span>/ 0{stepsCardArray.length}</span>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-        <div className={styles.img__wrapper} ref={imageRef}>
-          <img
-            src={new URL("/images/steps-img.jpg", import.meta.url).href}
-            alt="steps"
-            className={styles.steps__img}
-          />
-        </div>
-      </section>
-    </>
+      </div>
+
+      <div className={styles.img__wrapper} ref={imageRef}>
+        <img
+          src={new URL("/images/steps-img.jpg", import.meta.url).href}
+          alt="steps"
+          className={styles.steps__img}
+        />
+      </div>
+    </section>
   );
 };
 

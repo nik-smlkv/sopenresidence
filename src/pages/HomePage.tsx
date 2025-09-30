@@ -23,12 +23,13 @@ import { useLocation } from "react-router-dom";
 type LenisRef = { lenis: Lenis | undefined };
 
 const HomePage = () => {
-/*   const { t, lang } = useLang(); */
+  const { t, lang } = useLang();
   const lenisRef = useRef<LenisRef>(null);
   gsap.registerPlugin(ScrollTrigger);
   const parallaxRef = useResponsiveRef<HTMLDivElement>(1000);
   useEffect(() => {
     let triggerInstance: ScrollTrigger | undefined;
+
     const targetEl = parallaxRef?.current;
     const createScroll = () => {
       if (targetEl) {
@@ -44,6 +45,7 @@ const HomePage = () => {
         }).scrollTrigger;
       }
     };
+
     const killScroll = () => {
       if (triggerInstance) {
         triggerInstance.kill();
@@ -109,7 +111,7 @@ const HomePage = () => {
     <ReactLenis ref={lenisRef} root options={{}}>
       <Header />
       <main className={styles.main}>
-      {/*   <SectionMain />
+        <SectionMain />
         <AboutMain />
         <Infrastructura />
         <Locations />
@@ -122,14 +124,23 @@ const HomePage = () => {
             <div
               ref={parallaxRef || undefined}
               className={styles.parallax__container}
+ 
             >
               <img
                 className={styles.parallax_image}
                 src={new URL("/images/comfortable.jpg", import.meta.url).href}
                 alt="Comfortable"
+                loading="eager"
+                decoding="sync"
+                onLoad={() => {
+                  if (typeof ScrollTrigger !== "undefined") {
+                    ScrollTrigger.refresh();
+                  }
+                }}
               />
             </div>
           </div>
+
           <div
             className={
               lang === "srb"
@@ -140,8 +151,9 @@ const HomePage = () => {
             <p>{t.t_parallax_title}</p>
           </div>
         </section>
+
         <HorizontParallax />
-        <Equipment /> */}
+        <Equipment />
         <Steps />
         <SpaceStructure />
         <ApartmentView />

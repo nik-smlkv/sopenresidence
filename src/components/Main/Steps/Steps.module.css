@@ -1,27 +1,40 @@
 .steps {
-
 	background-color: var(--bg-beige);
 	padding-bottom: 158px;
 	width: 100%;
-	top: 40vh;
+	overflow: hidden;
+	top: 0;
 	position: relative;
 	text-align: center;
 	margin: 0 auto;
 }
 
+
+/* wrapper занимает весь viewport и центрирует изображение */
 .img__wrapper {
 	width: 100vw;
-	height: 100svh;
-	overflow: hidden;
-	isolation: isolate;
+	height: 100vh;
 
 }
 
+/* картинка растягивается по wrapper, сохраняет cover */
+.steps__img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	will-change: transform;
+	pointer-events: none;
+}
+
 .steps__title_block {
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
+
+
 
 .steps__body {
 	display: flex;
@@ -101,14 +114,6 @@
 	cursor: pointer;
 }
 
-.steps__img {
-	width: 100%;
-	height: auto;
-	max-height: 100vh;
-	object-fit: cover;
-	transform-origin: center center;
-	will-change: transform;
-}
 
 .steps__card_front {
 	display: flex;
@@ -226,16 +231,10 @@
 		font-size: clamp(0.875rem, 0.732rem + 0.298vi, 1rem);
 	}
 
-	.steps {
-		height: 400vh;
-	}
+
 }
 
-@media (max-width: 1200px) {
-	.steps {
-		height: 500vh;
-	}
-}
+
 
 @media (max-width: 768px) {
 	.steps {
