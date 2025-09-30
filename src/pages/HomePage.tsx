@@ -29,7 +29,6 @@ const HomePage = () => {
   const parallaxRef = useResponsiveRef<HTMLDivElement>(1000);
   useEffect(() => {
     let triggerInstance: ScrollTrigger | undefined;
-
     const targetEl = parallaxRef?.current;
     const createScroll = () => {
       if (targetEl) {
@@ -45,7 +44,6 @@ const HomePage = () => {
         }).scrollTrigger;
       }
     };
-
     const killScroll = () => {
       if (triggerInstance) {
         triggerInstance.kill();
@@ -111,7 +109,7 @@ const HomePage = () => {
     <ReactLenis ref={lenisRef} root options={{}}>
       <Header />
       <main className={styles.main}>
-        {/*         <SectionMain />
+      {/*   <SectionMain />
         <AboutMain />
         <Infrastructura />
         <Locations />
@@ -142,13 +140,13 @@ const HomePage = () => {
             <p>{t.t_parallax_title}</p>
           </div>
         </section>
-        <HorizontParallax /> */}
-        <Equipment />
+        <HorizontParallax />
+        <Equipment /> */}
         <Steps />
-{/*         <SpaceStructure />
+        <SpaceStructure />
         <ApartmentView />
-        <Request /> */}
-{/*         <Footer /> */}
+        <Request />
+        <Footer />
       </main>
     </ReactLenis>
   );

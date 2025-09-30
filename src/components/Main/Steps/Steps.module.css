@@ -1,5 +1,5 @@
 .steps {
-	height: 10000vh;
+
 	background-color: var(--bg-beige);
 	padding-bottom: 158px;
 	width: 100%;
@@ -14,7 +14,7 @@
 	height: 100svh;
 	overflow: hidden;
 	isolation: isolate;
- 
+
 }
 
 .steps__title_block {
