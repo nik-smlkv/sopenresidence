@@ -17,6 +17,7 @@ const handleClick = (id: string) => {
 };
 
 const Header = () => {
+	
   const burgerModal = useModal();
 
   const handleBurgerRemove = () => {
@@ -75,7 +76,11 @@ const Header = () => {
             }
             if (sectionId === "light") {
               headerEl?.classList.add("changed");
-            } else {
+            }else if(sectionId === "transparent" || sectionId === "transparent-black"){
+					headerEl?.classList.remove("changed");
+					headerEl?.classList.add("changed-black");
+				} 
+				else {
               headerEl?.classList.remove("changed");
             }
           }

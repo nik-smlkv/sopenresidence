@@ -9,7 +9,7 @@ const Contact = () => {
           {t.t_cont}
         </span>
         <a href="tel:" className={`number ${styles.number}`} data-close>
-          +381 00 000-0000
+           0800/012-025
         </a>
       </div>
       <div className={styles.block__address}>

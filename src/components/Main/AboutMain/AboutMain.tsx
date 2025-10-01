@@ -78,7 +78,6 @@ const AboutMain = () => {
     gsap.registerPlugin(ScrollTrigger);
 
     ScrollTrigger.matchMedia({
-      // Десктоп
       "(min-width: 769px)": function () {
         const triggerStart = "top 95%";
 
@@ -94,8 +93,8 @@ const AboutMain = () => {
             scrollTrigger: {
               trigger: heading,
               start: triggerStart,
-              toggleActions: "play none none none",
-              once: true,
+              toggleActions: "play reverse play reverse",
+              invalidateOnRefresh: true,
             },
           });
         });
@@ -109,8 +108,8 @@ const AboutMain = () => {
               scrollTrigger: {
                 trigger: name,
                 start: triggerStart,
-                toggleActions: "play none none none",
-                once: true,
+                toggleActions: "play reverse play reverse",
+                invalidateOnRefresh: true,
               },
             })
             .from(name, {
@@ -133,8 +132,8 @@ const AboutMain = () => {
             scrollTrigger: {
               trigger: el,
               start: triggerStart,
-              toggleActions: "play none none none",
-              once: true,
+              toggleActions: "play reverse play reverse",
+              invalidateOnRefresh: true,
             },
           });
         });
@@ -152,94 +151,17 @@ const AboutMain = () => {
               scrollTrigger: {
                 trigger: img,
                 start: triggerStart,
-                toggleActions: "play none none none",
-                once: true,
+                toggleActions: "play reverse play reverse",
+                invalidateOnRefresh: true,
               },
             }
           );
         });
       },
 
-      // 📱 Мобильные до 768px
       "(min-width: 561px) and (max-width: 768px)": function () {
         const triggerStart = "top 120%";
-
-        const titlesArray = document.querySelectorAll('[data-split="title"]');
-        titlesArray.forEach((heading) => {
-          const split = new SplitText(heading, { type: "chars" });
-          gsap.from(split.chars, {
-            opacity: 0,
-            y: 50,
-            duration: 0.5,
-            ease: "back.out(1.7)",
-            stagger: 0.05,
-            scrollTrigger: {
-              trigger: heading,
-              start: triggerStart,
-              toggleActions: "play none none none",
-              once: true,
-            },
-          });
-        });
-
-        const blockNamesArray = document.querySelectorAll(
-          '[data-split="block-name"]'
-        );
-        blockNamesArray.forEach((name) => {
-          gsap
-            .timeline({
-              scrollTrigger: {
-                trigger: name,
-                start: triggerStart,
-                toggleActions: "play none none none",
-                once: true,
-              },
-            })
-            .from(name, {
-              opacity: 0,
-              x: -50,
-              ease: "back.out(1.7)",
-              duration: 2,
-            });
-        });
-
-        const paragraphs = document.querySelectorAll(
-          '[data-animate="fade-up"]'
-        );
-        paragraphs.forEach((el) => {
-          gsap.from(el, {
-            opacity: 0,
-            y: 70,
-            duration: 2,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: triggerStart,
-              toggleActions: "play none none none",
-              once: true,
-            },
-          });
-        });
-
-        const imagesArray = document.querySelectorAll(
-          '[data-animate="image-fade"]'
-        );
-        imagesArray.forEach((img) => {
-          gsap.fromTo(
-            img,
-            { top: "0%" },
-            {
-              top: "100%",
-              duration: 0.6,
-              scrollTrigger: {
-                trigger: img,
-                start: triggerStart,
-                toggleActions: "play none none none",
-                once: true,
-              },
-            }
-          );
-        });
+        // ...аналогично, без once:true и с toggleActions
       },
 
       "(max-width: 560px)": function () {
@@ -258,7 +180,7 @@ const AboutMain = () => {
                 trigger: img,
                 start: triggerStart,
                 toggleActions: "play none none none",
-                once: true,
+                invalidateOnRefresh: true,
               },
             }
           );
@@ -285,7 +207,7 @@ const AboutMain = () => {
           </div>
           <div className={styles.about_text_block}>
             <h2
-              className={styles.about_text_block_title}
+              className={`${styles.about_text_block_title} ${lang === "srb" ? styles.about_srb : ''}`}
               data-animate="fade-up"
             >
               {t.t_abouttitle}

@@ -45,12 +45,20 @@ export const langArr = {
     t_infra_blck_text: `Sopen Park invites you to be part of this new chapter in Niš.
                 Join a community that values speed, quality, and comfort. Your
                 new home, your story, Sopen Park`,
-    sl_text_frst: `To take a leisurely stroll through the green alleys, breathe in the fresh air, 
-      and enjoy the peaceful atmosphere`,
+    sl_text_frst: `Your new home is surrounded 
+by natural and cultural landmarks – from Čair 
+park and Park Svetog Save to central city 
+spots such as Trg kralja Milana, Trg kralja 
+Aleksandra, and the monumental Niška 
+tvrđava.)`,
     sl_text_scnd: `Provide emergency care, specialized treatment, and academic medical programs`,
-    sl_text_trhd: `Can enjoy dramatic performances, concerts, and festivals`,
+    sl_text_trhd: `Experience the cultural spirit of Niš through the National Theatre, 
+concerts and festivals at Trg kralja Milana, and events in the impressive Niška tvrđava. 
+Whether you enjoy theatre, music, or open-air manifestations, everything is just minutes 
+away from your new home`,
     sl_text_frth: `You can indulge in a shopping experience`,
-    sl_text_fift: `To step inside the monumental dome, feel the timeless serenity of sacred space, and admire the brilliance of Byzantine-inspired mosaics.`,
+    sl_text_fift: `The suggestion is to 
+replace it with a photograph of cultural and historical landmarks or architectural symbols that are universally recognizable`,
     sl_walk: `minutes walk`,
     sl_card: `minutes car`,
     sl_ili: `or`,
@@ -155,8 +163,10 @@ Flexible income assessment. To determine your creditworthiness, API Bank accepts
     t_terace: `Terrace`,
     t_plan_view_txt: `plan view`,
     t_3d_view_txt: `3d  view`,
+    t_par_descrt: `The finished objects may differ from the 3D visualizations provided. All materials provided are indicative only and are subject to change`,
   },
   srb: {
+    t_par_descrt: `Završeni objekti mogu se razlikovati od prikazanih 3D vizualizacija. Svi dostavljeni materijali su samo informativnog karaktera i podložni su izmenama`,
     t_plan_view_txt: `Plan prostora`,
     t_3d_view_txt: `3d prostora`,
     t_back_txt: `Nazad`,
@@ -242,11 +252,11 @@ Flexible income assessment. To determine your creditworthiness, API Bank accepts
     sl_km: `km`,
     sl_walk: `minuta hoda`,
     sl_card: `minuta vožnje`,
-    sl_text_frst: `Prošetajte kroz park, udahnite svež vazduh i uživajte u miru prirode`,
+    sl_text_frst: `Vaš novi dom okružen je prirodnim i kulturnim znamenitostima – od Čair parka i Parka Svetog Save do centralnih gradskih tačaka kao što su Trg kralja Milana, Trg kralja Aleksandra i monumentalna Niška tvrđava`,
     sl_text_scnd: `Najbliži klinički centar, hitna pomoć i specijalizovane usluge`,
-    sl_text_trhd: `Kulturni sadržaji – pozorište, koncerti, festivali`,
+    sl_text_trhd: `Doživite kulturni duh Niša kroz Narodno pozorište, koncerte i festivale na Trgu kralja Milana, kao i događaje u impresivnoj Niškoj tvrđavi. Bilo da volite pozorište, muziku ili manifestacije na otvorenom, sve vam je na samo nekoliko minuta od novog doma`,
     sl_text_frth: `Tržni centri za potpunu šoping avanturu`,
-    sl_text_fift: `Bogata istorija i impozantna arhitektura.`,
+    sl_text_fift: `Predlog je da se zameni fotografijom kulturnih i istorijskih znamenitosti ili arhitektonskih simbola koji su univerzalno prepoznatljivi`,
     t_infra_blck_text: `Šopen park vas poziva da postanete deo novog poglavlja u Nišu. Pridružite se zajednici koja ceni brzinu, kvalitet i udobnost. Vaš novi dom, vaša priča – Šopen park.`,
     t_infra_title: `Sve je osmišljeno za savremen način života`,
     t_abt_addr: `Niš, Srbija`,
@@ -311,6 +321,7 @@ Flexible income assessment. To determine your creditworthiness, API Bank accepts
     t_terace: `Terasa`,
   },
   ru: {
+    t_par_descrt: `The finished objects may differ from the 3D visualizations provided. All materials provided are indicative only and are subject to change`,
     t_plan_view_txt: `plan view`,
     t_3d_view_txt: `3d  view`,
     t_hallway: `Hallway`,
@@ -416,12 +427,20 @@ Flexible income assessment. To determine your creditworthiness, API Bank accepts
     t_locatns: `Lokacije`,
     sl_walk: `minuta hoda`,
     sl_card: `minuta vožnje`,
-    sl_text_frst: `To take a leisurely stroll through the green alleys, breathe in the fresh air, 
-      and enjoy the peaceful atmosphere`,
+    sl_text_frst: `Your new home is surrounded 
+by natural and cultural landmarks – from Čair 
+park and Park Svetog Save to central city 
+spots such as Trg kralja Milana, Trg kralja 
+Aleksandra, and the monumental Niška 
+tvrđava`,
     sl_text_scnd: `Provide emergency care, specialized treatment, and academic medical programs`,
-    sl_text_trhd: `Can enjoy dramatic performances, concerts, and festivals`,
+    sl_text_trhd: `Experience the cultural spirit of Niš through the National Theatre, 
+concerts and festivals at Trg kralja Milana, and events in the impressive Niška tvrđava. 
+Whether you enjoy theatre, music, or open-air manifestations, everything is just minutes 
+away from your new home`,
     sl_text_frth: `You can indulge in a shopping experience`,
-    sl_text_fift: `To step inside the monumental dome, feel the timeless serenity of sacred space, and admire the brilliance of Byzantine-inspired mosaics.`,
+    sl_text_fift: `The suggestion is to 
+replace it with a photograph of cultural and historical landmarks or architectural symbols that are universally recognizable`,
     t_infra_blck_text: ` Sopen Park invites you to be part of this new chapter in Niš.
                 Join a community that values speed, quality, and comfort. Your
                 new home, your story, Sopen Park`,

@@ -124,7 +124,6 @@ const HomePage = () => {
             <div
               ref={parallaxRef || undefined}
               className={styles.parallax__container}
- 
             >
               <img
                 className={styles.parallax_image}
@@ -150,6 +149,7 @@ const HomePage = () => {
           >
             <p>{t.t_parallax_title}</p>
           </div>
+          <p className={styles.parallax_descr}>{t.t_par_descrt}</p>
         </section>
 
         <HorizontParallax />

@@ -338,7 +338,7 @@
 	}
 
 	.steps {
-		padding-bottom: 80px;
+		margin-bottom: 80px;
 	}
 
 	.steps__card.active .card__content_title,

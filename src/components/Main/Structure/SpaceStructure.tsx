@@ -39,7 +39,7 @@ const SpaceStructure = () => {
       },
     },
   ];
-
+  
   return (
     <section
       className={styles.structure}

@@ -58,7 +58,7 @@
 .btn_wrapper:global(.active)~.btn__list {
 	transition: max-height .5s ease, outline .5s ease;
 	background-color: var(--tx-wh);
- 
+
 }
 
 .btn__list li {
@@ -99,9 +99,7 @@
 	transition: all .8s ease;
 }
 
-.btn__body :global(.apart__btn) {
-	transition: border 1.2s ease, color .5s ease;
-}
+
 
 
 .header__body .btn__body :global(.apart__btn),
@@ -160,6 +158,16 @@ header:global(.changed) .header__body :global(.lang_switcher) svg path {
 
 header:global(.changed) .btn__body :global(.apart__btn) {
 	transition: border 1.2s ease, color .5s ease;
+}
+
+header:global(.changed-black) .btn__body :global(.apart__btn) {
+	border: 1px solid var(--bg-beige);
+	color: var(--acc-main-green-btn);
+	background-color: var(--bg-beige);
+}
+
+header:global(.changed-black) .btn__body :global(.apart__btn)::after {
+	background-color: var(--acc-main-green-btn);
 }
 
 header:global(.changed) .header__body .btn__body :global(.apart__btn)::after {
@@ -506,5 +514,13 @@ div.burger_modal_content {
 
 	.langSwitcher_maintance span:hover {
 		color: var(--tx-bl);
+	}
+
+	header:global(.changed-black) .btn__body :global(.apart__btn):hover {
+		border: 1px solid var(--acc-main-green-btn);
+	}
+
+	header:global(.changed-black) .btn__body :global(.apart__btn):hover span {
+		color: var(--bg-beige);
 	}
 }

@@ -193,10 +193,7 @@ const HorizontParallax = () => {
         </div>
       ) : (
         <>
-          <p className={styles.parallax_text}>
-            Residents don’t have to travel far to enjoy themselves —
-            entertainment is delivered right to their doorstep.
-          </p>
+          <p className={styles.parallax_text}>{t.t_hor_par_1}</p>
           <div className={styles.parallax__cards}>
             {ParallaxCards.map((card, index) => (
               <div

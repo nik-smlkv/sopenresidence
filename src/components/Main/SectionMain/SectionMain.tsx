@@ -1,92 +1,98 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styles from "./SectionMain.module.css";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { gsap } from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import { useLang } from "../../../hooks/useLang";
+import SelectApartmentBtn from "../../Buttons/SelectApartmentBtn";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const SectionMain = () => {
-  const imageRef = useRef<HTMLImageElement>(null);
-  const mainBody = useRef<HTMLDivElement>(null);
+const SectionMain: React.FC = () => {
   const { t } = useLang();
+  const mainBody = useRef<HTMLDivElement | null>(null);
+  const imageRef = useRef<HTMLImageElement | null>(null);
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" ? window.innerWidth <= 768 : false
+  );
 
   useEffect(() => {
-    if (window.innerWidth <= 768) return;
-    if (!imageRef.current || !mainBody.current) return;
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
 
- 
-    ScrollTrigger.config({
-      autoRefreshEvents: "resize visibilitychange DOMContentLoaded load",
-    });
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  useLayoutEffect(() => {
+    const section = mainBody.current;
+    const imageWrapper = section?.querySelector(
+      `.${styles.image__block}`
+    ) as HTMLElement | null;
+    const image = imageRef.current;
+    const header = document.querySelector("header") as HTMLElement | null;
 
-    const img = imageRef.current;
-    let animation: GSAPTween | undefined;
+    if (!section || !imageWrapper || !image) return;
 
-    const createAnimation = () => {
-      const vw = window.innerWidth;
+    const ctx = gsap.context(() => {
+      if (window.innerWidth <= 768) return;
+
       const vh = window.innerHeight;
+      const phaseLen = vh;
+      const headerHeight = header?.offsetHeight || 0;
 
-      const scaleXVersion = vw > 2000 ? 1024 : vw < 1410 ? 686 : 830;
-      const scaleYVersion = vw > 2000 ? 600 : vw < 1410 ? 410 : 490;
+      const baseWidth = 830;
+      const baseHeight = 550;
+      const scaleX = window.innerWidth / baseWidth;
+      const scaleY = window.innerHeight / baseHeight;
+      const targetScale = Math.max(scaleX, scaleY);
 
-      const scaleX = scaleXVersion / vw;
-      const scaleY = scaleYVersion / vh;
+      section.style.minHeight = `${phaseLen + vh}px`;
 
-      animation?.scrollTrigger?.kill();
-      animation?.kill();
+      ScrollTrigger.create({
+        trigger: section,
+        start: `top+=${headerHeight} top`,
+        end: `+=${phaseLen}`,
+        pin: imageWrapper,
+        pinSpacing: false,
+        anticipatePin: 1,
+      });
 
-      animation = gsap.fromTo(
-        img,
+      gsap.fromTo(
+        image,
         {
-          yPercent: 0,
-          scaleX,
-          scaleY,
+          width: baseWidth,
+          height: baseHeight,
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          xPercent: -50,
+          yPercent: -50,
+          scale: 1,
+          transformOrigin: "50% 50%",
         },
         {
-          yPercent: 13.2,
-          scaleX: 1,
-          scaleY: 1,
-          maxWidth: "100vw",
-          maxHeight: "100vh",
+          scale: targetScale,
           ease: "none",
+          immediateRender: false,
           scrollTrigger: {
-            trigger: mainBody.current,
-            start: "center center",
-            end: "bottom bottom",
+            trigger: section,
+            start: `top+=${headerHeight} top`,
+            end: `+=${phaseLen}`,
             scrub: true,
-            pin: img,
-            pinSpacing: true,
+            invalidateOnRefresh: true,
           },
         }
       );
 
-      ScrollTrigger.refresh();
-    };
+      // refresh после загрузки
+      const handleLoad = () => ScrollTrigger.refresh();
+      if (image.complete) handleLoad();
+      else image.addEventListener("load", handleLoad);
+      window.addEventListener("load", handleLoad);
+      requestAnimationFrame(() => ScrollTrigger.refresh());
+    }, section);
 
-    createAnimation();
-
-    const handleResize = () => {
-      setTimeout(() => {
-        createAnimation();
-        ScrollTrigger.refresh();
-      }, 100);
-    };
-
-    const handleVisibility = () => {
-      if (document.visibilityState === "visible") {
-        ScrollTrigger.refresh();
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    document.addEventListener("visibilitychange", handleVisibility);
-
-    return () => {
-      animation?.kill();
-      window.removeEventListener("resize", handleResize);
-      document.removeEventListener("visibilitychange", handleVisibility);
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -118,6 +124,17 @@ const SectionMain = () => {
             </div>
             <p className={styles.subtitle}>{t.t_subtitle}</p>
           </div>
+        </div>
+        <div
+          className={styles.btn_block}
+          onClick={() => {
+            const target = document.getElementById("contact");
+            if (target) {
+              target.scrollIntoView({ behavior: "smooth" });
+            }
+          }}
+        >
+          {isMobile ? <SelectApartmentBtn /> : null}
         </div>
       </div>
     </section>

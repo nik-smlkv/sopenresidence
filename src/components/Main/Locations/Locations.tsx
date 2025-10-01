@@ -167,7 +167,12 @@ const Locations = () => {
                     isDropdownOpen ? "active" : ""
                   }`}
                 >
-                  <img src={new URL("/images/equip-arrow.svg", import.meta.url).href} alt="" />
+                  <img
+                    src={
+                      new URL("/images/equip-arrow.svg", import.meta.url).href
+                    }
+                    alt=""
+                  />
                 </span>
               </div>
               <div
@@ -227,19 +232,22 @@ const Locations = () => {
               >
                 {locations.map((loc, index) => (
                   <Marker
-                    
                     key={loc.id}
                     position={loc.position}
                     title={loc.name}
-						  
                     icon={{
                       url:
-                        openIndex === index 
-                          ? new URL(loc.icon, import.meta.url).href.replace(".svg", "-active.svg")
+                        openIndex === index
+                          ? new URL(loc.icon, import.meta.url).href.replace(
+                              ".svg",
+                              "-active.svg"
+                            )
                           : new URL(loc.icon, import.meta.url).href,
                     }}
+                    onClick={() => handleClickLocation(index)} // 👈 добавляем клик
                   />
                 ))}
+
                 {selectedLocation && (
                   <InfoWindow
                     position={selectedLocation.position}

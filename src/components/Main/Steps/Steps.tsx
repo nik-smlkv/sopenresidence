@@ -57,103 +57,112 @@ const Steps: React.FC = () => {
     if (!section || !title || !cards || !imageWrapper || !imageInner) return;
     if (window.innerWidth <= 768) return;
 
-    // убиваем старые триггеры
-    ScrollTrigger.getAll().forEach((t) => t.kill());
+    const init = () => {
+      // убиваем старые триггеры
+      ScrollTrigger.getAll().forEach((t) => t.kill());
 
-    // Title — всегда по центру экрана
-    ScrollTrigger.create({
-      trigger: section,
-      start: "top top",
-      end: "bottom bottom",
-      pin: title,
-      pinSpacing: false,
-      invalidateOnRefresh: true,
-    });
-    gsap.set(title, {
-      top: "50%",
-      left: "50%",
-      xPercent: -50,
-      yPercent: -50,
-      willChange: "transform",
-    });
+      const vh = window.innerHeight;
 
-    // Фаза 1 — карточки и картинка двигаются к центру
-    gsap.fromTo(
-      cards,
-      { y: () => window.innerHeight }, // старт: ниже экрана
-      {
-        y: () => -window.innerHeight * 1.2, // уводим вверх на 60% высоты
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "center center",
-          scrub: true,
-          invalidateOnRefresh: true,
-        },
-      }
-    );
+      // Title — всегда по центру
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: "bottom bottom",
+        pin: title,
+        pinSpacing: false,
+      });
+      gsap.set(title, {
+        top: "50%",
+        left: "50%",
+        xPercent: -50,
+        yPercent: -50,
+        willChange: "transform",
+      });
 
-    gsap.fromTo(
-      imageInner,
-      { y: () => window.innerHeight * 0.6 }, // старт: ниже центра
-      {
-        y: () => -window.innerHeight * 1.1, // конец: ровно по центру
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "center center",
-          scrub: true,
-          invalidateOnRefresh: true,
-        },
-      }
-    );
+      // Cards
+      gsap.fromTo(
+        cards,
+        { y: vh }, // фиксированное начальное значение
+        {
+          y: -vh * 1.2,
+          ease: "none",
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "center center",
+            scrub: true,
+          },
+        }
+      );
 
-    // Фаза 2 — пинится wrapper, scale на imageInner
-    ScrollTrigger.create({
-      trigger: section,
-      start: "center center",
-      end: "bottom bottom",
-      pin: imageWrapper,
-      pinSpacing: false,
-      anticipatePin: 1,
-      invalidateOnRefresh: true,
-      onEnter: () => gsap.set(imageInner, { y: 0 }),
-      onLeaveBack: () =>
-        gsap.set(imageInner, {
-          y: () => window.innerHeight * 0.6,
-          scale: 0.46,
-        }),
-    });
+      // Image move
+      gsap.fromTo(
+        imageInner,
+        { y: vh * 0.6 },
+        {
+          y: -vh * 1.1,
+          ease: "none",
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "center center",
+            scrub: true,
+          },
+        }
+      );
 
-    gsap.fromTo(
-      imageInner,
-      { scale: 0.46, transformOrigin: "50% 50%" },
-      {
-        scale: 1,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "center center",
-          end: "bottom bottom",
-          scrub: true,
-          invalidateOnRefresh: true,
-        },
-      }
-    );
+      // Pin wrapper + scale
+      ScrollTrigger.create({
+        trigger: section,
+        start: "center center",
+        end: "bottom bottom",
+        pin: imageWrapper,
+        pinSpacing: false,
+        anticipatePin: 1,
+        onEnter: () => gsap.set(imageInner, { y: 0 }),
+        onLeaveBack: () => gsap.set(imageInner, { y: vh * 0.6, scale: 0.46 }),
+      });
+
+      gsap.fromTo(
+        imageInner,
+        { scale: 0.46, transformOrigin: "50% 50%" },
+        {
+          scale: 1,
+          ease: "none",
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: section,
+            start: "center center",
+            end: "bottom bottom",
+            scrub: true,
+          },
+        }
+      );
+
+      // пересчёт после инициализации
+      requestAnimationFrame(() => ScrollTrigger.refresh());
+    };
+
+    init();
 
     // пересоздание при ресайзе
-    const handleResize = () => ScrollTrigger.refresh();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", init);
+
+    // refresh после полной загрузки страницы
+    const handleLoad = () => ScrollTrigger.refresh();
+    window.addEventListener("load", handleLoad);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", init);
+      window.removeEventListener("load", handleLoad);
       ScrollTrigger.getAll().forEach((t) => t.kill());
       gsap.set(title, { clearProps: "all" });
       gsap.set(imageInner, { clearProps: "all" });
     };
   }, []);
+
   useLayoutEffect(() => {
     const handleLoad = () => ScrollTrigger.refresh();
     window.addEventListener("load", handleLoad);

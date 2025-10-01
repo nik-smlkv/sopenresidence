@@ -76,6 +76,9 @@
 	margin-left: -3vw;
 }
 
+.infrastructura_text_block_title.infra_srb {
+	font-size: 60px;
+}
 
 @media (min-width: 1440px) and (max-width: 1920px) {
 	.infrastructura__body {
@@ -98,6 +101,10 @@
 	.infrastructura_text_block_title {
 		font-size: clamp(3.75rem, 0rem + 4.167vi, 5rem);
 		max-width: 50vw;
+	}
+
+	.infrastructura_text_block_title.infra_srb {
+		font-size: 3.75rem;
 	}
 }
 

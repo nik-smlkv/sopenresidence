@@ -14,13 +14,13 @@ const SliderListImgs: {
     img: "/park-test/images/happy-couple-with-picnic-basket-summer-park.jpg",
   },
   {
-    img: "/park-test/images/pretty-female-with-drink-paperbags-her-husband-passing-by-large-shopwindow-mall-process-shopping.jpg",
+    img: "/park-test/images/professional-senior-asian-female-orthopedic-doctor-checking-her-patient-s-wrist-joint.jpg",
   },
   {
     img: "/park-test/images/mother-with-daughter-cinema.jpg",
   },
   {
-    img: "/park-test/images/professional-senior-asian-female-orthopedic-doctor-checking-her-patient-s-wrist-joint.jpg",
+    img: "/park-test/images/pretty-female-with-drink-paperbags-her-husband-passing-by-large-shopwindow-mall-process-shopping.jpg",
   },
   {
     img: "/park-test/images/pretty-female-with-drink-paperbags.jpg",

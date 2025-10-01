@@ -3,7 +3,7 @@ import MainSlider from "../../Sliders/MainSlider";
 import styles from "./Infrastructure.module.css";
 
 const Infrastructura = () => {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   return (
     <section
       className={styles.infrastructura}
@@ -19,7 +19,11 @@ const Infrastructura = () => {
             {t.link_infra}
           </div>
           <div className={styles.infrastructura_text_block}>
-            <h2 className={styles.infrastructura_text_block_title}>
+            <h2
+              className={`${styles.infrastructura_text_block_title} ${
+                lang === "srb" ? styles.infra_srb : ""
+              }`}
+            >
               {t.t_infra_title}
             </h2>
             <div className={styles.infrastructura_block_text}>

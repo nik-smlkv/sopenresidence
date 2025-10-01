@@ -318,6 +318,10 @@ img.img__item {
 	background-color: var(--acc-main-green);
 }
 
+.about_text_block_title.about_srb {
+	font-size: 42px;
+	max-width: 682px;
+}
 
 @media (min-width: 1440px) and (max-width: 1920px) {
 	.about__body {
@@ -327,13 +331,16 @@ img.img__item {
 	.about_text_block_title {
 		font-size: clamp(3.13rem, 1.25rem + 2.08vw, 3.75rem);
 	}
+	.about_text_block_title.about_srb  {
+		font-size: clamp(3.13rem, 1.25rem + 2.08vw, 2.62rem);
+	}
 
 	.about_content_title:global(.srb) {
 		font-size: 233px;
 	}
 
 	.about_content_title {
-		font-size: clamp(18.063rem, -0.875rem + 21.042vi, 24.375rem)
+		font-size: clamp(18.063rem, -0.875rem + 18.042vi, 24.375rem)
 	}
 
 	.about__name {
@@ -377,11 +384,11 @@ img.img__item {
 	}
 
 	.about_content_title:global(.srb) {
-		font-size: clamp(11.5rem, 3.962rem + 11.779vi, 14.563rem)
+		font-size: clamp(11.5rem, 3.962rem + 9.779vi, 14.563rem)
 	}
 
 	.about_content_title {
-		font-size: clamp(13.375rem, 1.809rem + 18.072vi, 18.063rem)
+		font-size: clamp(13.375rem, 1.809rem + 16.072vi, 18.063rem)
 	}
 }
 
@@ -397,11 +404,11 @@ img.img__item {
 	}
 
 	.about_content_title:global(.srb) {
-		font-size: clamp(8.438rem, -0.75rem + 19.141vi, 11.5rem)
+		font-size: clamp(8.438rem, -0.75rem + 17.141vi, 11.5rem)
 	}
 
 	.about_content_title {
-		font-size: clamp(10.375rem, -1.684rem + 23.529vi, 13.375rem);
+		font-size: clamp(10.375rem, -1.684rem + 21.529vi, 13.375rem);
 	}
 
 	.about__name {
