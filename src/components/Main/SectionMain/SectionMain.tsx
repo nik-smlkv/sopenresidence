@@ -33,7 +33,13 @@ const SectionMain: React.FC = () => {
 
     if (!section || !imageWrapper || !image) return;
 
-    const ctx = gsap.context(() => {
+    let triggers: ScrollTrigger[] = [];
+
+    const init = () => {
+      // Удаляем только свои триггеры
+      triggers.forEach((t) => t.kill());
+      triggers = [];
+
       if (window.innerWidth <= 768) return;
 
       const vh = window.innerHeight;
@@ -48,7 +54,7 @@ const SectionMain: React.FC = () => {
 
       section.style.minHeight = `${phaseLen + vh}px`;
 
-      ScrollTrigger.create({
+      const pinTrigger = ScrollTrigger.create({
         trigger: section,
         start: `top+=${headerHeight} top`,
         end: `+=${phaseLen}`,
@@ -57,7 +63,7 @@ const SectionMain: React.FC = () => {
         anticipatePin: 1,
       });
 
-      gsap.fromTo(
+      const scaleTrigger = gsap.fromTo(
         image,
         {
           width: baseWidth,
@@ -82,17 +88,38 @@ const SectionMain: React.FC = () => {
             invalidateOnRefresh: true,
           },
         }
-      );
+      ).scrollTrigger;
 
-      // refresh после загрузки
-      const handleLoad = () => ScrollTrigger.refresh();
-      if (image.complete) handleLoad();
-      else image.addEventListener("load", handleLoad);
-      window.addEventListener("load", handleLoad);
-      requestAnimationFrame(() => ScrollTrigger.refresh());
-    }, section);
+      triggers.push(pinTrigger, scaleTrigger as ScrollTrigger);
 
-    return () => ctx.revert();
+      // refresh после отрисовки
+      setTimeout(() => ScrollTrigger.refresh(), 300);
+    };
+
+    // запуск с задержкой
+    const delayedInit = () => {
+      setTimeout(() => {
+        init();
+      }, 300); // задержка перед запуском
+    };
+
+    if (image.complete) {
+      delayedInit();
+    } else {
+      image.addEventListener("load", delayedInit);
+      window.addEventListener("load", delayedInit);
+    }
+
+    window.addEventListener("resize", init);
+
+    return () => {
+      window.removeEventListener("resize", init);
+      image.removeEventListener("load", delayedInit);
+      window.removeEventListener("load", delayedInit);
+      triggers.forEach((t) => t.kill());
+      section.style.minHeight = "";
+      gsap.set(image, { clearProps: "transform" });
+    };
   }, []);
 
   return (
