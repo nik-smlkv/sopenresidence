@@ -38,7 +38,6 @@ const HomePage = () => {
   useParallaxAnimation(parallaxRef); // parallax
 
   useGlobalTextAnimations(); // text animation
-
   return (
     <ReactLenis ref={lenisRef} root options={{}}>
       <Header />

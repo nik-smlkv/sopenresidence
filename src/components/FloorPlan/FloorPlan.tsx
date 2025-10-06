@@ -60,7 +60,7 @@ const FloorPlan = () => {
       !excelAttempted
     ) {
       setExcelLoading(true);
-      setExcelAttempted(true); // ✅ чтобы не повторять загрузку
+      setExcelAttempted(true);
 
       fetchExcelFromPublic()
         .then((data) => {
@@ -204,8 +204,8 @@ const FloorPlan = () => {
 
         if (window.matchMedia("(min-width: 1024px)").matches) {
           setTooltip({
-            x: e.clientX - 600,
-            y: e.clientY - 10,
+            x: e.clientX,
+            y: e.clientY,
             content: (
               <div className={styles.visual_tooltip}>
                 <div className={styles.tooltip_floor}>

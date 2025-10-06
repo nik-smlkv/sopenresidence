@@ -27,7 +27,6 @@ export type Apartment = {
   toilets: number;
   terraces: number;
   status: string;
-  
 };
 
 export async function fetchExcelFromPublic(): Promise<Apartment[]> {
@@ -55,5 +54,14 @@ export async function fetchExcelFromPublic(): Promise<Apartment[]> {
     terraces: row["Broj terasa"],
     status: row["STATUS"]?.trim(),
   }));
-  return mappedData;
+  const availableApartments = mappedData.filter(
+    (apt) => apt.status === "Slobodan"
+  );
+
+  return availableApartments;
+}
+
+export async function getAvailableApartmentCount(): Promise<number> {
+  const availableApartments = await fetchExcelFromPublic();
+  return availableApartments.length;
 }

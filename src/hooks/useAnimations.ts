@@ -228,14 +228,14 @@ export const useStepsAnimation = (
       // 📦 Анимация карточек
       gsap.fromTo(
         cards,
-        { y: vh / 0.9 },
+        { y:  0},
         {
-          y: -vh / 1.5,
+          y: -100,
           ease: "none",
           scrollTrigger: {
             trigger: section,
             start: "top top",
-            end: "center center",
+            end: "+=100%",
             scrub: true,
           },
         }
@@ -393,7 +393,7 @@ export const useGlobalTextAnimations = () => {
             { top: "0%" },
             {
               top: "100%",
-              duration: 0.6,
+              duration: 0,
               scrollTrigger: {
                 trigger: img,
                 start: triggerStart,
