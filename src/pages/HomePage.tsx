@@ -26,8 +26,8 @@ import {
 
 type LenisRef = { lenis: Lenis | undefined };
 
-const HomePage = () => {/* 
-  const { t, lang } = useLang(); */
+const HomePage = () => {
+  const { t, lang } = useLang();
   const lenisRef = useRef<LenisRef>(null);
   const parallaxRef = useResponsiveRef<HTMLDivElement>(
     1000
@@ -43,7 +43,7 @@ const HomePage = () => {/*
     <ReactLenis ref={lenisRef} root options={{}}>
       <Header />
       <main className={styles.main}>
-{/*         <SectionMain />
+        <SectionMain />
         <AboutMain />
         <Infrastructura />
         <Locations />
@@ -78,7 +78,7 @@ const HomePage = () => {/*
           </div>
           <p className={styles.parallax_descr}>{t.t_par_descrt}</p>
         </section>
-        <HorizontParallax /> */}
+        <HorizontParallax />
         <Equipment />
         <Steps />
         <SpaceStructure />

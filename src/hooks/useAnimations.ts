@@ -171,7 +171,8 @@ export const useScrollToLocation = () => {
 export const useStepsAnimation = (
   stepsRef: React.RefObject<HTMLElement>,
   cardsRef: React.RefObject<HTMLElement>,
-  imageRef: React.RefObject<HTMLElement>,
+  imageWrapperRef: React.RefObject<HTMLElement>,
+  imageRef: React.RefObject<HTMLImageElement>,
   styles: CSSModuleClasses
 ) => {
   useLayoutEffect(() => {
@@ -180,10 +181,8 @@ export const useStepsAnimation = (
       `.${styles.steps__title}`
     ) as HTMLElement | null;
     const cards = cardsRef.current;
-    const imageWrapper = imageRef.current;
-    const imageInner = imageWrapper?.querySelector(
-      `.${styles.steps__img}`
-    ) as HTMLElement | null;
+    const imageWrapper = imageWrapperRef.current;
+    const imageInner = imageRef.current;
 
     if (!section || !title || !cards || !imageWrapper || !imageInner) return;
     if (window.innerWidth <= 768) return;
@@ -217,8 +216,7 @@ export const useStepsAnimation = (
 
     const init = () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
-
-      // 📌 Пин заголовка
+      // 📌 Пин заголовка на весь блок steps
       ScrollTrigger.create({
         trigger: section,
         start: "top top",
@@ -230,9 +228,9 @@ export const useStepsAnimation = (
       // 📦 Анимация карточек
       gsap.fromTo(
         cards,
-        { y: vh },
+        { y: vh / 0.9 },
         {
-          y: -vh * 0.8,
+          y: -vh / 1.5,
           ease: "none",
           scrollTrigger: {
             trigger: section,
@@ -242,32 +240,31 @@ export const useStepsAnimation = (
           },
         }
       );
-      // 📌 Пин картинки
+
+      // 🔄 Скролл картинки вверх внутри imageWrapper
+      gsap.fromTo(
+        imageInner,
+        { y: 0 },
+        {
+          y: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: imageWrapper,
+            start: "-=50",
+            end: "bottom bottom",
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        }
+      );
       ScrollTrigger.create({
-        trigger: section,
-        start: "center center",
+        trigger: imageWrapper,
+        start: "top top",
         end: "bottom bottom",
         pin: imageWrapper,
         pinSpacing: true,
         anticipatePin: 1,
       });
-
-      gsap.fromTo(
-        imageInner,
-        { y: 0 },
-        {
-          y: -vh / 1.2,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "center center",
-            scrub: true,
-
-            invalidateOnRefresh: true,
-          },
-        }
-      );
       gsap.fromTo(
         imageInner,
         { scale: 0.46 },
@@ -275,11 +272,12 @@ export const useStepsAnimation = (
           scale: 1,
           ease: "none",
           scrollTrigger: {
-            trigger: section,
-            start: "center center",
-            end: "bottom bottom",
+            trigger: imageWrapper,
+            start: "top top",
+            end: "+=50%",
             scrub: true,
- 
+            pin: imageWrapper,
+            pinSpacing: true,
             invalidateOnRefresh: true,
           },
         }

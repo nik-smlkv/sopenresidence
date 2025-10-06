@@ -6,8 +6,10 @@ import { useStepsAnimation } from "../../../hooks/useAnimations";
 const Steps: React.FC = () => {
   const { t } = useLang();
   const stepsRef = useRef<HTMLDivElement | null>(null);
-  const imageRef = useRef<HTMLDivElement | null>(null);
+  const imageWrapperRef = useRef<HTMLDivElement | null>(null);
+  const imageRef = useRef<HTMLImageElement | null>(null);
   const cardsRef = useRef<HTMLDivElement | null>(null);
+  useStepsAnimation(stepsRef, cardsRef, imageWrapperRef, imageRef, styles);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const stepsCardArray = [
     {
@@ -43,7 +45,6 @@ const Steps: React.FC = () => {
     setActiveIndex((prev) => (prev === index ? null : index));
   };
 
-  useStepsAnimation(stepsRef, cardsRef, imageRef, styles);
   return (
     <section
       className={styles.steps}
@@ -105,7 +106,6 @@ const Steps: React.FC = () => {
                   </span>
                 </div>
               </div>
-
               <div className={styles.steps__card__content}>
                 <p className={styles.card__content_title}>{t.t_main_cond}</p>
                 <ul className={styles.card__text_list}>
@@ -128,11 +128,12 @@ const Steps: React.FC = () => {
         </div>
       </div>
 
-      <div className={styles.img__wrapper} ref={imageRef}>
+      <div ref={imageWrapperRef} className={styles.img__wrapper}>
         <img
           src={new URL("/images/steps-img.jpg", import.meta.url).href}
           alt="steps"
           className={styles.steps__img}
+          ref={imageRef}
         />
       </div>
     </section>

@@ -90,6 +90,7 @@
 .steps__cards_wrapper {
 	position: relative;
 	will-change: transform;
+	height: 100vh;
 }
 
 .steps__cards {
