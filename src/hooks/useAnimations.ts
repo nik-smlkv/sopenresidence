@@ -143,7 +143,7 @@ export const useLenisRef = (
 export const useScrollToLocation = () => {
   const location = useLocation();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const scrollTo = location.state?.scrollTo;
     if (!scrollTo) return;
 
@@ -156,15 +156,15 @@ export const useScrollToLocation = () => {
       }
     };
 
-    if (document.readyState === "complete") {
-      scrollAfterGSAP();
-    } else {
-      window.addEventListener("load", scrollAfterGSAP);
-    }
-
-    return () => {
-      window.removeEventListener("load", scrollAfterGSAP);
+    const handleScroll = () => {
+      ScrollTrigger.refresh(); // пересчёт ScrollTrigger
+      setTimeout(scrollAfterGSAP, 100); // скролл после пересчёта
     };
+
+    // задержка после перехода
+    const timeout = setTimeout(handleScroll, 500);
+
+    return () => clearTimeout(timeout);
   }, [location.state]);
 };
 
@@ -188,34 +188,52 @@ export const useStepsAnimation = (
     if (!section || !title || !cards || !imageWrapper || !imageInner) return;
     if (window.innerWidth <= 768) return;
 
+    const vh = window.innerHeight;
+
+    // ✅ Начальные стили
+    gsap.set(title, {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      xPercent: -50,
+      yPercent: -50,
+      willChange: "transform",
+      immediateRender: true,
+    });
+
+    gsap.set(cards, {
+      y: vh,
+      willChange: "transform",
+      immediateRender: true,
+    });
+
+    gsap.set(imageInner, {
+      y: 0,
+      scale: 0.46,
+      transformOrigin: "50% 50%",
+      willChange: "transform",
+      immediateRender: true,
+    });
+
     const init = () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
 
-      const vh = window.innerHeight;
-
+      // 📌 Пин заголовка
       ScrollTrigger.create({
         trigger: section,
         start: "top top",
         end: "bottom bottom",
         pin: title,
-        pinSpacing: false,
+        pinSpacing: true,
       });
 
-      gsap.set(title, {
-        top: "50%",
-        left: "50%",
-        xPercent: -50,
-        yPercent: -50,
-        willChange: "transform",
-      });
-
+      // 📦 Анимация карточек
       gsap.fromTo(
         cards,
         { y: vh },
         {
-          y: -vh * 1.2,
+          y: -vh * 0.8,
           ease: "none",
-          immediateRender: false,
           scrollTrigger: {
             trigger: section,
             start: "top top",
@@ -224,46 +242,45 @@ export const useStepsAnimation = (
           },
         }
       );
-
-      gsap.fromTo(
-        imageInner,
-        { y: vh * 0.6 },
-        {
-          y: -vh * 1.1,
-          ease: "none",
-          immediateRender: false,
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "center center",
-            scrub: true,
-          },
-        }
-      );
-
+      // 📌 Пин картинки
       ScrollTrigger.create({
         trigger: section,
         start: "center center",
         end: "bottom bottom",
         pin: imageWrapper,
-        pinSpacing: false,
+        pinSpacing: true,
         anticipatePin: 1,
-        onEnter: () => gsap.set(imageInner, { y: 0 }),
-        onLeaveBack: () => gsap.set(imageInner, { y: vh * 0.6, scale: 0.46 }),
       });
 
       gsap.fromTo(
         imageInner,
-        { scale: 0.46, transformOrigin: "50% 50%" },
+        { y: 0 },
+        {
+          y: -vh / 1.2,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "center center",
+            scrub: true,
+
+            invalidateOnRefresh: true,
+          },
+        }
+      );
+      gsap.fromTo(
+        imageInner,
+        { scale: 0.46 },
         {
           scale: 1,
           ease: "none",
-          immediateRender: false,
           scrollTrigger: {
             trigger: section,
             start: "center center",
             end: "bottom bottom",
             scrub: true,
+ 
+            invalidateOnRefresh: true,
           },
         }
       );
@@ -274,6 +291,7 @@ export const useStepsAnimation = (
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
       gsap.set(title, { clearProps: "all" });
+      gsap.set(cards, { clearProps: "all" });
       gsap.set(imageInner, { clearProps: "all" });
     };
   }, []);

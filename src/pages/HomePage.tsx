@@ -26,27 +26,27 @@ import {
 
 type LenisRef = { lenis: Lenis | undefined };
 
-const HomePage = () => {
-  const { t, lang } = useLang();
+const HomePage = () => {/* 
+  const { t, lang } = useLang(); */
   const lenisRef = useRef<LenisRef>(null);
   const parallaxRef = useResponsiveRef<HTMLDivElement>(
     1000
   ) as React.RefObject<HTMLElement>;
+  useUnifiedScrollRefresh(); // unified refresh all of animations
+  useScrollToLocation(); //  scroll for location.state
   useLenisRef(lenisRef); // lenis scroll
   useParallaxAnimation(parallaxRef); // parallax
-  useScrollToLocation(); //  scroll for location.state
+
   useGlobalTextAnimations(); // text animation
-  useUnifiedScrollRefresh(); // unified refresh all of animations
-  
+
   return (
     <ReactLenis ref={lenisRef} root options={{}}>
       <Header />
       <main className={styles.main}>
-        <SectionMain />
+{/*         <SectionMain />
         <AboutMain />
         <Infrastructura />
         <Locations />
-
         <section
           className={styles.parallax}
           id="advantages"
@@ -78,8 +78,7 @@ const HomePage = () => {
           </div>
           <p className={styles.parallax_descr}>{t.t_par_descrt}</p>
         </section>
-
-        <HorizontParallax />
+        <HorizontParallax /> */}
         <Equipment />
         <Steps />
         <SpaceStructure />
