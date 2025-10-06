@@ -1,10 +1,7 @@
-import React, { useLayoutEffect, useRef, useState, type JSX } from "react";
+import React, { useRef, useState, type JSX } from "react";
 import styles from "./Steps.module.css";
-import { gsap } from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
 import { useLang } from "../../../hooks/useLang";
-
-gsap.registerPlugin(ScrollTrigger);
+import { useStepsAnimation } from "../../../hooks/useAnimations";
 
 const Steps: React.FC = () => {
   const { t } = useLang();
@@ -12,7 +9,6 @@ const Steps: React.FC = () => {
   const imageRef = useRef<HTMLDivElement | null>(null);
   const cardsRef = useRef<HTMLDivElement | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
   const stepsCardArray = [
     {
       name: t.t_fin_name_1,
@@ -43,134 +39,11 @@ const Steps: React.FC = () => {
     },
   ];
 
-  useLayoutEffect(() => {
-    const section = stepsRef.current;
-    const title = section?.querySelector(
-      `.${styles.steps__title}`
-    ) as HTMLElement | null;
-    const cards = cardsRef.current;
-    const imageWrapper = imageRef.current;
-    const imageInner = imageWrapper?.querySelector(
-      `.${styles.steps__img}`
-    ) as HTMLElement | null;
-
-    if (!section || !title || !cards || !imageWrapper || !imageInner) return;
-    if (window.innerWidth <= 768) return;
-
-    const init = () => {
-      // убиваем старые триггеры
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-
-      const vh = window.innerHeight;
-
-      // Title — всегда по центру
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top top",
-        end: "bottom bottom",
-        pin: title,
-        pinSpacing: false,
-      });
-      gsap.set(title, {
-        top: "50%",
-        left: "50%",
-        xPercent: -50,
-        yPercent: -50,
-        willChange: "transform",
-      });
-
-      // Cards
-      gsap.fromTo(
-        cards,
-        { y: vh }, // фиксированное начальное значение
-        {
-          y: -vh * 1.2,
-          ease: "none",
-          immediateRender: false,
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "center center",
-            scrub: true,
-          },
-        }
-      );
-
-      // Image move
-      gsap.fromTo(
-        imageInner,
-        { y: vh * 0.6 },
-        {
-          y: -vh * 1.1,
-          ease: "none",
-          immediateRender: false,
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "center center",
-            scrub: true,
-          },
-        }
-      );
-
-      // Pin wrapper + scale
-      ScrollTrigger.create({
-        trigger: section,
-        start: "center center",
-        end: "bottom bottom",
-        pin: imageWrapper,
-        pinSpacing: false,
-        anticipatePin: 1,
-        onEnter: () => gsap.set(imageInner, { y: 0 }),
-        onLeaveBack: () => gsap.set(imageInner, { y: vh * 0.6, scale: 0.46 }),
-      });
-
-      gsap.fromTo(
-        imageInner,
-        { scale: 0.46, transformOrigin: "50% 50%" },
-        {
-          scale: 1,
-          ease: "none",
-          immediateRender: false,
-          scrollTrigger: {
-            trigger: section,
-            start: "center center",
-            end: "bottom bottom",
-            scrub: true,
-          },
-        }
-      );
-
-      // пересчёт после инициализации
-      requestAnimationFrame(() => ScrollTrigger.refresh());
-    };
-
-    init();
-
-    // пересоздание при ресайзе
-    window.addEventListener("resize", init);
-
-    // refresh после полной загрузки страницы
-    const handleLoad = () => ScrollTrigger.refresh();
-    window.addEventListener("load", handleLoad);
-
-    return () => {
-      window.removeEventListener("resize", init);
-      window.removeEventListener("load", handleLoad);
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-      gsap.set(title, { clearProps: "all" });
-      gsap.set(imageInner, { clearProps: "all" });
-    };
-  }, []);
-
-  useLayoutEffect(() => {
-    const handleLoad = () => ScrollTrigger.refresh();
-    window.addEventListener("load", handleLoad);
-    return () => window.removeEventListener("load", handleLoad);
-  }, []);
   const handleToggle = (index: number) => {
     setActiveIndex((prev) => (prev === index ? null : index));
   };
+
+  useStepsAnimation(stepsRef, cardsRef, imageRef, styles);
   return (
     <section
       className={styles.steps}

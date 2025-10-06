@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://savaresidenceproperty.rs/sitemap.xml
+Sitemap: https://sopenparks.rs/sitemap.xml

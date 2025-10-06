@@ -50,7 +50,7 @@ by natural and cultural landmarks – from Čair
 park and Park Svetog Save to central city 
 spots such as Trg kralja Milana, Trg kralja 
 Aleksandra, and the monumental Niška 
-tvrđava.)`,
+tvrđava`,
     sl_text_scnd: `Provide emergency care, specialized treatment, and academic medical programs`,
     sl_text_trhd: `Experience the cultural spirit of Niš through the National Theatre, 
 concerts and festivals at Trg kralja Milana, and events in the impressive Niška tvrđava. 
