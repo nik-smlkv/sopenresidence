@@ -12,11 +12,11 @@ export const useMainImageAnimation = (
   styles: CSSModuleClasses
 ) => {
   useLayoutEffect(() => {
-    const section = mainBody.current;
+    const section = mainBody?.current;
     const imageWrapper = section?.querySelector(
       `.${styles.image__block}`
     ) as HTMLElement | null;
-    const image = imageRef.current;
+    const image = imageRef?.current;
     const header = document.querySelector("header") as HTMLElement | null;
 
     if (!section || !imageWrapper || !image) return;
@@ -103,7 +103,7 @@ export const useParallaxAnimation = (
 ) => {
   useEffect(() => {
     let triggerInstance: ScrollTrigger | undefined;
-    const targetEl = parallaxRef.current;
+    const targetEl = parallaxRef?.current;
 
     const createScroll = () => {
       if (targetEl) {
@@ -186,8 +186,7 @@ export const useStepsAnimation = (
 
     if (!section || !title || !cards || !imageWrapper || !imageInner) return;
     if (window.innerWidth <= 768) return;
-
-    const vh = window.innerHeight;
+ 
 
     // ✅ Начальные стили
     gsap.set(title, {
@@ -196,12 +195,6 @@ export const useStepsAnimation = (
       left: "50%",
       xPercent: -50,
       yPercent: -50,
-      willChange: "transform",
-      immediateRender: true,
-    });
-
-    gsap.set(cards, {
-      y: vh,
       willChange: "transform",
       immediateRender: true,
     });
@@ -228,14 +221,14 @@ export const useStepsAnimation = (
       // 📦 Анимация карточек
       gsap.fromTo(
         cards,
-        { y:  0},
+        { y: 1200 },
         {
-          y: -100,
+          y: 100,
           ease: "none",
           scrollTrigger: {
             trigger: section,
             start: "top top",
-            end: "+=100%",
+            end: "center center",
             scrub: true,
           },
         }

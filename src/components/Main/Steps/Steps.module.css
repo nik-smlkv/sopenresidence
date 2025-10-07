@@ -90,7 +90,7 @@
 .steps__cards_wrapper {
 	position: relative;
 	will-change: transform;
-	height: 200vh;
+	height: 150vh;
 }
 
 .steps__cards {
@@ -239,6 +239,15 @@
 		height: 100%;
 	}
 
+	.steps__cards {
+		row-gap: clamp(0.625rem, -10.313rem + 31.25vi, 4.688rem);
+	}
+
+	.steps__title_block {
+		height: auto;
+		margin-bottom: 40px;
+	}
+
 	.steps__title {
 		max-width: 75vw;
 	}
@@ -328,6 +337,15 @@
 	.steps__card.active .steps__card_front {
 		opacity: 0;
 		transition: opacity 0.7s ease;
+	}
+
+	.steps__card {
+		max-height: 100%;
+
+	}
+
+	.steps__card_front {
+		padding: 30px;
 	}
 
 	.steps__card.active .steps__card__content {
