@@ -25,7 +25,6 @@ const ApartmentsFilter: React.FC<Props> = ({ apartments }) => {
     if (apartments.length > 0) {
       const floorValues = apartments.map((apt) => apt.floor);
       const areaValues = apartments.map((apt) => apt.area);
-
       setFloorRange([Math.min(...floorValues), Math.max(...floorValues)]);
       setAreaRange([Math.min(...areaValues), Math.max(...areaValues)]);
     }

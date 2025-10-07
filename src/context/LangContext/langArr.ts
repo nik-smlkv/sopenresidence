@@ -161,11 +161,13 @@ Flexible income assessment. To determine your creditworthiness, API Bank accepts
     t_bath: `Bathroom`,
     t_bedrom: `Bedroom`,
     t_terace: `Terrace`,
+    t_rooms: `rooms`,
     t_plan_view_txt: `plan view`,
     t_3d_view_txt: `3d  view`,
     t_par_descrt: `The finished objects may differ from the 3D visualizations provided. All materials provided are indicative only and are subject to change`,
   },
   srb: {
+    t_rooms: `sobe`,
     t_par_descrt: `Završeni objekti mogu se razlikovati od prikazanih 3D vizualizacija. Svi dostavljeni materijali su samo informativnog karaktera i podložni su izmenama`,
     t_plan_view_txt: `Plan prostora`,
     t_3d_view_txt: `3d prostora`,
@@ -321,6 +323,7 @@ Flexible income assessment. To determine your creditworthiness, API Bank accepts
     t_terace: `Terasa`,
   },
   ru: {
+    t_rooms: `rooms`,
     t_par_descrt: `The finished objects may differ from the 3D visualizations provided. All materials provided are indicative only and are subject to change`,
     t_plan_view_txt: `plan view`,
     t_3d_view_txt: `3d  view`,

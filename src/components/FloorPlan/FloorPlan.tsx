@@ -5,7 +5,11 @@ import Header from "../Header/Header";
 import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 import { useApartments } from "../../context/ApartmentsContext";
 import VisualTooltip from "../VisualTooltip/VisualTooltip";
-import { fetchExcelFromPublic, type Apartment } from "../../utils/utils";
+import {
+  fetchExcelFromPublic,
+  getUnavailableApartments,
+  type Apartment,
+} from "../../utils/utils";
 import { useLang } from "../../hooks/useLang";
 import Request from "../Main/Request/Request";
 import ApartmentModal from "../ApartmentModal/ApartmentModal";
@@ -25,16 +29,65 @@ const FloorPlan = () => {
   const [selectedFloor, setSelectedFloor] = useState<number | null>(null);
   const [excelLoading, setExcelLoading] = useState(false);
   const [excelAttempted, setExcelAttempted] = useState(false);
+  const [unavailableApartments, setUnavailableApartments] = useState<
+    Apartment[]
+  >([]);
+
+  useEffect(() => {
+    getUnavailableApartments()
+      .then(setUnavailableApartments)
+      .catch(() => {});
+  }, []);
 
   const [selectedApartment, setSelectedApartment] = useState<Apartment | null>(
     null
   );
+  function applyUnavailableClassToSvg(
+    svgRoot: SVGSVGElement,
+    unavailableApartments: Apartment[]
+  ) {
+    const normalize = (str: string) => str.replace(/\s+/g, "").toUpperCase();
+
+    const floorGroups = svgRoot.querySelectorAll("g[data-floor]");
+
+    floorGroups.forEach((group) => {
+      const polygons = group.querySelectorAll(
+        "polygon[data-label], path[data-label]"
+      );
+
+      polygons.forEach((el) => {
+        const rawLabel = el.getAttribute("data-label");
+        if (!rawLabel) return;
+
+        // Получаем секцию, если есть
+        let section = "";
+        let current: Element | null = el;
+        while (current) {
+          if (current.tagName === "g" && current.hasAttribute("data-name")) {
+            section = current.getAttribute("data-name") || "";
+            break;
+          }
+          current = current.parentElement;
+        }
+
+        const label = rawLabel.slice(1); // убираем префикс, если нужно
+        const fullId = section ? `${section} ${label}` : label;
+
+        const isUnavailable = unavailableApartments.some((apt) =>
+          normalize(apt.id).startsWith(normalize(fullId))
+        );
+
+        if (isUnavailable) {
+          el.classList.add("unavailable");
+        }
+      });
+    });
+  }
   const [tooltip, setTooltip] = useState<{
     x: number;
     y: number;
     content: React.ReactNode;
   } | null>(null);
-
   const refA = useRef<HTMLDivElement>(null);
   const refB = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -43,6 +96,10 @@ const FloorPlan = () => {
   const location = useLocation();
   const state = location.state as LocationState | null;
   useEffect(() => {
+    if (!svgRef.current || unavailableApartments.length === 0) return;
+    applyUnavailableClassToSvg(svgRef.current, unavailableApartments);
+  }, [unavailableApartments]);
+  useEffect(() => {
     if (!loading && effectiveApartments.length === 0 && floorId) {
       const floorNum = parseInt(floorId, 10);
       const exists = effectiveApartments.some((apt) => apt.floor === floorNum);
@@ -50,8 +107,6 @@ const FloorPlan = () => {
       if (!exists) navigate("/floor", { replace: true });
     }
   }, [floorId, effectiveApartments, loading, navigate]);
-
-  // 📦 Fallback загрузка из Excel
   useEffect(() => {
     if (
       !loading &&
@@ -67,7 +122,7 @@ const FloorPlan = () => {
           if (data.length > 0) setManualApartments(data);
         })
         .catch((err) =>
-          console.error(`Ошибка при загрузке Excel: ${excelLoading}`, err)
+          console.error(`Error occured on Excel: ${excelLoading}`, err)
         )
         .finally(() => setExcelLoading(false));
     }
@@ -79,11 +134,9 @@ const FloorPlan = () => {
       window.history.replaceState({}, document.title); // очищает state
     }
   }, [state]);
-
   // 🧠 Вычисляем этаж
   useEffect(() => {
     if (loading || effectiveApartments.length === 0) return;
-
     const uniqueFloors = Array.from(
       new Set(effectiveApartments.map((apt) => apt.floor))
     ).sort((a, b) => b - a);
@@ -97,9 +150,6 @@ const FloorPlan = () => {
     }
   }, [floorId, effectiveApartments, loading]);
 
-  // 🚨 Редирект, если floorId невалиден
-
-  // 📐 Подгонка высоты блока
   useEffect(() => {
     if (refA.current && refB.current) {
       const computed = getComputedStyle(refA.current);
@@ -110,7 +160,6 @@ const FloorPlan = () => {
     }
   }, []);
 
-  // 🎯 Скроллим к активному этажу
   useEffect(() => {
     if (activeFloorRef.current) {
       activeFloorRef.current.scrollIntoView({
@@ -134,16 +183,13 @@ const FloorPlan = () => {
   const handleArrowClick = (floor?: number) => {
     if (floor !== undefined) navigate(`/floor/${floor}`);
   };
-
   // Обработка SVG
   useEffect(() => {
     const svg = svgRef.current;
     if (!svg) return;
-
     const normalize = (str: string) => str.replace(/\s+/g, "").toUpperCase();
-
     const polygons = svg.querySelectorAll(
-      "polygon[data-label], path[data-label]"
+      "polygon[data-label]:not(.unavailable), path[data-label]:not(.unavailable)"
     );
     polygons.forEach((el) => {
       const label = el.getAttribute("data-label");
@@ -184,7 +230,6 @@ const FloorPlan = () => {
         const rawLabel = target.getAttribute("data-label");
         if (!rawLabel) return;
         const label = rawLabel.slice(1);
-
         let section = "";
         let current: Element | null = target;
         while (current) {
@@ -219,7 +264,7 @@ const FloorPlan = () => {
                     {apt.area} m²
                   </p>
                   <p className={styles.visual_tooltip_count}>
-                    {apt.bedrooms + 1} rooms
+                    {apt.bedrooms + 1} {t.t_rooms}
                   </p>
                 </div>
               </div>

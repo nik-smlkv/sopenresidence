@@ -6,7 +6,6 @@ import { getAvailableApartmentCount } from "../../../utils/utils";
 const ApartmentView = () => {
   const { t } = useLang();
   const [countApartments, setCountApartments] = useState<number | null>(null);
-
   useEffect(() => {
     getAvailableApartmentCount()
       .then(setCountApartments)
@@ -29,7 +28,7 @@ const ApartmentView = () => {
               </p>
               <div className={styles.apartment__info}>
                 <div className={styles.apart__info_text}>
-                  <p className={styles.apart__count}>231</p>
+                  <p className={styles.apart__count}>{countApartments === null ? "" : countApartments}</p>
                   <p className={styles.apart__text}>{t.stat_apr}</p>
                 </div>
                 <svg

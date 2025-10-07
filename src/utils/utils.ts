@@ -30,7 +30,8 @@ export type Apartment = {
 };
 
 export async function fetchExcelFromPublic(): Promise<Apartment[]> {
-  const response = await fetch("apartments.xlsx");
+  const url = new URL("/apartments.xlsx", import.meta.url).href;
+  const response = await fetch(url);
   if (!response.ok) {
     throw new Error("Не удалось загрузить Excel-файл");
   }
@@ -54,14 +55,59 @@ export async function fetchExcelFromPublic(): Promise<Apartment[]> {
     terraces: row["Broj terasa"],
     status: row["STATUS"]?.trim(),
   }));
-  const availableApartments = mappedData.filter(
-    (apt) => apt.status === "Slobodan"
-  );
-
-  return availableApartments;
+  return mappedData;
 }
 
 export async function getAvailableApartmentCount(): Promise<number> {
-  const availableApartments = await fetchExcelFromPublic();
+  const url = new URL("/apartments.xlsx", import.meta.url).href;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error("Не удалось загрузить Excel-файл");
+  }
+
+  const arrayBuffer = await response.arrayBuffer();
+  const workbook = XLSX.read(arrayBuffer, { type: "array" });
+  const sheetName = workbook.SheetNames[0];
+  const sheet = workbook.Sheets[sheetName];
+  const rawData = XLSX.utils.sheet_to_json<ApartmentRaw>(sheet);
+
+  const availableApartments = rawData.filter(
+    (row) => row.STATUS?.trim() === "Slobodan"
+  );
+
   return availableApartments.length;
+}
+
+export async function getUnavailableApartments(): Promise<Apartment[]> {
+  const url = new URL("/apartments.xlsx", import.meta.url).href;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error("Не удалось загрузить Excel-файл");
+  }
+
+  const arrayBuffer = await response.arrayBuffer();
+  const workbook = XLSX.read(arrayBuffer, { type: "array" });
+  const sheetName = workbook.SheetNames[0];
+  const sheet = workbook.Sheets[sheetName];
+  const rawData = XLSX.utils.sheet_to_json<ApartmentRaw>(sheet);
+
+  const mappedData: Apartment[] = rawData.map((row) => ({
+    id: row["Oznaka stana "]?.trim(),
+    lamela: row["Lamela "]?.trim() || row["Lemela "]?.trim(),
+    area: row["Kvadratura PGD"],
+    floor: row["Sprat"],
+    orientation: row["Orijent. "]?.trim(),
+    orientationDesc: row["Opis orijentacije "]?.trim(),
+    bedrooms: row["Broj spavaćih"],
+    bathrooms: row["Broj kupatila"],
+    toilets: row["Broj toaleta"],
+    terraces: row["Broj terasa"],
+    status: row["STATUS"]?.trim(),
+  }));
+
+  const unavailableApartments = mappedData.filter(
+    (apt) => apt.status !== "Slobodan"
+  );
+
+  return unavailableApartments;
 }
