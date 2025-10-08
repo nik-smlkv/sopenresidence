@@ -2,15 +2,23 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./SectionMain.module.css";
 import { useLang } from "../../../hooks/useLang";
 import SelectApartmentBtn from "../../Buttons/SelectApartmentBtn";
-import { useMainImageAnimation } from "../../../hooks/useAnimations";
+import { initMainImageAnimation } from "../../../hooks/useAnimations";
 
 const SectionMain: React.FC = () => {
   const { t } = useLang();
   const mainBody = useRef<HTMLDivElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   const [isMobile, setIsMobile] = useState(
     typeof window !== "undefined" ? window.innerWidth <= 768 : false
   );
+  useEffect(() => {
+    const cleanup = initMainImageAnimation(mainBody, imageRef, styles);
+    return () => {
+      if (typeof cleanup === "function" && imageLoaded) cleanup();
+    };
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -20,7 +28,6 @@ const SectionMain: React.FC = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  useMainImageAnimation(mainBody, imageRef, styles);
 
   return (
     <section
@@ -47,6 +54,7 @@ const SectionMain: React.FC = () => {
                 className={styles.main_img}
                 src={new URL("/images/main.jpg", import.meta.url).href}
                 alt="Main"
+                onLoad={() => setImageLoaded(true)}
               />
             </div>
             <p className={styles.subtitle}>{t.t_subtitle}</p>

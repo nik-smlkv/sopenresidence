@@ -243,6 +243,12 @@
 	justify-content: space-between;
 }
 
+.apart_meter_item_txt span:last-child {
+	text-align: left;
+	width: 100%;
+	max-width: 80px;
+}
+
 .apart_count_room {
 	font-weight: 500;
 	font-size: 22px;
@@ -353,9 +359,9 @@
 }
 
 .view_item_grid {
-	flex: 1 1 150px;
+	flex: 1 1 170px;
 	width: 100%;
-	max-width: 150px;
+ 
 }
 
 .view_item_floor {

@@ -13,7 +13,12 @@ const ApartmentsPage = () => {
   const { t } = useLang();
   useEffect(() => {
     fetchExcelFromPublic()
-      .then(setApartments)
+      .then((allApartments) => {
+        const available = allApartments.filter(
+          (apt) => apt.status === "Slobodan"
+        );
+        setApartments(available);
+      })
       .catch((err: unknown) => {
         if (err instanceof Error) {
           setError(err.message);
@@ -22,6 +27,7 @@ const ApartmentsPage = () => {
         }
       });
   }, []);
+
   return (
     <>
       <Header />

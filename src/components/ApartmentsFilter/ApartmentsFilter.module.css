@@ -185,6 +185,8 @@
 	position: relative;
 	overflow: hidden;
 	padding: 12px 22px;
+	width: 100%;
+	max-width: 120px;
 	border-radius: 30px;
 	color: var(--acc-main-green);
 	outline: 1px solid var(--acc-main-green);

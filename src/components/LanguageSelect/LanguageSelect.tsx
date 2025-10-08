@@ -4,8 +4,8 @@ import { useLang } from "../../hooks/useLang";
 import type { LangType } from "../../context/LangContext/LangContext";
 
 const languages = [
-  { code: "en", label: "EN" },
   { code: "srb", label: "SRB" },
+  { code: "en", label: "EN" },
   { code: "ru", label: "RUS" },
 ] as const;
 

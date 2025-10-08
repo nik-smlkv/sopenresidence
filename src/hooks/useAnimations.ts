@@ -6,96 +6,94 @@ import SplitText from "gsap/SplitText";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const useMainImageAnimation = (
+export const initMainImageAnimation = (
   mainBody: React.RefObject<HTMLElement>,
   imageRef: React.RefObject<HTMLElement>,
   styles: CSSModuleClasses
 ) => {
-  useLayoutEffect(() => {
-    const section = mainBody?.current;
-    const imageWrapper = section?.querySelector(
-      `.${styles.image__block}`
-    ) as HTMLElement | null;
-    const image = imageRef?.current;
-    const header = document.querySelector("header") as HTMLElement | null;
+  const section = mainBody?.current;
+  const imageWrapper = section?.querySelector(
+    `.${styles.image__block}`
+  ) as HTMLElement | null;
+  const image = imageRef?.current;
+  const header = document.querySelector("header") as HTMLElement | null;
 
-    if (!section || !imageWrapper || !image) return;
+  if (!section || !imageWrapper || !image) return;
 
-    let triggers: ScrollTrigger[] = [];
+  let triggers: ScrollTrigger[] = [];
 
-    const init = () => {
-      triggers.forEach((t) => t.kill());
-      triggers = [];
+  const init = () => {
+    triggers.forEach((t) => t.kill());
+    triggers = [];
 
-      if (window.innerWidth <= 768) return;
+    if (window.innerWidth <= 768) return;
 
-      const vh = window.innerHeight;
-      const phaseLen = vh;
-      const headerHeight = header?.offsetHeight || 0;
+    const sectionHeight = section.offsetHeight;
+    const headerHeight = header?.offsetHeight || 0;
 
-      const baseWidth = 830;
-      const baseHeight = 490;
-      const scaleX = window.innerWidth / baseWidth;
-      const scaleY = window.innerHeight / baseHeight;
-      const targetScale = Math.max(scaleX, scaleY);
+    const baseWidth = 830;
+    const baseHeight = 490;
+    const scaleX = window.innerWidth / baseWidth;
+    const scaleY = window.innerHeight / baseHeight;
+    const targetScale = Math.max(scaleX, scaleY);
 
-      section.style.minHeight = `${phaseLen + vh}px`;
+    // Убираем minHeight, если section уже имеет нужную высоту
+    section.style.minHeight = `${sectionHeight}px`;
 
-      // ✅ Устанавливаем размеры и позицию сразу
-      gsap.set(image, {
-        width: baseWidth,
-        height: baseHeight,
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        xPercent: -50,
-        yPercent: -50,
-        transformOrigin: "50% 50%",
-      });
+    gsap.set(image, {
+      width: baseWidth,
+      height: baseHeight,
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      xPercent: -50,
+      yPercent: -50,
+      transformOrigin: "50% 50%",
+    });
 
-      const pinTrigger = ScrollTrigger.create({
-        trigger: section,
-        start: `top+=${headerHeight} top`,
-        end: `+=${phaseLen}`,
-        pin: imageWrapper,
-        pinSpacing: false,
-        anticipatePin: 1,
-      });
+    const pinTrigger = ScrollTrigger.create({
+      trigger: section,
+      start: `top+=${headerHeight} top`,
+      end: "bottom bottom",
+      pin: imageWrapper,
+      pinSpacing: false,
+      anticipatePin: 1,
+    });
 
-      // ✅ Масштабирование через fromTo
-      const scaleTrigger = gsap.fromTo(
-        image,
-        { scale: 1 },
-        {
-          scale: targetScale,
-          ease: "none",
-          immediateRender: false,
-          scrollTrigger: {
-            trigger: section,
-            start: `top+=${headerHeight} top`,
-            end: `+=${phaseLen}`,
-            scrub: true,
-            invalidateOnRefresh: true,
-          },
-        }
-      ).scrollTrigger;
+    const scaleTrigger = gsap.fromTo(
+      image,
+      { scale: 1 },
+      {
+        scale: targetScale,
+        ease: "none",
+        immediateRender: false,
+        scrollTrigger: {
+          trigger: section,
+          start: `top+=${headerHeight} top`,
+          end: "bottom bottom",
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      }
+    ).scrollTrigger;
 
-      triggers.push(pinTrigger, scaleTrigger as ScrollTrigger);
-    };
+    triggers.push(pinTrigger, scaleTrigger as ScrollTrigger);
+  };
 
-    if ((image as HTMLImageElement).complete) {
-      init();
-    } else {
-      image.addEventListener("load", init);
-    }
+  const img = imageRef.current as HTMLImageElement | null;
 
-    return () => {
-      image.removeEventListener("load", init);
-      triggers.forEach((t) => t.kill());
-      section.style.minHeight = "";
-      gsap.set(image, { clearProps: "transform" });
-    };
-  }, []);
+  if (img && img.complete && img.naturalWidth > 0) {
+    init();
+  } else {
+    img?.addEventListener("load", init);
+  }
+
+  return () => {
+    image.removeEventListener("load", init);
+    triggers.forEach((t) => t.kill());
+    section.style.minHeight = "";
+    gsap.set(image, { clearProps: "transform" });
+  };
 };
 
 export const useParallaxAnimation = (
@@ -129,13 +127,47 @@ export const useParallaxAnimation = (
 };
 
 export const useLenisRef = (
-  lenisRef: React.RefObject<{ lenis?: { raf: (t: number) => void } }>
+  lenisRef: React.RefObject<{
+    lenis?: {
+      raf: (t: number) => void;
+      scrollTo: (value: number) => void;
+      scroll: number;
+      on: (event: "scroll", callback: () => void) => void;
+    };
+  }>
 ) => {
   useEffect(() => {
+    const lenis = lenisRef.current?.lenis;
+    if (!lenis) return;
+
+    // ✅ ScrollTrigger proxy
+    ScrollTrigger.scrollerProxy(document.body, {
+      scrollTop(value) {
+        if (value !== undefined) {
+          lenis.scrollTo(value);
+        }
+        return lenis.scroll;
+      },
+      getBoundingClientRect() {
+        return {
+          top: 0,
+          left: 0,
+          width: window.innerWidth,
+          height: window.innerHeight,
+        };
+      },
+      pinType: document.body.style.transform ? "transform" : "fixed",
+    });
+
+    lenis.on("scroll", ScrollTrigger.update);
+    ScrollTrigger.defaults({ scroller: document.body });
+
+    // ✅ Lenis RAF loop
     function raf(time: number) {
       lenisRef.current?.lenis?.raf(time);
       requestAnimationFrame(raf);
     }
+
     requestAnimationFrame(raf);
   }, []);
 };
@@ -186,7 +218,6 @@ export const useStepsAnimation = (
 
     if (!section || !title || !cards || !imageWrapper || !imageInner) return;
     if (window.innerWidth <= 768) return;
- 
 
     // ✅ Начальные стили
     gsap.set(title, {
