@@ -61,7 +61,7 @@ const AboutMain = () => {
   const InfoListArray: { key: string; name: string; info: string }[] = [
     { key: "Location", name: t.t_locat, info: t.t_abt_addr },
     { key: "Complex area", name: t.t_complex_area, info: "42,683 m²" },
-    { key: "Structure", name: t.t_struct, info: "3P0+P+15" },
+    { key: "Structure", name: t.t_struct, info: "3P0 + GF + 10 & 3P0 + P + 15" },
     { key: "Number of apartments", name: t.t_num_apart, info: "326" },
     { key: "Parking spaces", name: t.t_park_space, info: "386" },
   ];

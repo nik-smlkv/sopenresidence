@@ -164,7 +164,7 @@ img.img__item {
 	font-family: "Celine Sans", sans-serif;
 	text-transform: uppercase;
 	color: var(--acc-main-green);
-	font-size: 390px;
+	font-size: 240px;
 	font-weight: 400;
 	line-height: 100%;
 }
@@ -225,6 +225,8 @@ img.img__item {
 	font-size: 18px;
 	line-height: 126%;
 	color: var(--acc-main-green);
+	width: 100%;
+	max-width: 162px;
 }
 
 :global(.swiper-img__list) {
@@ -339,9 +341,7 @@ img.img__item {
 		font-size: 233px;
 	}
 
-	.about_content_title {
-		font-size: clamp(18.063rem, -0.875rem + 18.042vi, 24.375rem)
-	}
+ 
 
 	.about__name {
 		font-size: clamp(1.13rem, 0.38rem + 0.83vw, 1.38rem);
@@ -388,7 +388,7 @@ img.img__item {
 	}
 
 	.about_content_title {
-		font-size: clamp(13.375rem, 1.809rem + 16.072vi, 18.063rem)
+		font-size: clamp(13.375rem, 1.809rem + 16.072vi, 15rem)
 	}
 }
 
