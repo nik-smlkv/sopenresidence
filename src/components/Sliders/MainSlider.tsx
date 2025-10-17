@@ -11,19 +11,22 @@ const SliderListImgs: {
   img: string;
 }[] = [
   {
-    img: "/park-test/images/happy-couple-with-picnic-basket-summer-park.jpg",
+    img: "/images/happy-couple-with-picnic-basket-summer-park.jpg",
   },
   {
-    img: "/park-test/images/professional-senior-asian-female-orthopedic-doctor-checking-her-patient-s-wrist-joint.jpg",
+    img: "/images/professional-senior-asian-female-orthopedic-doctor-checking-her-patient-s-wrist-joint.jpg",
   },
   {
-    img: "/park-test/images/mother-with-daughter-cinema.jpg",
+    img: "/images/mother-with-daughter-cinema.jpg",
   },
   {
-    img: "/park-test/images/pretty-female-with-drink-paperbags-her-husband-passing-by-large-shopwindow-mall-process-shopping.jpg",
+    img: "/images/pretty-female-with-drink-paperbags-her-husband-passing-by-large-shopwindow-mall-process-shopping.jpg",
   },
   {
-    img: "/park-test/images/pretty-female-with-drink-paperbags.jpg",
+    img: "/images/pretty-female-with-drink-paperbags.jpg",
+  },
+  {
+    img: "/images/female.jpg",
   },
 ];
 export function getSlideIndex(swiper: SwiperType): number {
@@ -132,6 +135,11 @@ const SliderText = ({
       walk: `10 ${t.sl_card}`,
       meter: `${t.sl_ili} 1,5 ${t.sl_km}`,
     },
+    {
+      text: `${t.sl_text_sixth}`,
+      walk: `4 ${t.sl_card}`,
+      meter: `${t.sl_ili} 1,3 ${t.sl_km}`,
+    },
   ];
   const customPagination = { active, total };
   return (
@@ -201,7 +209,10 @@ const MainSlider = () => {
       >
         {SliderListImgs.map((sliderInfo, index) => (
           <SwiperSlide key={index} className="swiper__slide_infrastructure">
-            <img src={new URL(`${sliderInfo.img}`, import.meta.url).href} alt={`Slide ${index}`} />
+            <img
+              src={new URL(`${sliderInfo.img}`, import.meta.url).href}
+              alt={`Slide ${index}`}
+            />
           </SwiperSlide>
         ))}
       </Swiper>

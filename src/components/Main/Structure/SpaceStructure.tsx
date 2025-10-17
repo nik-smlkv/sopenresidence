@@ -39,7 +39,7 @@ const SpaceStructure = () => {
       },
     },
   ];
-  
+
   return (
     <section
       className={styles.structure}
@@ -87,7 +87,7 @@ const SpaceStructure = () => {
                       key={`img-${index}`}
                     >
                       <img
-                        src={`https://sopenpark.rs/park-test/images/${image}`}
+                        src={`https://sopenpark.rs/images/${image}`}
                         alt=""
                       />
                       <div

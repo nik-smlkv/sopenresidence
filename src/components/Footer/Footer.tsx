@@ -10,7 +10,7 @@ const handleClick = (id: string) => {
 const Footer = () => {
   const { t } = useLang();
   return (
-    <footer className={styles.footer} id="contact">
+    <footer className={styles.footer} >
       <div className={styles.footer__body} >
         <div className={styles.footer__info_block}>
           <Contact />

@@ -11,7 +11,13 @@ const VisualTooltip: React.FC<VisualTooltipProps> = ({ x, y, content }) => {
   return (
     <div
       className={`tooltip ${styles.tooltipVisible}`}
-      style={{ top: y, left: x }}
+      style={{
+        position: "fixed",
+        top: y,
+        left: x,
+        pointerEvents: "none",
+        transform: "translate(70px, 12px)",
+      }}
     >
       {content}
     </div>

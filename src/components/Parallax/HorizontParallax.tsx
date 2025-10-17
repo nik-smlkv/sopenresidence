@@ -69,29 +69,33 @@ const HorizontParallax = () => {
     img: string;
     name: string;
   }[] = [
-    {
-      img: "/park-test/images/beautiful-spa-client-with-tisane-looking-into-distance.jpg",
+    /*     {
+      img: "/images/beautiful-spa-client-with-tisane-looking-into-distance.jpg",
       name: t.t_hor_par_2,
-    },
+    }, */
     {
-      img: "/park-test/images/customer-choosing-milk-products-supermarket-refrigerator.jpg",
+      img: "/images/Supermarket.jpg",
       name: t.t_hor_par_3,
     },
     {
-      img: "/park-test/images/pharmacist-work.jpg",
+      img: "/images/Pharmacy.jpg",
       name: t.t_hor_par_4,
     },
     {
-      img: "/park-test/images/close-up-barista-making-cappuccino-bartender-preparing-coffee-drink.jpg",
+      img: "/images/Café.jpg",
       name: t.t_hor_par_5,
     },
-    {
-      img: "/park-test/images/close-up-barista-making-cappuccino-bartender-preparing-coffee-drink-1.jpg ",
+    /*     {
+      img: "/images/close-up-barista-making-cappuccino-bartender-preparing-coffee-drink-1.jpg ",
       name: t.t_hor_par_6,
+    }, */
+    {
+      img: "/images/commercial-space.jpg",
+      name: t.t_hor_par_7,
     },
     {
-      img: "/park-test/images/young-adult-woman-pushing-shopping-trolley-shelves-market.jpg",
-      name: t.t_hor_par_7,
+      img: "/images/storage.jpg",
+      name: t.t_hor_par_8,
     },
   ];
 

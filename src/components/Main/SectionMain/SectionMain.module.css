@@ -104,7 +104,7 @@
 	align-items: center;
 	justify-content: space-between;
 	text-align: center;
-	flex: 1 1 68vh;
+	flex: 1 1 70vh;
 	width: 100%;
 	height: 100%;
 }
@@ -120,7 +120,7 @@
 @media (max-width: 1920px) {
 	.text_welcome {
 		margin-bottom: clamp(1.25rem, 0.536rem + 1.116vi, 1.875rem);
-		font-size: clamp(1.25rem, 0.536rem + 1.116vi, 1.875rem);
+		font-size: clamp(1.25rem, 0.536rem + 1.116vi, 1.625rem);
 	}
 }
 
@@ -211,6 +211,7 @@
 
 	.subtitle {
 		max-width: 300px;
+		margin-top: 0;
 	}
 
 	.title {

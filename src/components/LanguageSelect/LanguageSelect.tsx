@@ -6,7 +6,7 @@ import type { LangType } from "../../context/LangContext/LangContext";
 const languages = [
   { code: "srb", label: "SRB" },
   { code: "en", label: "EN" },
-  { code: "ru", label: "RUS" },
+/*   { code: "ru", label: "RUS" }, */
 ] as const;
 
 export const LanguageSelect = () => {

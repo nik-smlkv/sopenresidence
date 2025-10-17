@@ -100,7 +100,7 @@
 
 	.infrastructura_text_block_title {
 		font-size: clamp(3.75rem, 0rem + 4.167vi, 5rem);
-		max-width: 50vw;
+		max-width: 49vw;
 	}
 
 	.infrastructura_text_block_title.infra_srb {
@@ -227,7 +227,7 @@
 	}
 
 	.infrastructura_text_block_title {
-		max-width: 100%;
+		max-width: 85%;
 		margin-left: 0;
 	}
 
@@ -256,7 +256,7 @@
 
 @media(max-width: 540px) {
 	.infrastructura_block_text p {
-		font-size: 14px;
+		font-size: 15px;
 		line-height: 126%;
 	}
 

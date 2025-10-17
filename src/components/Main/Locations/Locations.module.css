@@ -18,6 +18,12 @@
 	column-gap: 24px;
 }
 
+.location__item_txt {
+	display: block;
+	width: 100%;
+	max-width: 324px;
+}
+
 .location__name {
 	font-size: 22px;
 	line-height: 120%;
@@ -45,7 +51,7 @@
 	list-style: none;
 	font-weight: 200;
 	font-size: 34px;
-	line-height: 100%;
+	line-height: 110%;
 	color: var(--tx-wh);
 	display: inline-flex;
 	column-gap: 12px;
@@ -264,7 +270,6 @@
 	.location__item span img {
 		mix-blend-mode: difference;
 		width: 20px;
-
 	}
 
 	.select_wrapper {
@@ -278,6 +283,7 @@
 		padding: 0px 1.25em 6.25em;
 	}
 
-
+	.select_wrapper {
+		max-width: 100%;
+	}
 }
-

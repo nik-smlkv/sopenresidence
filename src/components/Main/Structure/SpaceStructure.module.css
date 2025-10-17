@@ -263,6 +263,10 @@
 		row-gap: 12px;
 	}
 
+	.structure_text_block {
+		max-width: 100%;
+	}
+
 	.structure__card_block_img .img_wrapper:last-child {
 		display: none;
 	}

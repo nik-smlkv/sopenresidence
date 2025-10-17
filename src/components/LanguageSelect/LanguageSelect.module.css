@@ -11,7 +11,7 @@
 .langSwitcher::after {
 	content: '';
 	width: 100%;
-	height: 95px;
+	height: 68px;
 	position: absolute;
 	top: -10px;
 	left: 0;

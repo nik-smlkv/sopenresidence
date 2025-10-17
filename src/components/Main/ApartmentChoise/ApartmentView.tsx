@@ -1,22 +1,24 @@
 import { Link } from "react-router-dom";
 import { useLang } from "../../../hooks/useLang";
 import styles from "./ApartmentView.module.css";
-import { useEffect, useState } from "react";
-import { getAvailableApartmentCount } from "../../../utils/utils";
+/* import { useEffect, useState } from "react";
+import { getAvailableApartmentCount } from "../../../utils/utils"; */
 const ApartmentView = () => {
   const { t } = useLang();
-  const [countApartments, setCountApartments] = useState<number | null>(null);
+  /*   const [countApartments, setCountApartments] = useState<number | null>(null);
   useEffect(() => {
     getAvailableApartmentCount()
       .then(setCountApartments)
       .catch(() => {
         setCountApartments(null);
       });
-  }, []);
+  }, []); */
+
   return (
     <section
       className={styles.apartment__view}
       data-section-id="transparent-black"
+      id="contact"
     >
       <div className={styles.apartment__body}>
         <h2 className={styles.apartment__title}>{t.t_apart_view_title}</h2>
@@ -28,7 +30,7 @@ const ApartmentView = () => {
               </p>
               <div className={styles.apartment__info}>
                 <div className={styles.apart__info_text}>
-                  <p className={styles.apart__count}>{countApartments === null ? "" : countApartments}</p>
+                  <p className={styles.apart__count}>326</p>
                   <p className={styles.apart__text}>{t.stat_apr}</p>
                 </div>
                 <svg

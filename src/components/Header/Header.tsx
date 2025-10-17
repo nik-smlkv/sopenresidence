@@ -17,7 +17,6 @@ const handleClick = (id: string) => {
 };
 
 const Header = () => {
-	
   const burgerModal = useModal();
 
   const handleBurgerRemove = () => {
@@ -76,11 +75,13 @@ const Header = () => {
             }
             if (sectionId === "light") {
               headerEl?.classList.add("changed");
-            }else if(sectionId === "transparent" || sectionId === "transparent-black"){
-					headerEl?.classList.remove("changed");
-					headerEl?.classList.add("changed-black");
-				} 
-				else {
+            } else if (
+              sectionId === "transparent" ||
+              sectionId === "transparent-black"
+            ) {
+              headerEl?.classList.remove("changed");
+              headerEl?.classList.add("changed-black");
+            } else {
               headerEl?.classList.remove("changed");
             }
           }
@@ -97,8 +98,8 @@ const Header = () => {
   }, []);
 
   const languages = [
-    { code: "en", label: "EN" },
     { code: "srb", label: "SRB" },
+    { code: "en", label: "EN" },
   ] as const;
   const isProduct: boolean = false;
   return (
@@ -200,9 +201,7 @@ const Header = () => {
                   </svg>
                   <ul>
                     <li>
-                      <Link to="/search-by-parameters"
-                        className={styles.link}
-                      >
+                      <Link to="/search-by-parameters" className={styles.link}>
                         {t.t_apart_view_filter}
                         <span className={styles.list__arrow}>
                           <svg
@@ -222,7 +221,8 @@ const Header = () => {
                       </Link>
                     </li>
                     <li className={styles.visual_hidden}>
-                      <Link to="/visual-selectional-of-apartments"
+                      <Link
+                        to="/visual-selectional-of-apartments"
                         className={styles.link}
                       >
                         {t.t_apart_view_selet_text}

@@ -6,7 +6,7 @@ import { fetchExcelFromPublic, type Apartment } from "../../utils/utils";
 
 import VisualTooltip from "../VisualTooltip/VisualTooltip";
 import { floorPaths } from "./floorPaths";
- 
+
 import { useNavigate } from "react-router-dom";
 import { useLang } from "../../hooks/useLang";
 const VisualApartments = () => {
@@ -22,7 +22,7 @@ const VisualApartments = () => {
     content: null,
   });
   const { t } = useLang();
- 
+
   const [apartments, setApartments] = useState<Apartment[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -33,13 +33,13 @@ const VisualApartments = () => {
     }
   }, []);
 
-const handleFloorClick = (e: React.MouseEvent<SVGPathElement>) => {
-  const rawFloor = e.currentTarget.dataset.floor;
-  const floor = rawFloor ? parseInt(rawFloor, 10) : null;
-  if (floor !== null && !isNaN(floor)) {
-    navigate(`/floor/${floor}`); // передаём этаж через URL
-  }
-};
+  const handleFloorClick = (e: React.MouseEvent<SVGPathElement>) => {
+    const rawFloor = e.currentTarget.dataset.floor;
+    const floor = rawFloor ? parseInt(rawFloor, 10) : null;
+    if (floor !== null && !isNaN(floor)) {
+      navigate(`/floor/${floor}`); // передаём этаж через URL
+    }
+  };
 
   useEffect(() => {
     fetchExcelFromPublic()
@@ -73,12 +73,12 @@ const handleFloorClick = (e: React.MouseEvent<SVGPathElement>) => {
     const rawFloor = e.currentTarget.dataset.floor;
     const floor = rawFloor ? parseInt(rawFloor, 10) : null;
     if (floor === null || isNaN(floor)) return;
-    const rect = e.currentTarget.getBoundingClientRect();
+/*     const rect = e.currentTarget.getBoundingClientRect(); */
     const { count, minArea, maxArea } = getFloorStats(floor);
     setTooltip({
       visible: true,
-      x: rect.right - 231,
-      y: rect.top,
+      x: e.clientX + 12,
+      y: e.clientY + 12,
       content: (
         <div className={styles.visual_tooltip}>
           <div className={styles.tooltip_floor}>
@@ -146,7 +146,6 @@ const handleFloorClick = (e: React.MouseEvent<SVGPathElement>) => {
                 content={tooltip.content}
               />
             )}
- 
           </div>
         </section>
       </main>

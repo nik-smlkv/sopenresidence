@@ -79,4 +79,8 @@
 	}
 }
 
- 
+@media(max-width: 560px){
+	.form__title{
+		max-width: 264px;
+	}
+}

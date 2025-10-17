@@ -75,7 +75,6 @@ const HomePage = () => {
           >
             <p>{t.t_parallax_title}</p>
           </div>
-          <p className={styles.parallax_descr}>{t.t_par_descrt}</p>
         </section>
         <HorizontParallax />
         <Equipment />

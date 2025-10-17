@@ -58,18 +58,26 @@ const SwiperControls = ({
 const AboutMain = () => {
   const swiperRef = useRef<SwiperType | null>(null);
   const { t, lang } = useLang();
-  const InfoListArray: { key: string; name: string; info: string }[] = [
-    { key: "Location", name: t.t_locat, info: t.t_abt_addr },
-    { key: "Complex area", name: t.t_complex_area, info: "42,683 m²" },
-    { key: "Structure", name: t.t_struct, info: "3P0 + GF + 10 & 3P0 + P + 15" },
-    { key: "Number of apartments", name: t.t_num_apart, info: "326" },
-    { key: "Parking spaces", name: t.t_park_space, info: "386" },
+  const InfoListArray: {
+    key: string;
+    name: string;
+    info: [string] | [string, string | null];
+  }[] = [
+    { key: "Location", name: t.t_locat, info: [t.t_abt_addr] },
+    { key: "Complex area", name: t.t_complex_area, info: ["42,683 m²"] },
+    {
+      key: "Structure",
+      name: t.t_struct,
+      info: [" 3P0 + GF + 10 &", "3P0 + P + 15"],
+    },
+    { key: "Number of apartments", name: t.t_num_apart, info: ["326"] },
+    { key: "Parking spaces", name: t.t_park_space, info: ["386"] },
   ];
   const ImgsListArray: { key: string; src: string }[] = [
-    { key: "curves-horizon", src: "/park-test/images/curves-horizon.jpg" },
-    { key: "futures-balcones", src: "/park-test/images/futures-balcones.jpg" },
-    { key: "street-hythm", src: "/park-test/images/street-hythm.jpg" },
-    { key: "urban-oasis", src: "/park-test/images/urban-oasis.jpg" },
+    { key: "curves-horizon", src: "/images/curves-horizon.jpg" },
+    { key: "futures-balcones", src: "/images/futures-balcones.jpg" },
+    { key: "street-hythm", src: "/images/street-hythm.jpg" },
+    { key: "urban-oasis", src: "/images/urban-oasis.jpg" },
   ];
 
   return (
@@ -88,7 +96,9 @@ const AboutMain = () => {
           </div>
           <div className={styles.about_text_block}>
             <h2
-              className={`${styles.about_text_block_title} ${lang === "srb" ? styles.about_srb : ''}`}
+              className={`${styles.about_text_block_title} ${
+                lang === "srb" ? styles.about_srb : ""
+              }`}
               data-animate="fade-up"
             >
               {t.t_abouttitle}
@@ -159,7 +169,14 @@ const AboutMain = () => {
               {InfoListArray.map((information) => (
                 <div className={styles.info__item} key={information.key}>
                   <p className={styles.info__name}>{information.name}</p>
-                  <p className={styles.info__description}>{information.info}</p>
+                  <p className={styles.info__description}>
+                    <span>{information.info[0]}</span>
+                    {information.info[1] && (
+                      <span className={styles.info__extra}>
+                        {information.info[1]}
+                      </span>
+                    )}
+                  </p>
                 </div>
               ))}
             </div>

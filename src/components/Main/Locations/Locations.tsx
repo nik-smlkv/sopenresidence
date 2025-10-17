@@ -58,55 +58,61 @@ const Locations = () => {
     {
       id: "1",
       name: `${t.t_loc_txt_frst}`,
-      icon: "/park-test/images/park.svg",
+      icon: "/images/park.svg",
       position: { lat: 43.3152295, lng: 21.9039461 },
     },
     {
       id: "2",
       name: `${t.t_loc_txt_secnd}`,
-      icon: "/park-test/images/hospital.svg",
+      icon: "/images/hospital.svg",
       position: { lat: 43.315688, lng: 21.912405 },
     },
     {
       id: "3",
       name: `${t.t_loc_txt_frtd}`,
-      icon: "/park-test/images/shop.svg",
+      icon: "/images/shop.svg",
       position: { lat: 43.3244918, lng: 21.9062526 },
     },
     {
       id: "4",
       name: `${t.t_loc_txt_frth}`,
-      icon: "/park-test/images/savapark.svg",
+      icon: "/images/savapark.svg",
       position: { lat: 43.3202859, lng: 21.9167214 },
     },
     {
       id: "5",
       name: `${t.t_loc_txt_fft}`,
-      icon: "/park-test/images/milan-sq.svg",
+      icon: "/images/milan-sq.svg",
       position: { lat: 43.32144, lng: 21.8908982 },
     },
     {
       id: "6",
       name: `${t.t_loc_txt_six}`,
-      icon: "/park-test/images/alexander.svg",
+      icon: "/images/alexander.svg",
       position: { lat: 43.3181301, lng: 21.8883566 },
     },
     {
       id: "7",
       name: `${t.t_loc_txt_seventh}`,
-      icon: "/park-test/images/fortress.svg",
+      icon: "/images/fortress.svg",
       position: { lat: 43.3241346, lng: 21.901171 },
     },
     {
       id: "8",
       name: `${t.t_loc_txt_neinght}`,
-      icon: "/park-test/images/sport.svg",
+      icon: "/images/sport.svg",
       position: { lat: 43.3082365, lng: 21.8850973 },
     },
     {
       id: "9",
+      name: `${t.t_loc_txt_tenth}`,
+      icon: "/images/facultet-science.svg",
+      position: { lat: 43.3099255, lng: 21.9202643 },
+    },
+    {
+      id: "10",
       name: "",
-      icon: "/park-test/images/sopen.svg",
+      icon: "/images/sopen.svg",
       position: { lat: 43.310192, lng: 21.907592 },
     },
   ];
@@ -210,7 +216,7 @@ const Locations = () => {
                   }`}
                   onClick={() => handleClickLocation(index)}
                 >
-                  {item.name}
+                  <span className={styles.location__item_txt}>{item.name}</span>
                 </li>
               ))}
             </ul>
